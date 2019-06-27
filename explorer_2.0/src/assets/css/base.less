@@ -1,0 +1,493 @@
+@import "style";
+@import "el-index";
+@import "https://at.alicdn.com/t/font_982342_syb88rpei9.css";
+
+* html .clearfix {
+  height: 1%
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #F9FAFD;
+}
+
+body, div, dl, dt, dd, ul, ol, li, p, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea {
+  margin: 0;
+  padding: 0;
+  font-family: @fontF, sans-serif;
+  color: @Acolor;
+  font-weight: 400
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset, img {
+  border: 0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+  font-style: normal;
+  font-weight: normal;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+q:before, q:after {
+  content: ' '
+}
+
+a {
+  text-decoration: none;
+  color: @Acolor;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a:hover {
+  text-decoration: none
+}
+
+a:focus {
+  outline: none;
+}
+
+.tl {
+  text-align: left;
+}
+
+.tc {
+  text-align: center;
+}
+
+.tr {
+  text-align: right;
+}
+
+.fw {
+  font-weight: bold
+}
+
+.fl {
+  float: left;
+  display: inline;
+}
+
+.fr {
+  float: right;
+  display: inline;
+}
+
+.cb {
+  clear: both;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.none {
+  display: none;
+}
+.pc{
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
+}
+
+.mobile{
+  display: none;
+  @media screen and (max-width: 1000px) {
+    display: block;
+  }
+}
+
+.w1200 {
+  width: 1200px;
+  margin: 0 auto;
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
+}
+
+.font10 {
+  font-size: 10px;
+  line-height: 10px;
+}
+
+.font12 {
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.font14 {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.font16 {
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.font18 {
+  font-size: 18px;
+  line-height: 18px;
+  @media screen and (max-width: 1000px) {
+    font-size: 0.9rem;
+    line-height: 0.9rem;
+  }
+}
+
+.font20 {
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.font24 {
+  font-size: 24px;
+  line-height: 24px;
+  @media screen and (max-width: 1000px) {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+}
+
+.font30 {
+  font-size: 30px;
+  line-height: 30px;
+  @media screen and (max-width: 1000px) {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+  }
+}
+
+.fW400 {
+  font-weight: 400;
+}
+
+.fW600 {
+  font-weight: 600;
+}
+
+.fCN {
+  color: @Ncolour;
+}
+
+.fwhite {
+  color: #FFFFFF;
+}
+
+.fred {
+  color: #F1313C;
+}
+
+.yellow {
+  color: #FD9D2D;
+}
+
+.gray {
+  color: #A4AEC4;
+}
+
+.bg-white {
+  background-color: @Bcolour1;
+}
+
+.bg-gray {
+  background-color: @Bcolour2;
+}
+
+.title {
+  margin: 40px auto;
+  @media screen and (max-width: 1000px) {
+    margin: 1rem 0 0 0;
+    padding: 0 0 0 0.5rem;
+  }
+}
+
+//滑块开关
+.hide-switch {
+  text-align: right;
+  margin: 70px 0 0 0;
+  @media screen and (max-width: 1000px) {
+    margin: 2rem 0.5rem 0 0;
+  }
+}
+
+.tabs {
+  position: relative;
+  margin: -24px auto 0;
+}
+
+.tabs-top {
+  margin: -24px auto 0;
+}
+
+.tabs_header {
+  height: 48px;
+  line-height: 48px;
+  background-color: @Bcolour;
+}
+
+.tabs_infos {
+  height: 40px;
+  line-height: 40px;
+  color: @Mcolour;
+}
+
+//表格标题文字
+.tabs_title {
+  font-size: 16px;
+  font-weight: bold;
+  color: @Mcolour;
+}
+
+//表格列表标题文字
+.tabs_title1 {
+  font-size: 14px;
+  color: @Acolor3;
+}
+
+//表格文字内容
+.tabs_info {
+  font-size: 14px;
+  color: @Mcolour;
+}
+
+/**可点击的手指样式**/
+.click {
+  color: @Ccolour;
+  cursor: pointer;
+}
+
+.clicks {
+  cursor: pointer;
+}
+
+/**超长显示...**/
+.overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/**超长自动换行**/
+.wordwrap {
+  word-wrap: break-word;
+}
+
+/**英文首字母大写**/
+.capitalize {
+  text-transform: Capitalize;
+}
+
+/**英文大写**/
+.uppercase {
+  text-transform: Uppercase;
+}
+
+.mt_20 {
+  margin-top: 20px
+}
+
+.mb_20 {
+  margin-bottom: 20px
+}
+
+.mr_20 {
+  margin-right: 20px;
+}
+
+.ml_20 {
+  margin-left: 20px;
+}
+
+.ml_50 {
+  margin-left: 50px;
+}
+
+.mb_100 {
+  margin-bottom: 100px
+}
+
+.cards {
+  .cards-ul {
+    .cards-li {
+      width: 285px;
+      height: 80px;
+      border: @BD1;
+      background-color: @Bcolour;
+      margin: 0 20px 0 0;
+      &:last-child {
+        margin-right: 0;
+      }
+      h6 {
+        padding: 10px 0 13px 10px;
+        margin: 0;
+        line-height: normal;
+        color: @Acolor3;
+      }
+      h5{
+        font-size: 20px;
+        line-height: 20px;
+      }
+      @media screen and (max-width: 1000px) {
+        width: 45%;
+        float: left;
+        margin: 0 2.5% 0.5rem;
+        h5{
+          font-size: 1rem;
+          line-height: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.b-info, .info_tabs {
+  @media screen and (max-width: 1000px) {
+    width: 95%;
+  }
+  h3 {
+    margin: -25px 0 0 0;
+    padding: 0 0 0 30px;
+    border: @BD1;
+    @media screen and (max-width: 1000px) {
+      padding: 0 0 0 1rem;
+    }
+  }
+  .ul {
+    padding: 5px 0 5px;
+    min-height: 100px;
+    border-right: @BD1;
+    border-left: @BD1;
+    border-bottom: @BD1;
+    background-color: @Bcolour1;
+    @media screen and (max-width: 1000px) {
+      padding: 0.5rem 0 0;
+    }
+    .tabs_infos {
+      width: 599px;
+      border-right: @BD1;
+      padding:0 20px 0;
+      font-size: 14px;
+      @media screen and (max-width: 1000px) {
+        width: 90%;
+        float: none;
+        border-right: 0;
+        padding: 0;
+      }
+      &:nth-child(2n) {
+        border-right: 0;
+      }
+      p{
+        color: @Acolor3;
+        margin:0;
+        border-bottom: @BD1;
+        padding: 0 20px;
+        @media screen and (max-width: 1000px) {
+          padding: 0 1rem;
+        }
+        span {
+          float: right;
+          color: @Acolor;
+          @media screen and (max-width: 1000px) {
+            text-align: right;
+          }
+        }
+        .click{
+          color: @Ccolour;
+        }
+      }
+      &:last-child{
+        p{
+          border-bottom: 0;
+        }
+      }
+      &:nth-last-child(2){
+        p{
+          border-bottom: 0;
+          @media screen and (max-width: 1000px) {
+            border-bottom: 1px solid #DFE4EF
+          }
+        }
+      }
+
+    }
+    .tabs_infos_long {
+      width: 49%;
+      border-right: 0;
+      p{
+        span {
+          float: none;
+          display: block;
+          margin: -40px -29px 0px 80px;
+          height: 40px;
+        }
+      }
+
+    }
+  }
+
+  h4 {
+    margin: 30px 0 0 0;
+    border-bottom: @BD1;
+    padding-bottom: 14px;
+    @media screen and (max-width: 1000px) {
+      margin: 1.5rem 0 0 0;
+      padding: 0 0 0.3rem 1rem;
+    }
+  }
+  .select {
+    margin: 20px 0 14px 0;
+    @media screen and (max-width: 1000px) {
+      margin: 1rem 0 0.7rem 1rem;
+    }
+  }
+  .info_table {
+    //border: @BD1;
+  }
+}
+
+.btn {
+  span {
+    color: @Acolor;
+  }
+}
+
+.btn_N {
+  span {
+    color: @Ncolour;
+  }
+}
+
+
+.scroll {
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: #dfe4ed;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear, 20% 0%, 20% 0%, from(#d1dbe5), to(#d1dbe5), color-stop(.2, #ffffff))
+  }
+}
+
+
+
+
