@@ -3,5 +3,6 @@
  */
 "use strict"
 window.Config = {
-    API_URL : "http://116.62.135.185:8081/"
+    API_URL : "/api/",
+    DEFAULT_CHAIN_ID : 2
 }

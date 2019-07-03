@@ -59,7 +59,7 @@ public class NulsResourceConfig extends ResourceConfig {
     public NulsResourceConfig() {
         register(MultiPartFeature.class);
         register(JacksonJsonProvider.class);
-//        register(new CORSFilter());
+        register(new CORSFilter());
         Collection<Object> list = SpringLiteContext.getAllBeanList();
         for (Object object : list) {
             if (object.getClass().getAnnotation(Path.class) != null) {

@@ -3,5 +3,6 @@
  */
 "use strict"
 window.Config = {
+    DEFAULT_CHAIN_ID : 2,
     API_URL : "/api/"
 }
