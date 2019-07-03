@@ -1,0 +1,46 @@
+<svg id="组_3" data-name="组 3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="58" height="58" viewBox="0 0 58 58">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        opacity: 0.35;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-4);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="435.524" y1="58" x2="444.476" y2="84" gradientUnits="userSpaceOnUse">
+      <stop offset="0.25" stop-color="#d3f902"/>
+      <stop offset="0.75" stop-color="#a8f001"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="417.785" y1="39.188" x2="433.215" y2="84" gradientUnits="userSpaceOnUse">
+      <stop offset="NaN" stop-color="#8fe400"/>
+      <stop offset="Infinity" stop-color="#56c400"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="469" y1="76.094" x2="440" y2="47.094" gradientUnits="userSpaceOnUse">
+      <stop offset="0.25" stop-color="#72be00"/>
+      <stop offset="0.75" stop-color="#3e8900"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="435.524" y1="26" x2="444.476" y2="52" xlink:href="#linear-gradient"/>
+  </defs>
+  <path id="Rectangle_Top_Isometric_拷贝_15" data-name="Rectangle_Top_Isometric 拷贝 15" class="cls-1" d="M411,71.182L440,58l29,13.182L440,84Z" transform="translate(-411 -26)"/>
+  <path id="Rectangle_Left_Isometric_拷贝_14" data-name="Rectangle_Left_Isometric 拷贝 14" class="cls-2" d="M440,84L411,70.818V39.182L440,52V84Z" transform="translate(-411 -26)"/>
+  <path id="Rectangle_Right_Isometric_拷贝_14" data-name="Rectangle_Right_Isometric 拷贝 14" class="cls-3" d="M440,84l29-13.182V39.182L440,52V84Z" transform="translate(-411 -26)"/>
+  <path id="Rectangle_Top_Isometric_拷贝_14" data-name="Rectangle_Top_Isometric 拷贝 14" class="cls-4" d="M411,39.182L440,26l29,13.182L440,52Z" transform="translate(-411 -26)"/>
+</svg>

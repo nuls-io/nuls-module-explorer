@@ -19,7 +19,7 @@ public class FrontEndController {
 
     @GET
     public Response getHtml() throws URISyntaxException {
-        return Response.ok(new File("data/index.html")).build();
+        return Response.ok(new File("www/index.html")).build();
     }
 
 

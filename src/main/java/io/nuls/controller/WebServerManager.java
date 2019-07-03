@@ -84,7 +84,7 @@ public class WebServerManager {
         httpServer.addListener(listener);
         ServerConfiguration config = httpServer.getServerConfiguration();
         config.setDefaultQueryEncoding(Charsets.UTF8_CHARSET);
-        final StaticHttpHandler staticHandler = new StaticHttpHandler("data");
+        final StaticHttpHandler staticHandler = new StaticHttpHandler("www");
         // change to true in the deploy time
         staticHandler.setFileCacheEnabled(true);
         httpServer.getServerConfiguration().addHttpHandler(staticHandler, "/dist");

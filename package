@@ -94,19 +94,13 @@ cd $ROOT_PATH
 mvn package -Dmaven.test.skip=true
 mv "target/${APP_NAME}.jar" ${OUT_PATH}/${APP_NAME}-${version}.jar
 cp -r "target/libs" "${OUT_PATH}/lib"
-if [ ! -d ./explorer_2.0 ];
-then
-    git clone https://github.com/nuls-io/explorer_2.0.git
-    cd ./explorer_2.0/
-else
+if [ "$1" == "n" ]; then
     cd ./explorer_2.0
-    git pull origin master
+    npm i
+    npm run build
+    mv ./dist ../www
+    cd ..
 fi
-npm i
-npm run build
-rm -rf ../data
-mv ./dist ../data
-cd ..
-cp -r ./data ./outer/
-cp ./web-config ./outer/data/config.js
+cp -r ./www ./outer/www
+cp ./web-config ./outer/www/config.js
 echo "============ PACKAGE FINISH 🍺🍺🍺🎉🎉🎉 ==============="

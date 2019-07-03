@@ -1,0 +1,54 @@
+<svg id="组_1" data-name="组 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="58" height="58" viewBox="0 0 58 58">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-1 {
+        fill: url(#linear-gradient);
+        filter: url(#filter);
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient-2);
+        filter: url(#filter-2);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-3);
+        filter: url(#filter-3);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="677.785" y1="76.188" x2="693.215" y2="121" gradientUnits="userSpaceOnUse">
+      <stop offset="NaN" stop-color="#8fe400"/>
+      <stop offset="Infinity" stop-color="#56c400"/>
+    </linearGradient>
+    <filter id="filter" x="671" y="76.188" width="29" height="44.813" filterUnits="userSpaceOnUse">
+      <feImage preserveAspectRatio="none" x="671" y="76.1875" width="29" height="44.813" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjkiIGhlaWdodD0iNDQuODEzIiB2aWV3Qm94PSIwIDAgMjkgNDQuODEzIj4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiB1cmwoI2xpbmVhci1ncmFkaWVudCk7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImxpbmVhci1ncmFkaWVudCIgeDE9IjYuNzg1IiB4Mj0iMjIuMjE1IiB5Mj0iNDQuODEzIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIG9mZnNldD0iLTAuMjMiIHN0b3AtY29sb3I9IiNjYmQxZGYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxLjIzIiBzdG9wLWNvbG9yPSIjYzNjYWRiIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCBjbGFzcz0iY2xzLTEiIHdpZHRoPSIyOSIgaGVpZ2h0PSI0NC44MTMiLz4KPC9zdmc+Cg=="/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-2" x1="729" y1="113.094" x2="700" y2="84.094" gradientUnits="userSpaceOnUse">
+      <stop offset="0.25" stop-color="#72be00"/>
+      <stop offset="0.75" stop-color="#3e8900"/>
+    </linearGradient>
+    <filter id="filter-2" x="700" y="76.188" width="29" height="44.813" filterUnits="userSpaceOnUse">
+      <feImage preserveAspectRatio="none" x="700" y="76.1875" width="29" height="44.813" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjkiIGhlaWdodD0iNDQuODEzIiB2aWV3Qm94PSIwIDAgMjkgNDQuODEzIj4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiB1cmwoI2xpbmVhci1ncmFkaWVudCk7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImxpbmVhci1ncmFkaWVudCIgeDE9IjYuNzg1IiB4Mj0iMjIuMjE1IiB5Mj0iNDQuODEzIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIG9mZnNldD0iLTAuMjMiIHN0b3AtY29sb3I9IiNjMWM4ZDgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxLjIzIiBzdG9wLWNvbG9yPSIjYjFiOGNiIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCBjbGFzcz0iY2xzLTEiIHdpZHRoPSIyOSIgaGVpZ2h0PSI0NC44MTMiLz4KPC9zdmc+Cg=="/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-3" x1="695.524" y1="63" x2="704.476" y2="89" gradientUnits="userSpaceOnUse">
+      <stop offset="0.25" stop-color="#d3f902"/>
+      <stop offset="0.75" stop-color="#a8f001"/>
+    </linearGradient>
+    <filter id="filter-3" x="671" y="63" width="58" height="26" filterUnits="userSpaceOnUse">
+      <feImage preserveAspectRatio="none" x="671" y="63" width="58" height="26" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTgiIGhlaWdodD0iMjYiIHZpZXdCb3g9IjAgMCA1OCAyNiI+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5jbHMtMSB7CiAgICAgICAgZmlsbDogdXJsKCNsaW5lYXItZ3JhZGllbnQpOwogICAgICB9CiAgICA8L3N0eWxlPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJsaW5lYXItZ3JhZGllbnQiIHgxPSIyNC41MjQiIHgyPSIzMy40NzYiIHkyPSIyNiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9Ii0wLjIzIiBzdG9wLWNvbG9yPSIjZDJkN2UyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMS4yMyIgc3RvcC1jb2xvcj0iI2QxZDhlOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNTgiIGhlaWdodD0iMjYiLz4KPC9zdmc+Cg=="/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <path id="Rectangle_Left_Isometric_拷贝_12" data-name="Rectangle_Left_Isometric 拷贝 12" class="cls-1" d="M700,121l-29-13.182V76.182L700,89v32Z" transform="translate(-671 -63)"/>
+  <path id="Rectangle_Right_Isometric_拷贝_12" data-name="Rectangle_Right_Isometric 拷贝 12" class="cls-2" d="M700,121l29-13.182V76.182L700,89v32Z" transform="translate(-671 -63)"/>
+  <path id="Rectangle_Top_Isometric_拷贝_12" data-name="Rectangle_Top_Isometric 拷贝 12" class="cls-3" d="M671,76.182L700,63l29,13.182L700,89Z" transform="translate(-671 -63)"/>
+</svg>
