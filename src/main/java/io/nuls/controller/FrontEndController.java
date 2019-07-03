@@ -18,6 +18,7 @@ import java.net.URISyntaxException;
 public class FrontEndController {
 
     @GET
+    @Path("{path:.*}")
     public Response getHtml() throws URISyntaxException {
         return Response.ok(new File("www/index.html")).build();
     }
