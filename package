@@ -98,6 +98,7 @@ if [ "$1" == "n" ]; then
     cd ./explorer_2.0
     npm i
     npm run build
+    rm -rf ../www
     mv ./dist ../www
     cd ..
 fi
