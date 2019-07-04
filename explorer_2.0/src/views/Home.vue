@@ -220,7 +220,7 @@
       getNULSNumber() {
         this.$post('/', 'getCoinInfo', [])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               let newCirculateNumber = new BigNumber(timesDecimals(response.result.total, 11));
               this.count.circulateNumber = newCirculateNumber.toFormat(2);
