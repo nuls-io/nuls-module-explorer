@@ -47,7 +47,7 @@
               <template slot-scope="scope">{{ scope.row.value }}</template>
             </el-table-column>
             <el-table-column :label="$t('public.fee')+ '(NULS)'" width="160" align="left">
-              <template slot-scope="scope">{{ scope.row.fee }}</template>
+              <template slot-scope="scope">{{ scope.row.fees }}</template>
             </el-table-column>
           </el-table>
 
@@ -147,10 +147,10 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.hashs = superLong(item.hash, 20);
                 item.value = timesDecimals(item.value, 8);
-                item.fee = timesDecimals(item.fee, 8);
+                item.fees = timesDecimals(item.fee.value, 8);
               }
               this.txList = response.result.list;
               if(type === 0 && !show){

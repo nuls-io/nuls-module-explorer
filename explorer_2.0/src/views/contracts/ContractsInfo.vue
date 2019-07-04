@@ -48,7 +48,7 @@
                 <template slot-scope="scope">{{$t('type.'+scope.row.type)}}</template>
               </el-table-column>
               <el-table-column :label="$t('public.fee')+'(NULS)'" width="180" align="left">
-                <template slot-scope="scope">{{scope.row.fee/100000000}}</template>
+                <template slot-scope="scope">{{scope.row.fee.value/100000000}}</template>
               </el-table-column>
             </el-table>
             <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
@@ -97,10 +97,10 @@
         //合约交易类型
         contractsStatusOptions: [
           {value: 0, label: '0'},
-          {value: 100, label: '100'},
-          {value: 101, label: '101'},
-          {value: 102, label: '102'},
-          {value: 103, label: '103'},
+          {value: 15, label: '15'},
+          {value: 16, label: '16'},
+          {value: 17, label: '17'},
+          {value: 18, label: '18'},
         ],
         contractsTypeRegion: 0,
         //合约交易列表
@@ -165,9 +165,9 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.createTime = moment(getLocalTime(response.result.createTime)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               if (response.result.certificationTime) {
-                response.result.certificationTime = moment(getLocalTime(response.result.certificationTime)).format('YYYY-MM-DD HH:mm:ss');
+                response.result.certificationTime = moment(getLocalTime(response.result.certificationTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               } else {
                 response.result.certificationTime = 'null'
               }
@@ -193,10 +193,10 @@
       async getConsensusTxList(page, rows, type, contractsAddress) {
         this.$post('/', 'getContractTxList', [page, rows, type, contractsAddress])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.time)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 20);
               }
               this.contractsTxList = response.result.list;

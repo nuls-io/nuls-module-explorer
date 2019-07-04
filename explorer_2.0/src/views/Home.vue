@@ -171,7 +171,7 @@
               if (response.result.type === 'block') {
                 this.$router.push({
                   name: 'blockInfo',
-                  query: {height: response.result.data.blockHeader.height}
+                  query: {height: response.result.data.txList[0].height}
                 });
                 sessionStorage.setItem('navActive', 'block');
               } else if (response.result.type === 'tx') {
@@ -220,7 +220,7 @@
       getNULSNumber() {
         this.$post('/', 'getCoinInfo', [])
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
               let newCirculateNumber = new BigNumber(timesDecimals(response.result.total, 11));
               this.count.circulateNumber = newCirculateNumber.toFormat(2);

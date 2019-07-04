@@ -17,7 +17,7 @@
         <li class="tabs_infos fl capitalize">
           <p>
             {{$t('public.fee')}}
-            <span v-if="contractInfo.length === 0">{{txInfo.fee}}<span class="fCN">&nbsp;NULS</span></span>
+            <span v-if="contractInfo.length === 0">{{txInfo.fees}}<span class="fCN">&nbsp;NULS</span></span>
             <span v-if="contractInfo.length !== 0">
             {{contractInfo.totalFee}}
              <el-tooltip :content="contractInfo.totalFee+'('+$t('transactionInfo.transactionInfo0')+')'+'='
@@ -290,9 +290,9 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.time = moment(getLocalTime(response.result.createTime)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.time = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
 
-              response.result.fee = timesDecimals(response.result.fee, 8);
+              response.result.fees = timesDecimals(response.result.fee.value, 8);
               response.result.value = timesDecimals(response.result.value, 8);
 
               //黄牌

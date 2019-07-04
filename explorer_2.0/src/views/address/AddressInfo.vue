@@ -91,7 +91,7 @@
               <template slot-scope="scope">{{ scope.row.balance }}</template>
             </el-table-column>
             <el-table-column :label="$t('public.fee')+'(NULS)'" width="120" align="left">
-              <template slot-scope="scope">{{ scope.row.fee }}</template>
+              <template slot-scope="scope">{{ scope.row.fees }}</template>
             </el-table-column>
           </el-table>
 
@@ -378,14 +378,14 @@
       getTxListByAddress(page, rows, address, type, boolean) {
         this.$post('/', 'getAccountTxs', [page, rows, address, type, boolean])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 15);
                 item.values = timesDecimals(item.values, 8);
                 item.balance = timesDecimals(item.balance, 8);
-                item.fee = timesDecimals(item.fee, 8);
+                item.fees = timesDecimals(item.fee.value, 8);
               }
               this.txList = response.result.list;
               this.txListPager.total = response.result.totalCount;
@@ -412,7 +412,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.time)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.fromAddresss = superLong(item.fromAddress, 6);
                 item.toAddresss = superLong(item.toAddress, 6);
                 item.value = timesDecimals(item.value, item.decimals);

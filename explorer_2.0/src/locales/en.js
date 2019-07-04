@@ -96,12 +96,11 @@ const en = {
     "8": "Red card",
     "9": "Unregister node",
     "10": "General Data",
-    "100": "Create contract",
-    "101": "Call contract",
-    "1011": "Call Contract",
-    "102": "Del contract",
-    "103": "Contract transfer",
-    "1000": "Token"
+    "15": "Create contract",
+    "16": "Call contract",
+    "17": "Del contract",
+    "18": "Contract transfer",
+    "19": "Contract back"
   },
 
   "addressType": {

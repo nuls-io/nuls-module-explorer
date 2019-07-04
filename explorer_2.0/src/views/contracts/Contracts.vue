@@ -10,14 +10,14 @@
             <el-table-column :label="$t('public.serial')" width="80" align="left">
               <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.contractAddress')" width="330" align="left">
+            <el-table-column :label="$t('public.contractAddress')" width="360" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
                 </span>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('public.remarks')" min-width="120" align="left">
+            <el-table-column :label="$t('public.remarks')" min-width="100" align="left">
               <template slot-scope="scope">
                 <label v-if="scope.row.remark && scope.row.remark.length > 30">
                   <el-tooltip class="calc fr" effect="light" :content="scope.row.remark" placement="top">
@@ -43,10 +43,10 @@
                 </label>
               </template>
             </el-table-column>
-            <el-table-column prop="balance" :label="$t('public.balance')+'(NULS)'" width="100" align="left">
+            <el-table-column prop="balance" :label="$t('public.balance')+'(NULS)'" width="130" align="left">
               <template slot-scope="scope">{{ scope.row.balance/100000000 }}</template>
             </el-table-column>
-            <el-table-column prop="transferCount" :label="$t('public.transactionNo')" width="80"
+            <el-table-column prop="transferCount" :label="$t('public.transactionNo')" width="100"
                              align="left"></el-table-column>
             <el-table-column prop="createTime" :label="$t('public.createTime')" width="180"
                              align="left"></el-table-column>
@@ -69,7 +69,7 @@
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="140"
                              align="left"></el-table-column>
-            <el-table-column :label="$t('public.abbreviate')" width="140" align="left">
+            <el-table-column :label="$t('public.abbreviate')" width="100" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.symbol }}
@@ -94,7 +94,7 @@
             </el-table-column>
             <el-table-column prop="totalSupply" :label="$t('contracts.contracts3')" width="180"
                              align="left"></el-table-column>
-            <el-table-column :label="$t('public.contractAddress')" min-width="180" align="left">
+            <el-table-column :label="$t('public.contractAddress')" min-width="220" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
@@ -165,7 +165,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 if (this.activeName === 'nrc20Contract') {
                   item.totalSupply = timesDecimals(item.totalSupply, item.decimals);
                 }

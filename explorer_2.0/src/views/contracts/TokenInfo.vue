@@ -39,19 +39,18 @@
         <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200">
           <el-tab-pane :label="$t('tokenInfo.tokenInfo2')" name="tokenFirst">
             <el-table :data="accountTxList" stripe border style="width: 100%" class="mt_20">
-              <el-table-column label="" width="30"></el-table-column>
-              <el-table-column :label="$t('public.height')" width="80" align="left">
+              <el-table-column :label="$t('public.height')" width="60" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click"
                         @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="TXID" min-width="100" align="left">
+              <el-table-column label="TXID" min-width="110" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('public.sender')" width="330" align="left">
+              <el-table-column :label="$t('public.sender')" width="360" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.fromAddress)">{{ scope.row.fromAddress }}</span>
                 </template>
@@ -59,13 +58,13 @@
               <!--<el-table-column prop="" label="" width="50" align="center">
                   <template>》88</template>
                 </el-table-column>-->
-              <el-table-column :label="$t('public.recipient')" width="330" align="left">
+              <el-table-column :label="$t('public.recipient')" width="360" align="left">
                 <template slot-scope="scope"><span class="cursor-p click"
                                                    @click="toUrl('addressInfo',scope.row.toAddress)">{{ scope.row.toAddress }}</span>
                 </template>
               </el-table-column>
               <el-table-column prop="time" :label="$t('public.time')" width="160" align="left"></el-table-column>
-              <el-table-column prop="value" :label="$t('public.amount')" width="120" align="left"></el-table-column>
+              <el-table-column prop="value" :label="$t('public.amount')" width="100" align="left"></el-table-column>
             </el-table>
 
             <div class="paging">
@@ -154,7 +153,7 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.createTime = moment(getLocalTime(response.result.createTime)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               response.result.totalSupply = timesDecimals(response.result.totalSupply, response.result.decimals);
               response.result.ownersCount = response.result.owners.length;
               this.contractsInfo = response.result;
@@ -173,7 +172,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.time)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 6);
                 item.value = timesDecimals(item.value, item.decimals);
               }

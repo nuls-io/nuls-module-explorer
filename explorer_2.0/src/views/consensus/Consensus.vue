@@ -211,8 +211,8 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.startTime = moment(getLocalTime(response.result.startTime)).format('HH:mm:ss');
-              response.result.endTime = moment(getLocalTime(response.result.endTime)).format('HH:mm:ss');
+              response.result.startTime = moment(getLocalTime(response.result.startTime*1000)).format('HH:mm:ss');
+              response.result.endTime = moment(getLocalTime(response.result.endTime*1000)).format('HH:mm:ss');
               response.result.names = response.result.startBlockHeader.agentAlias ? response.result.startBlockHeader.agentAlias : superLong(response.result.startBlockHeader.agentId, 8);
               this.roundInfo = response.result;
             }
@@ -230,8 +230,8 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.startTime = moment(getLocalTime(item.startTime)).format('YYYY-MM-DD HH:mm:ss');
-                item.endTime = moment(getLocalTime(item.endTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.startTime = moment(getLocalTime(item.startTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.endTime = moment(getLocalTime(item.endTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               }
               this.roundList = response.result.list;
               this.pager.total = response.result.totalCount;

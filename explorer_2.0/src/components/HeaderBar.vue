@@ -123,7 +123,7 @@
               if (response.result.type === 'block') {
                 this.$router.push({
                   name: 'blockInfo',
-                  query: {height: response.result.data.blockHeader.height}
+                  query: {height: response.result.data.txList[0].height}
                 })
               } else if (response.result.type === 'tx') {
                 this.$router.push({

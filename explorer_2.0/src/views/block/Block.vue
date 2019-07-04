@@ -16,8 +16,8 @@
           </template>
         </el-table-column>
         <el-table-column prop="createTime" :label="$t('public.time')" width="230"></el-table-column>
-        <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="180"></el-table-column>
-        <el-table-column :label="$t('public.outNode')" min-width="180">
+        <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="160"></el-table-column>
+        <el-table-column :label="$t('public.outNode')" min-width="185">
           <template slot-scope="scope">
             <label class="cursor-p" v-show="scope.row.seedPacked">
               {{$t('public.seedNode')}}
@@ -64,20 +64,20 @@
       paging,
     },
     created() {
-      this.getBlockList(this.pager.page, this.pager.rows, '', this.hideSwitch)
+      this.getBlockList(this.pager.page, this.pager.rows, this.hideSwitch, '')
     },
     methods: {
 
       /**
        * 获取块列表
        */
-      getBlockList(pager, rows, packAddress, isShow) {
-        this.$post('/', 'getBlockList', [pager, rows, packAddress, isShow])
+      getBlockList(pager, rows, isShow, packAddress) {
+        this.$post('/', 'getBlockHeaderList', [pager, rows, isShow, packAddress])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               }
               this.blockList = response.result.list;
               this.pager.total = response.result.totalCount;
@@ -91,7 +91,7 @@
        **/
       pagesList() {
         this.blockLoading = true;
-        this.getBlockList(this.pager.page, this.pager.rows, '', this.hideSwitch)
+        this.getBlockList(this.pager.page, this.pager.rows, this.hideSwitch, '')
       },
 
       /**
@@ -99,7 +99,7 @@
        **/
       hideOneList() {
         this.blockLoading = true;
-        this.getBlockList(this.pager.page, this.pager.rows, '', this.hideSwitch);
+        this.getBlockList(this.pager.page, this.pager.rows, this.hideSwitch, '');
       },
 
       /**
@@ -119,6 +119,7 @@
 
 <style lang="less">
   @import "./../../assets/css/style";
+
   .block {
     //height: 1000px;
     @media screen and (max-width: 1000px) {
@@ -131,7 +132,7 @@
         height: 5rem;
       }
     }
-    .tabs{
+    .tabs {
       margin-bottom: 100px;
     }
   }

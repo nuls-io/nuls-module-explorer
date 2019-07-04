@@ -171,7 +171,7 @@
             </el-select>
             <el-table :data="consensusCancelDeposit" stripe border style="width: 100%">
               <el-table-column label="" width="30"></el-table-column>
-              <el-table-column label="TXID" min-width="200" align="left">
+              <el-table-column label="TXID" width="200" align="left">
                 <template slot-scope="scope"><span class="cursor-p click"
                                                    @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.agentHashs }}</span>
                 </template>
@@ -181,7 +181,7 @@
                                                    @click="toUrl('blockInfo',scope.row.blockHeight)">{{ scope.row.blockHeight }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('public.address')" width="320" align="left">
+              <el-table-column :label="$t('public.address')" min-width="300" align="left">
                 <template slot-scope="scope"><span class="cursor-p click"
                                                    @click="toUrl('addressInfo',scope.row.address)">{{ scope.row.address }}</span>
                 </template>
@@ -258,7 +258,7 @@
     mounted() {
       setTimeout(() => {
         if (this.activeNames === 'first') {
-          this.getBlockList(this.pager.page, this.pager.rows, this.nodeInfo.packingAddress, false)
+          this.getBlockList(this.pager.page, this.pager.rows, false, this.nodeInfo.packingAddress)
         } else {
           this.getConsensusDepositList(this.pager.page, this.pager.rows, this.nodeInfo.txHash)
         }
@@ -275,9 +275,9 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.time = moment(getLocalTime(response.result.createTime)).format('YYYY-MM-DD HH:mm:ss');
-              response.result.roundPackingTime = moment(getLocalTime(response.result.roundPackingTime)).format('YYYY-MM-DD HH:mm:ss');
-              this.times = timeDifference(response.result.createTime);
+              response.result.time = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.roundPackingTime = moment(getLocalTime(response.result.roundPackingTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
+              this.times = timeDifference(response.result.createTime * 1000);
               response.result.txHashs = superLong(response.result.txHash, 20);
               this.nodeInfo = response.result;
               this.nodeInfoLoading = false;
@@ -299,13 +299,13 @@
       /**
        * 获取块列表
        */
-      getBlockList(pager, rows, packAddress, boolean) {
-        this.$post('/', 'getBlockList', [pager, rows, packAddress, boolean])
+      getBlockList(pager, rows, boolean, packAddress) {
+        this.$post('/', 'getBlockHeaderList', [pager, rows, boolean, packAddress])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txhashs = superLong(item.agentHash, 20);
               }
               this.blockList = response.result.list;
@@ -320,7 +320,7 @@
        */
       pagesBlockList() {
         this.blockListLoading = true;
-        this.getBlockList(this.pager.page, this.pager.rows, this.nodeInfo.packingAddress, false)
+        this.getBlockList(this.pager.page, this.pager.rows, false, this.nodeInfo.packingAddress)
       },
 
       /**
@@ -332,7 +332,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.time)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 20);
               }
               this.punishList = response.result.list;
@@ -357,7 +357,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               }
               this.consensusDeposit = response.result.list;
               this.pager.total = response.result.totalCount;
@@ -381,7 +381,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.agentHashs = superLong(item.txHash, 10)
               }
               this.consensusCancelDeposit = response.result.list;
@@ -451,7 +451,7 @@
         this.activeNames = tab.name;
         if (tab.name === 'first') {
           this.pager = {total: 0, page: 1, rows: 5,};
-          this.getBlockList(this.pager.page, this.pager.rows, this.nodeInfo.packingAddress, false)
+          this.getBlockList(this.pager.page, this.pager.rows, false, this.nodeInfo.packingAddress)
         } else if (tab.name === 'second') {
           this.pager = {total: 0, page: 1, rows: 5,};
           this.getPunishList(this.pager.page, this.pager.rows, 0, this.nodeInfo.agentAddress)

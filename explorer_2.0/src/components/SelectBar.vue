@@ -27,10 +27,10 @@
           {value: '8', label: '8'},
           {value: '9', label: '9'},
           {value: '10', label: '10'},
-          {value: '100', label: '100'},
-          {value: '101', label: '101'},
-          {value: '102', label: '102'},
-          {value: '103', label: '103'},
+          {value: '15', label: '15'},
+          {value: '16', label: '16'},
+          {value: '17', label: '17'},
+          {value: '18', label: '18'},
           /*{value: '1000', label: '1000'},*/
         ]
       },
