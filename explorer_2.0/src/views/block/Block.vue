@@ -19,11 +19,11 @@
         <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="160"></el-table-column>
         <el-table-column :label="$t('public.outNode')" min-width="185">
           <template slot-scope="scope">
-            <label class="cursor-p" v-show="scope.row.seedPacked">
+            <label class="cursor-p" v-show="!scope.row.agentHash">
               {{$t('public.seedNode')}}
             </label>
             <span class="cursor-p click" :class="scope.row.agentAlias ? '' : 'uppercase'"
-                  @click="toUrl('consensusInfo',scope.row.agentHash)" v-show="!scope.row.seedPacked">
+                  @click="toUrl('consensusInfo',scope.row.agentHash)" v-show="scope.row.agentHash">
               {{scope.row.agentAlias ? scope.row.agentAlias : scope.row.agentId}}
             </span>
           </template>
@@ -74,7 +74,7 @@
       getBlockList(pager, rows, isShow, packAddress) {
         this.$post('/', 'getBlockHeaderList', [pager, rows, isShow, packAddress])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
@@ -105,13 +105,22 @@
       /**
        * url 连接跳转
        * @param name
-       * @param height
+       * @param parmes
        */
       toUrl(name, parmes) {
+        let newQuery = {};
+        console.log(name);
+        if (name === 'consensusInfo') {
+          newQuery = {hash: parmes};
+          console.log(newQuery)
+        } else {
+          newQuery = {height: parmes}
+        }
         this.$router.push({
           name: name,
-          query: name === 'blockInfo' ? {height: parmes} : {hash: parmes}
+          query: newQuery
         })
+
       }
     },
   }

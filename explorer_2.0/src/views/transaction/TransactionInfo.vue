@@ -173,7 +173,7 @@
     <div class="w1200 t_basics bg-white">
       <h3 class="tabs_title tabs_header capitalize">{{$t('public.input')}}&{{$t('public.output')}}</h3>
       <ul class="inputs fl scroll">
-        <li class="font14" v-for="item in txInfo.froms" :key="item.key">
+        <li class="font14" v-for="item in txInfo.coinFroms" :key="item.key">
           <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
           <label class="fr">{{item.value}}<span class="fCN"> NULS</span></label>
         </li>
@@ -182,7 +182,7 @@
         <i class="el-icon-d-arrow-right"></i>
       </div>
       <ul class="outputs fr scroll">
-        <li class="font14" v-for="item in txInfo.tos" :key="item.key">
+        <li class="font14" v-for="item in txInfo.coinTos" :key="item.key">
           <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
           <label class="fr">
             {{item.value}}
@@ -288,7 +288,7 @@
       async getTxInfoByHash(hash) {
         this.$post('/', 'getTx', [hash])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               response.result.time = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
 
@@ -326,17 +326,17 @@
               }
 
 
-              if (response.result.froms) {
-                for (let item of response.result.froms) {
-                  item.value = timesDecimals(item.value, 8);
+              if (response.result.coinFroms) {
+                for (let item of response.result.coinFroms) {
+                  item.value = timesDecimals(item.amount, 8);
                   item.addresss = superLong(item.address, 10);
                 }
-                this.inputNumber = response.result.froms.length;
+                this.inputNumber = response.result.coinFroms.length;
               }
 
-              if (response.result.tos) {
-                for (let item of response.result.tos) {
-                  item.value = timesDecimals(item.value, 8);
+              if (response.result.coinTos) {
+                for (let item of response.result.coinTos) {
+                  item.value = timesDecimals(item.amount, 8);
                   item.addresss = superLong(item.address, 10);
                   //根据lockTime字段长度判断是高度锁定还时间锁定
                   if (item.lockTime === 0) {
@@ -349,7 +349,7 @@
                     item.isShowInfo = this.$t('transactionInfo.transactionInfo10') + ":" + expectTime;
                   }
                 }
-                this.outNumber = response.result.tos.length;
+                this.outNumber = response.result.coinTos.length;
               }
 
               this.txInfo = response.result;
@@ -456,7 +456,7 @@
           margin: 0 20px 0;
           line-height: 30px;
           label {
-            width: 170px;
+            width: 150px;
             text-align: right;
             .el-icon-goods {
               display: initial !important;
