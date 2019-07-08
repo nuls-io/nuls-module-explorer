@@ -31,8 +31,8 @@ export default {
       const params = {"jsonrpc": "2.0", "method": "getChainInfo", "params": [], "id": 5898};
       axios.post(API_ROOT, params)
         .then((response) => {
-          data = response.data;
-          console.log(response);
+          const data = response.data;
+          console.log(data);
           if (data.hasOwnProperty("result")) {
             sessionStorage.setItem("chainId",data.result.chainId)
           }else {
