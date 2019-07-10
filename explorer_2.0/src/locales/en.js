@@ -90,17 +90,17 @@ const en = {
     "3": "Aliased",
     "4": "Register node",
     "5": "Stake",
-    "51": "Change",
     "6": "Cancel consensus",
     "7": "Yellow card",
     "8": "Red card",
     "9": "Unregister node",
-    "10": "General Data",
-    "15": "Create contract",
+    "10": "Cross Trading",
+    "11": "Cross Register",
+    "15": "Contract creation",
     "16": "Call contract",
-    "17": "Del contract",
+    "17": "Delete contract",
     "18": "Contract transfer",
-    "19": "Contract back"
+    "19": "Contract return",
   },
 
   "addressType": {
