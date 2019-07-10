@@ -41,23 +41,18 @@
         </div>
       </div>
     </el-collapse-transition>
-
     <div class="cb"></div>
   </div>
-
-
 </template>
 
 <script>
-  import * as config from '../config.js'
-  import logo from './../assets/img/logo.svg'
-  import testnetLogo from './../assets/img/logo-test-black.svg'
+  import logo from './../assets/img/logo-beta.svg'
   import MenuBar from '@/components/MenuBar';
 
   export default {
     data() {
       return {
-        logoSvg: config.RUN_DEV ? logo : testnetLogo,
+        logoSvg: logo,
         //默认选择菜单
         navActive: sessionStorage.hasOwnProperty('navActive') ? sessionStorage.getItem('navActive') : 'home',
         //统计信息
@@ -152,8 +147,8 @@
         })
       },
 
-      hideMobileMenu(){
-        this.showMobile=false;
+      hideMobileMenu() {
+        this.showMobile = false;
       },
 
       /**

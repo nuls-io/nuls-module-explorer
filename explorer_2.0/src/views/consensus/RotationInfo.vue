@@ -35,7 +35,8 @@
                 <span v-show="scope.row.blockHeight === 0 && scope.row.newTime- scope.row.times >= 0">
                   <i class="iconfont font20" :class="scope.row.yellow ? 'icon-huang yellow' : 'icon-huang yellow' "></i>
                 </span>
-                <span v-show="scope.row.blockHeight !== 0" class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">
+                <span v-show="scope.row.blockHeight !== 0" class="cursor-p click"
+                      @click="toUrl('blockInfo',scope.row.blockHeight)">
                   {{ scope.row.blockHeight === 0 ? '--': scope.row.blockHeight }}
                 </span>
               </span>
@@ -105,18 +106,19 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.startTime = moment(getLocalTime(response.result.startTime*1000)).format('YYYY-MM-DD HH:mm:ss');
-              response.result.endTime = moment(getLocalTime(response.result.endTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.startTime = moment(getLocalTime(response.result.startTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.endTime = moment(getLocalTime(response.result.endTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               //response.result.lostRate = Times(response.result.lostRate, 100).toString();
               this.rotationInfo = response.result;
 
               for (let item of  response.result.itemList) {
                 item.times = item.time;
-                let date=new Date();
-                let min=date.getSeconds();
-                date.setSeconds(min-10);
-                item.newTime = date.getTime();
-                item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
+                let date = new Date();
+                let min = date.getSeconds();
+                date.setSeconds(min - 10);
+                let newTime = date.getTime().toString();
+                item.newTime = Number(newTime.substring(0, newTime.length - 4));
+                item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.reward = timesDecimals(item.reward, 8);
                 item.seedPacked = item.agentHash ? false : true;
               }

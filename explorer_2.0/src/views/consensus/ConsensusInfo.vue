@@ -276,7 +276,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               response.result.time = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-              response.result.roundPackingTime = moment(getLocalTime(response.result.roundPackingTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.roundPackingTime = moment(getLocalTime(response.result.roundPackingTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               this.times = timeDifference(response.result.createTime * 1000);
               response.result.txHashs = superLong(response.result.txHash, 20);
               this.nodeInfo = response.result;

@@ -32,11 +32,11 @@ export default {
       axios.post(API_ROOT, params)
         .then((response) => {
           const data = response.data;
-          console.log(data);
+          //console.log(data);
           if (data.hasOwnProperty("result")) {
             sessionStorage.setItem("chainId",data.result.chainId)
           }else {
-            console.log(data.hasOwnProperty("result"))
+            //console.log(data.hasOwnProperty("result"));
             sessionStorage.setItem("chainId","2")
           }
         })
