@@ -11,7 +11,7 @@ module.exports = {
       enableInSFC: false
     }
   },
-  configureWebpack: function config() {
+  configureWebpack: config => {
     if (isProduction) {
       config.plugins.push(new CompressionWebpackPlugin({
         algorithm: 'gzip',
