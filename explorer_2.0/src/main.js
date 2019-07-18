@@ -8,6 +8,8 @@ import {post} from './api/https'
 import VeLine from 'v-charts/lib/line.common'
 import VePie from 'v-charts/lib/pie.common'
 import 'v-charts/lib/style.css'
+import JSONView from 'vue-json-viewer'
+Vue.use(JSONView);
 
 Vue.component(VeLine.name, VeLine);
 Vue.component(VePie.name, VePie);

@@ -22,7 +22,7 @@
             {{contractInfo.totalFee}}
              <el-tooltip :content="contractInfo.totalFee+'('+$t('transactionInfo.transactionInfo0')+')'+'='
                          +contractInfo.txSizeFee+'('+$t('transactionInfo.transactionInfo1')+')'+'+'
-                         +contractInfo.actualContractFee+'('+$t('type.101')+')'+'+'
+                         +contractInfo.actualContractFee+'('+$t('type.16')+')'+'+'
                          +contractInfo.refundFee+'('+$t('transactionInfo.transactionInfo2')+')'"
                          class="item" effect="dark" placement="top">
              <i class="el-icon-info gray"></i>
@@ -105,30 +105,42 @@
         </li>
 
         <!--创建、调用合约-->
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===100 || txInfo.type ===101">
+        <li class="tabs_infos fl capitalize"
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
           <p>{{$t('public.contractAddress')}}
             <span class="click" @click="toUrl('contractsInfo',contractInfo.contractAddress)">
               {{contractInfo.contractAddress}}
             </span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===100 || txInfo.type ===101">
+        <li class="tabs_infos fl capitalize"
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
           <p>GasLimit
             <span>{{contractInfo.gasLimit}}</span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===100 || txInfo.type ===101">
+        <li class="tabs_infos fl capitalize"
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
           <p>{{$t('transactionInfo.transactionInfo8')}}
             <span>{{contractInfo.price}}</span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===100 || txInfo.type ===101">
+        <li class="tabs_infos fl capitalize"
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
           <p>GasUsed
             <span>{{contractInfo.gasUsed}}</span>
           </p>
         </li>
+
+        <li class="tabs_infos fl capitalize"
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
+          <p>{{$t('public.enforcement')}}
+            <span>{{contractInfo.success ? $t('public.success') : $t('public.fail')}}</span>
+            <font v-show="!contractInfo.success">({{contractInfo.errorMessage}})</font>
+          </p>
+        </li>
         <!--调用合约-->
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===101">
+        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===16">
           <p>{{$t('transactionInfo.transactionInfo9')}}
             <span>
               {{txInfo.txData.methodName}}
@@ -148,6 +160,7 @@
             <span class="scroll overflow">{{txInfo.remark}}</span>
           </p>
         </li>
+        <li></li>
         <p class="cb"></p>
       </ul>
     </div>
@@ -225,10 +238,19 @@
     </div>
 
     <el-dialog title="" :visible.sync="viewDialog" class="dialog_tran">
-      <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="copy(txInfo.txDataHex)"></i>
+      <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="copy(txInfo.txDataHex)" v-show="!isContracts"></i>
       </div>
       <div class="dialog-info scroll">
-        {{txInfo.txDataHex}}
+        <div v-show="!isContracts">{{txInfo.txDataHex}}</div>
+        <div v-show="isContracts">
+          <json-viewer
+                  :value="txInfo.txData"
+                  :expand-depth="5"
+                  copyable
+                  boxed
+                  sort
+          ></json-viewer>
+        </div>
       </div>
     </el-dialog>
   </div>
@@ -258,6 +280,7 @@
         tokenTransfers: '',
         //txhash定时器
         txhashInterval: null,
+        isContracts:false,//是否为合约交易
       };
     },
     created() {
@@ -288,9 +311,9 @@
       async getTxInfoByHash(hash) {
         this.$post('/', 'getTx', [hash])
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.time = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.time = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
 
               response.result.fees = timesDecimals(response.result.fee.value, 8);
               response.result.value = timesDecimals(response.result.value, 8);
@@ -311,7 +334,8 @@
               }
 
               //创建、调用合约
-              if (response.result.type === 100 || response.result.type === 101) {
+              if (response.result.type === 15 || response.result.type === 16 || response.result.type === 17 || response.result.type === 18 || response.result.type === 19) {
+                this.isContracts = true;
                 response.result.txData.resultInfo.totalFee = timesDecimals(response.result.txData.resultInfo.totalFee, 8);
                 response.result.txData.resultInfo.txSizeFee = timesDecimals(response.result.txData.resultInfo.txSizeFee, 8);
                 response.result.txData.resultInfo.actualContractFee = timesDecimals(response.result.txData.resultInfo.actualContractFee, 8);
@@ -381,7 +405,7 @@
         } else if (name === 'blockInfo') {
           newQuery = {height: params}
         } else if (name === 'contractsInfo') {
-          newQuery = {contractAddress: params,tabName:'first'}
+          newQuery = {contractAddress: params, tabName: 'first'}
         } else {
           newQuery = {address: params};
         }
@@ -423,11 +447,11 @@
         }
       }
     }
-    .info_tabs{
-      ul{
-        li{
+    .info_tabs {
+      ul {
+        li {
           &:nth-last-child(3) {
-            p{
+            p {
               border-bottom: 0;
             }
           }
@@ -456,7 +480,7 @@
           margin: 0 20px 0;
           line-height: 30px;
           label {
-            width: 150px;
+            width: 147px;
             text-align: right;
             .el-icon-goods {
               display: initial !important;
@@ -493,7 +517,7 @@
 
     .dialog_tran {
       .el-dialog {
-        width: 500px;
+        width: 50rem;
         @media screen and (max-width: 1000px) {
           width: 70%;
         }

@@ -78,7 +78,10 @@ const cn ={
     "output":"输出",
     "searchTip":"地址/高度/txhash/...",
     "copy":"点击复制",
-    "copysuccess":"复制成功"
+    "copysuccess":"复制成功",
+    "success":"成功",
+    "fail":"失败",
+    "enforcement":"合约执行"
   },
 
   "type": {
@@ -99,7 +102,7 @@ const cn ={
     "16": "调用合约",
     "17": "删除合约",
     "18": "合约转账",
-    "19": "合约返还",
+    "19": "合约返还"
   },
 
   "addressType": {

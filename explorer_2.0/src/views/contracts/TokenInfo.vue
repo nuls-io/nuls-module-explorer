@@ -39,13 +39,13 @@
         <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200">
           <el-tab-pane :label="$t('tokenInfo.tokenInfo2')" name="tokenFirst">
             <el-table :data="accountTxList" stripe border style="width: 100%" class="mt_20">
-              <el-table-column :label="$t('public.height')" width="60" align="left">
+              <el-table-column :label="$t('public.height')" width="80" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click"
                         @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="TXID" min-width="110" align="left">
+              <el-table-column label="TXID" min-width="100" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
                 </template>

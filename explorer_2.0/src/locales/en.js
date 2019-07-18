@@ -79,7 +79,10 @@ const en = {
     "output": "Output",
     "searchTip": "address/height/txhash/...",
     "copy": "Click copy",
-    "copysuccess": "Copy success"
+    "copysuccess": "Copy success",
+    "success":"Success",
+    "fail":"Fail",
+    "enforcement":"Contract Result"
   },
 
   "type": {

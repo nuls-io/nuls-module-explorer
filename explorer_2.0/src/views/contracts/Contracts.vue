@@ -6,11 +6,10 @@
           <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('contracts.contracts1')"
                      @change="hideNrc20List"></el-switch>
           <el-table :data="contractList" stripe border style="width: 100%">
-            <el-table-column label="" width="30"></el-table-column>
             <el-table-column :label="$t('public.serial')" width="80" align="left">
               <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.contractAddress')" width="360" align="left">
+            <el-table-column :label="$t('public.contractAddress')" width="380" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
@@ -63,13 +62,12 @@
         <el-tab-pane :label="$t('contracts.contracts2')" name="nrc20Contract">
           <div class="hide-div"></div>
           <el-table :data="nrc20List" border stripe style="width: 100%" v-loading="nrc20ListLoading">
-            <el-table-column label="" width="30"></el-table-column>
             <el-table-column :label="$t('public.serial')" width="80" align="left">
               <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="140"
                              align="left"></el-table-column>
-            <el-table-column :label="$t('public.abbreviate')" width="100" align="left">
+            <el-table-column :label="$t('public.abbreviate')" width="120" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.symbol }}
@@ -162,7 +160,7 @@
       getContractList(page, rows, boolean, boolean1) {
         this.$post('/', 'getContractList', [page, rows, boolean, boolean1])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');

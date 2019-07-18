@@ -120,10 +120,9 @@
        * 调用认证方法
        **/
       async uploadFiles(contractsAddress, jobSpecFile) {
-        console.log(jobSpecFile);
         this.$post('/', 'validateContractCode', [contractsAddress, jobSpecFile])
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.result) {
               this.ifCertified =true;
               this.getContractCodeTree(contractsAddress);
