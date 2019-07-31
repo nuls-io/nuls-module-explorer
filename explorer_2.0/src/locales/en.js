@@ -104,6 +104,11 @@ const en = {
     "17": "Delete contract",
     "18": "Contract transfer",
     "19": "Contract return",
+    "20": "Contract register node",
+    "21": "Contract stake node",
+    "22": "Contract cancel node",
+    "23": "Contract unregister node",
+    "": "",
   },
 
   "addressType": {
@@ -221,7 +226,8 @@ const en = {
     "transactionInfo8": "Price",
     "transactionInfo9": "Function",
     "transactionInfo10": "Unlock time",
-    "transactionInfo11":"Token Transfers"
+    "transactionInfo11":"Token Transfers",
+    "transactionInfo12":"NULS Transfers"
   },
 
   "consensus": {

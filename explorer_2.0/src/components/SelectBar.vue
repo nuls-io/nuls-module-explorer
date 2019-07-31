@@ -31,7 +31,7 @@
           {value: '16', label: '16'},
           {value: '17', label: '17'},
           {value: '18', label: '18'},
-          /*{value: '1000', label: '1000'},*/
+          {value: '19', label: '19'},
         ]
       },
       //循环字段名

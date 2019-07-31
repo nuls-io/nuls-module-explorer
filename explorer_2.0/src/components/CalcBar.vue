@@ -10,10 +10,10 @@
 
     <div class="result">
       <ul>
-        <li>{{$t('cale.cale3')}}<label>{{parrakeInfo.day}} <span class="fCN">NULS</span></label></li>
-        <li>{{$t('cale.cale4')}}<label>{{parrakeInfo.week}} <span class="fCN">NULS</span></label></li>
-        <li>{{$t('cale.cale5')}}<label>{{parrakeInfo.month}} <span class="fCN">NULS</span></label></li>
-        <li>{{$t('cale.cale6')}}<label>{{parrakeInfo.year}} <span class="fCN">NULS</span></label></li>
+        <li>{{$t('cale.cale3')}}<label>{{parrakeInfo.day}} <span class="fCN">{{symbol}}</span></label></li>
+        <li>{{$t('cale.cale4')}}<label>{{parrakeInfo.week}} <span class="fCN">{{symbol}}</span></label></li>
+        <li>{{$t('cale.cale5')}}<label>{{parrakeInfo.month}} <span class="fCN">{{symbol}}</span></label></li>
+        <li>{{$t('cale.cale6')}}<label>{{parrakeInfo.year}} <span class="fCN">{{symbol}}</span></label></li>
       </ul>
     </div>
 
@@ -225,7 +225,8 @@
           newCredit: [{validator: checkNewCredit, trigger: 'change'}],
           newAllEntrust: [{validator: checkNewAllEntrust, trigger: 'change'}],
           newEntrust: [{validator: checkNewEntrust, trigger: 'change'}],
-        }
+        },
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
       };
     },
     created() {
@@ -241,8 +242,8 @@
       }
     },
     computed: {
-
       parrakeInfo() {
+        //this.count('partakeForm');
         let newInfo = {day: 0, week: 0, month: 0, year: 0};
         let BN = BigNumber.clone();
         BN.config({DECIMAL_PLACES: 4});
@@ -366,7 +367,7 @@
               padding: 0 0 0 1rem;
             }
             label {
-              span{
+              span {
                 display: none;
               }
             }

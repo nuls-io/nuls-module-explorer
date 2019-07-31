@@ -32,7 +32,7 @@
             <template slot-scope="scope">
               <span v-if="rotation === '1' " class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">{{ scope.row.blockHeight }}</span>
               <span v-else>
-                <span v-show="scope.row.blockHeight === 0 && scope.row.newTime- scope.row.times >= 0">
+                <span v-show="scope.row.blockHeight === 0 && scope.row.newTime - scope.row.times >= 0">
                   <i class="iconfont font20" :class="scope.row.yellow ? 'icon-huang yellow' : 'icon-huang yellow' "></i>
                 </span>
                 <span v-show="scope.row.blockHeight !== 0" class="cursor-p click"
@@ -117,7 +117,7 @@
                 let min = date.getSeconds();
                 date.setSeconds(min - 10);
                 let newTime = date.getTime().toString();
-                item.newTime = Number(newTime.substring(0, newTime.length - 4));
+                item.newTime = Number(newTime.substring(0, newTime.length - 3));
                 item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.reward = timesDecimals(item.reward, 8);
                 item.seedPacked = item.agentHash ? false : true;

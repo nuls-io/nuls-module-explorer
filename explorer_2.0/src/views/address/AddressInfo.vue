@@ -18,7 +18,7 @@
           </ve-pie>
           <div class="a_total">
             <div class="font14 capitalize">{{$t('public.balance')}}</div>
-            <div class="font18">{{addressInfo.totalBalance}} NULS</div>
+            <div class="font18">{{addressInfo.totalBalance}} {{symbol}}</div>
             <ul class="chart_title">
               <li><span></span>{{$t('public.consensusLocking')}} {{addressInfo.totalLocks}}</li>
               <li><span></span>{{$t('public.usablebalance')}} {{addressInfo.balances}}</li>
@@ -47,9 +47,9 @@
                   class="fr">{{addressInfo.txCount}}</span></li>
           <li class="tabs_infos capitalize">{{$t('public.address')+$t('public.type')}}<span class="fr">{{$t('addressType.'+addressInfo.type)}}</span>
           </li>
-          <li class="tabs_infos capitalize">{{$t('addressList.addressList1')}}<span class="fr">{{addressInfo.totalIn}} NULS</span>
+          <li class="tabs_infos capitalize">{{$t('addressList.addressList1')}}<span class="fr">{{addressInfo.totalIn}} {{symbol}}</span>
           </li>
-          <li class="tabs_infos capitalize">{{$t('addressList.addressList2')}}<span class="fr">{{addressInfo.totalOut}} NULS</span>
+          <li class="tabs_infos capitalize">{{$t('addressList.addressList2')}}<span class="fr">{{addressInfo.totalOut}} {{symbol}}</span>
           </li>
         </ul>
       </div>
@@ -84,13 +84,13 @@
                 <span>{{ $t('type.'+scope.row.type) }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('public.amount')+'(NULS)'" width="170" align="left">
+            <el-table-column :label="$t('public.amount')+'('+symbol+')'" width="170" align="left">
               <template slot-scope="scope">{{ scope.row.values }}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.balance')+'(NULS)'" width="170" align="left">
+            <el-table-column :label="$t('public.balance')+'('+symbol+')'" width="170" align="left">
               <template slot-scope="scope">{{ scope.row.balance }}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.fee')+'(NULS)'" width="120" align="left">
+            <el-table-column :label="$t('public.fee')+'('+symbol+')'" width="120" align="left">
               <template slot-scope="scope">{{ scope.row.fees }}</template>
             </el-table-column>
           </el-table>
@@ -274,6 +274,7 @@
         },
         //地址定时器
         addressInterval: null,
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
       }
     },
     components: {
@@ -378,7 +379,7 @@
       getTxListByAddress(page, rows, address, type, boolean) {
         this.$post('/', 'getAccountTxs', [page, rows, address, type, boolean])
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');

@@ -102,7 +102,12 @@ const cn ={
     "16": "调用合约",
     "17": "删除合约",
     "18": "合约转账",
-    "19": "合约返还"
+    "19": "合约返还",
+    "20": "合约创建共识",
+    "21": "合约加入共识",
+    "22": "合约退出共识",
+    "23": "合约注销共识",
+    "": "",
   },
 
   "addressType": {
@@ -221,7 +226,8 @@ const cn ={
     "transactionInfo8":"价格",
     "transactionInfo9":"方法",
     "transactionInfo10":"解锁时间",
-    "transactionInfo11":"代币转账"
+    "transactionInfo11":"代币转账",
+    "transactionInfo12":"NULS转账"
   },
 
   "consensus":{

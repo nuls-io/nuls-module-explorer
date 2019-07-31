@@ -11,13 +11,13 @@
       <h3 class="tabs_title tabs_header capitalize">{{$t('public.basicInfo')}}</h3>
       <ul class="ul" ref="menu">
         <li class="tabs_infos fl capitalize">
-          <p>{{$t('public.amount')}}<span>{{txInfo.value}}<span class="fCN">&nbsp;NULS</span></span></p>
+          <p>{{$t('public.amount')}}<span>{{txInfo.value}}<span class="fCN">&nbsp;{{symbol}}</span></span></p>
         </li>
         <li class="tabs_infos fl capitalize"><p>{{$t('public.type')}}<span>{{$t('type.'+txInfo.type)}}</span></p></li>
         <li class="tabs_infos fl capitalize">
           <p>
             {{$t('public.fee')}}
-            <span v-if="contractInfo.length === 0">{{txInfo.fees}}<span class="fCN">&nbsp;NULS</span></span>
+            <span v-if="contractInfo.length === 0">{{txInfo.fees}}<span class="fCN">&nbsp;{{symbol}}</span></span>
             <span v-if="contractInfo.length !== 0">
             {{contractInfo.totalFee}}
              <el-tooltip :content="contractInfo.totalFee+'('+$t('transactionInfo.transactionInfo0')+')'+'='
@@ -165,10 +165,34 @@
       </ul>
     </div>
 
-    <div class="w1200 token_list bg-white" v-if="tokenTransfers !==''">
+    <div class="w1200 token_list bg-white" v-if="nulsTransfers.length !==0">
+      <h3 class="tabs_title tabs_header capitalize">{{$t('transactionInfo.transactionInfo12')}}</h3>
+      <ul class="inputs fl scroll">
+        <li class="font14" v-for="item of nulsTransfers" :key="item.from">
+          <span class="click" @click="toUrl('addressInfo',item.from)">{{item.from}}</span>
+          <label class="fr">{{item.value}}<span> {{symbol}}</span></label>
+        </li>
+      </ul>
+      <div class="arrow fl">
+        <font v-for="item of nulsTransfers" class="click" @click="toUrl('transactionInfo',item.txHash)"
+              :key="item.txHash">
+          {{item.txHashs}}
+        </font>
+      </div>
+      <ul class="outputs fr scroll">
+        <li class="font14" v-for="item of nulsTransfers" :key="item.to">
+          <p v-for="k of item.outputs" :key="k.to">
+            <span class="click" @click="toUrl('addressInfo',k.to)">{{k.to}}</span>
+            <label class="fr">{{k.value}}<span> {{symbol}}</span></label>
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w1200 token_list bg-white" v-if="tokenTransfers.length !==0">
       <h3 class="tabs_title tabs_header capitalize">{{$t('transactionInfo.transactionInfo11')}}</h3>
       <ul class="inputs fl scroll">
-        <li class="font14" v-for="item in tokenTransfers" :key="item.fromAddress">
+        <li class="font14" v-for="item in tokenTransfers" :key="item.keys">
           <span class="click" @click="toUrl('addressInfo',item.fromAddress)">{{item.fromAddress}}</span>
         </li>
       </ul>
@@ -176,7 +200,7 @@
         <i class="el-icon-d-arrow-right"></i>
       </div>
       <ul class="outputs fr scroll">
-        <li class="font14" v-for="item in tokenTransfers" :key="item.toAddress">
+        <li class="font14" v-for="item in tokenTransfers" :key="item.keys">
           <span class="click" @click="toUrl('addressInfo',item.toAddress)">{{item.toAddress}}</span>
           <label class="fr">{{item.value}}<span> {{item.symbol}}</span></label>
         </li>
@@ -188,7 +212,7 @@
       <ul class="inputs fl scroll">
         <li class="font14" v-for="item in txInfo.coinFroms" :key="item.key">
           <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
-          <label class="fr">{{item.value}}<span class="fCN"> NULS</span></label>
+          <label class="fr">{{item.value}}<span class="fCN"> {{symbol}}</span></label>
         </li>
       </ul>
       <div class="arrow fl">
@@ -199,7 +223,7 @@
           <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
           <label class="fr">
             {{item.value}}
-            <span class="fCN"> NULS
+            <span class="fCN"> {{symbol}}
               <i class="iconfont yellow font12" :title="item.isShowInfo"
                  :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i>
             </span>
@@ -215,7 +239,7 @@
             <ul class="inputs scroll">
               <li class="font14" v-for="item in txInfo.froms" :key="item.key">
                 <span class="click" @click="toUrl('addressInfo',item.address)">{{item.addresss}}</span>
-                <label class="fr">{{item.value}}<span class="fCN"> NULS</span></label>
+                <label class="fr">{{item.value}}<span class="fCN"> {{symbol}}</span></label>
               </li>
             </ul>
           </div>
@@ -227,7 +251,7 @@
                 <span class="click" @click="toUrl('addressInfo',item.address)">{{item.addresss}}</span>
                 <label class="fr">
                   {{item.value}}
-                  <span class="fCN"> NULS<i class="iconfont yellow font12" :title="item.isShowInfo"
+                  <span class="fCN"> {{symbol}}<i class="iconfont yellow font12" :title="item.isShowInfo"
                                             :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i></span>
                 </label>
               </li>
@@ -238,7 +262,8 @@
     </div>
 
     <el-dialog title="" :visible.sync="viewDialog" class="dialog_tran">
-      <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="copy(txInfo.txDataHex)" v-show="!isContracts"></i>
+      <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="copy(txInfo.txDataHex)"
+                                       v-show="!isContracts"></i>
       </div>
       <div class="dialog-info scroll">
         <div v-show="!isContracts">{{txInfo.txDataHex}}</div>
@@ -271,22 +296,20 @@
         activeName: 'second',
         inputNumber: 0,
         outNumber: 0,
-        //业务数据显示
-        viewDialog: false,
-        //显示空白li
-        liShow: false,
-        //合约信息
-        contractInfo: [],
-        tokenTransfers: '',
+        viewDialog: false, //业务数据显示
+        liShow: false,//显示空白li
+        contractInfo: [],//合约信息
+        tokenTransfers: [],//token转账信息
         //txhash定时器
         txhashInterval: null,
-        isContracts:false,//是否为合约交易
+        isContracts: false,//是否为合约交易
+        nulsTransfers: [],//合约转出NULS
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
       };
     },
     created() {
       this.getTxInfoByHash(this.txhash);
     },
-
     mounted() {
       setTimeout(() => {
         this.liShow = (this.$refs.menu.children.length - 2) % 2 === 1
@@ -309,6 +332,9 @@
        * 根据hash获取交易详情
        */
       async getTxInfoByHash(hash) {
+        this.nulsTransfers =[];
+        this.contractInfo=[];
+        this.tokenTransfers=[];
         this.$post('/', 'getTx', [hash])
           .then((response) => {
             //console.log(response);
@@ -336,19 +362,37 @@
               //创建、调用合约
               if (response.result.type === 15 || response.result.type === 16 || response.result.type === 17 || response.result.type === 18 || response.result.type === 19) {
                 this.isContracts = true;
-                response.result.txData.resultInfo.totalFee = timesDecimals(response.result.txData.resultInfo.totalFee, 8);
-                response.result.txData.resultInfo.txSizeFee = timesDecimals(response.result.txData.resultInfo.txSizeFee, 8);
-                response.result.txData.resultInfo.actualContractFee = timesDecimals(response.result.txData.resultInfo.actualContractFee, 8);
-                response.result.txData.resultInfo.refundFee = timesDecimals(response.result.txData.resultInfo.refundFee, 8);
-                this.contractInfo = response.result.txData.resultInfo;
-                if (response.result.txData.resultInfo.tokenTransfers) {
-                  for (let item of  response.result.txData.resultInfo.tokenTransfers) {
-                    item.value = timesDecimals(item.value, item.decimals);
+                if(response.result.txData.hasOwnProperty('resultInfo')){
+                  response.result.txData.resultInfo.totalFee = timesDecimals(response.result.txData.resultInfo.totalFee, 8);
+                  response.result.txData.resultInfo.txSizeFee = timesDecimals(response.result.txData.resultInfo.txSizeFee, 8);
+                  response.result.txData.resultInfo.actualContractFee = timesDecimals(response.result.txData.resultInfo.actualContractFee, 8);
+                  response.result.txData.resultInfo.refundFee = timesDecimals(response.result.txData.resultInfo.refundFee, 8);
+                  this.contractInfo = response.result.txData.resultInfo;
+                  if (response.result.txData.resultInfo.tokenTransfers) {
+                    let newTokenTransfers = response.result.txData.resultInfo.tokenTransfers;
+                    for (let item in  newTokenTransfers) {
+                      newTokenTransfers[item].keys = Number(item);
+                      newTokenTransfers[item].value = timesDecimals(newTokenTransfers[item].value, newTokenTransfers[item].decimals);
+                    }
+                    this.tokenTransfers = newTokenTransfers
                   }
-                  this.tokenTransfers = response.result.txData.resultInfo.tokenTransfers
                 }
+                //console.log(this.tokenTransfers);
               }
 
+              if (response.result.type === 16) {
+                if (response.result.txData.resultInfo.nulsTransfers) {
+                  for (let item of response.result.txData.resultInfo.nulsTransfers) {
+                    item.txHashs = superLong(item.txHash, 6);
+                    item.value = timesDecimals(item.value);
+                    for (let k of item.outputs) {
+                      k.value = timesDecimals(k.value);
+                    }
+                  }
+                  this.nulsTransfers = response.result.txData.resultInfo.nulsTransfers;
+                  //console.log(this.nulsTransfers);
+                }
+              }
 
               if (response.result.coinFroms) {
                 for (let item of response.result.coinFroms) {
@@ -406,6 +450,8 @@
           newQuery = {height: params}
         } else if (name === 'contractsInfo') {
           newQuery = {contractAddress: params, tabName: 'first'}
+        } else if (name === 'transactionInfo') {
+          newQuery = {hash: params}
         } else {
           newQuery = {address: params};
         }

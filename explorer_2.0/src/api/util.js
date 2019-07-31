@@ -64,7 +64,8 @@ export function Division(nu, arg) {
  * 数字除以精度系数
  */
 export function timesDecimals(nu, decimals = 8) {
-  let newNu = new BigNumber(Division(nu, Power(decimals)).toString());
+  let newDecimals = decimals ? decimals : Number(sessionStorage.getItem('decimals'));
+  let newNu = new BigNumber(Division(nu, Power(newDecimals)).toString());
   return newNu.toFormat().replace(/[,]/g, '');
 }
 
