@@ -43,10 +43,10 @@
             <el-table-column :label="$t('public.type')" width="180" align="left">
               <template slot-scope="scope"><span class="capitalize">{{ $t('type.'+scope.row.type) }}</span></template>
             </el-table-column>
-            <el-table-column :label="$t('public.amount')+ '(NULS)'" width="160" align="left">
+            <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="160" align="left">
               <template slot-scope="scope">{{ scope.row.value }}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.fee')+ '(NULS)'" width="160" align="left">
+            <el-table-column :label="$t('public.fee')+ '('+symbol+')'" width="160" align="left">
               <template slot-scope="scope">{{ scope.row.fees }}</template>
             </el-table-column>
           </el-table>
@@ -97,7 +97,8 @@
           total: 0,
           page: 1,
           rows: 6,
-        }
+        },
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
       }
     },
     components: {

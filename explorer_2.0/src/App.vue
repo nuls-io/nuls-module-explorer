@@ -32,17 +32,23 @@ export default {
       axios.post(API_ROOT, params)
         .then((response) => {
           const data = response.data;
-          //console.log(data);
+          console.log(data);
           if (data.hasOwnProperty("result")) {
-            sessionStorage.setItem("chainId",data.result.chainId)
+            sessionStorage.setItem("chainId",data.result.chainId);
+            sessionStorage.setItem("symbol",data.result.defaultAsset.symbol);
+            sessionStorage.setItem("decimals",data.result.defaultAsset.decimals);
           }else {
             //console.log(data.hasOwnProperty("result"));
-            sessionStorage.setItem("chainId","2")
+            sessionStorage.setItem("chainId","2");
+            sessionStorage.setItem("symbol",'NULS');
+            sessionStorage.setItem("decimals",'8');
           }
         })
         .catch((error)=>{
           console.log(error);
-          sessionStorage.setItem("chainId","2")
+          sessionStorage.setItem("chainId","2");
+          sessionStorage.setItem("symbol",'NULS');
+          sessionStorage.setItem("decimals",'8');
         })
     }
   }

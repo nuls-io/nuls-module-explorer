@@ -10,11 +10,11 @@
     <div class="h_count" v-loading="countLoading">
       <ul class="w1200">
         <li>
-          <p class="font18 capitalize">{{$t('home.home1')}}</p>
+          <p class="font18 capitalize">{{$t('home.home1')}} <i class="el-icon-d-arrow-right"></i></p>
           <h5 class="font24 click" @click="toUrl('consensus')">{{count.nodeNumber}}</h5>
         </li>
         <li>
-          <p class="font18 capitalize">{{$t('home.home2')}}</p>
+          <p class="font18 capitalize">{{$t('home.home2')}} <i class="el-icon-d-arrow-right"></i></p>
           <h5 class="font24 click" @click="toUrl('consensus')">{{count.entrustNumber}}K</h5>
         </li>
         <li>

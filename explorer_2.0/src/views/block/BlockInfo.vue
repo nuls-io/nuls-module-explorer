@@ -26,11 +26,17 @@
         </li>
         <li class="tabs_infos fl capitalize"><p>{{$t('public.transactionNo')}}<span>{{nodeInfo.txCount}}</span></p></li>
         <li class="tabs_infos fl capitalize"><p>{{$t('public.size')}} <span>{{nodeInfo.size}} Bytes</span></p></li>
-        <li class="tabs_infos fl capitalize"><p>{{$t('public.blockReward')}}<span>{{nodeInfo.reward}}<span class="fCN">&nbsp;NULS</span></span></p></li>
-        <li class="tabs_infos fl capitalize"><p>{{$t('public.round')}}/{{$t('public.number')}}<span>{{nodeInfo.roundIndex}}/{{nodeInfo.packingIndexOfRound}}</span></p></li>
-        <li class="tabs_infos fl capitalize"><p>{{$t('public.fee')}}<span>{{nodeInfo.totalFee}}<span class="fCN">&nbsp;NULS</span></span></p></li>
+        <li class="tabs_infos fl capitalize"><p>{{$t('public.blockReward')}}<span>{{nodeInfo.reward}}<span class="fCN">&nbsp;{{symbol}}</span></span></p></li>
+        <li class="tabs_infos fl capitalize">
+          <p>{{$t('public.round')}}/{{$t('public.number')}}
+            <span>
+              <font class="click" @click="toUrl('rotationInfo',nodeInfo.roundIndex)">{{nodeInfo.roundIndex}}</font>
+              /{{nodeInfo.packingIndexOfRound}}</span>
+          </p>
+        </li>
+        <li class="tabs_infos fl capitalize"><p>{{$t('public.fee')}}<span>{{nodeInfo.totalFee}}<span class="fCN">&nbsp;{{symbol}}</span></span></p></li>
         <li class="tabs_infos fl capitalize"><p>{{$t('public.time')}}<span>{{nodeInfo.createTime}}</span></p></li>
-        <li class="tabs_infos fl capitalize"><p>{{$t('public.consensusReward')}}<span>{{nodeInfo.totalReward}}<span class="fCN">&nbsp;NULS</span></span></p></li>
+        <li class="tabs_infos fl capitalize"><p>{{$t('public.consensusReward')}}<span>{{nodeInfo.totalReward}}<span class="fCN">&nbsp;{{symbol}}</span></span></p></li>
       </ul>
 
       <h4 class=" font20 capitalize">{{$t('public.transactionList')}}</h4>
@@ -49,10 +55,10 @@
           <el-table-column :label="$t('public.type')" width="180" align="left">
             <template slot-scope="scope">{{ $t('type.'+scope.row.type) }}</template>
           </el-table-column>
-          <el-table-column :label="$t('public.amount')+'(NULS)'" width="180" align="left">
+          <el-table-column :label="$t('public.amount')+'('+symbol+')'" width="180" align="left">
             <template slot-scope="scope">{{scope.row.value}}</template>
           </el-table-column>
-          <el-table-column :label="$t('public.fee')+'(NULS)'" width="180" align="left">
+          <el-table-column :label="$t('public.fee')+'('+symbol+')'" width="180" align="left">
             <template slot-scope="scope">{{scope.row.fees}}</template>
           </el-table-column>
         </el-table>
@@ -88,6 +94,7 @@
         },
         //定时器
         heightInterval:null,
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
 
       }
     },
@@ -183,12 +190,14 @@
       /**
        * url 连接跳转
        * @param name
-       * @param height
+       * @param parmes
        */
       toUrl(name, parmes) {
         let newQuery = {};
         if(name ==='addressInfo'){
           newQuery ={address: parmes}
+        }else if(name ==='rotationInfo'){
+          newQuery={rotation: parmes}
         }else {
           newQuery ={hash: parmes}
         }

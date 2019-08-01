@@ -34,10 +34,10 @@
         <el-table-column :label="$t('public.proportion')" width="100" align="left">
           <template slot-scope="scope">{{ scope.row.commissionRate }}%</template>
         </el-table-column>
-        <el-table-column :label="$t('public.bond')+'(NULS)'" width="150" align="left">
+        <el-table-column :label="$t('public.bond')+'('+symbol+')'" width="150" align="left">
           <template slot-scope="scope">{{ scope.row.deposit }}</template>
         </el-table-column>
-        <el-table-column :label="$t('public.entrust')+'(NULS)'" width="150" align="left">
+        <el-table-column :label="$t('public.entrust')+'('+symbol+')'" width="150" align="left">
           <template slot-scope="scope"><span class="cursor-p click uppercase"
                                              @click="toUrl('consensusInfo',scope.row.txHash,'three')">{{ scope.row.totalDeposit}}</span>
           </template>
@@ -61,10 +61,10 @@
                   class="fr">{{ item.agentAlias ? item.agentAlias : '-' }}</span></li>
           <li class="font12 fl">{{$t('public.proportion')}}<span class="fr">{{ item.commissionRate }}%</span></li>
           <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ item.deposit }}<label
-                  class="fCN"> NULS</label></span></li>
+                  class="fCN"> {{symbol}}</label></span></li>
           <li class="font12 fl">{{$t('public.participants')}}<span class="fr">{{ item.depositCount }}</span></li>
           <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{item.totalDeposit }}<label
-                  class="fCN"> NULS</label></span></li>
+                  class="fCN"> {{symbol}}</label></span></li>
           <li class="font12 fl">{{$t('public.creditValue')}}<span class="fr">{{item.creditValue}}</span></li>
         </ul>
       </div>
@@ -109,7 +109,8 @@
           total: 0,
           page: 1,
           rows: 200,
-        }
+        },
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
       }
     },
     components: {
