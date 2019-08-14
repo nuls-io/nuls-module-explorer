@@ -193,7 +193,7 @@
       async getConsensusTxList(page, rows, type, contractsAddress) {
         this.$post('/', 'getContractTxList', [page, rows, type, contractsAddress])
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
