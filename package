@@ -89,10 +89,12 @@ echo "copy ${moduleBuildPath}/stop.sh to ${OUT_PATH}/stop.sh"
 cp "${moduleBuildPath}/module.temp.ncf" "${OUT_PATH}/Module.ncf"
 echo "copy ${moduleBuildPath}/module.temp.ncf to ${OUT_PATH}/Module.ncf"
 
-
 cd $ROOT_PATH
 mvn package -Dmaven.test.skip=true
 mv "target/${APP_NAME}.jar" ${OUT_PATH}/${APP_NAME}-${version}.jar
+if [ -d "${OUT_PATH}/lib" ]; then
+    rm -rf "${OUT_PATH}/lib"
+fi
 cp -r "target/libs" "${OUT_PATH}/lib"
 if [ "$1" == "n" ]; then
     cd ./explorer_2.0
@@ -103,5 +105,4 @@ if [ "$1" == "n" ]; then
     cd ..
 fi
 cp -r ./www ./outer/www
-cp ./web-config ./outer/www/config.js
 echo "============ PACKAGE FINISH 🍺🍺🍺🎉🎉🎉 ==============="
