@@ -33,9 +33,14 @@
                        @change="changeType"></SelectBar>
             <el-table :data="contractsTxList" stripe border style="width: 100%;margin-top: 14px">
               <el-table-column label="" width="30"></el-table-column>
-              <el-table-column prop="height" :label="$t('public.height')" width="180" align="left">
+              <el-table-column prop="height" :label="$t('public.height')" width="100" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">{{ scope.row.blockHeight }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('public.contractMethod')" width="150" align="left">
+                <template slot-scope="scope">
+                  <span>{{ scope.row.contractMethod }}</span>
                 </template>
               </el-table-column>
               <el-table-column label="TXID" min-width="280" align="left">
@@ -65,7 +70,7 @@
               <el-table-column prop="name" label="Method" width="280" align="left"></el-table-column>
               <el-table-column prop="height" label="Parameter" min-width="280" align="left">
                 <template slot-scope="scope">
-                  <span v-for="item in scope.row.params" :key="item">{{item}}-</span>
+                  <span v-for="(item,index) in scope.row.params" :key="index">{{item}}-</span>
                 </template>
               </el-table-column>
               <el-table-column prop="returnType" label="Return Type" width="280" align="left"></el-table-column>
@@ -84,6 +89,8 @@
   import SelectBar from '@/components/SelectBar';
   import CodeInfo from '@/views/contracts/CodeInfo';
   import {getLocalTime, superLong, copys} from '@/api/util.js'
+  import axios from 'axios'
+  import {CODE_URL} from './../../config'
 
   export default {
     data() {
@@ -143,6 +150,7 @@
 
       /**
        * 获取子组件的状态值
+       * @param contractStatus
        **/
       contractStatus(contractStatus) {
         this.contractsInfo.status =contractStatus
@@ -159,12 +167,14 @@
 
       /**
        * 根据合约地址获取合约详情
+       * @param address
        */
       getContractsInfoByContractsAddress(address) {
         this.$post('/', 'getContract', [address])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
+              this.getContractAddressInfo(address);
               response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               if (response.result.certificationTime) {
                 response.result.certificationTime = moment(getLocalTime(response.result.certificationTime*1000)).format('YYYY-MM-DD HH:mm:ss');
@@ -180,7 +190,30 @@
       },
 
       /**
+       * 调用认证方法
+       * @param contractStatus
+       **/
+      async getContractAddressInfo(contractsAddress) {
+        const params = {
+          "jsonrpc": "2.0",
+          "method": 'getContractAddressInfo',
+          "params": [Number(sessionStorage.getItem('chainId')), contractsAddress],
+          "id": Math.floor(Math.random() * 1000)
+        };
+        axios.post(CODE_URL, params)
+          .then((response) => {
+            //console.log(response.data);
+            if (response.data.hasOwnProperty("result")) {
+              this.contractsInfo.status = response.data.result.status;
+            }
+          }).catch((error) => {
+          console.log(error);
+        })
+      },
+
+      /**
        *  根据数据类型排序
+       *  @param type
        **/
       changeType(type) {
         this.contractsTypeRegion = parseInt(type);
@@ -188,7 +221,11 @@
       },
 
       /**
-       * 获取共识列表
+       * 获取合约交易记录
+       * @param page
+       * @param rows
+       * @param type
+       * @param contractsAddress
        */
       async getConsensusTxList(page, rows, type, contractsAddress) {
         this.$post('/', 'getContractTxList', [page, rows, type, contractsAddress])
@@ -216,9 +253,6 @@
 
       handleClick() {
         //console.log(tab, event);
-      },
-
-      getItemList() {
       },
 
       /**

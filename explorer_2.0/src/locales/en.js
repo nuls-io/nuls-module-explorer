@@ -82,7 +82,8 @@ const en = {
     "copysuccess": "Copy success",
     "success":"Success",
     "fail":"Fail",
-    "enforcement":"Contract Result"
+    "enforcement":"Contract Result",
+    "contractMethod":"Contract Method"
   },
 
   "type": {
@@ -104,10 +105,12 @@ const en = {
     "17": "Delete contract",
     "18": "Contract transfer",
     "19": "Contract return",
-    "20": "Contract register node",
-    "21": "Contract stake node",
-    "22": "Contract cancel node",
-    "23": "Contract unregister node",
+    "20": "Contract creation node",
+    "21": "Contract Stake",
+    "22": "Consensus contract consensus",
+    "23": "Contract cancellation node",
+    "24": "Verifier Change",
+    "25": "Verifier initialization",
     "": "",
   },
 

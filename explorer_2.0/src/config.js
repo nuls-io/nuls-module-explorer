@@ -4,5 +4,7 @@ export const RUN_DEV = false;
 //Request url
 //export const API_ROOT = IS_DEV ? 'http://apitn1.nulscan.io' : '/api/';
 export const API_ROOT = IS_DEV ? 'http://apitn1.nulscan.io' : '/api/';
+//合约认证地址
+export const CODE_URL ='http://contract.nulscan.io';
 //Request response time
 export const API_TIME = IS_DEV ? '9000' : '8000';

@@ -11,7 +11,7 @@
       <h3 class="tabs_title tabs_header capitalize">{{$t('public.basicInfo')}}</h3>
       <ul class="ul" ref="menu">
         <li class="tabs_infos fl capitalize">
-          <p>{{$t('public.amount')}}<span>{{txInfo.value}}<span class="fCN">&nbsp;{{symbol}}</span></span></p>
+          <p>{{$t('public.amount')}}<span>{{txInfo.value}}</span></p>
         </li>
         <li class="tabs_infos fl capitalize"><p>{{$t('public.type')}}<span>{{$t('type.'+txInfo.type)}}</span></p></li>
         <li class="tabs_infos fl capitalize">
@@ -170,7 +170,7 @@
       <ul class="inputs fl scroll">
         <li class="font14" v-for="item of nulsTransfers" :key="item.from">
           <span class="click" @click="toUrl('addressInfo',item.from)">{{item.from}}</span>
-          <label class="fr">{{item.value}}<span> {{symbol}}</span></label>
+          <label class="fr">{{item.value}}<span> {{item.symbol}}</span></label>
         </li>
       </ul>
       <div class="arrow fl">
@@ -183,7 +183,7 @@
         <li class="font14" v-for="item of nulsTransfers" :key="item.to">
           <p v-for="k of item.outputs" :key="k.to">
             <span class="click" @click="toUrl('addressInfo',k.to)">{{k.to}}</span>
-            <label class="fr">{{k.value}}<span> {{symbol}}</span></label>
+            <label class="fr">{{k.value}}<span> {{item.symbol}}</span></label>
           </p>
         </li>
       </ul>
@@ -212,7 +212,7 @@
       <ul class="inputs fl scroll">
         <li class="font14" v-for="item in txInfo.coinFroms" :key="item.key">
           <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
-          <label class="fr">{{item.value}}<span class="fCN"> {{symbol}}</span></label>
+          <label class="fr">{{item.value}}<span class="fCN"> {{item.symbol}}</span></label>
         </li>
       </ul>
       <div class="arrow fl">
@@ -223,7 +223,7 @@
           <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
           <label class="fr">
             {{item.value}}
-            <span class="fCN"> {{symbol}}
+            <span class="fCN"> {{item.symbol}}
               <i class="iconfont yellow font12" :title="item.isShowInfo"
                  :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i>
             </span>
@@ -239,7 +239,7 @@
             <ul class="inputs scroll">
               <li class="font14" v-for="item in txInfo.froms" :key="item.key">
                 <span class="click" @click="toUrl('addressInfo',item.address)">{{item.addresss}}</span>
-                <label class="fr">{{item.value}}<span class="fCN"> {{symbol}}</span></label>
+                <label class="fr">{{item.value}}<span class="fCN"> {{item.symbol}}</span></label>
               </li>
             </ul>
           </div>
@@ -251,7 +251,7 @@
                 <span class="click" @click="toUrl('addressInfo',item.address)">{{item.addresss}}</span>
                 <label class="fr">
                   {{item.value}}
-                  <span class="fCN"> {{symbol}}<i class="iconfont yellow font12" :title="item.isShowInfo"
+                  <span class="fCN"> {{item.symbol}}<i class="iconfont yellow font12" :title="item.isShowInfo"
                                             :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i></span>
                 </label>
               </li>

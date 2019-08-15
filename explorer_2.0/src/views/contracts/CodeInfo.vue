@@ -15,11 +15,12 @@
             <i class="el-icon-download fr click"></i>
           </div>
           <div class="code-trees">
-            <el-tree :data="codeTress" :props="defaultProps" @node-click="handleNodeClick" :default-expand-all="true"></el-tree>
+            <el-tree :data="codeTress" :props="defaultProps" @node-click="handleNodeClick"
+                     :default-expand-all="true"></el-tree>
           </div>
         </div>
         <div class="code-source fl">
-          <div class="tr"> <i class="iconfont icon-copy_icon click" @click="copy(codeInfo)"></i></div>
+          <div class="tr"><i class="iconfont icon-copy_icon click" @click="copy(codeInfo)"></i></div>
           <div class="code-source-info bg-gray">
             <pre>{{codeInfo}}</pre>
           </div>
@@ -33,7 +34,8 @@
       </div>
       <div class="upload tc" v-show="true">
         <input type="file" id="fileId" class="hidden file">
-        <el-button type="success" @click="uploadFile">{{$t('codeInfo.codeInfo6')}} <i class="el-icon-upload el-icon&#45;&#45;right"></i>
+        <el-button type="success" @click="uploadFile">{{$t('codeInfo.codeInfo6')}} <i
+                class="el-icon-upload el-icon&#45;&#45;right"></i>
         </el-button>
         <div class="upload-info tl font14">
           <p>{{$t('codeInfo.codeInfo7')}}:</p>
@@ -47,44 +49,46 @@
 </template>
 
 <script>
+  import axios from 'axios'
   import moment from 'moment'
-  import {copys,getLocalTime} from '@/api/util.js'
+  import {copys, getLocalTime} from '@/api/util.js'
+  import {CODE_URL} from './../../config'
 
   export default {
-    props: {status:Number,certificationTime: String},
+    props: {status: Number, certificationTime: String},
     data() {
       return {
         //是否已认证
         ifCertified: false,
         //认证时间
-        certificationTimes:'',
+        certificationTimes: '',
         //合约地址
         contractsAddress: this.$route.query.contractAddress,
 
         //上传源代码动画
-        uploadLoading:false,
+        uploadLoading: false,
 
         //代码目录
-        codeTress:[],
+        codeTress: [],
         defaultProps: {
           children: 'children',
           label: 'name'
         },
 
         //代码内容
-        codeInfo:'',
+        codeInfo: '',
       };
     },
     created() {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.ifCertified = this.status === 2;
-        if(this.ifCertified){
+        if (this.ifCertified) {
           this.getContractCodeTree(this.contractsAddress);
         }
-      },100);
+      }, 100);
 
     },
-    mounted(){
+    mounted() {
     },
     methods: {
 
@@ -105,7 +109,7 @@
               _this.$message({message: _this.$t('codeInfo.codeInfo10'), type: 'error', duration: 3000});
               return;
             }
-            let jobSpecFileDataURL ='';
+            let jobSpecFileDataURL = '';
             reader.readAsDataURL(file);
             reader.onload = (() => {
               jobSpecFileDataURL = reader.result;
@@ -120,23 +124,33 @@
        * 调用认证方法
        **/
       async uploadFiles(contractsAddress, jobSpecFile) {
-        this.$post('/', 'validateContractCode', [contractsAddress, jobSpecFile])
+        const params = {
+          "jsonrpc": "2.0",
+          "method": 'validateContractCode',
+          "params": [Number(sessionStorage.getItem('chainId')), contractsAddress, jobSpecFile],
+          "id": Math.floor(Math.random() * 1000)
+        };
+        axios.post(CODE_URL, params)
           .then((response) => {
-            //console.log(response);
-            if (response.result) {
-              this.ifCertified =true;
+            //console.log(response.data);
+            if (response.data.result) {
+              this.ifCertified = true;
               this.getContractCodeTree(contractsAddress);
               this.contractStatus();
               let timestamp = (new Date()).getTime();
               this.certificationTimes = moment(getLocalTime(timestamp)).format('YYYY-MM-DD HH:mm:ss');
               this.uploadLoading = false;
-            }else {
-              this.$message({message:this.$t('codeInfo.codeInfo5')+response.error.message, type: 'error', duration: 1500});
+            } else {
+              this.$message({
+                message: this.$t('codeInfo.codeInfo5') + response.data.error.message,
+                type: 'error',
+                duration: 1500
+              });
               this.uploadLoading = false;
             }
           }).catch((error) => {
           console.log(error);
-          this.$message({message:this.$t('codeInfo.codeInfo11'), type: 'error', duration: 2000});
+          this.$message({message: this.$t('codeInfo.codeInfo11'), type: 'error', duration: 2000});
           this.uploadLoading = false;
         })
       },
@@ -152,11 +166,17 @@
        * 获取合约代码目录
        **/
       async getContractCodeTree(contractsAddress) {
-        this.$post('/', 'getContractCodeTree', [contractsAddress])
+        const params = {
+          "jsonrpc": "2.0",
+          "method": 'getContractCodeTree',
+          "params": [Number(sessionStorage.getItem('chainId')), contractsAddress],
+          "id": Math.floor(Math.random() * 1000)
+        };
+        axios.post(CODE_URL, params)
           .then((response) => {
             //console.log(response);
-            if (response.result) {
-              this.codeTress.push(response.result.root);
+            if (response.data.result) {
+              this.codeTress.push(response.data.result.root);
             }
           }).catch((error) => {
           console.log(error)
@@ -166,14 +186,20 @@
       /**
        * 获取合约代码
        **/
-      async getContractCode(contractsAddress,path) {
-        this.$post('/', 'getContractCode', [contractsAddress,path])
+      async getContractCode(contractsAddress, path) {
+        const params = {
+          "jsonrpc": "2.0",
+          "method": 'getContractCode',
+          "params": [Number(sessionStorage.getItem('chainId')), contractsAddress,path],
+          "id": Math.floor(Math.random() * 1000)
+        };
+        axios.post(CODE_URL, params)
           .then((response) => {
             //console.log(response);
-            if (response.hasOwnProperty("result")) {
-              this.codeInfo=response.result;
-            }else {
-              this.codeInfo='';
+            if (response.data.hasOwnProperty("result")) {
+              this.codeInfo = response.data.result;
+            } else {
+              this.codeInfo = '';
             }
           }).catch((error) => {
           console.log(error)
@@ -186,9 +212,9 @@
        */
       handleNodeClick(data) {
         //console.log(data);
-        if(!data.dir){
+        if (!data.dir) {
           //console.log(data.path);
-          this.getContractCode(this.contractsAddress,data.path);
+          this.getContractCode(this.contractsAddress, data.path);
         }
       },
 
@@ -262,7 +288,7 @@
         border: 0;
       }
       .upload {
-        .file{
+        .file {
           width: 10px;
         }
         .err-info {

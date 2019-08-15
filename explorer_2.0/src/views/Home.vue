@@ -30,7 +30,7 @@
 
     <div class="h_animation" v-loading="packerListLoading">
       <ul class="w1200 clicks" @click="toUrl('rotationInfo',rotationIndex)">
-        <li v-for="item in packerList" :key="item.agentName">
+        <li v-for="(item,index) in packerList" :key="index">
           <p class="tc font12">{{item.agentName ? item.agentName : item.packingAddress}}</p>
           <p class="greybox tc" v-show="item.order !== pagekerId">
             <img v-if="item.blockHash && !item.yellow" src="./../assets/img/penGreen.svg">
@@ -246,8 +246,7 @@
       getRotationList() {
         this.$post('/', 'getBestRoundInfo', [])
           .then((response) => {
-            console.log('getBestRoundInfo');
-            console.log(response);
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.itemList) {
                 item.agentName = item.agentName ? item.agentName : superLong(item.seedAddress, 6);
