@@ -60,7 +60,7 @@
         <el-tab-pane :label="$t('public.txList')" name="addressFirst">
           <SelectBar v-model="typeRegion" @change="changeType"></SelectBar>
           <!--<i class="iconfont icon-dwonload_gray_icon click ml_20" title="更多功能敬请期待..."></i>-->
-          <el-switch class="hide-switch fr" v-model="hideSwitch" v-show="typeRegion.toString() === '0'"
+          <el-switch class="hide-switch fr" v-model="hideSwitch" v-show="false"
                      :width="32"
                      :inactive-text="$t('block.block1')"
                      @change="hideConsensusList">
@@ -94,7 +94,6 @@
               <template slot-scope="scope">{{ scope.row.fees }}</template>
             </el-table-column>
           </el-table>
-
           <div class="paging">
             <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
                            v-show="txListPager.total > txListPager.rows"
@@ -104,7 +103,6 @@
                            :page-size="txListPager.rows" @current-change="pagesTxListList">
             </el-pagination>
           </div>
-
         </el-tab-pane>
         <el-tab-pane :label="$t('public.tokenTrading')" name="addressSecond">
           <el-select v-model="tokenValue" @change="changeToken">

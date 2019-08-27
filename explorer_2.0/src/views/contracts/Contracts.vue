@@ -150,7 +150,7 @@
     components: {},
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
-      this.getContractList(this.pager.page, this.pager.rows, this.activeName === 'nrc20Contract', this.hideSwitch);
+      this.getContractList(this.pager.page, this.pager.rows, this.activeName === 'nrc20Contract' ? 1 : -1, this.hideSwitch);
     },
     methods: {
 
@@ -163,7 +163,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 if (this.activeName === 'nrc20Contract') {
                   item.totalSupply = timesDecimals(item.totalSupply, item.decimals);
                 }
@@ -187,14 +187,14 @@
        * 获取所有合约列表 分页
        */
       pagesContractList() {
-        this.getContractList(this.contractListPage.page, this.contractListPage.rows, this.activeName === 'nrc20Contract', this.hideSwitch);
+        this.getContractList(this.contractListPage.page, this.contractListPage.rows, this.activeName === 'nrc20Contract' ? 1 : -1, this.hideSwitch);
       },
 
       /**
        * 分页功能
        **/
       pagesList() {
-        this.getContractList(this.pager.page, this.pager.rows, this.activeName === 'nrc20Contract', this.hideSwitch);
+        this.getContractList(this.pager.page, this.pager.rows, this.activeName === 'nrc20Contract' ? 1 : -1, this.hideSwitch);
       },
 
       /**
@@ -202,7 +202,7 @@
        */
       hideNrc20List() {
         this.contractListLoading = true;
-        this.getContractList(this.pager.page, this.pager.rows, this.activeName === 'nrc20Contract', this.hideSwitch);
+        this.getContractList(this.pager.page, this.pager.rows, this.activeName === 'nrc20Contract' ? 1 : -1, this.hideSwitch);
       },
 
       /**
@@ -214,11 +214,11 @@
         if (this.activeName !== 'nrc20Contract') {
           this.contractListPage = {total: 0, page: 1, rows: 15,};
           this.contractListLoading = true;
-          this.getContractList(this.contractListPage.page, this.contractListPage.rows, this.activeName === 'nrc20Contract', this.hideSwitch);
+          this.getContractList(this.contractListPage.page, this.contractListPage.rows, this.activeName === 'nrc20Contract' ? 1 : -1, this.hideSwitch);
         } else {
           this.pager = {total: 0, page: 1, rows: 15,};
           this.nrc20ListLoading = true;
-          this.getContractList(this.pager.page, this.pager.rows, this.activeName === 'nrc20Contract', this.hideSwitch);
+          this.getContractList(this.pager.page, this.pager.rows, this.activeName === 'nrc20Contract' ? 1 : -1, this.hideSwitch);
         }
       },
 

@@ -17,9 +17,9 @@
         <li class="tabs_infos fl capitalize">
           <p>
             {{$t('public.fee')}}
-            <span v-if="contractInfo.length === 0">{{txInfo.fees}}<span class="fCN">&nbsp;{{symbol}}</span></span>
-            <span v-if="contractInfo.length !== 0">
-            {{contractInfo.totalFee}}
+            <span>{{txInfo.fees}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+            <!--<span v-if="contractInfo.length !== 0">
+            {{txInfo.fees}}
              <el-tooltip :content="contractInfo.totalFee+'('+$t('transactionInfo.transactionInfo0')+')'+'='
                          +contractInfo.txSizeFee+'('+$t('transactionInfo.transactionInfo1')+')'+'+'
                          +contractInfo.actualContractFee+'('+$t('type.16')+')'+'+'
@@ -27,7 +27,7 @@
                          class="item" effect="dark" placement="top">
              <i class="el-icon-info gray"></i>
             </el-tooltip>
-          </span>
+          </span>-->
           </p>
         </li>
         <li class="tabs_infos fl capitalize"><p>{{$t('public.size')}}<span>{{txInfo.size}}</span></p></li>
@@ -106,7 +106,7 @@
 
         <!--创建、调用合约-->
         <li class="tabs_infos fl capitalize"
-            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18">
           <p>{{$t('public.contractAddress')}}
             <span class="click" @click="toUrl('contractsInfo',contractInfo.contractAddress)">
               {{contractInfo.contractAddress}}
@@ -114,26 +114,26 @@
           </p>
         </li>
         <li class="tabs_infos fl capitalize"
-            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18">
           <p>GasLimit
             <span>{{contractInfo.gasLimit}}</span>
           </p>
         </li>
         <li class="tabs_infos fl capitalize"
-            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18">
           <p>{{$t('transactionInfo.transactionInfo8')}}
             <span>{{contractInfo.price}}</span>
           </p>
         </li>
         <li class="tabs_infos fl capitalize"
-            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18">
           <p>GasUsed
             <span>{{contractInfo.gasUsed}}</span>
           </p>
         </li>
 
         <li class="tabs_infos fl capitalize"
-            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18|| txInfo.type ===19">
+            v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18">
           <p>{{$t('public.enforcement')}}
             <span>{{contractInfo.success ? $t('public.success') : $t('public.fail')}}</span>
             <font v-show="!contractInfo.success">({{contractInfo.errorMessage}})</font>
@@ -160,7 +160,6 @@
             <span class="scroll overflow">{{txInfo.remark}}</span>
           </p>
         </li>
-        <li></li>
         <p class="cb"></p>
       </ul>
     </div>
@@ -337,7 +336,7 @@
         this.tokenTransfers=[];
         this.$post('/', 'getTx', [hash])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               response.result.time = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
 
@@ -360,7 +359,7 @@
               }
 
               //创建、调用合约
-              if (response.result.type === 15 || response.result.type === 16 || response.result.type === 17 || response.result.type === 18 || response.result.type === 19) {
+              if (response.result.type === 15 || response.result.type === 16 || response.result.type === 17 || response.result.type === 18) {
                 this.isContracts = true;
                 if(response.result.txData.hasOwnProperty('resultInfo')){
                   response.result.txData.resultInfo.totalFee = timesDecimals(response.result.txData.resultInfo.totalFee, 8);
