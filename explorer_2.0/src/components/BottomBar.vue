@@ -1,10 +1,13 @@
 <template>
   <div class="bottom bg-gray">
     <ul class="b_ul w1200">
-      <li class="b_li font14 fl capitalize"><a href="https://nuls.io/home" target="_blank">{{$t('bottom.website')}}</a></li>
+      <li class="b_li font14 fl capitalize"><a href="https://nuls.io/home" target="_blank">{{$t('bottom.website')}}</a>
+      </li>
       <li class="b_li font14 fl"><a href="https://github.com/nuls-io" target="_blank">Github</a></li>
-      <li class="b_li font14 fl capitalize"><a href="https://wallet.nuls.io/" target="_blank">{{$t('bottom.webWallet')}}</a></li>
-      <li class="b_li font14 fl capitalize"><a href="https://nuls.community/" target="_blank">{{$t('bottom.community')}}</a></li>
+      <li class="b_li font14 fl capitalize"><a href="https://wallet.nuls.io/"
+                                               target="_blank">{{$t('bottom.webWallet')}}</a></li>
+      <li class="b_li font14 fl capitalize"><a href="https://nuls.community/"
+                                               target="_blank">{{$t('bottom.community')}}</a></li>
       <li class="b_li font14 fl capitalize click" @click="toBugReport">{{$t('bottom.about')}}</li>
       <li class="b_li font14 fr">Copyright @2019 NULS</li>
     </ul>
@@ -14,7 +17,13 @@
 <script>
   //import {superLong, timesDecimals} from '@/api/util.js'
   import {RUN_DEV} from '@/config'
+
   export default {
+    data() {
+      return {
+        height: 0,//当前高度
+      }
+    },
     created() {
       this.getBestBlockHeader();
       this.getNodeNumber();
@@ -26,8 +35,18 @@
         this.getNULSNumber();
       }, 10000);
     },
-
-    methods:{
+    mounted() {
+      let that = this;
+      let IntervalName = setInterval(function () {
+        that.getBestBlockHeader();
+        that.getNodeNumber();
+        that.getNULSNumber();
+        if (that.height !== 0) {
+          clearInterval(IntervalName);
+        }
+      }, 1000);
+    },
+    methods: {
 
       /**
        * 获取最新高度
@@ -37,9 +56,15 @@
           .then((response) => {
             //console.log(response)
             if (response.hasOwnProperty("result")) {
+              this.height = response.result.height;
               this.$store.commit('SET_HEIGHT', response.result.height);
+            } else {
+              this.height = 0;
             }
-          })
+          }).catch((error) => {
+          this.height = 0;
+          console.log(error);
+        })
       },
 
       /**
@@ -72,9 +97,9 @@
        *  问题反馈 跳转
        **/
       toBugReport() {
-        if(RUN_DEV){
+        if (RUN_DEV) {
           window.open('https://nuls.community/d/135-collect-the-bugs-of-the-mainnet-bugs', '_blank');
-        }else {
+        } else {
           window.open('https://nuls.community/d/134-collect-the-bugs-of-the-testnet-bugs/2', '_blank');
         }
       },
@@ -103,7 +128,7 @@
           line-height: 45px;
           margin: 0 6px;
         }
-        &:first-child{
+        &:first-child {
           margin-left: 0;
           @media screen and (max-width: 1000px) {
             margin: 0 4px;
@@ -121,7 +146,7 @@
         @media screen and (max-width: 1000px) {
           font-size: 0.7rem;
         }
-        a{
+        a {
           cursor: pointer;
 
         }

@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <div class="h_height tc font30 fW600 capitalize">{{$t('home.home0')}}：{{this.$store.state.height}}</div>
+    <div class="h_height tc font30 fW600 capitalize">
+      {{$t('home.home0')}}:
+      <i class="el-icon-loading font18" v-if="height===0"></i>
+      <span v-else>{{height}}</span>
+    </div>
     <div class="search">
       <el-input :placeholder="$t('public.searchTip')" v-model="homeSearch" @keyup.enter.native="clickSearch">
         <i class="el-icon-search el-input__icon click" slot="suffix" @click="clickSearch"></i>
@@ -53,7 +57,7 @@
             <i @click="toCalc" class="iconfont icon-calculator_icon font18 cursor-p click"></i>
           </div>
         </div>
-        <ve-line style="top: -40px" height="100%"  width="100%"
+        <ve-line style="top: -40px" height="100%" width="100%"
                  :loading="yearChartLoading"
                  :data="yearChartData"
                  :legend-visible="false"
@@ -104,16 +108,16 @@
       };
 
       return {
-        isMobile:false,
+        isMobile: false,
         //搜索的内容
         homeSearch: '',
-        height: 0,//当前高度
+        height: this.$store.state.height,//当前高度
         //统计信息
         count: {
           nodeNumber: 0,//节点信息
-          entrustNumber: 0,//全网委托总量 consensusTotal
-          circulateNumber: 0,//总发行量
-          tradeNumber: 0//总流通量
+          entrustNumber: '0',//全网委托总量 consensusTotal
+          circulateNumber: '0',//总发行量
+          tradeNumber: '0'//总流通量
         },
         countLoading: true,
         //计算器弹框
@@ -132,15 +136,14 @@
         yearRateData: [],
         dayRateData: [],
         dayChartLoading: true,
-        //首页定时器
-        homeSetInterval: null,
+        homeSetInterval: null, //首页定时器
+        heightSetInterval: null, //首页高度获取定时器
       }
     },
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
+      this.getNULSInfo();
       //统计信息
-      this.getNodeNumber();
-      this.getNULSNumber();
       this.getYearRateData(3);
       this.get14DaysData(0);
       this.getRotationList();
@@ -149,16 +152,49 @@
         this.getRotationList();
       }, 10000);
     },
-    //离开当前页面后执行
+    mounted() {
+      this.heightSetInterval = setInterval(() => {
+        if (this.height === 0) {
+          this.height = this.$store.state.height;
+          this.getNULSInfo();
+          this.getYearRateData(3);
+          this.get14DaysData(0);
+          this.getRotationList();
+        }
+      }, 1000)
+    },
     destroyed() {
       clearInterval(this.homeSetInterval);
-    },
-    mounted() {
+      clearInterval(this.heightSetInterval);
     },
     components: {
       CalcBar
     },
     methods: {
+
+      /**
+       * @disc: 获取节点信息从vuex里面
+       * @params:
+       * @date: 2019-08-30 11:17
+       * @author: Wave
+       */
+      getNULSInfo() {
+        if (this.$store.state.nodeNumber.consensusCount) {
+          this.count.nodeNumber = this.$store.state.nodeNumber.consensusCount;
+        } else {
+          this.count.nodeNumber = 0
+        }
+        let NULSNumber = this.$store.state.NULSNumber;
+        if (NULSNumber.length !== 0) {
+          let newCirculateNumber = new BigNumber(timesDecimals(NULSNumber.total, 11));
+          this.count.circulateNumber = newCirculateNumber.toFormat(2);
+          let newEntrustNumber = new BigNumber(timesDecimals(NULSNumber.consensusTotal, 11));
+          this.count.entrustNumber = newEntrustNumber.toFormat(2);
+          let newTradeNumber = new BigNumber(timesDecimals(NULSNumber.circulation, 11));
+          this.count.tradeNumber = newTradeNumber.toFormat(2);
+          this.countLoading = false;
+        }
+      },
 
       /**
        *  首页全局搜索框
@@ -199,38 +235,6 @@
           }).catch((error) => {
           console.log(error)
         })
-      },
-
-      /**
-       * 获取节点数量
-       */
-      getNodeNumber() {
-        this.$post('/', 'getConsensusNodeCount', [])
-          .then((response) => {
-            //console.log(response);
-            if (response.hasOwnProperty("result")) {
-              this.count.nodeNumber = response.result.consensusCount;
-            }
-          })
-      },
-
-      /**
-       * 获取NULS数量信息
-       */
-      getNULSNumber() {
-        this.$post('/', 'getCoinInfo', [])
-          .then((response) => {
-            //console.log(response);
-            if (response.hasOwnProperty("result")) {
-              let newCirculateNumber = new BigNumber(timesDecimals(response.result.total, 11));
-              this.count.circulateNumber = newCirculateNumber.toFormat(2);
-              let newEntrustNumber = new BigNumber(timesDecimals(response.result.consensusTotal, 11));
-              this.count.entrustNumber = newEntrustNumber.toFormat(2);
-              let newTradeNumber = new BigNumber(timesDecimals(response.result.circulation, 11));
-              this.count.tradeNumber = newTradeNumber.toFormat(2);
-              this.countLoading = false;
-            }
-          })
       },
 
       /**
@@ -444,55 +448,60 @@
       }
     }
 
-    .home_dialog{
-      .el-dialog{
+    .home_dialog {
+      .el-dialog {
         width: 745px;
       }
     }
 
     @media screen and (max-width: 1000px) {
-      .h_height{
+      .h_height {
         margin: 1.2rem 0;
       }
-      .search{
+
+      .search {
         width: 90%;
 
       }
-      .h_count{
+
+      .h_count {
         margin: 1rem auto 0;
-        ul{
+        ul {
           height: 5rem;
-          li{
+          li {
             height: 3rem;
             margin: 1rem 0 0 0;
-            p{
+            p {
               font-size: 0.7rem;
               line-height: 0.7rem;
             }
-            h5{
+            h5 {
               font-size: 0.8rem;
               line-height: 0.8rem;
             }
           }
         }
       }
-      .h_animation{
+
+      .h_animation {
         display: none;
       }
-      .h_chart{
+
+      .h_chart {
         height: auto;
         margin: 1.5rem 0;
         .h_chart_left, .h_chart_right {
-           width: 100%;
+          width: 100%;
           height: 15rem;
           float: none;
         }
 
       }
-      .home_dialog{
-        .el-dialog{
+
+      .home_dialog {
+        .el-dialog {
           width: 92%;
-          .el-dialog__body{
+          .el-dialog__body {
             padding: 1rem 0.5rem;
           }
         }
