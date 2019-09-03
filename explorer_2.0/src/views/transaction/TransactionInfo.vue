@@ -84,7 +84,7 @@
         </li>
 
         <!--红黄牌-->
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===7 || txInfo.type ===8">
+        <li class="tabs_infos fl" v-if="txInfo.type ===7 || txInfo.type ===8">
           <p class="redcal">{{$t('transactionInfo.transactionInfo5')}}
             <span class="click" v-show="txInfo.type === 7" v-for="item in txInfo.txDataList" :key="item.address"
                   @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
@@ -105,7 +105,7 @@
         </li>
 
         <!--创建、调用合约-->
-        <li class="tabs_infos fl capitalize"
+        <li class="tabs_infos fl"
             v-if="txInfo.type ===15 || txInfo.type ===16|| txInfo.type ===17|| txInfo.type ===18">
           <p>{{$t('public.contractAddress')}}
             <span class="click" @click="toUrl('contractsInfo',contractInfo.contractAddress)">
@@ -224,7 +224,7 @@
             {{item.value}}
             <span class="fCN"> {{item.symbol}}
               <i class="iconfont yellow font12" :title="item.isShowInfo"
-                 :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i>
+                 :class="item.lockTime < 0 ? 'icon-lock_icon':''"></i>
             </span>
           </label>
         </li>
@@ -251,7 +251,7 @@
                 <label class="fr">
                   {{item.value}}
                   <span class="fCN"> {{item.symbol}}<i class="iconfont yellow font12" :title="item.isShowInfo"
-                                            :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i></span>
+                                                       :class="item.lockTime > 0 ? 'icon-lock_icon':''"></i></span>
                 </label>
               </li>
             </ul>
@@ -303,7 +303,7 @@
         txhashInterval: null,
         isContracts: false,//是否为合约交易
         nulsTransfers: [],//合约转出NULS
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
+        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
       };
     },
     created() {
@@ -331,15 +331,14 @@
        * 根据hash获取交易详情
        */
       async getTxInfoByHash(hash) {
-        this.nulsTransfers =[];
-        this.contractInfo=[];
-        this.tokenTransfers=[];
+        this.nulsTransfers = [];
+        this.contractInfo = [];
+        this.tokenTransfers = [];
         this.$post('/', 'getTx', [hash])
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
               response.result.time = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-
               response.result.fees = timesDecimals(response.result.fee.value, 8);
               response.result.value = timesDecimals(response.result.value, 8);
 
@@ -361,7 +360,7 @@
               //创建、调用合约
               if (response.result.type === 15 || response.result.type === 16 || response.result.type === 17 || response.result.type === 18) {
                 this.isContracts = true;
-                if(response.result.txData.hasOwnProperty('resultInfo')){
+                if (response.result.txData.hasOwnProperty('resultInfo')) {
                   response.result.txData.resultInfo.totalFee = timesDecimals(response.result.txData.resultInfo.totalFee, 8);
                   response.result.txData.resultInfo.txSizeFee = timesDecimals(response.result.txData.resultInfo.txSizeFee, 8);
                   response.result.txData.resultInfo.actualContractFee = timesDecimals(response.result.txData.resultInfo.actualContractFee, 8);
@@ -410,6 +409,8 @@
                     item.isShowInfo = ''
                   } else if (item.lockTime > 1000000000) {
                     item.isShowInfo = this.$t('transactionInfo.transactionInfo10') + ":" + moment(getLocalTime(item.lockTime)).format('YYYY-MM-DD HH:mm:ss');
+                  } else if (item.lockTime === -1) {
+                    item.isShowInfo = this.$t('public.consensusLockings');
                   } else {
                     const heightDiffer = (item.lockTime - this.$store.state.height) * 10;
                     const expectTime = moment(moment().add(heightDiffer, 'seconds')).format('YYYY-MM-DD HH:mm:ss');

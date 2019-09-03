@@ -190,7 +190,7 @@
         const params = {
           "jsonrpc": "2.0",
           "method": 'getContractCode',
-          "params": [Number(sessionStorage.getItem('chainId')), contractsAddress,path],
+          "params": [Number(sessionStorage.getItem('chainId')), contractsAddress, path],
           "id": Math.floor(Math.random() * 1000)
         };
         axios.post(CODE_URL, params)

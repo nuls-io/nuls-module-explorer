@@ -82,7 +82,8 @@ const cn ={
     "success":"成功",
     "fail":"失败",
     "enforcement":"合约执行",
-    "contractMethod":"合约方法"
+    "contractMethod":"合约方法",
+    "consensusLockings":"共识锁定"
   },
 
   "type": {
@@ -271,7 +272,7 @@ const cn ={
 
   "rotationInfo":{
     "rotationInfo0":"轮",
-    "rotationInfo1":"只显示红黄牌",
+    "rotationInfo1":"只显示黄牌",
     "rotationInfo2":"本轮编号",
     "rotationInfo3":"区块列表"
   },

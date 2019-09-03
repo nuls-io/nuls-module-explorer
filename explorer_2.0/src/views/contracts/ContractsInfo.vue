@@ -14,11 +14,13 @@
             <span class="click" @click="toUrl('tokenInfo',contractsAddress)">{{contractsInfo.tokenName}}</span>
           </p>
         </li>
-        <li class="tabs_infos fl"><p>{{$t('public.status')}}<span>{{$t('contractStatus.'+contractsInfo.status)}}</span></p></li>
+        <li class="tabs_infos fl"><p>{{$t('public.status')}}<span>{{$t('contractStatus.'+contractsInfo.status)}}</span>
+        </p></li>
         <li class="tabs_infos fl"><p>{{$t('public.transactionNo')}}<span>{{contractsInfo.txCount}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.balance')}}<span>{{contractsInfo.balance/100000000}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.createAddress')}}
-          <span class="click mobile_s" @click="toUrl('addressInfo',contractsInfo.creater)">{{contractsInfo.creater}}</span>
+          <span class="click mobile_s"
+                @click="toUrl('addressInfo',contractsInfo.creater)">{{contractsInfo.creater}}</span>
         </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('public.createTime')}}<span>{{contractsInfo.createTime}}</span></p></li>
@@ -59,9 +61,11 @@
             <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
 
           </el-tab-pane>
-          <el-tab-pane v-if="!isMobile" :label="$t('contractsInfo.contractsInfo0')" name="second" :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
+          <el-tab-pane v-if="!isMobile" :label="$t('contractsInfo.contractsInfo0')" name="second"
+                       :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
             <div v-if="activeName === 'second'">
-              <CodeInfo  :status="contractsInfo.status" :certificationTime="contractsInfo.certificationTime" v-on:contractStatus="contractStatus"></CodeInfo>
+              <CodeInfo :status="contractsInfo.status" :certificationTime="contractsInfo.certificationTime"
+                        v-on:contractStatus="contractStatus"></CodeInfo>
             </div>
           </el-tab-pane>
           <el-tab-pane :label="$t('transactionInfo.transactionInfo9')" name="three">
@@ -95,7 +99,7 @@
   export default {
     data() {
       return {
-        isMobile:false,
+        isMobile: false,
         activeName: this.$route.query.tabName,
         //合约地址
         contractsAddress: this.$route.query.contractAddress,
@@ -120,14 +124,25 @@
           page: 1,
           rows: 15,
         },
-      //地址定时器
-      contractAddressInterval:null,
+        //地址定时器
+        contractAddressInterval: null,
       }
     },
     components: {
       paging,
       CodeInfo,
       SelectBar,
+    },
+    watch: {
+      contractsAddress: function () {
+        // contractsAddress，当放生变化时，重新获取数据
+        //console.log('new: %s, old: %s', val, oldVal);
+        this.activeName = 'first';
+        this.getContractsInfoByContractsAddress(this.contractsAddress);
+        this.contractsTypeRegion = 0;
+        this.pager = {total: 0, page: 1, rows: 15,};
+        this.getConsensusTxList(this.pager.page, this.pager.rows, this.contractsTypeRegion, this.contractsAddress);
+      }
     },
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
@@ -136,13 +151,13 @@
     },
     mounted() {
       //定时获取地址
-      this.contractAddressInterval = setInterval(()=>{
-        this.contractsAddress= this.$route.query.contractAddress;
-      },500)
+      this.contractAddressInterval = setInterval(() => {
+        this.contractsAddress = this.$route.query.contractAddress;
+      }, 500)
     },
     beforeDestroy() {
       //离开界面清除定时器
-      if(this.contractAddressInterval) {
+      if (this.contractAddressInterval) {
         clearInterval(this.contractAddressInterval);
       }
     },
@@ -153,7 +168,7 @@
        * @param contractStatus
        **/
       contractStatus(contractStatus) {
-        this.contractsInfo.status =contractStatus
+        this.contractsInfo.status = contractStatus
       },
 
       /**
@@ -175,9 +190,9 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               this.getContractAddressInfo(address);
-              response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.createTime = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               if (response.result.certificationTime) {
-                response.result.certificationTime = moment(getLocalTime(response.result.certificationTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+                response.result.certificationTime = moment(getLocalTime(response.result.certificationTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               } else {
                 response.result.certificationTime = 'null'
               }
@@ -191,7 +206,7 @@
 
       /**
        * 调用认证方法
-       * @param contractStatus
+       * @param contractsAddress
        **/
       async getContractAddressInfo(contractsAddress) {
         const params = {
@@ -233,7 +248,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 20);
               }
               this.contractsTxList = response.result.list;
@@ -278,17 +293,6 @@
       },
 
     },
-    watch: {
-      contractsAddress: function () {
-        // contractsAddress，当放生变化时，重新获取数据
-        //console.log('new: %s, old: %s', val, oldVal);
-        this.activeName= 'first';
-        this.getContractsInfoByContractsAddress(this.contractsAddress);
-        this.contractsTypeRegion=0;
-        this.pager = {total: 0, page: 1, rows: 15,};
-        this.getConsensusTxList(this.pager.page, this.pager.rows, this.contractsTypeRegion, this.contractsAddress);
-      }
-    }
   }
 </script>
 
@@ -298,7 +302,7 @@
     .bg-white {
       min-height: 65px;
       @media screen and (max-width: 1000px) {
-        .title{
+        .title {
           margin: 1rem 0 2.5rem 0;
           font-size: 1rem;
           line-height: 1rem;
@@ -309,9 +313,9 @@
       margin: -63px auto 0;
       .ul {
         min-height: 125px;
-        li{
+        li {
           @media screen and (max-width: 1000px) {
-            .mobile_s{
+            .mobile_s {
               font-size: 0.8rem;
             }
           }
@@ -319,13 +323,13 @@
       }
     }
 
-    .contracts-tab{
+    .contracts-tab {
       @media screen and (max-width: 1000px) {
         width: 95%;
       }
       margin: 1rem auto 0;
     }
-    .el-tabs__content{
+    .el-tabs__content {
       margin-bottom: 100px;
     }
   }

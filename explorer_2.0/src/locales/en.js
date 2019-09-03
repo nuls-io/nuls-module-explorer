@@ -83,7 +83,8 @@ const en = {
     "success":"Success",
     "fail":"Fail",
     "enforcement":"Contract Result",
-    "contractMethod":"Contract Method"
+    "contractMethod":"Contract Method",
+    "consensusLockings":"Consensus Locking"
   },
 
   "type": {
