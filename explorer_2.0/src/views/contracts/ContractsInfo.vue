@@ -94,7 +94,7 @@
   import CodeInfo from '@/views/contracts/CodeInfo';
   import {getLocalTime, superLong, copys} from '@/api/util.js'
   import axios from 'axios'
-  import {CODE_URL} from './../../config'
+  import {CODE_URL} from '@/config'
 
   export default {
     data() {
@@ -217,7 +217,7 @@
         };
         axios.post(CODE_URL, params)
           .then((response) => {
-            //console.log(response.data);
+            console.log(response.data);
             if (response.data.hasOwnProperty("result")) {
               this.contractsInfo.status = response.data.result.status;
             }

@@ -19,7 +19,8 @@
               <span>{{$t('contractStatus.'+contractsInfo.status)}}</span>
             </label>
             <label v-else>
-              <span class="cursor-p click" v-if="contractsInfo.status ===0" @click="toUrl('contractsInfo',contractsInfo.contractAddress,'second')">{{$t('contractStatus.'+contractsInfo.status)}}</span>
+              <span class="cursor-p click" v-if="contractsInfo.status ===0"
+                    @click="toUrl('contractsInfo',contractsInfo.contractAddress,'second')">{{$t('contractStatus.'+contractsInfo.status)}}</span>
               <span v-if="contractsInfo.status !==0">{{$t('contractStatus.'+contractsInfo.status)}}</span>
             </label>
           </p>
@@ -30,7 +31,9 @@
         <li class="tabs_infos fl"><p>{{$t('tokenInfo.tokenInfo0')}}<span>{{contractsInfo.decimals}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.transactionNo')}}<span>{{contractsInfo.transferCount}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('tokenInfo.tokenInfo1')}}<span>{{contractsInfo.ownersCount}}</span></p></li>
-        <li class="tabs_infos fl"><p>{{$t('public.createAddress')}}<span class="mobile_s click"  @click="toUrl('addressInfo',contractsInfo.creater)">{{contractsInfo.creater}}</span></p></li>
+        <li class="tabs_infos fl"><p>{{$t('public.createAddress')}}<span class="mobile_s click"
+                                                                         @click="toUrl('addressInfo',contractsInfo.creater)">{{contractsInfo.creater}}</span>
+        </p></li>
         <li class="tabs_infos fl"><p>{{$t('public.createTime')}}<span>{{contractsInfo.createTime}}</span></p></li>
       </ul>
     </div>
@@ -113,11 +116,13 @@
 <script>
   import moment from 'moment'
   import {getLocalTime, superLong, timesDecimals} from '@/api/util.js'
+  import axios from 'axios'
+  import {CODE_URL} from '@/config'
 
   export default {
     data() {
       return {
-        isMobile:false,
+        isMobile: false,
         activeName: 'tokenFirst',
         //合约地址
         contractsAddress: this.$route.query.contractAddress,
@@ -153,13 +158,36 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+              this.getContractAddressInfo(contractsaddress);
+              response.result.createTime = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               response.result.totalSupply = timesDecimals(response.result.totalSupply, response.result.decimals);
               response.result.ownersCount = response.result.owners.length;
               this.contractsInfo = response.result;
             }
           }).catch((error) => {
           console.log(error)
+        })
+      },
+
+      /**
+       * 调用认证方法
+       * @param contractsAddress
+       **/
+      async getContractAddressInfo(contractsAddress) {
+        const params = {
+          "jsonrpc": "2.0",
+          "method": 'getContractAddressInfo',
+          "params": [Number(sessionStorage.getItem('chainId')), contractsAddress],
+          "id": Math.floor(Math.random() * 1000)
+        };
+        axios.post(CODE_URL, params)
+          .then((response) => {
+            //console.log(response.data);
+            if (response.data.hasOwnProperty("result")) {
+              this.contractsInfo.status = response.data.result.status;
+            }
+          }).catch((error) => {
+          console.log(error);
         })
       },
 
@@ -172,7 +200,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 6);
                 item.value = timesDecimals(item.value, item.decimals);
               }
@@ -220,7 +248,6 @@
         this.getAccountTokensList(this.pager.page, this.pager.rows, this.contractsAddress);
       },
 
-
       /**
        * tab 切换
        * @param tab
@@ -240,6 +267,7 @@
        * url 连接跳转
        * @param name
        * @param parmes
+       * @param tabName
        */
       toUrl(name, parmes, tabName) {
         let newQuery = {};
@@ -280,9 +308,9 @@
       margin-bottom: 20px;
       .ul {
         min-height: 215px;
-        li{
+        li {
           @media screen and (max-width: 1000px) {
-            .mobile_s{
+            .mobile_s {
               font-size: 0.75rem;
             }
           }
@@ -294,7 +322,7 @@
       @media screen and (max-width: 1000px) {
         width: 95%;
         margin: 1rem auto 0;
-    }
+      }
       .el-tabs__content {
         margin-bottom: 65px;
       }
