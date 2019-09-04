@@ -101,6 +101,7 @@ const en = {
     "9": "Unregister node",
     "10": "Cross Trading",
     "11": "Cross Register",
+    "12": "Cross Cancellation",
     "15": "Contract creation",
     "16": "Call contract",
     "17": "Delete contract",
@@ -112,7 +113,6 @@ const en = {
     "23": "Contract cancellation node",
     "24": "Verifier Change",
     "25": "Verifier initialization",
-    "": "",
   },
 
   "addressType": {

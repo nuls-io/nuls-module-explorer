@@ -207,7 +207,7 @@
     </div>
 
     <div class="w1200 t_basics bg-white">
-      <h3 class="tabs_title tabs_header capitalize">{{$t('public.input')}}&{{$t('public.output')}}</h3>
+      <h3 class="tabs_title tabs_header capitalize"><span>{{$t('public.input')}}</span>{{$t('public.output')}}</h3>
       <ul class="inputs fl scroll">
         <li class="font14" v-for="item in txInfo.coinFroms" :key="item.key">
           <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
@@ -516,6 +516,11 @@
       h3 {
         padding: 0 0 0 30px;
         border-bottom: @BD1;
+        span{
+          width: 58%;
+          display: block;
+          float: left;
+        }
       }
       .inputs, .outputs {
         width: 525px;
