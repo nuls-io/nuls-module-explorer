@@ -46,13 +46,15 @@
 </template>
 
 <script>
-  import logo from './../assets/img/logo-beta.svg'
+  import logoBeta from '@/assets/img/logo-beta.svg'
+  import logo from '@/assets/img/logo.svg'
   import MenuBar from '@/components/MenuBar';
+  import {RUN_DEV} from '@/config'
 
   export default {
     data() {
       return {
-        logoSvg: logo,
+        logoSvg: RUN_DEV ? logo : logoBeta,
         //默认选择菜单
         navActive: sessionStorage.hasOwnProperty('navActive') ? sessionStorage.getItem('navActive') : 'home',
         //统计信息
@@ -67,6 +69,7 @@
         lang: 'en',
         //移动端显示
         showMobile: false,
+        RUN_DEV: RUN_DEV,//运行模式
       };
     },
     components: {

@@ -30,7 +30,7 @@
         </el-table-column>
         <el-table-column prop="size" :label="$t('public.size')+'(byte)'" width="100"></el-table-column>
         <el-table-column :label="$t('public.blockReward')" width="180" align="center">
-          <template slot-scope="scope">{{ scope.row.reward/100000000 }}</template>
+          <template slot-scope="scope">{{ scope.row.reward}}</template>
         </el-table-column>
       </el-table>
       <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
@@ -41,7 +41,7 @@
 <script>
   import moment from 'moment'
   import paging from '@/components/pagingBar';
-  import {getLocalTime} from '@/api/util.js'
+  import {getLocalTime,timesDecimals} from '@/api/util.js'
 
   export default {
     data() {
@@ -77,6 +77,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
+                item.reward = timesDecimals(item.reward,8);
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               }
               this.blockList = response.result.list;
