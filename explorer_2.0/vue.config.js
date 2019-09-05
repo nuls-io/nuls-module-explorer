@@ -2,6 +2,13 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const productionGzipExtensions = ['js', 'css'];
 const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
+  // configureWebpack: {
+  //     externals: {
+  //       vue: 'Vue',
+  //       moment: 'moment',
+  //       "vue-router": "VueRouter"
+  //     }
+  // },
   publicPath: process.env.NODE_ENV === 'production' ? 'dist/' : '/',
   pluginOptions: {
     i18n: {
