@@ -102,6 +102,8 @@ const en = {
     "10": "Cross Trading",
     "11": "Cross Register",
     "12": "Cross Cancellation",
+    "13": "Add Cross Assets",
+    "14": "Cancel Cross Assets",
     "15": "Contract creation",
     "16": "Call contract",
     "17": "Delete contract",

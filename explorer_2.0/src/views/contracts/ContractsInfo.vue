@@ -301,6 +301,9 @@
     //min-height: 950px;
     .bg-white {
       min-height: 65px;
+      .title{
+        height: 65px;
+      }
       @media screen and (max-width: 1000px) {
         .title {
           margin: 1rem 0 2.5rem 0;

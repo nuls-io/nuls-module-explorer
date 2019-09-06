@@ -1,8 +1,11 @@
 <template>
   <div id="app" class="app">
-    <HeaderBar></HeaderBar>
-    <router-view></router-view>
-    <BottomBar></BottomBar>
+    <HeaderBar>
+    </HeaderBar>
+    <router-view>
+    </router-view>
+    <BottomBar>
+    </BottomBar>
   </div>
 </template>
 
@@ -10,7 +13,7 @@
 import HeaderBar from './components/HeaderBar'
 import BottomBar from './components/BottomBar'
 import axios from 'axios'
-import {API_ROOT} from './config'
+import {API_ROOT,RUN_DEV} from './config'
 
 export default {
   components: {
@@ -39,14 +42,14 @@ export default {
             sessionStorage.setItem("decimals",data.result.defaultAsset.decimals);
           }else {
             //console.log(data.hasOwnProperty("result"));
-            sessionStorage.setItem("chainId","2");
+            sessionStorage.setItem("chainId",RUN_DEV ? "1":"2");
             sessionStorage.setItem("symbol",'NULS');
             sessionStorage.setItem("decimals",'8');
           }
         })
         .catch((error)=>{
           console.log(error);
-          sessionStorage.setItem("chainId","2");
+          sessionStorage.setItem("chainId",RUN_DEV ? "1":"2");
           sessionStorage.setItem("symbol",'NULS');
           sessionStorage.setItem("decimals",'8');
         })
