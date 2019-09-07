@@ -19,14 +19,16 @@ module.exports = {
         threshold: 10240,
         minRatio: 0.8
       }));
-      
+
     }
     config.externals = {
-        'vue': 'Vue',
-        'vue-router': 'VueRouter',
-        'moment': 'moment'
-        /*'element-ui': 'ELEMENT',*/
-      }
+      'vue': 'Vue',
+      'vue-router': 'VueRouter',
+      'vuex': 'Vuex',
+      'moment': 'moment',
+      'echarts': 'echarts',
+      'element-ui': 'ELEMENT',
+    }
   },
 
   baseUrl: undefined,

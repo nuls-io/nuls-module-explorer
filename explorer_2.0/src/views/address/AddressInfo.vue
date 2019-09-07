@@ -374,7 +374,7 @@
       /**
        * 根据地址获取交易列表
        */
-      getTxListByAddress(page, rows, address, type, boolean) {
+      getTxListByAddress(page, rows, address, type) {
         this.$post('/', 'getAccountTxs', [page, rows, address, type, -1,-1])
           .then((response) => {
             //console.log(response);

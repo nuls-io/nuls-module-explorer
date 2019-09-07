@@ -150,6 +150,7 @@
       //10秒循环一次数据
       this.homeSetInterval = setInterval(() => {
         this.getRotationList();
+        this.height = this.$store.state.height;
       }, 10000);
     },
     mounted() {
