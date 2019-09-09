@@ -61,10 +61,13 @@
     methods: {
 
       /**
-       * 获地址列表
+       * @disc: 获地址列表
+       * @params: page, rows
+       * @date: 2019-09-09 17:32
+       * @author: Wave
        */
-      getAddressList(page, rows, sort) {
-        this.$post('/', 'getCoinRanking', [page, rows, sort])
+      getAddressList(page, rows) {
+        this.$post('/', 'getCoinRanking', [page, rows])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
@@ -93,7 +96,7 @@
         } else {
           this.sort = 0;
         }
-        this.getAddressList(this.pager.page, this.pager.rows, this.sort);
+        this.getAddressList(this.pager.page, this.pager.rows);
       },
 
       /**
@@ -101,7 +104,7 @@
        **/
       pagesList() {
         this.addressLoading = true;
-        this.getAddressList(this.pager.page, this.pager.rows, this.sort)
+        this.getAddressList(this.pager.page, this.pager.rows)
       },
 
       /**
