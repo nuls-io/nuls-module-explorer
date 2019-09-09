@@ -52,7 +52,7 @@ module.exports = {
     open: true, //配置自动启动浏览器
     proxy: {// 配置跨域处理
       '/api': {
-        target: 'http://192.168.1.127:8080/',
+        target: 'http://127.0.0.1:8080/',
         changeOrigin: true,  // 是否跨域
         pathRewrite: {
           '^/api': '/'

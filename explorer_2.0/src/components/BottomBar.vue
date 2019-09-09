@@ -9,6 +9,7 @@
       <li class="b_li font14 fl capitalize"><a href="https://nuls.community/"
                                                target="_blank">{{$t('bottom.community')}}</a></li>
       <li class="b_li font14 fl capitalize click" @click="toBugReport">{{$t('bottom.about')}}</li>
+      <li class="b_li font14 fl capitalize click" @click="toExplorer">{{$t('bottom.explorer1')}}</li>
       <li class="b_li font14 fr">Copyright @2019 NULS</li>
     </ul>
   </div>
@@ -102,6 +103,13 @@
         } else {
           window.open('https://nuls.community/d/134-collect-the-bugs-of-the-testnet-bugs/2', '_blank');
         }
+      },
+
+      /**
+       *  1.0 浏览器跳转
+       **/
+      toExplorer() {
+        window.open('https://v1.nulscan.io/', '_blank');
       },
 
     }

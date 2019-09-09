@@ -139,7 +139,6 @@ const en = {
     "2": "Out history",
   },
 
-
   "nodeStatus": {
     "undefined": "",
     "0": "All nodes",
@@ -322,7 +321,8 @@ const en = {
     "website": "Official Website",
     "webWallet": "Light wallet",
     "community": "Community",
-    "about": "Bug Report"
+    "about": "Bug Report",
+    "explorer1":"1.0 Explorer",
   },
   ...enLocale
 

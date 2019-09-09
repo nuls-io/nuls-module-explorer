@@ -322,7 +322,8 @@ const cn ={
     "website":"官网",
     "webWallet":"网页钱包",
     "community":"社区",
-    "about":"问题反馈"
+    "about":"问题反馈",
+    "explorer1":"1.0浏览器",
   },
   ...zhLocale
 };

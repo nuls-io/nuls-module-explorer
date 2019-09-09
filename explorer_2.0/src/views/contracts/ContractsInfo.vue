@@ -215,9 +215,10 @@
           "params": [Number(sessionStorage.getItem('chainId')), contractsAddress],
           "id": Math.floor(Math.random() * 1000)
         };
+        //console.log(CODE_URL);
         axios.post(CODE_URL, params)
           .then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             if (response.data.hasOwnProperty("result")) {
               this.contractsInfo.status = response.data.result.status;
             }
@@ -301,7 +302,7 @@
     //min-height: 950px;
     .bg-white {
       min-height: 65px;
-      .title{
+      .title {
         height: 65px;
       }
       @media screen and (max-width: 1000px) {
