@@ -4,11 +4,19 @@
       <div class="chart_title">
         <h2 class="fl font18 capitalize">{{$t('transaction.transaction0')}}</h2>
         <div class="fr">
-          <div class="font16"><span class="font12 capitalize">{{$t('transaction.transaction1')}}:</span> {{this.txListTotal}}</div>
+          <div class="font16"><span class="font12 capitalize">{{$t('transaction.transaction1')}}:</span>
+            {{this.txListTotal}}
+          </div>
           <div class="chart_bt">
-            <el-button type="text" class="btn capitalize" @click="changeDate(1)" :class="timeRate === 1 ? 'btn_N':''">{{$t('public.week')}}</el-button>
-            <el-button type="text" class="btn capitalize" @click="changeDate(2)" :class="timeRate === 2 ? 'btn_N':''">{{$t('public.month')}}</el-button>
-            <el-button type="text" class="btn capitalize" @click="changeDate(3)" :class="timeRate === 3 ? 'btn_N':''">{{$t('public.year')}}</el-button>
+            <el-button type="text" class="btn capitalize" @click="changeDate(1)" :class="timeRate === 1 ? 'btn_N':''">
+              {{$t('public.week')}}
+            </el-button>
+            <el-button type="text" class="btn capitalize" @click="changeDate(2)" :class="timeRate === 2 ? 'btn_N':''">
+              {{$t('public.month')}}
+            </el-button>
+            <el-button type="text" class="btn capitalize" @click="changeDate(3)" :class="timeRate === 3 ? 'btn_N':''">
+              {{$t('public.year')}}
+            </el-button>
           </div>
         </div>
       </div>
@@ -62,11 +70,11 @@
   import moment from 'moment'
   import paging from '@/components/pagingBar';
   import SelectBar from '@/components/SelectBar';
-  import {getLocalTime,superLong,timesDecimals} from '@/api/util.js'
+  import {getLocalTime, superLong, timesDecimals} from '@/api/util.js'
 
   export default {
     data() {
-      this.colors = ['#7db46d','#7db46d', '#7db46d',
+      this.colors = ['#7db46d', '#7db46d', '#7db46d',
         '#546570', '#c4ccd3'];
       this.chartSettings = {
         yAxisType: ['normal'],
@@ -76,12 +84,12 @@
       };
       return {
         //统计图数据
-        timeChartData:{
+        timeChartData: {
           columns: [],
-          rows:[]
+          rows: []
         },
         timeRateDataLoading: true,
-        timeRate:2,
+        timeRate: 2,
         //交易类型
         typeRegion: 0,
         //隐藏滑块
@@ -89,16 +97,16 @@
         //交易列表
         txList: [],
         //交易列表加载动画
-        txListLoading:true,
+        txListLoading: true,
         //交易列表总数
-        txListTotal:0,
+        txListTotal: 0,
         //分页信息
         pager: {
           total: 0,
           page: 1,
           rows: 6,
         },
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
+        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
       }
     },
     components: {
@@ -107,9 +115,10 @@
     },
     created() {
       this.getYearRateData(this.timeRate);
-      this.getTxList(this.pager.page, this.pager.rows,this.typeRegion, this.hideSwitch);
+      this.getTransactionsTotal();
+      this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
     },
-    mounted(){
+    mounted() {
     },
     methods: {
 
@@ -121,9 +130,24 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              this.timeChartData.columns=['key', 'value'];
-              this.timeChartData.rows=response.result;
-              this.timeRateDataLoading =false;
+              this.timeChartData.columns = ['key', 'value'];
+              this.timeChartData.rows = response.result;
+              this.timeRateDataLoading = false;
+            }
+          })
+      },
+
+      /**
+       * @disc: 获取最新的交易总量
+       * @date: 2019-09-10 14:02
+       * @author: Wave
+       */
+      getTransactionsTotal() {
+        this.$post('/', 'getCoinInfo', [])
+          .then((response) => {
+            //console.log(response);
+            if (response.hasOwnProperty("result")) {
+              this.txListTotal = response.result.txCount;
             }
           })
       },
@@ -131,10 +155,10 @@
       /**
        * 选择统计数据的周、月、年
        **/
-      changeDate(type){
-        this.timeRateDataLoading =true;
-        this.timeChartData.columns=[];
-        this.timeChartData.rows=[];
+      changeDate(type) {
+        this.timeRateDataLoading = true;
+        this.timeChartData.columns = [];
+        this.timeChartData.rows = [];
         this.timeRate = type;
         this.getYearRateData(type)
       },
@@ -148,17 +172,17 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.time = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.time = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.hashs = superLong(item.hash, 20);
                 item.value = timesDecimals(item.value, 8);
                 item.fees = timesDecimals(item.fee.value, 8);
               }
               this.txList = response.result.list;
-              if(type === 0 && !show){
-                this.txListTotal =response.result.totalCount
+              if (type === 0 && !show) {
+                this.txListTotal = response.result.totalCount
               }
               this.pager.total = response.result.totalCount;
-              this.txListLoading= false;
+              this.txListLoading = false;
             }
           })
       },
@@ -167,7 +191,7 @@
        * 分页功能
        **/
       pagesList() {
-        this.txListLoading=true;
+        this.txListLoading = true;
         this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
       },
 
@@ -175,7 +199,7 @@
        * 获取交易类型
        **/
       changeType(type) {
-        this.pager={total: 0, page: 1, rows: 7,};
+        this.pager = {total: 0, page: 1, rows: 7,};
         this.typeRegion = parseInt(type);
         this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
       },
@@ -184,8 +208,8 @@
        * 隐藏共识奖励
        **/
       hideConsensusList() {
-        this.txListLoading= true;
-        this.pager={total: 0, page: 1, rows: 6};
+        this.txListLoading = true;
+        this.pager = {total: 0, page: 1, rows: 6};
         this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
       },
 

@@ -15,8 +15,10 @@
           <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
         </el-table-column>
         <el-table-column :label="$t('public.address')" min-width="280">
-          <template slot-scope="scope"><span class="cursor-p click"
-                                             @click="toUrl('addressInfo',scope.row.address,scope.row.type)">{{ scope.row.address }}</span>
+          <template slot-scope="scope">
+            <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.address,scope.row.type)">
+              {{ scope.row.address }}
+            </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('public.total')" sortable="true" width="200" align="left">
