@@ -72,12 +72,12 @@
                   @click="toUrl('addressInfo',txInfo.txData.agentAddress)">{{txInfo.txData.agentAddress}}</span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===4 || txInfo.type ===9">
+        <li class="tabs_infos fl" v-if="txInfo.type ===4 || txInfo.type ===9">
           <p>{{$t('public.outAddress')}}
             <span class="click" @click="toUrl('addressInfo',txInfo.txData.rewardAddress)">{{txInfo.txData.rewardAddress}}</span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===4 || txInfo.type ===9">
+        <li class="tabs_infos fl" v-if="txInfo.type ===4 || txInfo.type ===9">
           <p>{{$t('public.packAddress')}}
             <span class="click" @click="toUrl('addressInfo',txInfo.txData.packingAddress)">{{txInfo.txData.packingAddress}}</span>
           </p>
@@ -516,7 +516,7 @@
       h3 {
         padding: 0 0 0 30px;
         border-bottom: @BD1;
-        span{
+        span {
           width: 58%;
           display: block;
           float: left;
