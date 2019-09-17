@@ -105,4 +105,11 @@ if [ "$1" == "n" ]; then
     cd ..
 fi
 cp -r ./www ./outer/www
+if [ "$1" == "p" ]; then
+    cd ./web-ui
+    yarn
+    npm run build
+    rm -rf ../outer/www
+    mv ./dist ../outer/www
+fi
 echo "============ PACKAGE FINISH 🍺🍺🍺🎉🎉🎉 ==============="
