@@ -1,8 +1,12 @@
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const productionGzipExtensions = ['js', 'css'];
+const shell = require("shelljs");
+shell.echo(process.cwd())
+shell.cp(process.cwd() + "/config/" + process.env.NULS_ENV + ".js",process.cwd() + "/src/config.js")
 const isProduction = process.env.NODE_ENV === 'production';
+console.log(process.env.NULS_ENV)
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? 'dist/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   pluginOptions: {
     i18n: {
       locale: 'en',

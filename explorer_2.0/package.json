@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "cross-env NULS_ENV=dev vue-cli-service serve",
+    "build": "cross-env NULS_ENV=prod vue-cli-service build",
+    "build-beta": "cross-env NULS_ENV=beta vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -12,11 +13,13 @@
     "bignumber.js": "^8.0.1",
     "compression-webpack-plugin": "^2.0.0",
     "copy-to-clipboard": "^3.0.8",
+    "cross-env": "^5.2.1",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.5",
     "less-loader": "^4.1.0",
     "moment": "^2.23.0",
     "npm-login-module": "^1.0.0",
+    "shelljs": "^0.8.3",
     "v-charts": "^1.19.0",
     "vue": "^2.5.17",
     "vue-echarts": "^4.0.1",
