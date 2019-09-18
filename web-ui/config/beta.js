@@ -1,7 +1,7 @@
 /**
  * Created by zhoulijun on 2019-09-17.
  */
-"use strict"
+"use strict";
 
 export const RUN_DEV = false;
 //Request url
