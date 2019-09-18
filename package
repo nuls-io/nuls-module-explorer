@@ -105,10 +105,17 @@ if [ "$1" == "n" ]; then
     cd ..
 fi
 cp -r ./www ./outer/www
-if [ "$1" == "p" ]; then
+if [ "$1" == "prod" ]; then
     cd ./web-ui
     yarn
     npm run build
+    rm -rf ../outer/www
+    mv ./dist ../outer/www
+fi
+if [ "$1" == "beta" ]; then
+    cd ./web-ui
+    yarn
+    npm run build-beta
     rm -rf ../outer/www
     mv ./dist ../outer/www
 fi
