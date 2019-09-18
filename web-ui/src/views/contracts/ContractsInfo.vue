@@ -188,6 +188,7 @@
         this.$post('/', 'getContract', [address])
           .then((response) => {
             //console.log(response);
+            console.log(response.result.status);
             if (response.hasOwnProperty("result")) {
               this.getContractAddressInfo(address);
               response.result.createTime = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
@@ -215,10 +216,11 @@
           "params": [Number(sessionStorage.getItem('chainId')), contractsAddress],
           "id": Math.floor(Math.random() * 1000)
         };
-        //console.log(CODE_URL);
+        console.log(CODE_URL);
         axios.post(CODE_URL, params)
           .then((response) => {
             //console.log(response.data);
+            console.log(response.result.status);
             if (response.data.hasOwnProperty("result")) {
               this.contractsInfo.status = response.data.result.status;
             }
