@@ -5,7 +5,8 @@
 
 export const RUN_DEV = true;
 //Request url
-export const API_ROOT = 'https://public1.nuls.io';
+export const API_ROOT = '/api';
+//export const API_ROOT = 'https://public1.nuls.io';
 //合约认证地址
 //export const CODE_URL = 'http://contract.nulscan.io';
 export const CODE_URL = '/contract';

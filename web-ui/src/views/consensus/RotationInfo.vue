@@ -128,6 +128,12 @@
           })
       },
 
+      /**
+       * @disc: 红牌显示
+       * @params:
+       * @date: 2019-09-19 16:49
+       * @author: Wave
+       */
       showRY() {
         if (this.hideSwitch) {
           this.rotationListOld = this.rotationList;
