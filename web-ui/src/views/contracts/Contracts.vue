@@ -133,7 +133,9 @@
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 if (this.activeName === 'nrc20Contract') {
-                  item.totalSupply = timesDecimals(item.totalSupply, item.decimals);
+                  if(item.decimals !==0){
+                    item.totalSupply = timesDecimals(item.totalSupply, item.decimals);
+                  }
                 }
               }
               if (this.activeName !== 'nrc20Contract') {
