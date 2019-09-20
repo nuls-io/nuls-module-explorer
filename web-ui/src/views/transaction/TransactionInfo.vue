@@ -190,7 +190,7 @@
 
     <div class="w1200 token_list bg-white" v-if="tokenTransfers.length !==0">
       <h3 class="tabs_title tabs_header capitalize">{{$t('transactionInfo.transactionInfo11')}}</h3>
-      <ul class="inputs fl scroll">
+      <ul class="inputs fl scroll" style="width: 500px">
         <li class="font14" v-for="item in tokenTransfers" :key="item.keys">
           <span class="click" @click="toUrl('addressInfo',item.fromAddress)">{{item.fromAddress}}</span>
         </li>
@@ -198,10 +198,10 @@
       <div class="arrow fl">
         <i class="el-icon-d-arrow-right"></i>
       </div>
-      <ul class="outputs fr scroll">
-        <li class="font14" v-for="item in tokenTransfers" :key="item.keys">
+      <ul class="outputs fr scroll" style="width: 600px">
+        <li class="font14" v-for="item in tokenTransfers" :key="item.keys" style="width: 550px">
           <span class="click" @click="toUrl('addressInfo',item.toAddress)">{{item.toAddress}}</span>
-          <label class="fr">{{item.value}}<span> {{item.symbol}}</span></label>
+          <label class="fr" style="width: 200px">{{item.value}}<span> {{item.symbol}}</span></label>
         </li>
       </ul>
     </div>
@@ -523,7 +523,7 @@
         }
       }
       .inputs, .outputs {
-        width: 525px;
+        width: 550px;
         max-height: 120px;
         margin: 10px 0 0 0;
         overflow-x: auto;
@@ -531,7 +531,7 @@
           margin: 0 20px 0;
           line-height: 30px;
           label {
-            width: 147px;
+            width: 160px;
             text-align: right;
             .el-icon-goods {
               display: initial !important;
@@ -562,7 +562,7 @@
     }
 
     .token_list {
-      min-height: 120px;
+      min-height: 180px;
       margin: 30px auto 0;
     }
 
