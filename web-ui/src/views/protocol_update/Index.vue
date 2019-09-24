@@ -1,18 +1,9 @@
 <template>
-    <div class="transaction">
+    <div class="protocol">
         <div class="top-chart w1200 ">
             <div class="chart_title">
                 <h2 class="fl font18 capitalize">{{$t('protocolUpdate.name')}}:{{protocolUpdate}}</h2>
             </div>
-
-            <!--<div class="chart_info">-->
-            <!--<ve-line height="300px" style="top: -40px"-->
-            <!--:data="timeChartData"-->
-            <!--:legend-visible="false"-->
-            <!--:colors="colors"-->
-            <!--:settings="chartSettings"-->
-            <!--:loading="timeRateDataLoading"></ve-line>-->
-            <!--</div>-->
         </div>
         <div></div>
         <div class="chart_info">
@@ -213,7 +204,7 @@
 <style lang="less">
     @import "./../../assets/css/style";
 
-    .transaction {
+    .protocol {
     height: 120 px;
 
     .top-chart {
