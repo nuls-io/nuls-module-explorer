@@ -17,13 +17,13 @@
         <div></div>
         <div class="chart_info">
             <div class="font16">
-                <span class="font12 capitalize">{{$t('transaction.transaction1')}}:</span>
+                <span class="font12 capitalize">已升级节点:</span>
                 <div v-for="item in newList" :key="item.agentAddress">
                     {{ item.agentAddress }}
                 </div>
             </div>
             <div class="font16">
-                <span class="font12 capitalize">{{$t('transaction.transaction1')}}:</span>
+                <span class="font12 capitalize">未升级节点：</span>
                 <div v-for="item in oldList" :key="item.agentAddress">
                     {{ item.agentAddress }}
                 </div>
@@ -236,6 +236,7 @@
     }
     .chart_info {
         margin: 20px 0 0 0;
+        padding-left: 200px;
     }
 
     }
