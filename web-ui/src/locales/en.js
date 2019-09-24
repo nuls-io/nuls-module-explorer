@@ -324,6 +324,9 @@ const en = {
     "about": "Bug Report",
     "explorer1":"1.0 Explorer",
   },
+  "protocolUpdate": {
+    "name": "Protocol update progress"
+  },
   ...enLocale
 
 };

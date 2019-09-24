@@ -81,6 +81,10 @@ export default new Router({
       name: 'tokenInfo',
       component: resolve => require(['@/views/contracts/TokenInfo'], resolve)
     },
-
+    {
+      path: '/protocol_update',
+      name: 'protocolUpdate',
+      component: resolve => require(['@/views/protocol_update/Index'], resolve)
+    },
   ]
 })

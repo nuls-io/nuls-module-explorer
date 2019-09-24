@@ -325,6 +325,9 @@ const cn ={
     "about":"问题反馈",
     "explorer1":"1.0浏览器",
   },
+  "protocolUpdate": {
+    "name": "协议升级进度"
+  },
   ...zhLocale
 };
 
