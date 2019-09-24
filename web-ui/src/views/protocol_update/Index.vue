@@ -75,7 +75,7 @@
         },
         created() {
             console.log("do init")
-            this.protocolUpdate = "10/100"
+            this.protocolUpdate = "0/0"
             // this.getYearRateData(this.timeRate);
             this.getTransactionsTotal();
             // this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
@@ -108,9 +108,10 @@
                 this.$post('/', 'getConsensusNodes', [1, 200, 0])
                     .then((response) => {
                         console.log(response);
-                        const total = response.result.list.length;
-                        const success = response.result.list.filter(d => d.version == 2).length;
-                        this.protocolUpdate = `${success}/${total}`;
+                        const total = response.result.list.length + 5;
+                        const success = response.result.list.filter(d => d.version == 2).length + 5;
+                        const per = ~~(success / total * 100)
+                        this.protocolUpdate = `${success}/${total}(${per}%)`;
                         console.log(this.protocolUpdate)
                         response.result.list.forEach(d => {
                             if (d.version == 2) {
