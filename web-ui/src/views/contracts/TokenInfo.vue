@@ -156,7 +156,7 @@
       getContractsInfoByContractsAddress(contractsaddress) {
         this.$post('/', 'getContract', [contractsaddress])
           .then((response) => {
-            //console.log(response);
+            console.log(response);
             if (response.hasOwnProperty("result")) {
               this.getContractAddressInfo(contractsaddress);
               response.result.createTime = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
@@ -184,7 +184,7 @@
         };
         axios.post(CODE_URL, params)
           .then((response) => {
-            //console.log(response.data);
+            console.log(response.data);
             if (response.data.hasOwnProperty("result")) {
               this.contractsInfo.status = response.data.result.status;
             }

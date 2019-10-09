@@ -84,7 +84,8 @@ const en = {
     "fail":"Fail",
     "enforcement":"Contract Result",
     "contractMethod":"Contract Method",
-    "consensusLockings":"Consensus Locking"
+    "consensusLockings":"Consensus Locking",
+    "unavailable":"(Unavailable)"
   },
 
   "type": {

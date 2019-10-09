@@ -83,7 +83,8 @@ const cn ={
     "fail":"失败",
     "enforcement":"合约执行",
     "contractMethod":"合约方法",
-    "consensusLockings":"共识锁定"
+    "consensusLockings":"共识锁定",
+    "unavailable":"(已失效)"
   },
 
   "type": {

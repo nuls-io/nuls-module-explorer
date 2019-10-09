@@ -166,7 +166,10 @@
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="220" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">{{ scope.row.tokenSymbol }}</span>
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                  {{ scope.row.tokenSymbol }}
+                  <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
+                </span>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="180" align="left">
