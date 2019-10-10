@@ -154,7 +154,7 @@ const en = {
     "0": "Uncertificated",
     "1": "Certificating",
     "2": "Certificated",
-    "3": "Deleted"
+    "3": "Unavailable"
   },
 
   "home": {
