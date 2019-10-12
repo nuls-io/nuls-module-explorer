@@ -267,6 +267,7 @@
       <div class="dialog-info scroll">
         <div v-show="!isContracts">{{txInfo.txDataHex}}</div>
         <div v-show="isContracts">
+          <!--<p v-html="$xss(txInfo.txData)"></p>-->
           <json-viewer
                   :value="txInfo.txData"
                   :expand-depth="5"
@@ -421,6 +422,7 @@
               }
 
               this.txInfo = response.result;
+              this.txInfo.txData.args = this.txInfo.txData.args.replace(/<[^<>]+>/g, '');
               this.txInfoLoading = false;
             }
           })
