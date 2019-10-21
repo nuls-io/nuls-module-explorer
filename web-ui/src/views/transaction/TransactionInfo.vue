@@ -36,7 +36,7 @@
           <p>{{$t('public.input')}}/{{$t('public.output')}}<span>{{inputNumber}}/{{outNumber}}</span></p>
         </li>
         <li class="tabs_infos fl capitalize">
-          <p>{{$t('transactionInfo.transactionInfo3')}}<span class="click" @click="viewDialog = true">View</span></p>
+          <p>{{$t('transactionInfo.transactionInfo3')}}<span class="click" @click="viewDialog = true" v-if="txInfo.txDataHex">View</span></p>
         </li>
         <li class="tabs_infos fl capitalize">
           <p>
@@ -423,7 +423,9 @@
               }
 
               this.txInfo = response.result;
-              this.txInfo.txData.args = this.txInfo.txData.args.replace(/<[^<>]+>/g, '');
+              if (this.txInfo.txData && this.txInfo.txData.args) {
+                this.txInfo.txData.args = this.txInfo.txData.args.replace(/<[^<>]+>/g, '');
+              }
               this.txInfoLoading = false;
             }
           })
