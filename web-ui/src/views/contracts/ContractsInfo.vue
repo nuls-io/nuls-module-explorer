@@ -187,7 +187,7 @@
       getContractsInfoByContractsAddress(address) {
         this.$post('/', 'getContract', [address])
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             //console.log(response.result.status);
             if (response.hasOwnProperty("result")) {
               this.getContractAddressInfo(address);
@@ -219,7 +219,7 @@
         //console.log(CODE_URL);
         axios.post(CODE_URL, params)
           .then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.data.hasOwnProperty("result")) {
               this.contractsInfo.status = response.data.result.status;
             }
