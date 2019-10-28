@@ -36,7 +36,8 @@
           <p>{{$t('public.input')}}/{{$t('public.output')}}<span>{{inputNumber}}/{{outNumber}}</span></p>
         </li>
         <li class="tabs_infos fl capitalize">
-          <p>{{$t('transactionInfo.transactionInfo3')}}<span class="click" @click="viewDialog = true" v-if="txInfo.txDataHex">View</span></p>
+          <p>{{$t('transactionInfo.transactionInfo3')}}<span class="click" @click="viewDialog = true"
+                                                             v-if="txInfo.txDataHex">View</span></p>
         </li>
         <li class="tabs_infos fl capitalize">
           <p>
@@ -392,6 +393,10 @@
                   this.nulsTransfers = response.result.txData.resultInfo.nulsTransfers;
                   //console.log(this.nulsTransfers);
                 }
+              }
+
+              if (response.result.type === 18) {
+                this.contractInfo = {success: true}
               }
 
               if (response.result.coinFroms) {
