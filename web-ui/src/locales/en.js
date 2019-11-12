@@ -165,7 +165,7 @@ const en = {
     "home4": "Circulating Supply",
     "home5": "Consensus annualized reward rate",
     "home6": "Consenseus reward calculator",
-    "home7": "14 days NULS Transaction history",
+    "home7": "14 days Transaction history",
     "home8": "More"
   },
 

@@ -83,6 +83,7 @@
         },
       };
       return {
+
         //统计图数据
         timeChartData: {
           columns: [],
@@ -107,6 +108,7 @@
           rows: 6,
         },
         symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
+        decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
       }
     },
     components: {
@@ -174,8 +176,8 @@
               for (let item of response.result.list) {
                 item.time = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.hashs = superLong(item.hash, 20);
-                item.value = timesDecimals(item.value, 8);
-                item.fees = timesDecimals(item.fee.value, 8);
+                item.value = timesDecimals(item.value, this.decimals);
+                item.fees = timesDecimals(item.fee.value, this.decimals);
               }
               this.txList = response.result.list;
               if (type === 0 && !show) {

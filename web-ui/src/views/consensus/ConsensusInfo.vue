@@ -52,7 +52,8 @@
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.bond')}}<span>{{nodeInfo.deposit/100000000}}<span class="fCN">&nbsp;NULS</span></span></p>
+          <p>{{$t('public.bond')}}<span>{{nodeInfo.deposit}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+          </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('consensusInfo.consensusInfo3')}}<span>{{nodeInfo.version}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.proportion')}}<span>{{nodeInfo.commissionRate}}%</span></p></li>
@@ -64,20 +65,24 @@
               <i class="el-icon-warning"></i>
             </el-tooltip>
             <span>
-              {{nodeInfo.agentReward /100000000}}
-              <span class="fCN">&nbsp;NULS</span>
+              {{nodeInfo.agentReward}}
+              <span class="fCN">&nbsp;{{symbol}}</span>
             </span>
           </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('public.participants')}}<span>{{nodeInfo.depositCount}}</span></p></li>
         <li class="tabs_infos fl">
-          <p>{{$t('consensusInfo.consensusInfo16')}}
-            <span>{{nodeInfo.commissionReward/100000000}}<span class="fCN">&nbsp;NULS</span></span></p>
+          <p>
+            {{$t('consensusInfo.consensusInfo16')}}
+            <span>{{nodeInfo.commissionReward}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+          </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('public.createTime')}}<span>{{nodeInfo.time}}</span></p></li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.allEntrust')}}<span>{{nodeInfo.totalDeposit/100000000}}<span
-                  class="fCN">&nbsp;NULS</span></span></p>
+          <p>
+            {{$t('public.allEntrust')}}
+            <span>{{nodeInfo.totalDeposit}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+          </p>
         </li>
       </ul>
     </div>
@@ -97,8 +102,8 @@
               <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="220"
                                align="left"></el-table-column>
               <el-table-column prop="size" :label="$t('public.size')" width="280" align="left"></el-table-column>
-              <el-table-column :label="$t('consensusInfo.consensusInfo8')+'(NULS)'" width="280" align="left">
-                <template slot-scope="scope">{{ scope.row.reward/100000000 }}</template>
+              <el-table-column :label="$t('consensusInfo.consensusInfo8') + '('+symbol+')'" width="280" align="left">
+                <template slot-scope="scope">{{ scope.row.reward}}</template>
               </el-table-column>
             </el-table>
             <div class="paging">
@@ -150,8 +155,8 @@
               </el-table-column>
               <el-table-column prop="createTime" :label="$t('consensusInfo.consensusInfo12')" width="220"
                                align="left"></el-table-column>
-              <el-table-column :label="$t('public.amount')+'(NULS)'" width="220" align="left">
-                <template slot-scope="scope">{{ scope.row.amount/100000000 }}</template>
+              <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="220" align="left">
+                <template slot-scope="scope">{{ scope.row.amount }}</template>
               </el-table-column>
             </el-table>
             <div class="paging">
@@ -172,29 +177,35 @@
             <el-table :data="consensusCancelDeposit" stripe border style="width: 100%">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column label="TXID" width="200" align="left">
-                <template slot-scope="scope"><span class="cursor-p click"
-                                                   @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.agentHashs }}</span>
+                <template slot-scope="scope">
+                  <span class="cursor-p click" @click="toUrl('transactionInfo',scope.row.txHash)">
+                    {{ scope.row.agentHashs }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('public.height')" width="100" align="left">
-                <template slot-scope="scope"><span class="cursor-p click"
-                                                   @click="toUrl('blockInfo',scope.row.blockHeight)">{{ scope.row.blockHeight }}</span>
+                <template slot-scope="scope">
+                  <span class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">
+                    {{ scope.row.blockHeight }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('public.address')" min-width="300" align="left">
-                <template slot-scope="scope"><span class="cursor-p click"
-                                                   @click="toUrl('addressInfo',scope.row.address)">{{ scope.row.address }}</span>
+                <template slot-scope="scope">
+                  <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.address)">
+                    {{ scope.row.address }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
               <el-table-column :label="$t('public.join') +'/'+ $t('public.quit')" width="100" align="left">
                 <template slot-scope="scope">{{ scope.row.type === 0 ? $t('public.join'):$t('public.quit') }}</template>
               </el-table-column>
-              <el-table-column :label="$t('public.amount') +'(NULS)'" width="140" align="left">
-                <template slot-scope="scope">{{ scope.row.amount/100000000 }}</template>
+              <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="140" align="left">
+                <template slot-scope="scope">{{ scope.row.amount}}</template>
               </el-table-column>
-              <el-table-column :label="$t('public.fee') +'(NULS)'" width="110" align="left">
-                <template slot-scope="scope">{{ scope.row.fee/100000000 }}</template>
+              <el-table-column :label="$t('public.fee')+ '('+symbol+')'" width="110" align="left">
+                <template slot-scope="scope">{{ scope.row.fee}}</template>
               </el-table-column>
             </el-table>
             <div class="paging">
@@ -215,11 +226,13 @@
 
 <script>
   import moment from 'moment'
-  import {getLocalTime, superLong, copys, timeDifference} from '@/api/util.js'
+  import {getLocalTime, superLong, copys, timeDifference, divisionDecimals} from '@/api/util.js'
 
   export default {
     data() {
       return {
+        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//symbol
+        decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
         activeNames: this.$route.query.tabName || 'first',
         //节点信息
         nodeInfo: [],
@@ -276,9 +289,16 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               response.result.time = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-              response.result.roundPackingTime = moment(getLocalTime(response.result.roundPackingTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+              response.result.roundPackingTime = moment(getLocalTime(response.result.roundPackingTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               this.times = timeDifference(response.result.createTime * 1000);
               response.result.txHashs = superLong(response.result.txHash, 20);
+
+              response.result.deposit = divisionDecimals(response.result.deposit, this.decimals);
+              response.result.totalDeposit = divisionDecimals(response.result.totalDeposit, this.decimals);
+              response.result.totalReward = divisionDecimals(response.result.totalReward, this.decimals);
+              response.result.commissionReward = divisionDecimals(response.result.commissionReward, this.decimals);
+              response.result.agentReward = divisionDecimals(response.result.agentReward, this.decimals);
+
               this.nodeInfo = response.result;
               this.nodeInfoLoading = false;
             }
@@ -307,6 +327,7 @@
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txhashs = superLong(item.agentHash, 20);
+                item.reward = divisionDecimals(item.reward, this.decimals);
               }
               this.blockList = response.result.list;
               this.pager.total = response.result.totalCount;
@@ -358,6 +379,7 @@
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.amount = divisionDecimals(item.amount, this.decimals);
               }
               this.consensusDeposit = response.result.list;
               this.pager.total = response.result.totalCount;
@@ -380,9 +402,12 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
+
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-                item.agentHashs = superLong(item.txHash, 10)
+                item.agentHashs = superLong(item.txHash, 10);
+                item.amount = divisionDecimals(item.amount, this.decimals);
+                item.fee = divisionDecimals(item.fee, this.decimals);
               }
               this.consensusCancelDeposit = response.result.list;
               this.pager.total = response.result.totalCount;

@@ -54,8 +54,8 @@
               <el-table-column prop="type" :label="$t('public.type')" width="180" align="left">
                 <template slot-scope="scope">{{$t('type.'+scope.row.type)}}</template>
               </el-table-column>
-              <el-table-column :label="$t('public.fee')+'(NULS)'" width="180" align="left">
-                <template slot-scope="scope">{{scope.row.fee.value/100000000}}</template>
+              <el-table-column :label="$t('public.fee')+ '('+symbol+')'" width="180" align="left">
+                <template slot-scope="scope">{{scope.row.fee.value}}</template>
               </el-table-column>
             </el-table>
             <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
@@ -92,13 +92,15 @@
   import paging from '@/components/pagingBar';
   import SelectBar from '@/components/SelectBar';
   import CodeInfo from '@/views/contracts/CodeInfo';
-  import {getLocalTime, superLong, copys} from '@/api/util.js'
+  import {getLocalTime, superLong, copys,divisionDecimals} from '@/api/util.js'
   import axios from 'axios'
   import {CODE_URL} from '@/config'
 
   export default {
     data() {
       return {
+        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//symbol
+        decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
         isMobile: false,
         activeName: this.$route.query.tabName,
         //合约地址
@@ -252,6 +254,7 @@
               for (let item of response.result.list) {
                 item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 20);
+                item.fee.value = divisionDecimals(item.fee.value, this.decimals);
               }
               this.contractsTxList = response.result.list;
               this.pager.total = response.result.totalCount;

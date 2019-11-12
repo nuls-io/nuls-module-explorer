@@ -292,6 +292,7 @@
       return {
         txhash: this.$route.query.hash,
         txhashs: superLong(this.$route.query.hash, 20),
+        decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
         txInfo: [],
         //交易详情加载动画
         txInfoLoading: true,

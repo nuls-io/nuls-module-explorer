@@ -27,13 +27,15 @@
                 <span v-else>{{ scope.row.remark }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="balance" :label="$t('public.balance')+'(NULS)'" width="130" align="left">
+            <el-table-column prop="balance" :label="$t('public.balance')+ '('+symbol+')'" width="130" align="left">
               <template slot-scope="scope">{{ scope.row.balance/100000000 }}</template>
             </el-table-column>
             <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="100"
-                             align="left"></el-table-column>
+                             align="left">
+            </el-table-column>
             <el-table-column prop="createTime" :label="$t('public.createTime')" width="180"
-                             align="left"></el-table-column>
+                             align="left">
+            </el-table-column>
           </el-table>
           <div class="paging">
             <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
@@ -61,7 +63,8 @@
               </template>
             </el-table-column>
             <el-table-column prop="totalSupply" :label="$t('contracts.contracts3')" width="180"
-                             align="left"></el-table-column>
+                             align="left">
+            </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="220" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
@@ -70,7 +73,8 @@
               </template>
             </el-table-column>
             <el-table-column prop="createTime" :label="$t('public.createTime')" width="180"
-                             align="left"></el-table-column>
+                             align="left">
+            </el-table-column>
           </el-table>
 
           <div class="paging">
@@ -90,11 +94,13 @@
 
 <script>
   import moment from 'moment'
-  import {getLocalTime, timesDecimals} from '@/api/util.js'
+  import {getLocalTime, timesDecimals,divisionDecimals} from '@/api/util.js'
 
   export default {
     data() {
       return {
+        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//symbol
+        decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
         isMobile: true,
         activeName: 'allContract',
         //隐藏NRC-20合约
@@ -137,6 +143,7 @@
                 if (this.activeName === 'nrc20Contract') {
                   if (item.decimals !== 0) {
                     item.totalSupply = timesDecimals(item.totalSupply, item.decimals);
+                    item.fee = divisionDecimals(item.balance, this.decimals);
                   }
                 }
               }
