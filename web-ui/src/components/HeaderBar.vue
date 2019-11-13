@@ -199,6 +199,7 @@
         margin-right: 20px;
         .logo {
           width: 104px;
+          height: 40px;
           margin: 20px 0 0 0;
         }
       }
