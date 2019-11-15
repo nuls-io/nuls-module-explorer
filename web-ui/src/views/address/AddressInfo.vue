@@ -275,7 +275,7 @@
         },
         //地址定时器
         addressInterval: null,
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
+        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
       }
     },
     components: {
@@ -325,25 +325,25 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.totalBalance = timesDecimals(response.result.totalBalance, 8);
-              response.result.balances = timesDecimals(response.result.balance, 8);
+              response.result.totalBalance = timesDecimals(response.result.totalBalance);
+              response.result.balances = timesDecimals(response.result.balance);
               response.result.totalLock = Plus(response.result.timeLock, response.result.consensusLock).toString();
-              response.result.totalLocks = timesDecimals(response.result.totalLock, 8);
-              response.result.timeLock = timesDecimals(response.result.timeLock, 8);
-              response.result.consensusLock = timesDecimals(response.result.consensusLock, 8);
-              response.result.totalIn = timesDecimals(response.result.totalIn, 8);
-              response.result.totalOut = timesDecimals(response.result.totalOut, 8);
+              response.result.totalLocks = timesDecimals(response.result.totalLock);
+              response.result.timeLock = timesDecimals(response.result.timeLock);
+              response.result.consensusLock = timesDecimals(response.result.consensusLock);
+              response.result.totalIn = timesDecimals(response.result.totalIn);
+              response.result.totalOut = timesDecimals(response.result.totalOut);
 
               if (parseInt(response.result.balance) > 0) {
                 this.addressNumber.push({
                   location: this.$t('public.usablebalance'),
-                  value: parseInt(timesDecimals(response.result.balance, 8))
+                  value: parseInt(timesDecimals(response.result.balance))
                 });
               }
               if (parseInt(response.result.totalLock) > 0) {
                 this.addressNumber.push({
                   location: this.$t('public.consensusLocking'),
-                  value: parseInt(timesDecimals(response.result.totalLock, 8))
+                  value: parseInt(timesDecimals(response.result.totalLock))
                 });
               }
 
@@ -378,16 +378,16 @@
        * 根据地址获取交易列表
        */
       getTxListByAddress(page, rows, address, type) {
-        this.$post('/', 'getAccountTxs', [page, rows, address, type, -1,-1])
+        this.$post('/', 'getAccountTxs', [page, rows, address, type, -1, -1])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 15);
-                item.values = timesDecimals(item.values, 8);
-                item.balance = timesDecimals(item.balance, 8);
-                item.fees = timesDecimals(item.fee.value, 8);
+                item.values = timesDecimals(item.values);
+                item.balance = timesDecimals(item.balance);
+                item.fees = timesDecimals(item.fee.value);
               }
               this.txList = response.result.list;
               this.txListPager.total = response.result.totalCount;
@@ -414,7 +414,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.createTime = moment(getLocalTime(item.time*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.createTime = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.fromAddresss = superLong(item.fromAddress, 6);
                 item.toAddresss = superLong(item.toAddress, 6);
                 item.value = timesDecimals(item.value, item.decimals);

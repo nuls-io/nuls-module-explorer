@@ -25,6 +25,11 @@
             <i class="el-icon-search el-input__icon click" slot="suffix" @click="clickSearch"></i>
           </el-input>
         </div>
+        <div class="destroyed font14 fl" v-else>
+          <i class="iconfont icon-jiandingxiaohui fred"></i>&nbsp;
+          {{$t('home.home9')}}：{{destroyedAddressAmount.toFixed(3)}}
+          <span class="fCN">&nbsp;NULS</span>
+        </div>
         <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? '简体中文':'English' }}</div>
       </div>
       <div class="mobile_ico fr">
@@ -50,6 +55,7 @@
   import logo from '@/assets/img/logo.svg'
   import MenuBar from '@/components/MenuBar';
   import {RUN_DEV} from '@/config'
+  import {timesDecimals, Plus} from '@/api/util.js'
 
   export default {
     data() {
@@ -70,6 +76,7 @@
         //移动端显示
         showMobile: false,
         RUN_DEV: RUN_DEV,//运行模式
+        destroyedAddressAmount: 0,//销毁地址金额
       };
     },
     components: {
@@ -94,8 +101,27 @@
         this.count.height = this.$store.state.height;
         this.navActive = this.$route.path;
       }, 100);
+      this.getAddressInfo();
     },
     methods: {
+
+      /**
+       * @disc: 获销毁地址详细信息
+       * @date: 2019-11-15 16:37
+       * @author: Wave
+       */
+      getAddressInfo() {
+        let destroyedAddress = this.RUN_DEV ? "NULSd6HgWSU1iR6BfNoQi85mAMT52JMFzpnok" : "tNULSeBaMhZnRteniCy3UZqPjTbnWKBPHX1a5d";
+        this.$post('/', 'getAccount', [destroyedAddress])
+          .then((response) => {
+            //console.log(response);
+            if (response.hasOwnProperty("result")) {
+              response.result.totalBalance = timesDecimals(response.result.totalBalance);
+            }
+            this.destroyedAddressAmount = Number(Plus(response.result.totalBalance, 377));
+          })
+      },
+
       /**
        * 顶部搜索框获取焦点事件
        **/
@@ -240,6 +266,14 @@
               line-height: 30px;
               color: @Acolor3;
             }
+          }
+        }
+        .destroyed {
+          line-height: 80px;
+          text-align: right;
+          width: 330px;
+          i {
+            font-size: 1rem;
           }
         }
         .language {
