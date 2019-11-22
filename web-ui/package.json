@@ -6,6 +6,7 @@
     "serve": "cross-env NULS_ENV=prod vue-cli-service serve",
     "serve-beta": "cross-env NULS_ENV=beta vue-cli-service serve",
     "build": "cross-env NULS_ENV=prod vue-cli-service build",
+    "build-prod": "cross-env NULS_ENV=prod vue-cli-service build",
     "build-beta": "cross-env NULS_ENV=beta vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
