@@ -283,8 +283,8 @@ const cn ={
 
   "contracts":{
     "contracts0":"所有合约",
-    "contracts1":"隐藏NRC-20合约",
-    "contracts2":"NRC-20 合约",
+    "contracts1":"隐藏BRC-20合约",
+    "contracts2":"BRC-20 合约",
     "contracts3":"总发行量",
     "contracts":""
   },
