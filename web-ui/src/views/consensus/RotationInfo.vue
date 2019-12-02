@@ -60,7 +60,7 @@
                            align="left"></el-table-column>
           <!-- <el-table-column prop="strua" label="状态" width="120" align="center">
            </el-table-column>-->
-          <el-table-column prop="fee" :label="$t('public.blockReward')+'(NULS)'" width="120" align="left">
+          <el-table-column prop="fee" :label="$t('public.blockReward')" width="120" align="left">
             <template slot-scope="scope">
               {{ scope.row.reward}}
             </template>
