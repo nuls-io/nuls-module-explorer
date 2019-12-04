@@ -19,6 +19,9 @@
       <li class="b_li font14 fl capitalize click" @click="toExplorer" v-show="symbol ==='NULS'">
         {{$t('bottom.explorer1')}}
       </li>
+      <li class="b_li font14 fl capitalize click" @click="toUrl('protocolUpdate')">
+        {{$t('protocolUpdate.upgradeProgress')}}
+      </li>
       <li class="b_li font14 fr">Copyright @2019 {{symbol}}</li>
     </ul>
   </div>
@@ -124,6 +127,17 @@
       toExplorer() {
         window.open('https://v1.nulscan.io/', '_blank');
       },
+
+      /**
+       * url 连接跳转
+       * @param name
+       * @param parmes
+       */
+      toUrl(name) {
+        this.$router.push({
+          name: name,
+        })
+      }
 
     }
   }

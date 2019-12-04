@@ -326,8 +326,12 @@ const en = {
     "about": "Bug Report",
     "explorer1":"1.0 Explorer",
   },
+
   "protocolUpdate": {
-    "name": "Protocol update progress"
+    "name": "Protocol update progress",
+    "upgraded": "Upgraded node",
+    "notUpgraded": "Node not upgraded",
+    "upgradeProgress":"Upgrade progress"
   },
   ...enLocale
 
