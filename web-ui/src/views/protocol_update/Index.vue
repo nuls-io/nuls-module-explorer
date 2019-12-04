@@ -69,9 +69,10 @@
         this.$post('/', 'getConsensusNodes', [1, 200, 0])
           .then((response) => {
             //console.log(response);
+            const newVersion = 3;
             const list = response.result.list.filter(d => d.status === 1);
             const total = list.length + 5;
-            const success = list.filter(d => d.version === 3).length + 5;
+            const success = list.filter(d => d.version === newVersion).length + 5;
             const per = ~~(success / total * 100);
             this.protocol = `${success}/${total}`;
             this.protocolUpdate = `${per}`;
@@ -80,7 +81,7 @@
             this.oldList = [];
             this.updateLoading = false;
             list.forEach(d => {
-              if (d.version === 3) {
+              if (d.version === newVersion) {
                 this.newList.push(d);
               } else {
                 this.oldList.push(d);
