@@ -36,17 +36,19 @@
           <p>{{$t('public.input')}}/{{$t('public.output')}}<span>{{inputNumber}}/{{outNumber}}</span></p>
         </li>
         <li class="tabs_infos fl capitalize">
-          <p>{{$t('transactionInfo.transactionInfo3')}}<span class="click" @click="viewDialog = true"
-                                                             v-if="txInfo.txDataHex">View</span></p>
+          <p>
+            {{$t('transactionInfo.transactionInfo3')}}
+            <span class="click" @click="viewDialog = true" v-if="txInfo.txDataHex">View</span>
+          </p>
         </li>
         <li class="tabs_infos fl capitalize">
           <p>
-            {{$t('public.height')}}<span class="click"
-                                         @click="toUrl('blockInfo',txInfo.height)">{{txInfo.height}}</span>
+            {{$t('public.height')}}
+            <span class="click" @click="toUrl('blockInfo',txInfo.height)">{{txInfo.height}}</span>
           </p>
         </li>
 
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type ===3">
+        <li class="tabs_infos fl" v-if="txInfo.type ===3">
           <p>{{$t('public.alias')}}<span>{{txInfo.txData.alias}}</span></p>
         </li>
 
@@ -151,7 +153,7 @@
             </span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize tabs_infos_long">
+        <li class="tabs_infos fl tabs_infos_long">
           <p v-if="txInfo.remark && txInfo.remark.length > 50">{{$t('public.remarks')}}
             <el-tooltip class="calc fr" effect="light" :content="txInfo.remark" placement="top">
               <span class="scroll overflow">{{txInfo.remark}}</span>
