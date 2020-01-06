@@ -5,6 +5,7 @@ import router from './router'
 import i18n from './i18n'
 import {post} from './api/https'
 import JSONView from 'vue-json-viewer'
+
 Vue.use(JSONView);
 
 Vue.config.productionTip = false;

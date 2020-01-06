@@ -25,9 +25,9 @@
             <i class="el-icon-search el-input__icon click" slot="suffix" @click="clickSearch"></i>
           </el-input>
         </div>
-        <div class="destroyed font14 fl" v-else>
+        <div class="destroyed font14 fl pc" v-else>
           <i class="iconfont icon-jiandingxiaohui fred"></i>&nbsp;
-          {{$t('home.home9')}}：{{destroyedAddressAmount.toFixed(3)}}
+          {{$t('home.home9')}}：{{destroyedAddressAmount}}
           <span class="fCN">&nbsp;NULS</span>
         </div>
         <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? '简体中文':'English' }}</div>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   import logoBeta from '@/assets/img/logo-beta.svg'
   import logo from '@/assets/img/logo.svg'
   import MenuBar from '@/components/MenuBar';
@@ -106,20 +107,19 @@
     methods: {
 
       /**
-       * @disc: 获销毁地址详细信息
+       * @disc: 获销毁数量
        * @date: 2019-11-15 16:37
        * @author: Wave
        */
-      getAddressInfo() {
-        let destroyedAddress = this.RUN_DEV ? "NULSd6HgWSU1iR6BfNoQi85mAMT52JMFzpnok" : "tNULSeBaMhZnRteniCy3UZqPjTbnWKBPHX1a5d";
-        this.$post('/', 'getAccount', [destroyedAddress])
-          .then((response) => {
-            //console.log(response);
-            if (response.hasOwnProperty("result")) {
-              response.result.totalBalance = timesDecimals(response.result.totalBalance);
-            }
-            this.destroyedAddressAmount = Number(Plus(response.result.totalBalance, 377));
-          })
+      async getAddressInfo() {
+        const url = 'https://public1.nuls.io/nuls/assets/get';
+        let dataRes = await axios.get(url);
+        //console.log(dataRes.data);
+        if (dataRes.data.success) {
+          this.destroyedAddressAmount = dataRes.data.data.destroy.toFixed(3)
+        } else {
+          this.destroyedAddressAmount = 0
+        }
       },
 
       /**
