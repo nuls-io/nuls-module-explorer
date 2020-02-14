@@ -55,7 +55,7 @@
   import logoBeta from '@/assets/img/logo-beta.svg'
   import logo from '@/assets/img/logo.svg'
   import MenuBar from '@/components/MenuBar';
-  import {RUN_DEV} from '@/config'
+  import {RUN_DEV, API_ROOT} from '@/config'
   import {timesDecimals, Plus} from '@/api/util.js'
 
   export default {
@@ -112,7 +112,7 @@
        * @author: Wave
        */
       async getAddressInfo() {
-        const url = 'https://public1.nuls.io/nuls/assets/get';
+        const url = API_ROOT + '/nuls/assets/get';
         let dataRes = await axios.get(url);
         //console.log(dataRes.data);
         if (dataRes.data.success) {

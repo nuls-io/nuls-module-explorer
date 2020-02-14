@@ -92,7 +92,7 @@
   import paging from '@/components/pagingBar';
   import SelectBar from '@/components/SelectBar';
   import CodeInfo from '@/views/contracts/CodeInfo';
-  import {getLocalTime, superLong, copys,divisionDecimals} from '@/api/util.js'
+  import {getLocalTime, superLong, copys, divisionDecimals} from '@/api/util.js'
   import axios from 'axios'
   import {CODE_URL} from '@/config'
 
@@ -219,15 +219,20 @@
           "id": Math.floor(Math.random() * 1000)
         };
         //console.log(CODE_URL);
-        axios.post(CODE_URL, params)
-          .then((response) => {
-            //console.log(response);
-            if (response.data.hasOwnProperty("result")) {
-              this.contractsInfo.status = response.data.result.status;
-            }
-          }).catch((error) => {
-          console.log(error);
-        })
+        if (CODE_URL) {
+          axios.post(CODE_URL, params)
+            .then((response) => {
+              //console.log(response);
+              if (response.data.hasOwnProperty("result")) {
+                this.contractsInfo.status = response.data.result.status;
+              }
+            }).catch((error) => {
+            console.log(error);
+          })
+        } else {
+          this.contractsInfo.status = 0;
+        }
+
       },
 
       /**
