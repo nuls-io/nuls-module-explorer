@@ -285,7 +285,6 @@
   import moment from 'moment'
   import {getLocalTime, copys, timesDecimals, superLong} from '@/api/util.js'
 
-
   export default {
     data() {
       return {
@@ -293,8 +292,7 @@
         txhashs: superLong(this.$route.query.hash, 20),
         decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
         txInfo: [],
-        //交易详情加载动画
-        txInfoLoading: true,
+        txInfoLoading: true, //交易详情加载动画
         activeName: 'second',
         inputNumber: 0,
         outNumber: 0,
@@ -302,8 +300,7 @@
         liShow: false,//显示空白li
         contractInfo: [],//合约信息
         tokenTransfers: [],//token转账信息
-        //txhash定时器
-        txhashInterval: null,
+        txhashInterval: null,//txhash定时器
         isContracts: false,//是否为合约交易
         nulsTransfers: [],//合约转出NULS
         symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
