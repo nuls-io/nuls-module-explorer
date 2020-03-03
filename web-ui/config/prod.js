@@ -10,6 +10,6 @@ export const RUN_DEV = true;
 //Request url
 export const API_ROOT = IS_DEV ? '/api' : 'http://wallet.bbai.io:8004';
 //合约认证地址
-export const CODE_URL = 'http://47.111.179.183:8020/jsonrpc';
+export const CODE_URL = 'https://explorer.bbai.io/validation_contract';
 //Request response time
 export const API_TIME = '8000';
