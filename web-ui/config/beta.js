@@ -10,6 +10,6 @@ export const RUN_DEV = false;
 export const API_ROOT = IS_DEV ? '/api' : 'https://beta.wallet.nuls.io/api';
 //export const API_ROOT = 'https://beta.wallet.nuls.io/api';
 //合约认证地址
-export const CODE_URL = 'http://beta.contract.nulscan.io';
+export const CODE_URL = 'http://47.111.179.183:8020';
 //Request response time
 export const API_TIME = '9000';
