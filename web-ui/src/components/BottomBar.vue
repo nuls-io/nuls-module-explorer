@@ -71,7 +71,7 @@
       getBestBlockHeader() {
         this.$post('/', 'getBestBlockHeader', [])
           .then((response) => {
-            //console.log(response)
+            //console.log(response);
             if (response.hasOwnProperty("result")) {
               this.height = response.result.height;
               this.$store.commit('SET_HEIGHT', response.result.height);
