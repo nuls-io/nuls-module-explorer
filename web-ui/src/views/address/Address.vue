@@ -12,7 +12,9 @@
         <el-table-column label="" width="30">
         </el-table-column>
         <el-table-column :label="$t('public.serial')" width="100">
-          <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
+          <template slot-scope="scope">
+            {{pager.page === 0 ? scope.$index : scope.$index+(pager.page - 1) * pager.rows + 1}}
+          </template>
         </el-table-column>
         <el-table-column :label="$t('public.address')" min-width="280">
           <template slot-scope="scope">
@@ -144,12 +146,14 @@
         height: 5rem;
       }
     }
+
     .tabs {
       margin-bottom: 100px;
       @media screen and (max-width: 1000px) {
         width: 95%;
         margin: -1.4rem auto 5rem;
       }
+
       .el-table__header {
         .has-gutter {
           tr {

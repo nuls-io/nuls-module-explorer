@@ -42,10 +42,10 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column prop="time" :label="$t('public.time')" width="160" align="left"></el-table-column>
+          <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
           <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="120"
                            align="left"></el-table-column>
-          <el-table-column prop="txid" :label="$t('public.outNode')" min-width="180" align="left">
+          <el-table-column prop="txid" :label="$t('public.outNode')" min-width="160" align="left">
             <template slot-scope="scope">
               <label class="cursor-p" v-show="scope.row.seedPacked ">
                 {{$t('public.seedNode')}}
@@ -60,7 +60,7 @@
                            align="left"></el-table-column>
           <!-- <el-table-column prop="strua" label="状态" width="120" align="center">
            </el-table-column>-->
-          <el-table-column prop="fee" :label="$t('public.blockReward')+'(NULS)'" width="120" align="left">
+          <el-table-column prop="fee" :label="$t('public.blockReward')+'(EDA)'" width="120" align="left">
             <template slot-scope="scope">
               {{ scope.row.reward}}
             </template>

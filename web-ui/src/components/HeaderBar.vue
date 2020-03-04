@@ -28,7 +28,7 @@
         <div class="destroyed font14 fl pc" v-else>
           <i class="iconfont icon-jiandingxiaohui fred"></i>&nbsp;
           {{$t('home.home9')}}：{{destroyedAddressAmount}}
-          <span class="fCN">&nbsp;NULS</span>
+          <span class="fCN">&nbsp;EDA</span>
         </div>
         <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? '简体中文':'English' }}</div>
       </div>
