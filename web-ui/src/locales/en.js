@@ -282,8 +282,8 @@ const en = {
 
   "contracts": {
     "contracts0": "All contracts",
-    "contracts1": "Hide NRC-20 contracts",
-    "contracts2": "NRC-20 contracts",
+    "contracts1": "Hide BRC-20 contracts",
+    "contracts2": "BRC-20 contracts",
     "contracts3": "Total supply",
     "contracts": ""
   },
