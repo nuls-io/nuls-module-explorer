@@ -10,6 +10,6 @@ export const RUN_DEV = true;
 //Request url
 export const API_ROOT = IS_DEV ? '/api' : 'http://explorer.yuzhan.group/api';
 //合约认证地址
-export const CODE_URL = 'http://cv.bc.yuzhan.group/jsonrpc';
+export const CODE_URL = 'https://explorer.yuzhan.group/validation_contract';
 //Request response time
 export const API_TIME = '8000';
