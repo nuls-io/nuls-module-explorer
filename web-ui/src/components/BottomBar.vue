@@ -1,6 +1,6 @@
 <template>
   <div class="bottom bg-gray">
-    <ul class="b_ul w1200">
+    <ul class="b_ul w1200" v-show="false">
       <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
         <a href="https://nuls.io/home" target="_blank">{{$t('bottom.website')}}</a>
       </li>
@@ -35,7 +35,7 @@
     data() {
       return {
         height: 0,//当前高度
-        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
+        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'EDA',//默认symbol
       }
     },
     created() {
