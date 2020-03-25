@@ -22,7 +22,7 @@
     },
     created() {
       if (!sessionStorage.hasOwnProperty("chainId")) {
-        this.getChains();
+        // this.getChains();
       }
     },
     methods: {
