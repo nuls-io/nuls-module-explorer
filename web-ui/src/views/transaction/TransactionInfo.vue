@@ -158,7 +158,7 @@
             </el-tooltip>
           </p>
           <p v-else>{{$t('public.remarks')}}
-            <span class="scroll overflow">{{txInfo.remark}}</span>
+            <span class="scroll" style="overflow-y: auto;line-height: 20px;font-size: 12px">{{txInfo.remark}}</span>
           </p>
         </li>
         <p class="cb"></p>
