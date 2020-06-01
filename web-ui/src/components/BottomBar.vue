@@ -19,10 +19,10 @@
       <li class="b_li font14 fl capitalize click" @click="toExplorer" v-show="symbol ==='NULS'">
         {{$t('bottom.explorer1')}}
       </li>
-      <li class="b_li font14 fl capitalize click" @click="toUrl('protocolUpdate')">
+      <li class="b_li font14 fl capitalize click" @click="toUrl('protocolUpdate')" v-show="symbol ==='NULS'">
         {{$t('protocolUpdate.upgradeProgress')}}
       </li>
-      <li class="b_li font14 fr">Copyright @2019 {{symbol}}</li>
+      <li class="b_li font14 fr">Copyright @2020 {{symbol}}</li>
     </ul>
   </div>
 </template>
