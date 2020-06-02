@@ -61,7 +61,7 @@
     methods: {
 
       /**
-       * @disc: 获取最新的交易总量
+       * @disc: 获取最新共识节点更新总数
        * @date: 2019-09-10 14:02
        * @author: Wave
        */
@@ -69,7 +69,7 @@
         this.$post('/', 'getConsensusNodes', [1, 200, 0])
           .then((response) => {
             //console.log(response);
-            const newVersion = 5;
+            const newVersion = 6;
             const list = response.result.list.filter(d => d.status === 1);
             const total = list.length + 5;
             const success = list.filter(d => d.version === newVersion).length + 5;
