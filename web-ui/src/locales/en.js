@@ -7,7 +7,8 @@ const en = {
     "address": "Account",
     "transaction": "Transaction",
     "consensus": "Consensus",
-    "contracts": "Contracts"
+    "contracts": "Contracts",
+    "blockChain": "Block chain",
   },
 
   "public": {

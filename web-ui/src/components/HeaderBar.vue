@@ -222,7 +222,7 @@
     .w1200 {
       .header_logo {
         width: 104px;
-        margin-right: 10px;
+        margin-right: 20px;
         .logo {
           width: 104px;
           height: 40px;

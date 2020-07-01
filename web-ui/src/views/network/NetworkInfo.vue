@@ -20,14 +20,14 @@
           <el-table :data="txData" border stripe>
             <el-table-column label="TXID" min-width="330" align="center">
               <template slot-scope="scope">
-                <span class="click" @click="toUrl('networkInfo',scope.row.txHash)">{{ scope.row.hashs }}</span>
+                <span class="click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.hashs }}</span>
               </template>
             </el-table-column>
-           <!-- <el-table-column label="TXID(Nerve)" width="330" align="center">
-              <template slot-scope="scope">
-                <span class="click" @click="toUrl('networkInfo',scope.row.hash0)">{{ scope.row.hash0 }}</span>
-              </template>
-            </el-table-column>-->
+            <!-- <el-table-column label="TXID(Nerve)" width="330" align="center">
+               <template slot-scope="scope">
+                 <span class="click" @click="toUrl('networkInfo',scope.row.hash0)">{{ scope.row.hash0 }}</span>
+               </template>
+             </el-table-column>-->
             <el-table-column prop="time" :label="$t('public.time')" width="180" align="center">
             </el-table-column>
             <el-table-column :label="$t('network.network9')" width="290" align="center">
@@ -128,6 +128,18 @@
 
       pageChange() {
 
+      },
+
+      /**
+       * url 连接跳转
+       * @param name
+       * @param parmes
+       */
+      toUrl(name, parmes) {
+        this.$router.push({
+          name: name,
+          query: name === 'transactionInfo' ? {hash: parmes} : {height: parmes}
+        })
       }
     }
   }

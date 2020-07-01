@@ -3,9 +3,12 @@
     <el-menu :default-active="activedMenu($route.path)" mode="horizontal" active-text-color="#7db46d"
              @select="handleSelect">
       <el-menu-item index="home" class="font18 fw capitalize">{{$t('nav.home')}}</el-menu-item>
-      <el-menu-item index="block" class="font18 fw capitalize">{{$t('nav.block')}}</el-menu-item>
-      <el-menu-item index="address" class="font18 fw capitalize">{{$t('nav.address')}}</el-menu-item>
-      <el-menu-item index="transaction" class="font18 fw capitalize">{{$t('nav.transaction')}}</el-menu-item>
+      <el-submenu index="blockChain">
+        <template slot="title">{{$t('nav.blockChain')}}</template>
+        <el-menu-item index="block" class="font18 capitalize">{{$t('nav.block')}}</el-menu-item>
+        <el-menu-item index="address" class="font18 capitalize">{{$t('nav.address')}}</el-menu-item>
+        <el-menu-item index="transaction" class="font18 capitalize">{{$t('nav.transaction')}}</el-menu-item>
+      </el-submenu>
       <el-menu-item index="consensus" class="font18 fw capitalize">{{$t('nav.consensus')}}</el-menu-item>
       <el-menu-item index="contracts" class="font18 fw capitalize">{{$t('nav.contracts')}}</el-menu-item>
       <el-menu-item index="network" class="font18 fw capitalize">{{$t('network.network')}}</el-menu-item>
@@ -76,13 +79,13 @@
   @import "./../assets/css/style";
 
   .nav {
-    width: 720px;
+    width: 700px;
     float: left;
     .el-menu--horizontal {
       float: left;
       border-bottom: 0 !important;
       .el-menu-item {
-        padding: 0 10px;
+        padding: 0 20px;
         color: #5e6983;
         font-size: 18px;
         height: 80px;
@@ -91,6 +94,13 @@
       }
       .is-active {
         border-color: transparent !important;
+      }
+      .el-submenu {
+        .el-submenu__title {
+          border-bottom-color: transparent !important;
+          font-size: 18px;
+          line-height: 80px;
+        }
       }
     }
     @media screen and (max-width: 1000px) {

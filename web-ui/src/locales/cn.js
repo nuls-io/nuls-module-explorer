@@ -7,7 +7,8 @@ const cn = {
     "address": "账户",
     "transaction": "交易",
     "consensus": "共识",
-    "contracts": "合约"
+    "contracts": "合约",
+    "blockChain": "区块链",
   },
 
   "public": {
