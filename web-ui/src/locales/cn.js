@@ -326,12 +326,39 @@ const cn = {
     "about": "问题反馈",
     "explorer1": "1.0浏览器",
   },
+
   "protocolUpdate": {
     "name": "协议升级进度",
     "upgraded": "已升级节点",
     "notUpgraded": "未升级节点",
     "upgradeProgress":"升级进展"
   },
+
+  "network":{
+    "network":"链网络",
+    "network0":"链ID",
+    "network1":"链名称",
+    "network2":"资产符号",
+    "network3":"发行量",
+    "network4":"链详情",
+    "network5":"基础信息",
+    "network6":"交易次数",
+    "network7":"资产总供应量",
+    "network8":"交易列表",
+    "network9":"方向",
+    "network10":"跨链转出",
+    "network11":"跨链转入",
+    "network12":"持有跨链资产",
+    "network13":"资产ID",
+    "network14":"持有数量",
+
+    "network15":"链内交易",
+    "network16":"Nerve跨链交易",
+    "network17":"持有数量",
+    "network18":"持有数量",
+
+  },
+
   ...zhLocale
 };
 

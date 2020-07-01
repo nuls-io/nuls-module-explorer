@@ -333,6 +333,30 @@ const en = {
     "notUpgraded": "Node not upgraded",
     "upgradeProgress":"Upgrade progress"
   },
+
+  "network":{
+    "network":"Chain network",
+    "network0":"Chain ID",
+    "network1":"Chain name",
+    "network2":"Assets symbol",
+    "network3":"Circulation",
+    "network4":"Chain info",
+    "network5":"Basic information",
+    "network6":"Transaction number",
+    "network7":"Total asset supply",
+    "network8":"Transaction list",
+    "network9":"Direction ",
+    "network10":"Across out",
+    "network11":"Across into",
+    "network12":"Hold cross-chain assets",
+    "network13":"Asset ID",
+    "network14":"Hold number",
+    "network15":"Chain trading",
+    "network16":"Nerve cross - chain deals",
+    "network17":"持有数量",
+    "network18":"持有数量",
+  },
+
   ...enLocale
 
 };

@@ -94,15 +94,6 @@
               <template slot-scope="scope">{{ scope.row.fees }}</template>
             </el-table-column>
           </el-table>
-          <div class="paging">
-            <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
-                           v-show="txListPager.total > txListPager.rows"
-                           :total="txListPager.total"
-                           :current-page.sync="txListPager.page"
-                           :pager-count=5
-                           :page-size="txListPager.rows" @current-change="pagesTxListList">
-            </el-pagination>
-          </div>
         </el-tab-pane>
         <el-tab-pane :label="$t('public.tokenTrading')" name="addressSecond">
           <el-select v-model="tokenValue" @change="changeToken">
@@ -147,16 +138,6 @@
             </el-table-column>
             -
           </el-table>
-          <div class="paging">
-            <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
-                           v-show="tokenListPager.total > tokenListPager.rows"
-                           :total="tokenListPager.total"
-                           :current-page.sync="tokenListPager.page"
-                           :page-size="tokenListPager.rows"
-                           @current-change="pagesTokenList">
-            </el-pagination>
-          </div>
-          <!-- <paging :pager="pager" @change="pagesTokenList" v-show="pager.total > pager.page"></paging>-->
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList3')" name="addressThree">
           <el-table :data="nrc20List" stripe border style="width: 100%" class="mt_20">
@@ -181,18 +162,32 @@
               <template slot-scope="scope">{{ scope.row.balance }} ( {{ scope.row.tokenSymbol }})</template>
             </el-table-column>
           </el-table>
-          <div class="paging">
-            <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
-                           v-show="nrc20ListPager.total > nrc20ListPager.rows"
-                           :total="nrc20ListPager.total"
-                           :current-page.sync="nrc20ListPager.page"
-                           :page-size="nrc20ListPager.rows"
-                           @current-change="pagesNrc20List">
-            </el-pagination>
-          </div>
-
+        </el-tab-pane>
+        <el-tab-pane :label="$t('network.network12')" name="addressFour">
+          <el-table :data="holdData" border>
+            <el-table-column prop="chainId" :label="$t('network.network0')" min-width="300" align="center">
+            </el-table-column>
+            <el-table-column prop="assetId" :label="$t('network.network13')" width="290" align="center">
+            </el-table-column>
+            <el-table-column :label="$t('network.network2')" width="290" align="center">
+              <template slot-scope="scope">
+                <span class="click" @click="toUrl('networkInfo',scope.row.chainId)">{{ scope.row.symbol }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="balance" :label="$t('network.network14')" width="290" align="center">
+            </el-table-column>
+          </el-table>
         </el-tab-pane>
       </el-tabs>
+      <div class="paging">
+        <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
+                       v-show="pageTotal > pageRows"
+                       :total="pageTotal"
+                       :current-page.sync="pageIndex"
+                       :page-size="pageRows"
+                       @current-change="pagingMethod">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -242,12 +237,9 @@
         addressNumber: [],
         //交易列表
         txList: [],
-        //交易列表分页信息
-        txListPager: {
-          total: 0,
-          page: 1,
-          rows: 5,
-        },
+        pageTotal: 0, //总条数
+        pageIndex: 1,//当前页
+        pageRows: 5, //显示条数
         //交易列表加载动画
         txListLoading: true,
         //隐藏共识奖励
@@ -276,6 +268,7 @@
         //地址定时器
         addressInterval: null,
         symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
+        holdData: [],//持有跨链资产列表
       }
     },
     components: {
@@ -284,7 +277,7 @@
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
       this.getAddressInfo(this.address);
-      this.pagesTxListList();
+      this.tabNameList();
     },
     mounted() {
       //延迟加载饼状图
@@ -362,15 +355,28 @@
        **/
       handleClick(tab) {
         this.activeName = tab.name;
-        if (tab.name === 'addressFirst') {
+        this.pageTotal = 0;
+        this.pageIndex = 1;
+        this.tabNameList();
+      },
+
+      /**
+       * @disc: 根据tab名称加载数据
+       * @params:
+       * @date: 2020-07-01 10:54
+       * @author: Wave
+       */
+      tabNameList() {
+        if (this.activeName === 'addressFirst') {
           this.txListLoading = true;
-          this.pagesTxListList();
-        } else if (tab.name === 'addressSecond') {
+          this.getTxListByAddress(this.pageIndex, this.pageRows, this.address, this.typeRegion);
+        } else if (this.activeName === 'addressSecond') {
           this.tokenListLoading = true;
-          this.pagesTokenList(this.tokenListPager.page, this.tokenListPager.rows, this.address, "")
-        } else {
-          //console.log("88888");
+          this.getTokenListByAddress(this.tokenListPager.page, this.tokenListPager.rows, this.address, "")
+        } else if (this.activeName === 'addressThree') {
           this.getNrc20ListByAddress(this.nrc20ListPager.page, this.nrc20ListPager.rows, this.address);
+        } else {
+          this.getAccountCrossLedgerList(this.address);
         }
       },
 
@@ -390,7 +396,7 @@
                 item.fees = timesDecimals(item.fee.value);
               }
               this.txList = response.result.list;
-              this.txListPager.total = response.result.totalCount;
+              this.pageTotal = response.result.totalCount;
               this.txListLoading = false;
             }
           }).catch((error) => {
@@ -401,8 +407,9 @@
       /**
        * 根据地址获取交易列表 分页
        */
-      pagesTxListList() {
-        this.getTxListByAddress(this.txListPager.page, this.txListPager.rows, this.address, this.typeRegion, this.hideSwitch);
+      pagingMethod(e) {
+        this.pageIndex = e;
+        this.tabNameList();
       },
 
       /**
@@ -424,7 +431,7 @@
                 item.showValue = this.address === item.toAddress;
               }
               this.tokenList = response.result.list;
-              this.tokenListPager.total = response.result.totalCount;
+              this.pageTotal = response.result.totalCount;
               this.tokenListLoading = false;
             }
           }).catch((error) => {
@@ -433,17 +440,10 @@
       },
 
       /**
-       * 根据地址获取Token交易列表分页
-       */
-      pagesTokenList() {
-        this.getTokenListByAddress(this.tokenListPager.page, this.tokenListPager.rows, this.address, this.tokenValue);
-      },
-
-      /**
        * 选择代币类型
        **/
       changeToken() {
-        this.getTokenListByAddress(this.tokenListPager.page, this.tokenListPager.rows, this.address, this.tokenValue);
+        this.getTokenListByAddress(this.pageIndex, this.pageRows, this.address, this.tokenValue);
       },
 
       /**
@@ -458,7 +458,7 @@
                 item.balance = timesDecimals(item.balance, item.decimals);
               }
               this.nrc20List = response.result.list;
-              this.nrc20ListPager.total = response.result.totalCount;
+              this.pageTotal = response.result.totalCount;
             }
           }).catch((error) => {
           console.log(error)
@@ -466,10 +466,22 @@
       },
 
       /**
-       * 根据地址获取NRC-20列表 分页
+       * 持有跨链资产列表
        */
-      pagesNrc20List() {
-        this.getNrc20ListByAddress(this.nrc20ListPager.page, this.nrc20ListPager.rows, this.address);
+      getAccountCrossLedgerList(address) {
+        this.$post('/', 'getAccountCrossLedgerList', [address])
+          .then((response) => {
+            //console.log(response);
+            if (response.hasOwnProperty("result")) {
+              for (let item of response.result) {
+                item.balance = timesDecimals(item.totalBalance, item.decimals);
+              }
+              this.holdData = response.result;
+              this.pageTotal = response.result.totalCount;
+            }
+          }).catch((error) => {
+          console.log(error)
+        })
       },
 
       /**
@@ -488,8 +500,9 @@
           newParmes = {contractAddress: parmes, tabName: 'first'}
         } else if (name === 'tokenInfo') {
           newParmes = {contractAddress: parmes}
-        }
-        else {
+        } else if (name === 'networkInfo') {
+          newParmes = {chainId: parmes}
+        } else {
           newParmes = {hash: parmes}
         }
         this.$router.push({
@@ -505,7 +518,7 @@
       changeType(type) {
         this.txListLoading = true;
         this.typeRegion = parseInt(type);
-        this.getTxListByAddress(this.txListPager.page, this.txListPager.rows, this.address, this.typeRegion, this.hideSwitch);
+        this.getTxListByAddress(this.pageIndex, this.pageRows, this.address, this.typeRegion, this.hideSwitch);
       },
 
       /**
@@ -513,7 +526,7 @@
        */
       hideConsensusList() {
         this.txListLoading = true;
-        this.getTxListByAddress(this.txListPager.page, this.txListPager.rows, this.address, this.typeRegion, this.hideSwitch);
+        this.getTxListByAddress(this.pageIndex, this.pageRows, this.address, this.typeRegion, this.hideSwitch);
       },
 
     },

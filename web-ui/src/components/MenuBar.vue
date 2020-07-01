@@ -8,6 +8,7 @@
       <el-menu-item index="transaction" class="font18 fw capitalize">{{$t('nav.transaction')}}</el-menu-item>
       <el-menu-item index="consensus" class="font18 fw capitalize">{{$t('nav.consensus')}}</el-menu-item>
       <el-menu-item index="contracts" class="font18 fw capitalize">{{$t('nav.contracts')}}</el-menu-item>
+      <el-menu-item index="network" class="font18 fw capitalize">{{$t('network.network')}}</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -60,6 +61,8 @@
           return 'consensus'
         } else if (val.indexOf('/contracts') === 0 || val.indexOf('/token') === 0) {
           return 'contracts'
+        } else if (val.indexOf('/network') === 0) {
+          return 'network'
         } else {
           return 'home'
         }
@@ -73,13 +76,13 @@
   @import "./../assets/css/style";
 
   .nav {
-    width: 670px;
+    width: 720px;
     float: left;
     .el-menu--horizontal {
       float: left;
       border-bottom: 0 !important;
       .el-menu-item {
-        padding: 0 18px;
+        padding: 0 10px;
         color: #5e6983;
         font-size: 18px;
         height: 80px;
@@ -98,7 +101,7 @@
         width: 160px;
         right: 0;
         position: absolute;
-        .el-menu-item{
+        .el-menu-item {
           float: none;
           height: 40px;
           line-height: 40px;

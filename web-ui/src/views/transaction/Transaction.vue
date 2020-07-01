@@ -33,33 +33,79 @@
       <div class="w1200">
         <h2 class="title font18 capitalize">{{$t('public.transactionList')}}</h2>
         <div class="tabs w1200">
-          <SelectBar size="small" v-model="typeRegion" @change="changeType"></SelectBar>
-          <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('block.block1')"
-                     v-show="typeRegion=== 0" @change="hideConsensusList"></el-switch>
-          <el-table :data="txList" style="width: 100%;" stripe border v-loading="txListLoading">
-            <el-table-column width="30" align="left">
-            </el-table-column>
-            <el-table-column :label="$t('public.height')" width="90" align="left">
-              <template slot-scope="scope"><span class="click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="TXID" min-width="280" align="left">
-              <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.hash)">{{ scope.row.hashs }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
-            <el-table-column :label="$t('public.type')" width="180" align="left">
-              <template slot-scope="scope"><span class="capitalize">{{ $t('type.'+scope.row.type) }}</span></template>
-            </el-table-column>
-            <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="160" align="left">
-              <template slot-scope="scope">{{ scope.row.value }}</template>
-            </el-table-column>
-            <el-table-column :label="$t('public.fee')+ '('+symbol+')'" width="160" align="left">
-              <template slot-scope="scope">{{ scope.row.fees }}</template>
-            </el-table-column>
-          </el-table>
+          <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane :label="$t('network.network15')" name="first">
+              <SelectBar size="small" v-model="typeRegion" @change="changeType">
+              </SelectBar>
+              <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('block.block1')"
+                         v-show="typeRegion=== 0" @change="hideConsensusList">
+              </el-switch>
+              <el-table :data="txList" style="width: 100%;" stripe border v-loading="txListLoading">
+                <el-table-column width="30" align="left">
+                </el-table-column>
+                <el-table-column :label="$t('public.height')" width="90" align="left">
+                  <template slot-scope="scope"><span class="click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="TXID" min-width="280" align="left">
+                  <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.hash)">{{ scope.row.hashs }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
+                </el-table-column>
+                <el-table-column :label="$t('public.type')" width="180" align="left">
+                  <template slot-scope="scope"><span class="capitalize">{{ $t('type.'+scope.row.type) }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="160" align="left">
+                  <template slot-scope="scope">{{ scope.row.value }}</template>
+                </el-table-column>
+                <el-table-column :label="$t('public.fee')+ '('+symbol+')'" width="160" align="left">
+                  <template slot-scope="scope">{{ scope.row.fees }}</template>
+                </el-table-column>
+              </el-table>
+            </el-tab-pane>
+            <el-tab-pane :label="$t('network.network16')" name="second">
+              <el-table :data="nerveTxList" style="width: 100%;" stripe border v-loading="txListLoading">
+                <el-table-column width="30" align="left">
+                </el-table-column>
+                <el-table-column :label="$t('public.height')" width="90" align="center">
+                  <template slot-scope="scope"><span class="click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="TXID" min-width="280" align="center">
+                  <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.hashs }}</span>
+                  </template>
+                </el-table-column>
+               <!-- <el-table-column label="TXID(NERVE)" min-width="280" align="center">
+                  <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.hash0)">{{ scope.row.hashs0 }}</span>
+                  </template>
+                </el-table-column>-->
+                <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
+                </el-table-column>
+                <el-table-column :label="$t('public.type')" width="180" align="center">
+                  <template slot-scope="scope">
+                    <span class="capitalize">{{scope.row.transferType === -1 ? $t('network.network10'):$t('network.network11') }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('public.amount')" width="160" align="left">
+                  <template slot-scope="scope">{{ scope.row.values }}</template>
+                </el-table-column>
+              </el-table>
+            </el-tab-pane>
+          </el-tabs>
+          <!--<paging :pager="pagerIndex" @change="pagesList" v-show="pagerTotal > pagerRows">
+          </paging>-->
+          <div class="paging">
+            <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
+                           v-show="pagerTotal > pagerRows"
+                           :total="pagerTotal"
+                           :current-page.sync="pagerIndex"
+                           :page-size="pagerRows"
+                           @current-change="pagesList">
+            </el-pagination>
+          </div>
 
-          <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.page"></paging>
         </div>
       </div>
     </div>
@@ -68,19 +114,15 @@
 
 <script>
   import moment from 'moment'
-  import paging from '@/components/pagingBar';
   import SelectBar from '@/components/SelectBar';
   import {getLocalTime, superLong, timesDecimals} from '@/api/util.js'
 
   export default {
     data() {
-      this.colors = ['#7db46d', '#7db46d', '#7db46d',
-        '#546570', '#c4ccd3'];
+      this.colors = ['#7db46d', '#7db46d', '#7db46d', '#546570', '#c4ccd3'];
       this.chartSettings = {
         yAxisType: ['normal'],
-        labelMap: {
-          'value': 'TXS'
-        },
+        labelMap: {'value': 'TXS'},
       };
       return {
 
@@ -99,26 +141,27 @@
         txList: [],
         //交易列表加载动画
         txListLoading: true,
+
+        nerveTxList: [],//nerve 交易列表
         //交易列表总数
         txListTotal: 0,
         //分页信息
-        pager: {
-          total: 0,
-          page: 1,
-          rows: 6,
-        },
+        pagerTotal: 0,
+        pagerIndex: 1,
+        pagerRows: 6,
+
         symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
         decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
+        activeName: 'first',
       }
     },
     components: {
-      paging,
       SelectBar
     },
     created() {
       this.getYearRateData(this.timeRate);
       this.getTransactionsTotal();
-      this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
+      this.tabNameList();
     },
     mounted() {
     },
@@ -166,6 +209,33 @@
       },
 
       /**
+       * @disc: tab 切换
+       * @params:
+       * @date: 2020-06-28 15:11
+       * @author: Wave
+       */
+      handleClick(tab) {
+        this.activeName = tab.name;
+        this.pagerIndex = 1;
+        this.pageTotal = 0;
+        this.tabNameList();
+      },
+
+      /**
+       * @disc: 根据tab名称加载数据
+       * @params:
+       * @date: 2020-07-01 10:54
+       * @author: Wave
+       */
+      tabNameList() {
+        if (this.activeName === 'first') {
+          this.getTxList(this.pagerIndex, this.pagerRows, this.typeRegion, this.hideSwitch);
+        } else {
+          this.getCrossTxList(this.pagerIndex, this.pagerRows, this.typeRegion, this.hideSwitch);
+        }
+      },
+
+      /**
        * 获交易列表
        */
       getTxList(page, rows, type, show) {
@@ -183,7 +253,7 @@
               if (type === 0 && !show) {
                 this.txListTotal = response.result.totalCount
               }
-              this.pager.total = response.result.totalCount;
+              this.pagerTotal = response.result.totalCount;
               this.txListLoading = false;
             }
           })
@@ -192,9 +262,10 @@
       /**
        * 分页功能
        **/
-      pagesList() {
+      pagesList(e) {
+        this.pageIndex = e;
         this.txListLoading = true;
-        this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
+        this.tabNameList();
       },
 
       /**
@@ -213,6 +284,26 @@
         this.txListLoading = true;
         this.pager = {total: 0, page: 1, rows: 6};
         this.getTxList(this.pager.page, this.pager.rows, this.typeRegion, this.hideSwitch);
+      },
+
+      /**
+       * 查询跨链交易列表
+       */
+      getCrossTxList(page, rows, type, show) {
+        this.$post('/', 'getCrossTxList', [page, rows, type, show])
+          .then((response) => {
+            //console.log(response);
+            if (response.hasOwnProperty("result")) {
+              for (let item of response.result.list) {
+                item.hashs = superLong(item.txHash, 20);
+                item.values = timesDecimals(item.values, 8);
+                item.time = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
+              }
+              this.nerveTxList = response.result.list;
+              this.pagerTotal = response.result.totalCount;
+              this.txListLoading = false;
+            }
+          })
       },
 
       /**
