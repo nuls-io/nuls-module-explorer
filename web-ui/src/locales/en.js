@@ -8,7 +8,7 @@ const en = {
     "transaction": "Transaction",
     "consensus": "Consensus",
     "contracts": "Contracts",
-    "blockChain": "Block chain",
+    "blockChain": "Blockchain",
   },
 
   "public": {

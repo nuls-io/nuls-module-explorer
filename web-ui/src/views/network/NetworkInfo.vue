@@ -1,7 +1,7 @@
 <template>
   <div class="w1200 network_info">
-    <div class=" font14 gray back"><span class="click">{{$t('network.network')}}</span> / {{$t('network.network4')}}
-    </div>
+    <!--<div class=" font14 gray back"><span class="click">{{$t('network.network')}}</span> / {{$t('network.network4')}}
+    </div>-->
     <div class="info">
       <div class="font14 chain_id">{{$t('network.network0')}}：{{chainInfo.chainId}}</div>
       <div class="infos">
@@ -152,8 +152,10 @@
       margin: 20px 0;
     }
     .info {
+      margin: 40px 0 0 0;
       .chain_id {
-        line-height: 26px;
+        line-height: 30px;
+        font-size: 20px;
       }
       .infos {
         border: 1px solid #c1c1c1;
