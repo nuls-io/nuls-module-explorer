@@ -33,7 +33,36 @@
       <div class="w1200">
         <h2 class="title font18 capitalize">{{$t('public.transactionList')}}</h2>
         <div class="tabs w1200">
-          <el-tabs v-model="activeName" @tab-click="handleClick">
+          <SelectBar size="small" v-model="typeRegion" @change="changeType">
+          </SelectBar>
+          <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('block.block1')"
+                     v-show="typeRegion=== 0" @change="hideConsensusList">
+          </el-switch>
+          <el-table :data="txList" style="width: 100%;" stripe border v-loading="txListLoading">
+            <el-table-column width="30" align="left">
+            </el-table-column>
+            <el-table-column :label="$t('public.height')" width="90" align="left">
+              <template slot-scope="scope"><span class="click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="TXID" min-width="280" align="left">
+              <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.hash)">{{ scope.row.hashs }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
+            </el-table-column>
+            <el-table-column :label="$t('public.type')" width="180" align="left">
+              <template slot-scope="scope"><span class="capitalize">{{ $t('type.'+scope.row.type) }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="160" align="left">
+              <template slot-scope="scope">{{ scope.row.value }}</template>
+            </el-table-column>
+            <el-table-column :label="$t('public.fee')+ '('+symbol+')'" width="160" align="left">
+              <template slot-scope="scope">{{ scope.row.fees }}</template>
+            </el-table-column>
+          </el-table>
+          <!--<el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane :label="$t('network.network15')" name="first">
               <SelectBar size="small" v-model="typeRegion" @change="changeType">
               </SelectBar>
@@ -77,10 +106,10 @@
                   <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.hashs }}</span>
                   </template>
                 </el-table-column>
-               <!-- <el-table-column label="TXID(NERVE)" min-width="280" align="center">
+               &lt;!&ndash; <el-table-column label="TXID(NERVE)" min-width="280" align="center">
                   <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.hash0)">{{ scope.row.hashs0 }}</span>
                   </template>
-                </el-table-column>-->
+                </el-table-column>&ndash;&gt;
                 <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
                 </el-table-column>
                 <el-table-column :label="$t('public.type')" width="180" align="center">
@@ -93,7 +122,7 @@
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-          </el-tabs>
+          </el-tabs>-->
           <!--<paging :pager="pagerIndex" @change="pagesList" v-show="pagerTotal > pagerRows">
           </paging>-->
           <div class="paging">
