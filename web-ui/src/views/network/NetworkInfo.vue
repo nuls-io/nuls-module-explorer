@@ -9,12 +9,12 @@
         <ul>
           <li>{{$t('network.network1')}}<span class="fr click">{{chainInfo.chainName}}</span></li>
           <li>{{$t('network.network2')}}<span class="fr click">{{defaultAsset.symbol}}</span></li>
-          <li>{{$t('network.network6')}}<span class="fr">8</span></li>
+          <li>{{$t('network.network6')}}<span class="fr">{{pageTotal}}</span></li>
           <li>{{$t('network.network7')}}<span class="fr">{{defaultAsset.initCoins}}</span></li>
         </ul>
       </div>
     </div>
-    <div class="tx_list">
+    <div class="tx_list" v-loading="txDataLoading">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('network.network8')" name="first">
           <el-table :data="txData" border stripe>
@@ -68,6 +68,7 @@
         pageIndex: 1, //页码
         pageSize: 10, //每页条数
         pageTotal: 0,//总页数
+        txDataLoading: false,//分页加载
       }
     },
     created() {
@@ -99,7 +100,7 @@
               this.defaultAsset = response.result.defaultAsset
             }
           }).catch((error) => {
-          console.log(error)
+          console.log(error);
         })
       },
 
@@ -110,6 +111,7 @@
        * @author: Wave
        */
       getCrossTxList(chainId, pageNumber, pageSize, startTime, endTime) {
+        this.txDataLoading = true;
         this.$post('/', 'getCrossTxList', [chainId, pageNumber, pageSize, startTime, endTime])
           .then((response) => {
             //console.log(response);
@@ -119,15 +121,24 @@
                 item.hashs = superLong(item.txHash, 20);
                 item.values = timesDecimals(item.values, 8);
               }
+              this.pageTotal = response.result.totalCount;
               this.txData = response.result.list;
+              this.txDataLoading = false;
             }
           }).catch((error) => {
           console.log(error)
         })
       },
 
-      pageChange() {
-
+      /**
+       * @disc: 分页功能
+       * @params:
+       * @date: 2020-07-13 9:52
+       * @author: Wave
+       */
+      pageChange(e) {
+        this.pageIndex = e;
+        this.getCrossTxList(Number(this.$route.query.chainId), this.pageIndex, this.pageSize, 0, 0)
       },
 
       /**
