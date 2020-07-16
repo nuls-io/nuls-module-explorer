@@ -194,6 +194,15 @@
     },
     mounted() {
     },
+    beforeRouteLeave(to, from, next) {
+      //console.log(to.name);
+      if (to.name === 'transactionInfo') {
+        from.meta.keepAlive = true;
+      } else {
+        from.meta.keepAlive = false;
+      }
+      next()
+    },
     methods: {
 
       /**

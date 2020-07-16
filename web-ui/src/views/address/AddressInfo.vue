@@ -140,7 +140,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList3')" name="addressThree">
-          <el-table :data="nrc20List" stripe border style="width: 100%" class="mt_20">
+          <el-table :data="nrc20List" stripe border style="width: 100%" class="mt_20" v-loading="nrc20ListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="220"
@@ -164,7 +164,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('network.network12')" name="addressFour">
-          <el-table :data="holdData" border>
+          <el-table :data="holdData" border v-loading="holdDataLoading">
             <el-table-column prop="chainId" :label="$t('network.network0')" min-width="300" align="center">
             </el-table-column>
             <el-table-column prop="assetId" :label="$t('network.network13')" width="290" align="center">
@@ -265,10 +265,12 @@
           page: 1,
           rows: 5,
         },
+        nrc20ListLoading: false,
         //地址定时器
         addressInterval: null,
         symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
         holdData: [],//持有跨链资产列表
+        holdDataLoading: false,
       }
     },
     components: {
@@ -372,9 +374,9 @@
           this.getTxListByAddress(this.pageIndex, this.pageRows, this.address, this.typeRegion);
         } else if (this.activeName === 'addressSecond') {
           this.tokenListLoading = true;
-          this.getTokenListByAddress(this.tokenListPager.page, this.tokenListPager.rows, this.address, "")
+          this.getTokenListByAddress(this.pageIndex, this.pageRows, this.address, "")
         } else if (this.activeName === 'addressThree') {
-          this.getNrc20ListByAddress(this.nrc20ListPager.page, this.nrc20ListPager.rows, this.address);
+          this.getNrc20ListByAddress(this.pageIndex, this.pageRows, this.address);
         } else {
           this.getAccountCrossLedgerList(this.address);
         }
@@ -450,6 +452,7 @@
        * 根据地址获取NRC-20列表
        */
       getNrc20ListByAddress(page, rows, address) {
+        this.nrc20ListLoading = true;
         this.$post('/', 'getAccountTokens', [page, rows, address])
           .then((response) => {
             //console.log(response);
@@ -459,6 +462,7 @@
               }
               this.nrc20List = response.result.list;
               this.pageTotal = response.result.totalCount;
+              this.nrc20ListLoading = false;
             }
           }).catch((error) => {
           console.log(error)
@@ -469,6 +473,7 @@
        * 持有跨链资产列表
        */
       getAccountCrossLedgerList(address) {
+        this.holdDataLoading = true;
         this.$post('/', 'getAccountCrossLedgerList', [address])
           .then((response) => {
             //console.log(response);
@@ -478,6 +483,7 @@
               }
               this.holdData = response.result;
               this.pageTotal = response.result.totalCount;
+              this.holdDataLoading = false;
             }
           }).catch((error) => {
           console.log(error)

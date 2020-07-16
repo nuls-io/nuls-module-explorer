@@ -7,8 +7,9 @@
       <div class="infos">
         <div class="title">{{$t('network.network5')}}</div>
         <ul>
-          <li>{{$t('network.network1')}}<span class="fr click">{{chainInfo.chainName}}</span></li>
-          <li>{{$t('network.network2')}}<span class="fr click">{{defaultAsset.symbol}}</span></li>
+          <li>{{$t('network.network1')}}<span class="fr">{{chainInfo.chainName}}</span></li>
+          <li>{{$t('network.network2')}}<span class="fr">{{defaultAsset.symbol}}</span></li>
+          <li>{{$t('network.network19')}}<span class="fr">{{defaultAsset.nulsTotalCoins}}</span></li>
           <li>{{$t('network.network6')}}<span class="fr">{{pageTotal}}</span></li>
           <li>{{$t('network.network7')}}<span class="fr">{{defaultAsset.initCoins}}</span></li>
         </ul>
@@ -96,6 +97,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               response.result.defaultAsset.initCoins = Number(timesDecimals(response.result.defaultAsset.initCoins, response.result.defaultAsset.decimals));
+              response.result.defaultAsset.nulsTotalCoins = Number(timesDecimals(response.result.defaultAsset.localTotalCoins, response.result.defaultAsset.decimals));
               this.chainInfo = response.result;
               this.defaultAsset = response.result.defaultAsset
             }
@@ -189,7 +191,7 @@
       }
     }
     .tx_list {
-      margin: 20px 0 0 0;
+      margin: 20px 0 100px 0;
     }
   }
 </style>

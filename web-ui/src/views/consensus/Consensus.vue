@@ -6,7 +6,7 @@
         <div class="fr">
           <div class="font16">
             <span class="font12 capitalize">{{$t('home.home4')}}:</span> {{circulation}}K
-            <span class="font12 capitalize">{{$t('home.home2')}}:</span> {{consensusTotal}} K
+            <span class="font12 capitalize">{{$t('home.home2')}}:</span> {{consensusTotal}}K
             <span class="font12 capitalize">{{$t('consensus.consensus1')}}:</span> {{nodeing}}
             <span class="font12 capitalize">{{$t('home.home1')}}:</span> {{node}}
           </div>
@@ -32,13 +32,14 @@
                  :colors="colors"
                  :settings="chartSettings"
                  :loading="timeRateDataLoading"></ve-line>
-       <!-- <ChartBar showID="mountNodes" :chartData="chartData" width="1200"></ChartBar>-->
+        <!-- <ChartBar showID="mountNodes" :chartData="chartData" width="1200"></ChartBar>-->
       </div>
     </div>
     <div class="info bg-gray">
       <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200 tab_consensus">
         <el-tab-pane :label="$t('consensus.consensus2')" name="first">
-          <ConsensusList></ConsensusList>
+          <ConsensusList>
+          </ConsensusList>
         </el-tab-pane>
         <el-tab-pane :label="$t('consensus.consensus3')" name="second">
           <div class="cards">
@@ -61,31 +62,34 @@
               </li>
             </ul>
           </div>
-
           <div class="cards-title font14 cb">{{$t('consensus.consensus8')}}</div>
-          <el-table :data="roundList" stripe border style="width: 100%">
+          <el-table :data="roundList" stripe border style="width: 100%" v-loading="roundListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column :label="$t('public.round')" width="100" align="left">
-              <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('rotationInfo',scope.row.index)">{{ scope.row.index }}</span>
+              <template slot-scope="scope">
+                <router-link class="click" tag="a" :to="{name:'rotationInfo',query:{rotation:scope.row.index}}">
+                  {{ scope.row.index }}
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column :label="$t('consensus.consensus9')" min-width="280" align="left">
               <template slot-scope="scope">
                 <span>{{ scope.row.startTime }}&#45;&#45;&#45;&#45;{{ scope.row.endTime }}</span></template>
             </el-table-column>
-            <el-table-column prop="memberCount" :label="$t('consensus.consensus10')" width="150"
-                             align="left"></el-table-column>
+            <el-table-column prop="memberCount" :label="$t('consensus.consensus10')" width="150" align="left">
+            </el-table-column>
             <el-table-column :label="$t('public.yellowCard')+'/'+ $t('public.redCard')" width="180" align="left">
               <template slot-scope="scope"><span>{{ scope.row.yellowCardCount }}-{{ scope.row.redCardCount }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="producedBlockCount" :label="$t('consensus.consensus11')" width="150"
-                             align="left"></el-table-column>
-            <el-table-column prop="lostRate" :label="$t('public.lostRate')" width="150"
-                             align="left"></el-table-column>
+            <el-table-column prop="producedBlockCount" :label="$t('consensus.consensus11')" width="150" align="left">
+            </el-table-column>
+            <el-table-column prop="lostRate" :label="$t('public.lostRate')" width="150" align="left">
+            </el-table-column>
           </el-table>
-          <paging :pager="pager" @change="pagesList"></paging>
+          <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
+          </paging>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -102,12 +106,12 @@
   export default {
 
     data() {
-      this.colors = ['#7db46d','#7db46d', '#7db46d',
+      this.colors = ['#7db46d', '#7db46d', '#7db46d',
         '#546570', '#c4ccd3'];
       this.chartSettings = {
         yAxisType: ['normal'],
         labelMap: {
-          'value':this.$t('public.stake')
+          'value': this.$t('public.stake')
         },
       };
       return {
@@ -121,9 +125,9 @@
         node: 0,
 
         //统计图数据
-        chartData:{
+        chartData: {
           columns: [],
-          rows:[]
+          rows: []
         },
         timeRateDataLoading: true,
         //选择统计报表时间
@@ -133,6 +137,7 @@
         roundInfo: [],
         //轮次列表
         roundList: [],
+        roundListLoading: false,
         pager: {
           total: 0,
           page: 1,
@@ -146,7 +151,6 @@
       paging,
     },
     created() {
-
       this.getYearRateData(2);
       this.getRoundInfo();
       this.getRoundList(this.pager.page, this.pager.rows);
@@ -165,6 +169,15 @@
         this.node = this.$store.state.nodeNumber.agentCount;
       }, 100);
     },
+    beforeRouteLeave(to, from, next) {
+      //console.log(to.name);
+      if (to.name === 'rotationInfo') {
+        from.meta.keepAlive = true;
+      } else {
+        from.meta.keepAlive = false;
+      }
+      next()
+    },
     methods: {
 
       /**
@@ -178,9 +191,9 @@
               for (let item of response.result) {
                 item.value = item.value / 100000000
               }
-              this.chartData.columns=['key', 'value'];
-              this.chartData.rows=response.result;
-              this.timeRateDataLoading =false;
+              this.chartData.columns = ['key', 'value'];
+              this.chartData.rows = response.result;
+              this.timeRateDataLoading = false;
 
             }
           })
@@ -190,9 +203,9 @@
        * 选择统计数据的周、月、年
        **/
       changeDate(type) {
-        this.timeRateDataLoading =true;
-        this.chartData.columns=[];
-        this.chartData.rows=[];
+        this.timeRateDataLoading = true;
+        this.chartData.columns = [];
+        this.chartData.rows = [];
         this.timeRate = type;
         this.getYearRateData(type)
       },
@@ -201,7 +214,8 @@
        * tab 切换
        **/
       handleClick() {
-
+        this.pager.total = 0;
+        this.pager.page = 1;
       },
 
       /**
@@ -212,12 +226,16 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.startTime = moment(getLocalTime(response.result.startTime*1000)).format('HH:mm:ss');
-              response.result.endTime = moment(getLocalTime(response.result.endTime*1000)).format('HH:mm:ss');
+              response.result.startTime = moment(getLocalTime(response.result.startTime * 1000)).format('HH:mm:ss');
+              response.result.endTime = moment(getLocalTime(response.result.endTime * 1000)).format('HH:mm:ss');
               response.result.names = response.result.startBlockHeader.agentAlias ? response.result.startBlockHeader.agentAlias : superLong(response.result.startBlockHeader.agentId, 8);
               this.roundInfo = response.result;
+            } else {
+              console.log(response);
+              this.getRoundInfo();
             }
           }).catch((error) => {
+          this.getRoundInfo();
           console.log(error)
         })
       },
@@ -226,16 +244,18 @@
        * 获取轮次列表
        */
       async getRoundList(page, rows) {
+        this.roundListLoading = true;
         this.$post('/', 'getRoundList', [page, rows])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.startTime = moment(getLocalTime(item.startTime*1000)).format('YYYY-MM-DD HH:mm:ss');
-                item.endTime = moment(getLocalTime(item.endTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.startTime = moment(getLocalTime(item.startTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
+                item.endTime = moment(getLocalTime(item.endTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               }
               this.roundList = response.result.list;
               this.pager.total = response.result.totalCount;
+              this.roundListLoading = false;
             }
           }).catch((error) => {
           console.log(error)
@@ -299,12 +319,12 @@
         height: 50px;
         padding: 20px 0 10px 0;
       }
-      .tab_consensus{
-        .el-tabs__header{
+      .tab_consensus {
+        .el-tabs__header {
           margin: 0 0 20px 0;
-          .el-tabs__nav-wrap{
-            .el-tabs__nav-scroll{
-              .el-tabs__item{
+          .el-tabs__nav-wrap {
+            .el-tabs__nav-scroll {
+              .el-tabs__item {
                 padding: 25px 50px 0 0;
                 height: 55px;
                 line-height: normal;

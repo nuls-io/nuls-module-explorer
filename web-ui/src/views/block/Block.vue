@@ -41,7 +41,7 @@
 <script>
   import moment from 'moment'
   import paging from '@/components/pagingBar';
-  import {getLocalTime,timesDecimals} from '@/api/util.js'
+  import {getLocalTime, timesDecimals} from '@/api/util.js'
 
   export default {
     data() {
@@ -66,6 +66,15 @@
     created() {
       this.getBlockList(this.pager.page, this.pager.rows, this.hideSwitch, '')
     },
+    beforeRouteLeave(to, from, next) {
+      //console.log(to.name);
+      if (to.name === 'blockInfo') {
+        from.meta.keepAlive = true;
+      } else {
+        from.meta.keepAlive = false;
+      }
+      next()
+    },
     methods: {
 
       /**
@@ -77,7 +86,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.reward = timesDecimals(item.reward,8);
+                item.reward = timesDecimals(item.reward, 8);
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               }
               this.blockList = response.result.list;

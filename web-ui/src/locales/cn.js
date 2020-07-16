@@ -340,11 +340,11 @@ const cn = {
     "network0":"链ID",
     "network1":"链名称",
     "network2":"资产符号",
-    "network3":"发行量",
+    "network3":"初始发行量",
     "network4":"链详情",
     "network5":"基础信息",
     "network6":"交易次数",
-    "network7":"资产总供应量",
+    "network7":"初始发行量",
     "network8":"交易列表",
     "network9":"方向",
     "network10":"跨链转出",
@@ -352,11 +352,11 @@ const cn = {
     "network12":"持有跨链资产",
     "network13":"资产ID",
     "network14":"持有数量",
-
     "network15":"链内交易",
     "network16":"Nerve跨链交易",
     "network17":"持有数量",
     "network18":"持有数量",
+    "network19":"NULS网络流通量",
 
   },
 

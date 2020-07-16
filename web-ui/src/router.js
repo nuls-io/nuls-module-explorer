@@ -14,7 +14,10 @@ export default new Router({
     {
       path: '/block',
       name: 'block',
-      component: resolve => require(['@/views/block/Block'], resolve)
+      component: resolve => require(['@/views/block/Block'], resolve),
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/block/info',
@@ -34,12 +37,18 @@ export default new Router({
     {
       path: '/address',
       name: 'address',
-      component: resolve => require(['@/views/address/Address'], resolve)
+      component: resolve => require(['@/views/address/Address'], resolve),
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/transaction',
       name: 'transaction',
-      component: resolve => require(['@/views/transaction/Transaction'], resolve)
+      component: resolve => require(['@/views/transaction/Transaction'], resolve),
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/transaction/info',
@@ -54,7 +63,10 @@ export default new Router({
     {
       path: '/consensus',
       name: 'consensus',
-      component: resolve => require(['@/views/consensus/Consensus'], resolve)
+      component: resolve => require(['@/views/consensus/Consensus'], resolve),
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/consensus/info',

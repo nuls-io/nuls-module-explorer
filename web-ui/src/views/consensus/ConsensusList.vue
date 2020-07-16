@@ -136,6 +136,7 @@
 
     },
     methods: {
+
       /**
        * 获取共识列表
        */
@@ -151,9 +152,12 @@
               }
               this.nodeList = response.result.list;
               this.nodeListLoading = false;
+            }else {
+              console.log(response);
             }
           }).catch((error) => {
-          console.log(error)
+            this.getConsensusNodes(page, rows, type);
+          console.log(error);
         })
       },
 
@@ -225,6 +229,7 @@
         };
         return arr.sort(compare(name));
       },
+
     },
   }
 </script>
