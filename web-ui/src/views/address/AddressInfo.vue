@@ -386,7 +386,7 @@
        * 根据地址获取交易列表
        */
       getTxListByAddress(page, rows, address, type) {
-        this.$post('/', 'getAccountTxs', [page, rows, address, type, -1, -1])
+        this.$post('/', 'getAccountTxs', [page, rows, address, type, -1, -1,0,0])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
@@ -544,7 +544,7 @@
         this.addressNumber = [];
         this.txListLoading = true;
         this.getAddressInfo(this.address);
-        this.pagesTxListList();
+        this.tabNameList();
 
         //延迟加载饼状图
         setTimeout(() => {
