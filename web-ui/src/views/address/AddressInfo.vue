@@ -66,9 +66,7 @@
                      @change="hideConsensusList">
           </el-switch>
           <el-table :data="txList" stripe border style="width: 100%;" class="mt_20" v-loading="txListLoading">
-            <el-table-column label="" width="30">
-            </el-table-column>
-            <el-table-column :label="$t('public.height')" width="100" align="left">
+            <el-table-column :label="$t('public.height')" width="90" align="left">
               <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
               </template>
             </el-table-column>
@@ -84,14 +82,14 @@
                 <span>{{ $t('type.'+scope.row.type) }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('public.amount')+'('+symbol+')'" width="170" align="left">
-              <template slot-scope="scope">{{ scope.row.values }}</template>
+            <el-table-column :label="$t('public.amount')" width="180" align="left">
+              <template slot-scope="scope">{{ scope.row.values }}{{scope.row.symbol}}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.balance')+'('+symbol+')'" width="170" align="left">
-              <template slot-scope="scope">{{ scope.row.balance }}</template>
+            <el-table-column :label="$t('public.balance')" width="180" align="left">
+              <template slot-scope="scope">{{ scope.row.balance }}{{scope.row.symbol}}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.fee')+'('+symbol+')'" width="120" align="left">
-              <template slot-scope="scope">{{ scope.row.fees }}</template>
+            <el-table-column :label="$t('public.fee')" width="150" align="left">
+              <template slot-scope="scope">{{ scope.row.fees }}{{symbol}}</template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -128,12 +126,12 @@
               <template slot-scope="scope">
                 <span v-show="scope.row.showValue" class="fCN">+{{ scope.row.value }} </span>
                 <span v-show="!scope.row.showValue" class="fred">-{{ scope.row.value}} </span>
-                ( {{ scope.row.symbol }})
+                {{ scope.row.symbol }}
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" width="200" align="left">
               <template slot-scope="scope">{{address === scope.row.fromAddress ? scope.row.fromBalance :
-                scope.row.toBalance}} ( {{scope.row.symbol }})
+                scope.row.toBalance}}{{scope.row.symbol }}
               </template>
             </el-table-column>
             -
@@ -159,7 +157,7 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" width="280" align="left">
-              <template slot-scope="scope">{{ scope.row.balance }} ( {{ scope.row.tokenSymbol }})</template>
+              <template slot-scope="scope">{{ scope.row.balance }}{{ scope.row.tokenSymbol }}</template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -386,7 +384,7 @@
        * 根据地址获取交易列表
        */
       getTxListByAddress(page, rows, address, type) {
-        this.$post('/', 'getAccountTxs', [page, rows, address, type, -1, -1,0,0])
+        this.$post('/', 'getAccountTxs', [page, rows, address, type, -1, -1, 0, 0])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {

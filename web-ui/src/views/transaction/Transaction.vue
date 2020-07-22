@@ -55,11 +55,11 @@
               <template slot-scope="scope"><span class="capitalize">{{ $t('type.'+scope.row.type) }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="160" align="left">
-              <template slot-scope="scope">{{ scope.row.value }}</template>
+            <el-table-column :label="$t('public.amount')" width="160" align="left">
+              <template slot-scope="scope">{{ scope.row.value }}{{scope.row.symbol}}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.fee')+ '('+symbol+')'" width="160" align="left">
-              <template slot-scope="scope">{{ scope.row.fees }}</template>
+            <el-table-column :label="$t('public.fee')" width="160" align="left">
+              <template slot-scope="scope">{{ scope.row.fees }}{{scope.row.symbol}}</template>
             </el-table-column>
           </el-table>
           <!--<el-tabs v-model="activeName" @tab-click="handleClick">
