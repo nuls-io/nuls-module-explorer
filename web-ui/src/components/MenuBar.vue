@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <el-menu :default-active="activedMenu($route.path)" mode="horizontal" active-text-color="#7db46d"
+    <el-menu :default-active="activedMenu($route.path)" :mode=mode active-text-color="#7db46d"
              @select="handleSelect">
       <el-menu-item index="home" class="font18 fw capitalize">{{$t('nav.home')}}</el-menu-item>
       <el-submenu index="blockChain">
@@ -13,19 +13,58 @@
       <el-menu-item index="contracts" class="font18 fw capitalize">{{$t('nav.contracts')}}</el-menu-item>
       <el-menu-item index="network" class="font18 fw capitalize">{{$t('network.network')}}</el-menu-item>
     </el-menu>
+    <!--<el-menu
+            default-active="2"
+            class="el-menu-vertical-demo"
+            mode="vertical"
+            @open="handleOpen"
+            @close="handleClose">
+      <el-submenu index="1">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>导航一</span>
+        </template>
+        <el-menu-item-group>
+          <template slot="title">分组一</template>
+          <el-menu-item index="1-1">选项1</el-menu-item>
+          <el-menu-item index="1-2">选项2</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group title="分组2">
+          <el-menu-item index="1-3">选项3</el-menu-item>
+        </el-menu-item-group>
+        <el-submenu index="1-4">
+          <template slot="title">选项4</template>
+          <el-menu-item index="1-4-1">选项1</el-menu-item>
+        </el-submenu>
+      </el-submenu>
+      <el-menu-item index="2">
+        <i class="el-icon-menu"></i>
+        <span slot="title">导航二</span>
+      </el-menu-item>
+      <el-menu-item index="3" disabled>
+        <i class="el-icon-document"></i>
+        <span slot="title">导航三</span>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <i class="el-icon-setting"></i>
+        <span slot="title">导航四</span>
+      </el-menu-item>
+    </el-menu>-->
+
   </div>
 </template>
 
 <script>
   export default {
     data() {
-      return {};
+      return {
+        mode: 'horizontal'
+      };
     },
     components: {
       //numberGrow,
     },
     created() {
-
     },
     mounted() {
       if (this.$route.path === '/accountInfo') {
@@ -35,6 +74,9 @@
           query: {address: parmes}
         })
       }
+      setInterval(() => {
+        this.mode = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent) ? 'vertical' : 'horizontal';
+      }, 500)
     },
     methods: {
 
@@ -47,7 +89,10 @@
         sessionStorage.setItem('navActive', key);
         this.$router.push({
           name: key
-        })
+        });
+        if(key){
+          this.$parent.hideMobileMenu();
+        }
       },
 
       /**
@@ -70,6 +115,7 @@
           return 'home'
         }
       },
+
     },
     watch: {}
   }
@@ -81,9 +127,8 @@
   .nav {
     width: 700px;
     float: left;
-    .el-menu--horizontal {
-      float: left;
-      border-bottom: 0 !important;
+    .el-menu{
+      //padding: 20px 0 0 0;
       .el-menu-item {
         padding: 0 20px;
         color: #5e6983;
@@ -92,10 +137,30 @@
         line-height: 80px;
         font-weight: normal;
       }
+      .el-submenu {
+        @media screen and (max-width: 1000px) {
+          &:focus{
+            border-color: transparent !important;
+          }
+          .el-submenu__title{
+            font-size: 18px;
+            line-height: 60px;
+            color: #5e6983;
+          }
+        }
+      }
+    }
+    .el-menu--horizontal {
+      float: left;
+      border-bottom: 0 !important;
       .is-active {
         border-color: transparent !important;
       }
       .el-submenu {
+        @media screen and (max-width: 1000px) {
+          float: none;
+          text-align: center;
+        }
         .el-submenu__title {
           border-bottom-color: transparent !important;
           font-size: 18px;

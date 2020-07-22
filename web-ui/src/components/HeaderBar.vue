@@ -38,7 +38,7 @@
     </div>
 
     <el-collapse-transition>
-      <div class="mobile_header fr" @click="hideMobileMenu" v-show="showMobile">
+      <div class="mobile_header fr" v-show="showMobile">
         <div class="mobile_menu">
           <MenuBar></MenuBar>
           <div class="cb"></div>
@@ -176,6 +176,12 @@
         })
       },
 
+      /**
+       * @disc: 隐藏导航
+       * @params:
+       * @date: 2020-07-22 10:38
+       * @author: Wave
+       */
       hideMobileMenu() {
         this.showMobile = false;
       },
@@ -299,7 +305,7 @@
           margin: 0 0.5rem;
           .logo {
             width: 5.2rem;
-            margin: 1rem 0 0 0;
+            margin: 0.5rem 0 0 0;
           }
         }
         .menu {
@@ -310,8 +316,8 @@
           .top-search {
             width: 100%;
             .top_height {
-              line-height: 0.25rem;
-              margin-left: -64%;
+              line-height: 0.28rem;
+              margin: 2px 0 0 -62%;
               i {
                 display: none;
               }
@@ -349,15 +355,13 @@
         z-index: 9999;
         .language {
           display: initial;
-          float: none;
-          position: absolute;
-          right: 0;
-          top: 15rem;
-          height: 2rem;
-          line-height: 2rem;
-          width: 10rem;
+          //position: absolute;
+          //top: 26rem;
+          height: 3rem;
+          line-height: 3rem;
+          width: 100%;
           background-color: #FFFFFF;
-          text-align: center;
+          padding: 0 0 0 1.2rem;
         }
       }
     }
