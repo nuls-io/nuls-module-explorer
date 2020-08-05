@@ -239,7 +239,7 @@
         <el-tab-pane :label="$t('public.input')" name="first">
           <div>
             <ul class="inputs scroll">
-              <li class="font14" v-for="item in txInfo.froms" :key="item.key">
+              <li class="font14" v-for="item in txInfo.coinFroms" :key="item.key">
                 <span class="click" @click="toUrl('addressInfo',item.address)">{{item.addresss}}</span>
                 <label class="fr">{{item.value}}<span class="fCN"> {{item.symbol}}</span></label>
               </li>
@@ -249,7 +249,7 @@
         <el-tab-pane :label="$t('public.output')" name="second">
           <div>
             <ul class="outputs scroll">
-              <li class="font14" v-for="item in txInfo.tos" :key="item.key">
+              <li class="font14" v-for="item in txInfo.coinTos" :key="item.key">
                 <span class="click" @click="toUrl('addressInfo',item.address)">{{item.addresss}}</span>
                 <label class="fr">
                   {{item.value}}
