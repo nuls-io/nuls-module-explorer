@@ -96,13 +96,14 @@ a:focus {
 .none {
   display: none;
 }
-.pc{
+
+.pc {
   @media screen and (max-width: 1000px) {
     display: none;
   }
 }
 
-.mobile{
+.mobile {
   display: none;
   @media screen and (max-width: 1000px) {
     display: block;
@@ -335,7 +336,7 @@ a:focus {
         line-height: normal;
         color: @Acolor3;
       }
-      h5{
+      h5 {
         font-size: 20px;
         line-height: 20px;
       }
@@ -343,7 +344,7 @@ a:focus {
         width: 45%;
         float: left;
         margin: 0 2.5% 0.5rem;
-        h5{
+        h5 {
           font-size: 1rem;
           line-height: 1rem;
         }
@@ -377,7 +378,7 @@ a:focus {
     .tabs_infos {
       width: 599px;
       border-right: @BD1;
-      padding:0 20px 0;
+      padding: 0 20px 0;
       font-size: 14px;
       @media screen and (max-width: 1000px) {
         width: 90%;
@@ -388,9 +389,9 @@ a:focus {
       &:nth-child(2n) {
         border-right: 0;
       }
-      p{
+      p {
         color: @Acolor3;
-        margin:0;
+        margin: 0;
         border-bottom: @BD1;
         padding: 0 20px;
         @media screen and (max-width: 1000px) {
@@ -403,17 +404,17 @@ a:focus {
             text-align: right;
           }
         }
-        .click{
+        .click {
           color: @Ccolour;
         }
       }
-      &:last-child{
-        p{
+      &:last-child {
+        p {
           border-bottom: 0;
         }
       }
-      &:nth-last-child(2){
-        p{
+      &:nth-last-child(2) {
+        p {
           border-bottom: 0;
           @media screen and (max-width: 1000px) {
             border-bottom: 1px solid #DFE4EF
@@ -425,12 +426,15 @@ a:focus {
     .tabs_infos_long {
       width: 49%;
       border-right: 0;
-      p{
+      p {
         span {
           float: none;
           display: block;
           margin: -40px -29px 0px 80px;
           height: 40px;
+          @media screen and (max-width: 1000px) {
+            margin: -40px 0 0 80px;
+          }
         }
       }
 
@@ -468,7 +472,6 @@ a:focus {
     color: @Ncolour;
   }
 }
-
 
 .scroll {
   &::-webkit-scrollbar-track {
