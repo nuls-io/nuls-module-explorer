@@ -21,18 +21,18 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('public.total')" sortable="true" width="200" align="left">
+        <el-table-column :label="$t('public.locking')" width="200" align="left">
+          <template slot-scope="scope">{{ scope.row.locked}}</template>
+        </el-table-column>
+        <el-table-column :label="$t('public.total')" width="200" align="left">
           <template slot-scope="scope">{{ scope.row.totalBalance}}</template>
         </el-table-column>
-        <el-table-column :label="$t('addressList.addressList1')" width="200" align="left">
-          <template slot-scope="scope">{{ scope.row.totalIn}}</template>
+        <el-table-column :label="$t('public.accountedFor')" width="200" align="left">
+          <template slot-scope="scope">{{ scope.row.proportion}}</template>
         </el-table-column>
-        <el-table-column :label="$t('addressList.addressList2')" width="200" align="left">
-          <template slot-scope="scope">{{ scope.row.totalOut}}</template>
-        </el-table-column>
-
       </el-table>
-      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
+      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
+      </paging>
     </div>
   </div>
 </template>
@@ -78,16 +78,13 @@
        * @author: Wave
        */
       getAddressList(page, rows) {
-        this.$post('/', 'getCoinRanking', [page, rows])
+        this.$post('/', 'getAssetRanking', [1, 1, page, rows])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.totalBalance = timesDecimals(item.totalBalance, 8);
-                item.balance = timesDecimals(item.balance, 8);
-                item.totalLock = timesDecimals(item.consensusLock + item.timeLock, 8);
-                item.totalOut = timesDecimals(item.totalOut, 8);
-                item.totalIn = timesDecimals(item.totalIn, 8);
+                item.locked = timesDecimals(item.locked, 8);
               }
               this.addressList = response.result.list;
               this.pager.total = response.result.totalCount;

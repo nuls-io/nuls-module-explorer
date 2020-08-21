@@ -86,7 +86,8 @@ const cn = {
     "enforcement": "合约执行",
     "contractMethod": "合约方法",
     "consensusLockings": "共识锁定",
-    "unavailable": "(已失效)"
+    "unavailable": "(已失效)",
+    "accountedFor": "占比",
   },
 
   "type": {

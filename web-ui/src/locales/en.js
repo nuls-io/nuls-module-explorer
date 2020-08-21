@@ -86,7 +86,8 @@ const en = {
     "enforcement":"Contract Result",
     "contractMethod":"Contract Method",
     "consensusLockings":"Consensus Locking",
-    "unavailable":"(Unavailable)"
+    "unavailable":"(Unavailable)",
+    "accountedFor": "Accounted",
   },
 
   "type": {
