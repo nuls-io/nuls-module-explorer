@@ -403,7 +403,7 @@
 
               if (response.result.coinFroms) {
                 for (let item of response.result.coinFroms) {
-                  item.value = timesDecimals(item.amount, 8);
+                  item.value = timesDecimals(item.amount, item.decimal);
                   item.addresss = superLong(item.address, 10);
                 }
                 this.inputNumber = response.result.coinFroms.length;
@@ -411,7 +411,7 @@
 
               if (response.result.coinTos) {
                 for (let item of response.result.coinTos) {
-                  item.value = timesDecimals(item.amount, 8);
+                  item.value = timesDecimals(item.amount, item.decimal);
                   item.addresss = superLong(item.address, 10);
                   //根据lockTime字段长度判断是高度锁定还时间锁定
                   if (item.lockTime === 0) {
