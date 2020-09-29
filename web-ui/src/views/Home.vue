@@ -245,7 +245,7 @@
         this.calcDialog = true
       },
 
-      /**0
+      /**
        * 获取轮次列表
        */
       getRotationList() {

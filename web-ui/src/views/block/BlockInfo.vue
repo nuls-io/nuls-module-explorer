@@ -154,18 +154,18 @@
        * 根据高度获取交易列表
        */
       async getTxListByHeight(page, rows, height, type) {
-        this.$post('/', 'getBlockTxList', [page, rows, height, type,])
+        this.$post('/', 'getBlockTxList', [height, type,])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              for (let item of response.result.list) {
+              for (let item of response.result) {
                 item.time = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.value = timesDecimals(item.value, 8);
                 item.hashs = superLong(item.hash, 20);
                 item.fees = timesDecimals(item.fee.value, 8);
               }
-              this.txList = response.result.list;
-              this.pager.total = response.result.totalCount;
+              this.txList = response.result;
+              //this.pager.total = response.result.totalCount;
             }
           }).catch((error) => {
           console.log(error)
