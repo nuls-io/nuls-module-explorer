@@ -118,6 +118,7 @@ const en = {
     "23": "Contract cancellation node",
     "24": "Verifier Change",
     "25": "Verifier initialization",
+    "26": "Token cross-chain",
   },
 
   "addressType": {

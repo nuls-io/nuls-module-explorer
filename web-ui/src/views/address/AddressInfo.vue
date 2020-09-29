@@ -397,8 +397,8 @@
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 15);
-                item.values = timesDecimals(item.values);
-                item.balance = timesDecimals(item.balance);
+                item.values = timesDecimals(item.values, item.decimals);
+                item.balance = timesDecimals(item.balance, item.decimals);
                 item.fees = timesDecimals(item.fee.value);
               }
               this.txList = response.result.list;
@@ -449,6 +449,8 @@
        * 选择代币类型
        **/
       changeToken() {
+        this.pageTotal = 0;
+        this.pageIndex = 1;
         this.getTokenListByAddress(this.pageIndex, this.pageRows, this.address, this.tokenValue);
       },
 
@@ -529,6 +531,8 @@
        * 获取交易类型
        **/
       changeType(type) {
+        this.pageTotal = 0;
+        this.pageIndex = 1;
         this.txListLoading = true;
         this.typeRegion = parseInt(type);
         this.getTxListByAddress(this.pageIndex, this.pageRows, this.address, this.typeRegion, this.hideSwitch);
