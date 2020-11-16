@@ -295,11 +295,12 @@
         display: none;
       }
       .chart_title {
-        margin: 40px 0 0 0;
+        margin: 20px 0 20px 0;
+        height: 20px;
         .chart_bt {
           z-index: 8;
-          min-width: 450px;
-          position: absolute;
+          position: relative;
+          right: 0;
           .chart_bt1 {
             text-align: right;
           }
