@@ -338,7 +338,7 @@ const cn = {
   },
 
   "network":{
-    "network":"链网络",
+    "network":"平行链",
     "network0":"链ID",
     "network1":"链名称",
     "network2":"资产符号",

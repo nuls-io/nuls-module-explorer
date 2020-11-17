@@ -14,26 +14,25 @@ Vue.config.productionTip = false;
 //定义全局变量
 Vue.prototype.$post = post;
 
-
 async function getChainInfoBeforeRender() {
   if (!sessionStorage.hasOwnProperty("chainId")) {
-    const params = {"jsonrpc": "2.0", "method": "getChainInfo", "params": [], "id": Math.floor(Math.random()*1000)};
-    try{
-      const res = await axios.post(API_ROOT, params)
+    const params = {"jsonrpc": "2.0", "method": "getChainInfo", "params": [], "id": Math.floor(Math.random() * 1000)};
+    try {
+      const res = await axios.post(API_ROOT, params);
       const data = res.data;
       if (data.hasOwnProperty("result")) {
-        sessionStorage.setItem("chainId",data.result.chainId);
-        sessionStorage.setItem("symbol",data.result.defaultAsset.symbol);
-        sessionStorage.setItem("decimals",data.result.defaultAsset.decimals);
-      }else {
-        sessionStorage.setItem("chainId",RUN_DEV ? "1":"2");
-        sessionStorage.setItem("symbol",'NULS');
-        sessionStorage.setItem("decimals",'8');
+        sessionStorage.setItem("chainId", data.result.chainId);
+        sessionStorage.setItem("symbol", data.result.defaultAsset.symbol);
+        sessionStorage.setItem("decimals", data.result.defaultAsset.decimals);
+      } else {
+        sessionStorage.setItem("chainId", RUN_DEV ? "1" : "2");
+        sessionStorage.setItem("symbol", 'NULS');
+        sessionStorage.setItem("decimals", '8');
       }
     } catch (e) {
-      sessionStorage.setItem("chainId",RUN_DEV ? "1":"2");
-      sessionStorage.setItem("symbol",'NULS');
-      sessionStorage.setItem("decimals",'8');
+      sessionStorage.setItem("chainId", RUN_DEV ? "1" : "2");
+      sessionStorage.setItem("symbol", 'NULS');
+      sessionStorage.setItem("decimals", '8');
     }
   }
   new Vue({
@@ -43,8 +42,8 @@ async function getChainInfoBeforeRender() {
     render: h => h(App)
   }).$mount('#app');
 }
-getChainInfoBeforeRender();
 
+getChainInfoBeforeRender();
 
 /*new Vue({
   store,
