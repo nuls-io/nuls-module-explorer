@@ -79,7 +79,8 @@
        * @author: Wave
        */
       getAddressList(page, rows) {
-        this.$post('/', 'getAssetRanking', [RUN_DEV ? 1 : 2, 1, page, rows])
+        let chainId = sessionStorage.hasOwnProperty('chainId') ? sessionStorage.getItem('chainId') : 1;
+        this.$post('/', 'getAssetRanking', [chainId, 1, page, rows])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
