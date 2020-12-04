@@ -79,7 +79,7 @@
        * @author: Wave
        */
       getAddressList(page, rows) {
-        let chainId = sessionStorage.hasOwnProperty('chainId') ? sessionStorage.getItem('chainId') : 1;
+        let chainId = sessionStorage.hasOwnProperty('chainId') ? Number(sessionStorage.getItem('chainId')) : 1;
         this.$post('/', 'getAssetRanking', [chainId, 1, page, rows])
           .then((response) => {
             //console.log(response);
