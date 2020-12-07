@@ -40,7 +40,6 @@
 <script>
   import paging from '@/components/pagingBar';
   import {timesDecimals} from '@/api/util.js'
-  import {RUN_DEV} from '@/config.js'
 
   export default {
     data() {
