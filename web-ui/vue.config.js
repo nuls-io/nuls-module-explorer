@@ -1,7 +1,8 @@
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const productionGzipExtensions = ['js', 'css'];
+const webpack = require('webpack');
 const shell = require("shelljs");
-shell.cp(process.cwd() + "/config/" + process.env.NULS_ENV + ".js",process.cwd() + "/src/config.js");
+shell.cp(process.cwd() + "/config/" + process.env.NULS_ENV + ".js", process.cwd() + "/src/config.js");
 const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/dist/' : '/',
@@ -13,6 +14,7 @@ module.exports = {
       enableInSFC: false
     }
   },
+
   configureWebpack: config => {
     if (isProduction) {
       config.plugins.push(new CompressionWebpackPlugin({
@@ -21,8 +23,8 @@ module.exports = {
         threshold: 10240,
         minRatio: 0.8
       }));
-
     }
+
     config.externals = {
       'vue': 'Vue',
       'vue-router': 'VueRouter',
@@ -31,6 +33,7 @@ module.exports = {
       'echarts': 'echarts',
       'element-ui': 'ELEMENT',
     }
+
   },
 
   baseUrl: undefined,

@@ -2,7 +2,8 @@
   <div class="update w1200" v-loading="updateLoading">
     <div class="chart_title">
       <h4>{{$t('protocolUpdate.name')}}:{{protocol}}</h4>
-      <el-progress :text-inside="true" :stroke-width="24" :percentage="protocolUpdate" status="success"></el-progress>
+      <el-progress :text-inside="true" :stroke-width="24" :percentage="protocolUpdate" status="success">
+      </el-progress>
     </div>
     <div class="cb"></div>
     <el-row class="chart_info">
@@ -69,7 +70,7 @@
         this.$post('/', 'getConsensusNodes', [1, 200, 0])
           .then((response) => {
             //console.log(response);
-            const newVersion = 6;
+            const newVersion = 7;
             const list = response.result.list.filter(d => d.status === 1);
             const total = list.length + 5;
             const success = list.filter(d => d.version === newVersion).length + 5;

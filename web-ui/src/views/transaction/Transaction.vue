@@ -59,7 +59,7 @@
               <template slot-scope="scope">{{ scope.row.value }}{{scope.row.symbol}}</template>
             </el-table-column>
             <el-table-column :label="$t('public.fee')" width="160" align="left">
-              <template slot-scope="scope">{{ scope.row.fees }}{{scope.row.symbol}}</template>
+              <template slot-scope="scope">{{ scope.row.fees }}{{scope.row.fee.symbol}}</template>
             </el-table-column>
           </el-table>
           <!--<el-tabs v-model="activeName" @tab-click="handleClick">
@@ -284,7 +284,7 @@
               for (let item of response.result.list) {
                 item.time = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.hashs = superLong(item.hash, 20);
-                item.value = timesDecimals(item.value, this.decimals);
+                item.value = timesDecimals(item.value, item.decimal);
                 item.fees = timesDecimals(item.fee.value, this.decimals);
               }
               this.txList = response.result.list;
@@ -370,10 +370,13 @@
         display: none;
       }
       .chart_title {
-        margin: 40px 0 0 0;
+        margin: 20px 0 20px 0;
+        height: 20px;
         .chart_bt {
           z-index: 8;
           position: relative;
+          right: 0;
+          text-align: right;
         }
       }
       .chart_info {

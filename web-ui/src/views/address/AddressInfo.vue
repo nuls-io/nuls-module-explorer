@@ -141,9 +141,9 @@
           <el-table :data="nrc20List" stripe border style="width: 100%" class="mt_20" v-loading="nrc20ListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
-            <el-table-column prop="tokenName" :label="$t('public.passCard')" width="220"
+            <el-table-column prop="tokenName" :label="$t('public.passCard')" width="120"
                              align="left"></el-table-column>
-            <el-table-column :label="$t('public.abbreviate')" width="220" align="left">
+            <el-table-column :label="$t('public.abbreviate')" width="120" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.tokenSymbol }}
@@ -156,8 +156,14 @@
                 <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">{{ scope.row.contractAddress }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('public.balance')" width="280" align="left">
+            <el-table-column :label="$t('public.balance')" width="180" align="left">
               <template slot-scope="scope">{{ scope.row.balance }}{{ scope.row.tokenSymbol }}</template>
+            </el-table-column>
+            <el-table-column :label="$t('public.usablebalance')" width="180" align="left">
+              <template slot-scope="scope">{{ scope.row.available }}{{ scope.row.tokenSymbol }}</template>
+            </el-table-column>
+            <el-table-column :label="$t('public.consensusLocking')" width="180" align="left">
+              <template slot-scope="scope">{{ scope.row.lock }}{{ scope.row.tokenSymbol }}</template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -193,7 +199,7 @@
 <script>
   import moment from 'moment'
   import SelectBar from '@/components/SelectBar';
-  import {getLocalTime, superLong, copys, timesDecimals, Plus} from '@/api/util.js'
+  import {getLocalTime, superLong, copys, timesDecimals, Plus,Minus} from '@/api/util.js'
 
   export default {
     data() {
@@ -391,8 +397,8 @@
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 15);
-                item.values = timesDecimals(item.values);
-                item.balance = timesDecimals(item.balance);
+                item.values = timesDecimals(item.values, item.decimals);
+                item.balance = timesDecimals(item.balance, item.decimals);
                 item.fees = timesDecimals(item.fee.value);
               }
               this.txList = response.result.list;
@@ -443,6 +449,8 @@
        * 选择代币类型
        **/
       changeToken() {
+        this.pageTotal = 0;
+        this.pageIndex = 1;
         this.getTokenListByAddress(this.pageIndex, this.pageRows, this.address, this.tokenValue);
       },
 
@@ -456,7 +464,10 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
+                // item.balance = timesDecimals(item.balance, item.decimals);
+                item.available = timesDecimals(Minus(item.balance, item.lockedBalance), item.decimals)
                 item.balance = timesDecimals(item.balance, item.decimals);
+                item.lock = timesDecimals(item.lockedBalance, item.decimals);
               }
               this.nrc20List = response.result.list;
               this.pageTotal = response.result.totalCount;
@@ -520,6 +531,8 @@
        * 获取交易类型
        **/
       changeType(type) {
+        this.pageTotal = 0;
+        this.pageIndex = 1;
         this.txListLoading = true;
         this.typeRegion = parseInt(type);
         this.getTxListByAddress(this.pageIndex, this.pageRows, this.address, this.typeRegion, this.hideSwitch);

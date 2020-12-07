@@ -86,7 +86,8 @@ const cn = {
     "enforcement": "合约执行",
     "contractMethod": "合约方法",
     "consensusLockings": "共识锁定",
-    "unavailable": "(已失效)"
+    "unavailable": "(已失效)",
+    "accountedFor": "占比",
   },
 
   "type": {
@@ -117,6 +118,7 @@ const cn = {
     "23": "合约注销节点",
     "24": "验证人变更",
     "25": "验证人初始化",
+    "26": "合约token跨链转账",
   },
 
   "addressType": {
@@ -336,7 +338,7 @@ const cn = {
   },
 
   "network":{
-    "network":"链网络",
+    "network":"平行链",
     "network0":"链ID",
     "network1":"链名称",
     "network2":"资产符号",

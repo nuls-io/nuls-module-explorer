@@ -42,6 +42,7 @@
           {value: '23', label: '23'},
           {value: '24', label: '24'},
           {value: '25', label: '25'},
+          {value: '26', label: '26'},
         ]
       },
       //循环字段名

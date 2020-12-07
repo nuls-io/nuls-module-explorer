@@ -11,7 +11,7 @@
         <a href="https://wallet.nuls.io/" arget="_blank">{{$t('bottom.webWallet')}}</a>
       </li>
       <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
-        <a href="https://nuls.community/" target="_blank">{{$t('bottom.community')}}</a>
+        <a href="https://bbs.nuls.io/" target="_blank">{{$t('bottom.community')}}</a>
       </li>
       <li class="b_li font14 fl capitalize click" @click="toBugReport" v-show="symbol ==='NULS'">
         {{$t('bottom.about')}}
@@ -115,9 +115,9 @@
        **/
       toBugReport() {
         if (RUN_DEV) {
-          window.open('https://nuls.community/d/135-collect-the-bugs-of-the-mainnet-bugs', '_blank');
+          window.open('https://github.com/nuls-io/nuls-v2/issues', '_blank');
         } else {
-          window.open('https://nuls.community/d/134-collect-the-bugs-of-the-testnet-bugs/2', '_blank');
+          window.open('https://github.com/nuls-io/nuls-v2/issues', '_blank');
         }
       },
 

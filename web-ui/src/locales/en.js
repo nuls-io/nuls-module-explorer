@@ -81,12 +81,13 @@ const en = {
     "searchTip": "address/height/txhash/...",
     "copy": "Click copy",
     "copysuccess": "Copy success",
-    "success":"Success",
-    "fail":"Fail",
-    "enforcement":"Contract Result",
-    "contractMethod":"Contract Method",
-    "consensusLockings":"Consensus Locking",
-    "unavailable":"(Unavailable)"
+    "success": "Success",
+    "fail": "Fail",
+    "enforcement": "Contract Result",
+    "contractMethod": "Contract Method",
+    "consensusLockings": "Consensus Locking",
+    "unavailable": "(Unavailable)",
+    "accountedFor": "Accounted",
   },
 
   "type": {
@@ -117,6 +118,7 @@ const en = {
     "23": "Contract cancellation node",
     "24": "Verifier Change",
     "25": "Verifier initialization",
+    "26": "Token cross-chain",
   },
 
   "addressType": {
@@ -168,7 +170,7 @@ const en = {
     "home6": "Consenseus reward calculator",
     "home7": "14 days Transaction history",
     "home8": "More",
-    "home9":"Destroyed",
+    "home9": "Destroyed",
   },
 
   "cale": {
@@ -234,8 +236,8 @@ const en = {
     "transactionInfo8": "Price",
     "transactionInfo9": "Function",
     "transactionInfo10": "Unlock time",
-    "transactionInfo11":"Token Transfers",
-    "transactionInfo12":"NULS Transfers"
+    "transactionInfo11": "Token Transfers",
+    "transactionInfo12": "NULS Transfers"
   },
 
   "consensus": {
@@ -269,16 +271,16 @@ const en = {
     "consensusInfo11": "Stake address",
     "consensusInfo12": "Stake time",
     "consensusInfo13": "Stake history",
-    "consensusInfo14":"Creator reward",
-    "consensusInfo15":"The node creator reward is equal to the sum of the deposit reward and the commission received from the staking",
-    "consensusInfo16":"Staking reward",
+    "consensusInfo14": "Creator reward",
+    "consensusInfo15": "The node creator reward is equal to the sum of the deposit reward and the commission received from the staking",
+    "consensusInfo16": "Staking reward",
   },
 
   "rotationInfo": {
     "rotationInfo0": "Round",
     "rotationInfo1": "Only show punishment",
     "rotationInfo2": "Round No.",
-    "rotationInfo3":"Blocks"
+    "rotationInfo3": "Blocks"
   },
 
   "contracts": {
@@ -305,9 +307,9 @@ const en = {
     "codeInfo8": "1.Please compress the source code into a zip package for uploading",
     "codeInfo9": "2.The file directory structure and code in the zip package need to be consistent with deployment code, or it will result in certificating failure",
     "codeInfo10": "Sorry, the maximum upload file size is 5M",
-    "codeInfo11":"Request timeout please retry",
-    "codeInfo12":"Please enter the correct Address, Txhash, Block...",
-    "codeInfo13":"3.Zip packages should not contain non-Java files, otherwise upload authentication will fail",
+    "codeInfo11": "Request timeout please retry",
+    "codeInfo12": "Please enter the correct Address, Txhash, Block...",
+    "codeInfo13": "3.Zip packages should not contain non-Java files, otherwise upload authentication will fail",
   },
 
   "tokenInfo": {
@@ -325,41 +327,42 @@ const en = {
     "webWallet": "Light wallet",
     "community": "Community",
     "about": "Bug Report",
-    "explorer1":"1.0 Explorer",
+    "explorer1": "1.0 Explorer",
   },
 
   "protocolUpdate": {
     "name": "Protocol update progress",
     "upgraded": "Upgraded node",
     "notUpgraded": "Node not upgraded",
-    "upgradeProgress":"Upgrade progress"
+    "upgradeProgress": "Upgrade progress"
   },
 
-  "network":{
-    "network":"Chain network",
-    "network0":"Chain ID",
-    "network1":"Chain name",
-    "network2":"Assets symbol",
-    "network3":"Initial circulation",
-    "network4":"Chain info",
-    "network5":"Basic information",
-    "network6":"Transaction number",
-    "network7":"Initial circulation",
-    "network8":"Transaction list",
-    "network9":"Direction ",
-    "network10":"Across out",
-    "network11":"Across into",
-    "network12":"Hold cross-chain assets",
-    "network13":"Asset ID",
-    "network14":"Hold number",
-    "network15":"Chain trading",
-    "network16":"Nerve cross - chain deals",
-    "network17":"Hold number",
-    "network18":"Hold number",
-    "network19":"NULS network flux",
+  "network": {
+    "network": "Parallel Chain",
+    "network0": "Chain ID",
+    "network1": "Chain name",
+    "network2": "Assets symbol",
+    "network3": "Initial circulation",
+    "network4": "Chain info",
+    "network5": "Basic information",
+    "network6": "Transaction number",
+    "network7": "Initial circulation",
+    "network8": "Transaction list",
+    "network9": "Direction ",
+    "network10": "Across out",
+    "network11": "Across into",
+    "network12": "Hold cross-chain assets",
+    "network13": "Asset ID",
+    "network14": "Hold number",
+    "network15": "Chain trading",
+    "network16": "Nerve cross - chain deals",
+    "network17": "Hold number",
+    "network18": "Hold number",
+    "network19": "NULS network flux",
   },
 
   ...enLocale
 
 };
+
 export default en
