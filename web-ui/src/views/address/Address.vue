@@ -40,7 +40,6 @@
 <script>
   import paging from '@/components/pagingBar';
   import {timesDecimals} from '@/api/util.js'
-  import {RUN_DEV} from '@/config.js'
 
   export default {
     data() {
@@ -79,7 +78,8 @@
        * @author: Wave
        */
       getAddressList(page, rows) {
-        this.$post('/', 'getAssetRanking', [RUN_DEV ? 1 : 2, 1, page, rows])
+        let chainId = sessionStorage.hasOwnProperty('chainId') ? Number(sessionStorage.getItem('chainId')) : 1;
+        this.$post('/', 'getAssetRanking', [chainId, 1, page, rows])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
