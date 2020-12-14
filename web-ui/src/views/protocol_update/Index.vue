@@ -73,7 +73,11 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty('result')) {
-              this.latestVersion = response.result.localProtocolVersion
+              if (response.result.localProtocolVersion !== 1) {
+                this.latestVersion = response.result.localProtocolVersion
+              } else {
+                this.latestVersion = 8
+              }
             } else {
               this.latestVersion = 1;
             }
