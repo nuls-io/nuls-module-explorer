@@ -92,8 +92,8 @@
         this.$post('/', 'getConsensusNodes', [1, 200, 0])
           .then((response) => {
             //console.log(response);
-            const newVersion = 8;
-            //const newVersion = this.latestVersion;
+            //const newVersion = 8;
+            const newVersion = this.latestVersion;
             const list = response.result.list.filter(d => d.status === 1);
             const total = list.length + 5;
             const success = list.filter(d => d.version === newVersion).length + 5;
