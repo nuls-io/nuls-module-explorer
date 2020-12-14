@@ -43,11 +43,13 @@
         newList: [],
         oldList: [],
         updateInterval: null,
-        updateLoading: true
+        updateLoading: true,
+        latestVersion: 1,//最新版本号
       }
     },
     components: {},
     created() {
+      this.getInfo();
       this.protocolUpdate = "0/0";
       this.getTransactionsTotal();
     },
@@ -62,6 +64,26 @@
     methods: {
 
       /**
+       * @disc: 获取升级信息
+       * @date: 2019-09-10 14:02
+       * @author: Wave
+       */
+      getInfo() {
+        this.$post('/', 'getInfo', [])
+          .then((response) => {
+            //console.log(response);
+            if (response.hasOwnProperty('result')) {
+              this.latestVersion = response.result.localProtocolVersion
+            } else {
+              this.latestVersion = 1;
+            }
+          }).catch((error) => {
+          this.latestVersion = 1;
+          console.log(error);
+        })
+      },
+
+      /**
        * @disc: 获取最新共识节点更新总数
        * @date: 2019-09-10 14:02
        * @author: Wave
@@ -70,7 +92,8 @@
         this.$post('/', 'getConsensusNodes', [1, 200, 0])
           .then((response) => {
             //console.log(response);
-            const newVersion = 7;
+            const newVersion = 8;
+            //const newVersion = this.latestVersion;
             const list = response.result.list.filter(d => d.status === 1);
             const total = list.length + 5;
             const success = list.filter(d => d.version === newVersion).length + 5;
