@@ -175,8 +175,9 @@
           <label class="fr">{{item.value}}<span> {{item.symbol}}</span></label>
         </li>
       </ul>
-      <div class="arrow fl">
-        <font v-for="item of nulsTransfers" class="click" @click="toUrl('transactionInfo',item.txHash)"
+      <div class="arrow fl" style="line-height: 20px;margin-top: 10px;">
+        <font v-for="item of nulsTransfers" class="click" style="line-height: 29px;"
+              @click="toUrl('transactionInfo',item.txHash)"
               :key="item.txHash">
           {{item.txHashs}}
         </font>
@@ -386,7 +387,7 @@
               if (response.result.type === 16) {
                 if (response.result.txData.resultInfo.nulsTransfers) {
                   for (let item of response.result.txData.resultInfo.nulsTransfers) {
-                    item.txHashs = superLong(item.txHash, 6);
+                    item.txHashs = superLong(item.txHash, 4);
                     item.value = timesDecimals(item.value);
                     for (let k of item.outputs) {
                       k.value = timesDecimals(k.value);
