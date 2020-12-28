@@ -346,7 +346,7 @@
             if (response.hasOwnProperty("result")) {
               response.result.time = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               response.result.fees = timesDecimals(response.result.fee.value, 8);
-              response.result.value = timesDecimals(response.result.value, 8);
+              response.result.value = timesDecimals(response.result.value, response.result.decimal);
 
               //黄牌
               if (response.result.type === 7) {
