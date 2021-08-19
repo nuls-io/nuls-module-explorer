@@ -288,9 +288,9 @@
                 item.fees = timesDecimals(item.fee.value, this.decimals);
               }
               this.txList = response.result.list;
-              if (type === 0 && !show) {
-                this.txListTotal = response.result.totalCount
-              }
+              // if (type === 0 && !show) {
+              //   this.txListTotal = response.result.totalCount
+              // }
               this.pagerTotal = response.result.totalCount;
               this.txListLoading = false;
             }
