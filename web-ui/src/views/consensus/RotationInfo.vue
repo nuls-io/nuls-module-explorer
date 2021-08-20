@@ -119,7 +119,7 @@
                 let newTime = date.getTime().toString();
                 item.newTime = Number(newTime.substring(0, newTime.length - 3));
                 item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
-                item.reward = timesDecimals(item.reward, 8);
+                item.reward = item.reward ? timesDecimals(item.reward, 8) : 0;
                 item.seedPacked = item.agentHash ? false : true;
               }
               this.rotationList = response.result.itemList;
