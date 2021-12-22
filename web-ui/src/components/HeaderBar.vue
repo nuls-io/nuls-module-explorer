@@ -52,7 +52,7 @@
 
 <script>
   import axios from 'axios'
-  import logoBeta from '@/assets/img/logo-beta.svg'
+  // import logoBeta from '@/assets/img/logo-beta.svg'
   import logo from '@/assets/img/logo.svg'
   import MenuBar from '@/components/MenuBar';
   import {RUN_DEV, API_ROOT} from '@/config'
@@ -61,7 +61,7 @@
   export default {
     data() {
       return {
-        logoSvg: RUN_DEV ? logo : logoBeta,
+        logoSvg: logo,
         //默认选择菜单
         navActive: sessionStorage.hasOwnProperty('navActive') ? sessionStorage.getItem('navActive') : 'home',
         //统计信息
@@ -230,9 +230,9 @@
         width: 104px;
         margin-right: 20px;
         .logo {
-          width: 104px;
-          height: 40px;
-          margin: 20px 0 0 0;
+          width: 110px;
+          height: 44px;
+          margin: 18px 0 0 0;
         }
       }
       .menu {

@@ -16,9 +16,9 @@
       <li class="b_li font14 fl capitalize click" @click="toBugReport" v-show="symbol ==='NULS'">
         {{$t('bottom.about')}}
       </li>
-      <li class="b_li font14 fl capitalize click" @click="toExplorer" v-show="symbol ==='NULS'">
+<!--      <li class="b_li font14 fl capitalize click" @click="toExplorer" v-show="symbol ==='NULS'">
         {{$t('bottom.explorer1')}}
-      </li>
+      </li>-->
       <li class="b_li font14 fl capitalize click" @click="toUrl('protocolUpdate')" v-show="symbol ==='NULS'">
         {{$t('protocolUpdate.upgradeProgress')}}
       </li>
