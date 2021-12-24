@@ -170,7 +170,7 @@ const en = {
     "home6": "Consenseus reward calculator",
     "home7": "14 days Transaction history",
     "home8": "More",
-    "home9": "Destroyed",
+    "home9": "Burned",
   },
 
   "cale": {
