@@ -20,7 +20,7 @@
     "echarts": "^4.1.0",
     "element-ui": "^2.14.1",
     "less-loader": "^4.1.0",
-    "moment": "^2.23.0",
+    "moment": "^2.29.4",
     "npm-login-module": "^1.0.0",
     "shelljs": "^0.8.3",
     "v-charts": "^1.19.0",
