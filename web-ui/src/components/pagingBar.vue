@@ -31,10 +31,10 @@
     watch: {
       total() {
         // 存在记录但未获取到数据时, 重新请求
-        if (this.initBack) {
+        /*if (this.initBack) {
           this.pager.page -= 1;
           this.$emit('change');
-        }
+        }*/
       },
     },
     methods: {

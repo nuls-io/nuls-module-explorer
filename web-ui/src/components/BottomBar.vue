@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="bottom bg-gray">
     <ul class="b_ul w1200">
       <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
@@ -16,13 +16,13 @@
       <li class="b_li font14 fl capitalize click" @click="toBugReport" v-show="symbol ==='NULS'">
         {{$t('bottom.about')}}
       </li>
-      <li class="b_li font14 fl capitalize click" @click="toExplorer" v-show="symbol ==='NULS'">
+<!--      <li class="b_li font14 fl capitalize click" @click="toExplorer" v-show="symbol ==='NULS'">
         {{$t('bottom.explorer1')}}
-      </li>
+      </li>-->
       <li class="b_li font14 fl capitalize click" @click="toUrl('protocolUpdate')" v-show="symbol ==='NULS'">
         {{$t('protocolUpdate.upgradeProgress')}}
       </li>
-      <li class="b_li font14 fr">Copyright @2020 {{symbol}}</li>
+      <li class="b_li font14 fr">Copyright 2022 © All rights Reserved. NULS</li>
     </ul>
   </div>
 </template>
@@ -170,7 +170,7 @@
           }
         }
         &:last-child {
-          width: 190px;
+          //width: 190px;
           text-align: right;
           color: @Acolor3;
           margin-right: 0;

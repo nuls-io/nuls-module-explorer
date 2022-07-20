@@ -153,3 +153,12 @@ export function getLocalTime(time) {
   let localTime = utcTime + 3600000 * Math.abs(localUtc);
   return new Date(localTime);
 }
+
+export function fixNumber(str, fix = 8) {
+  str = '' + str;
+  const int = str.split('.')[0];
+  let float = str.split('.')[1];
+  if (!float || !Number(float)) return int;
+  float = float.slice(0, fix).replace(/(0+)$/g, '');
+  return Number(float) ? int + '.' + float : int;
+}
