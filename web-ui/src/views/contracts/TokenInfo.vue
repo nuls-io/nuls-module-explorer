@@ -28,7 +28,7 @@
         <li class="tabs_infos fl"><p>{{$t('public.passCard')}}<span>{{contractsInfo.tokenName}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.abbreviate')}}<span>{{contractsInfo.symbol}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('contracts.contracts3')}}<span>{{contractsInfo.totalSupply}}</span></p></li>
-        <li class="tabs_infos fl"><p>{{$t('tokenInfo.tokenInfo0')}}<span>{{contractsInfo.decimals}}</span></p></li>
+        <li class="tabs_infos fl" v-if="!isNrc721"><p>{{$t('tokenInfo.tokenInfo0')}}<span>{{contractsInfo.decimals}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.transactionNo')}}<span>{{contractsInfo.transferCount}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('tokenInfo.tokenInfo1')}}<span>{{contractsInfo.ownersCount}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.createAddress')}}<span class="mobile_s click"
@@ -42,43 +42,34 @@
         <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200">
           <el-tab-pane :label="$t('tokenInfo.tokenInfo2')" name="tokenFirst">
             <el-table :data="accountTxList" stripe border style="width: 100%" class="mt_20">
-              <el-table-column :label="$t('public.height')" width="80" align="left">
+              <el-table-column :label="$t('public.height')" width="100" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click"
                         @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="TXID" min-width="100" align="left">
+              <el-table-column label="TXID" min-width="120" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
+                  <span class="cursor-p click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ superLong(scope.row.txHash) }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('public.sender')" width="360" align="left">
+              <el-table-column :label="$t('public.sender')" min-width="180" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.fromAddress)">{{ scope.row.fromAddress }}</span>
+                  <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.fromAddress)">{{ superLong(scope.row.fromAddress) }}</span>
                 </template>
               </el-table-column>
               <!--<el-table-column prop="" label="" width="50" align="center">
                   <template>》88</template>
                 </el-table-column>-->
-              <el-table-column :label="$t('public.recipient')" width="360" align="left">
+              <el-table-column :label="$t('public.recipient')" min-width="180" align="left">
                 <template slot-scope="scope"><span class="cursor-p click"
-                                                   @click="toUrl('addressInfo',scope.row.toAddress)">{{ scope.row.toAddress }}</span>
+                                                   @click="toUrl('addressInfo',scope.row.toAddress)">{{ superLong(scope.row.toAddress) }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="time" :label="$t('public.time')" width="160" align="left"></el-table-column>
-              <el-table-column prop="value" :label="$t('public.amount')" width="100" align="left"></el-table-column>
+              <el-table-column prop="time" :label="$t('public.time')" width="170" align="left"></el-table-column>
+              <el-table-column prop="value" :label="$t('public.amount')" width="100" align="left" v-if="!isNrc721"></el-table-column>
+              <el-table-column prop="tokenId" label="Token ID" width="100" align="left" v-else></el-table-column>
             </el-table>
-
-            <div class="paging">
-              <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
-                             v-show="pager.total > pager.rows"
-                             :total="pager.total"
-                             :current-page.sync="pager.page"
-                             :page-size="pager.rows"
-                             @current-change="accountTxListPage">
-              </el-pagination>
-            </div>
             <!--<paging :pager="pager" @change="getItemList" v-show="pager.total > pager.rows"></paging>-->
           </el-tab-pane>
           <el-tab-pane :label="$t('tokenInfo.tokenInfo3')" name="tokenSecond">
@@ -97,16 +88,8 @@
               <el-table-column prop="percentage" :label="$t('tokenInfo.tokenInfo6')" width="250"
                                align="left"></el-table-column>
             </el-table>
-            <div class="paging">
-              <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
-                             v-show="pager.total > pager.rows"
-                             :total="pager.total"
-                             :current-page.sync="pager.page"
-                             :page-size="pager.rows"
-                             @current-change="accountTokensListPage">
-              </el-pagination>
-            </div>
           </el-tab-pane>
+          <PagingBar :pager="pager" @change="changeList" />
         </el-tabs>
       </el-col>
     </div>
@@ -114,8 +97,9 @@
 </template>
 
 <script>
+  import PagingBar from '@/components/pagingBar';
   import moment from 'moment'
-  import {getLocalTime, superLong, timesDecimals} from '@/api/util.js'
+  import { fixNumber, getLocalTime, superLong, timesDecimals } from '@/api/util.js';
   import axios from 'axios'
   import {CODE_URL} from '@/config'
 
@@ -125,7 +109,8 @@
         isMobile: false,
         activeName: 'tokenFirst',
         //合约地址
-        contractsAddress: this.$route.query.contractAddress,
+        contractAddress: '',
+        isNrc721: false, // 是否是nrc721
         //合约详情
         contractsInfo: [],
         //通证交易列表
@@ -140,31 +125,36 @@
         }
       }
     },
-    components: {},
+    components: {
+      PagingBar
+    },
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
+      this.contractAddress = this.$route.query.contractAddress;
+      // this.isNrc721 = !!this.$route.query.nrc721;
     },
     mounted() {
-      this.getContractsInfoByContractsAddress(this.contractsAddress);
-      this.getAccountTxList(this.pager.page, this.pager.rows, '', this.contractsAddress);
+      this.getContractsInfoByContractsAddress(this.contractAddress);
     },
     methods: {
 
       /**
        * 根据合约地址获取合约详情
        */
-      getContractsInfoByContractsAddress(contractsaddress) {
-        this.$post('/', 'getContract', [contractsaddress])
+      getContractsInfoByContractsAddress(contractAddress) {
+        this.$post('/', 'getContract', [contractAddress])
           .then((response) => {
             console.log(response);
             if (response.hasOwnProperty("result")) {
-              this.getContractAddressInfo(contractsaddress);
+              this.getContractAddressInfo(contractAddress);
               response.result.createTime = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               if (response.result.decimals !== 0) {
                 response.result.totalSupply = timesDecimals(response.result.totalSupply, response.result.decimals);
               }
               response.result.ownersCount = response.result.owners.length;
+              this.isNrc721 = !response.result.nrc20;
               this.contractsInfo = response.result;
+              this.getAccountTxList()
             }
           }).catch((error) => {
           console.log(error)
@@ -172,14 +162,14 @@
       },
 
       /**
-       * 调用认证方法
-       * @param contractsAddress
+       * 调用认证方法, 查询是否已认证
+       * @param contractAddress
        **/
-      async getContractAddressInfo(contractsAddress) {
+      async getContractAddressInfo(contractAddress) {
         const params = {
           "jsonrpc": "2.0",
           "method": 'getContractAddressInfo',
-          "params": [Number(sessionStorage.getItem('chainId')), contractsAddress],
+          "params": [Number(sessionStorage.getItem('chainId')), contractAddress],
           "id": Math.floor(Math.random() * 1000)
         };
         axios.post(CODE_URL, params)
@@ -196,14 +186,16 @@
       /**
        * 获取通证交易列表
        */
-      async getAccountTxList(page, rows, address, contractsAddress) {
-        this.$post('/', 'getTokenTransfers', [page, rows, address, contractsAddress])
+      async getAccountTxList() {
+        const method = this.isNrc721 ? 'getToken721Transfers' : 'getTokenTransfers';
+        const { page, rows } = this.pager;
+        this.$post('/', method, [page, rows, '', this.contractAddress])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
-                item.txHashs = superLong(item.txHash, 6);
+                // item.txHashs = superLong(item.txHash, 6);
                 if (item.decimals !== 0) {
                   item.value = timesDecimals(item.value, item.decimals);
                 }
@@ -216,18 +208,25 @@
         })
       },
 
-      /**
-       * 获取通证交易列表 分页
-       */
-      accountTxListPage() {
-        this.getAccountTxList(this.pager.page, this.pager.rows, '', this.contractsAddress);
+      changeList() {
+        if (this.activeName === 'tokenFirst') {
+          this.getAccountTxList();
+        } else {
+          this.getAccountTokensList();
+        }
       },
+      superLong(str, len = 6) {
+        return superLong(str, len)
+      },
+
 
       /**
        * 获取持币账户列表
        */
-      async getAccountTokensList(page, rows, contractsAddress) {
-        this.$post('/', 'getContractTokens', [page, rows, contractsAddress])
+      async getAccountTokensList() {
+        const { page, rows } = this.pager;
+        const method = this.isNrc721 ? 'getContractToken721s' : 'getContractTokens';
+        this.$post('/', method, [page, rows, this.contractAddress])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
@@ -237,7 +236,10 @@
                 if (item.decimals !== 0) {
                   item.balance = timesDecimals(item.balance, item.decimals);
                 }
-                item.percentage = ((parseInt(item.balance) / totalSupply) * 100).toFixed(5) + '%'
+                if (this.isNrc721) {
+                  item.balance = item.tokenCount
+                }
+                item.percentage = fixNumber((parseInt(item.balance) / totalSupply) * 100, 5) + '%'
               }
               this.accountTokensList = response.result.list;
               this.pager.total = response.result.totalCount;
@@ -248,25 +250,13 @@
       },
 
       /**
-       * 获取持币账户列表 分页
-       */
-      accountTokensListPage() {
-        this.getAccountTokensList(this.pager.page, this.pager.rows, this.contractsAddress);
-      },
-
-      /**
        * tab 切换
        * @param tab
        */
       handleClick(tab) {
         this.activeName = tab.name;
-        if (tab.name === 'tokenFirst') {
-          this.pager = {total: 0, page: 1, rows: 8};
-          this.getAccountTxList(this.pager.page, this.pager.rows, '', this.contractsAddress);
-        } else {
-          this.pager = {total: 0, page: 1, rows: 8};
-          this.getAccountTokensList(this.pager.page, this.pager.rows, this.contractsAddress);
-        }
+        this.pager = {total: 0, page: 1, rows: 8};
+        this.changeList();
       },
 
       /**
@@ -278,7 +268,7 @@
       toUrl(name, parmes, tabName) {
         let newQuery = {};
         if (name === 'tokenInfo') {
-          this.contractsAddress = parmes;
+          this.contractAddress = parmes;
           newQuery = {address: parmes}
         } else if (name === 'addressInfo') {
           newQuery = {address: parmes}

@@ -59,12 +59,6 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('public.txList')" name="addressFirst">
           <SelectBar v-model="typeRegion" @change="changeType"></SelectBar>
-          <!--<i class="iconfont icon-dwonload_gray_icon click ml_20" title="更多功能敬请期待..."></i>-->
-          <el-switch class="hide-switch fr" v-model="hideSwitch" v-show="false"
-                     :width="32"
-                     :inactive-text="$t('block.block1')"
-                     @change="hideConsensusList">
-          </el-switch>
           <el-table :data="txList" stripe border style="width: 100%;" class="mt_20" v-loading="txListLoading">
             <el-table-column :label="$t('public.height')" width="90" align="left">
               <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
@@ -167,7 +161,31 @@
             </el-table-column>
           </el-table>
         </el-tab-pane>
-        <el-tab-pane :label="$t('network.network12')" name="addressFour">
+        <el-tab-pane :label="$t('addressList.addressList4')" name="addressFour">
+          <el-table :data="nrc721List" stripe border style="width: 100%" class="mt_20" v-loading="nrc721ListLoading">
+            <el-table-column label="" width="30">
+            </el-table-column>
+            <el-table-column prop="tokenName" :label="$t('public.passCard')" width="160"
+                             align="left"></el-table-column>
+            <el-table-column :label="$t('public.abbreviate')" width="160" align="left">
+              <template slot-scope="scope">
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                  {{ scope.row.tokenSymbol }}
+                  <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
+                </span>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('public.contractAddress')" min-width="160" align="left">
+              <template slot-scope="scope">
+                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">{{ scope.row.contractAddress }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="Token ID" width="120" align="left">
+              <template slot-scope="scope">{{ scope.row.tokenID }}</template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane :label="$t('network.network12')" name="addressFive">
           <el-table :data="holdData" border v-loading="holdDataLoading">
             <el-table-column prop="chainId" :label="$t('network.network0')" min-width="300" align="center">
             </el-table-column>
@@ -246,8 +264,6 @@
         pageRows: 5, //显示条数
         //交易列表加载动画
         txListLoading: true,
-        //隐藏共识奖励
-        hideSwitch: false,
         //token类型
         tokenOptions: [],
         tokenValue: '',
@@ -275,6 +291,8 @@
         symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
         holdData: [],//持有跨链资产列表
         holdDataLoading: false,
+        nrc721List: [],
+        nrc721ListLoading: false,
       }
     },
     components: {
@@ -375,12 +393,14 @@
       tabNameList() {
         if (this.activeName === 'addressFirst') {
           this.txListLoading = true;
-          this.getTxListByAddress(this.pageIndex, this.pageRows, this.address, this.typeRegion);
+          this.getTxListByAddress();
         } else if (this.activeName === 'addressSecond') {
           this.tokenListLoading = true;
-          this.getTokenListByAddress(this.pageIndex, this.pageRows, this.address, "")
+          this.getTokenListByAddress()
         } else if (this.activeName === 'addressThree') {
-          this.getNrc20ListByAddress(this.pageIndex, this.pageRows, this.address);
+          this.getNrc20ListByAddress();
+        } else if (this.activeName === 'addressFour') {
+          this.getNrc721ListByAddress()
         } else {
           this.getAccountCrossLedgerList(this.address);
         }
@@ -389,8 +409,8 @@
       /**
        * 根据地址获取交易列表
        */
-      getTxListByAddress(page, rows, address, type) {
-        this.$post('/', 'getAccountTxs', [page, rows, address, type, -1, -1, 0, 0])
+      getTxListByAddress() {
+        this.$post('/', 'getAccountTxs', [this.pageIndex, this.pageRows, this.address, this.typeRegion, -1, -1, 0, 0])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
@@ -421,8 +441,8 @@
       /**
        * 根据地址获取Token交易列表
        */
-      getTokenListByAddress(page, rows, address, contractAddress) {
-        this.$post('/', 'getTokenTransfers', [page, rows, address, contractAddress])
+      getTokenListByAddress() {
+        this.$post('/', 'getTokenTransfers', [this.pageIndex, this.pageRows, this.address, this.tokenValue])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
@@ -451,15 +471,15 @@
       changeToken() {
         this.pageTotal = 0;
         this.pageIndex = 1;
-        this.getTokenListByAddress(this.pageIndex, this.pageRows, this.address, this.tokenValue);
+        this.getTokenListByAddress();
       },
 
       /**
        * 根据地址获取NRC-20列表
        */
-      getNrc20ListByAddress(page, rows, address) {
+      getNrc20ListByAddress() {
         this.nrc20ListLoading = true;
-        this.$post('/', 'getAccountTokens', [page, rows, address])
+        this.$post('/', 'getAccountTokens', [this.pageIndex, this.pageRows, this.address])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
@@ -472,6 +492,37 @@
               this.nrc20List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc20ListLoading = false;
+            }
+          }).catch((error) => {
+          console.log(error)
+        })
+      },
+
+      /**
+       * 根据地址获取NRC-721列表
+       */
+      getNrc721ListByAddress() {
+        this.nrc721ListLoading = true;
+        this.$post('/', 'getAccountToken721s', [this.pageIndex, this.pageRows, this.address])
+          .then((response) => {
+            //console.log(response);
+            if (response.hasOwnProperty("result")) {
+              const list = []
+              for (let item of response.result.list) {
+                // item.balance = timesDecimals(item.balance, item.decimals);
+                item.tokenIDs = item.tokenSet.join(', ');
+                item.tokenSet.map(v => {
+                  list.push({
+                    tokenName: item.tokenName,
+                    tokenSymbol: item.tokenSymbol,
+                    contractAddress: item.contractAddress,
+                    tokenID: v
+                  })
+                })
+              }
+              this.nrc721List = list;
+              this.pageTotal = response.result.totalCount;
+              this.nrc721ListLoading = false;
             }
           }).catch((error) => {
           console.log(error)
@@ -535,15 +586,7 @@
         this.pageIndex = 1;
         this.txListLoading = true;
         this.typeRegion = parseInt(type);
-        this.getTxListByAddress(this.pageIndex, this.pageRows, this.address, this.typeRegion, this.hideSwitch);
-      },
-
-      /**
-       * 隐藏共识奖励
-       */
-      hideConsensusList() {
-        this.txListLoading = true;
-        this.getTxListByAddress(this.pageIndex, this.pageRows, this.address, this.typeRegion, this.hideSwitch);
+        this.getTxListByAddress();
       },
 
     },
