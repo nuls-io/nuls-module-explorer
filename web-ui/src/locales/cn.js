@@ -285,11 +285,11 @@ const cn = {
   },
 
   "contracts": {
-    "contracts0": "所有合约",
+    "contracts0": "全部",
     "contracts1": "隐藏NRC20合约",
-    "contracts2": "NRC20 合约",
+    "contracts2": "NRC20",
     "contracts3": "总发行量",
-    "contracts4": "NRC721 合约",
+    "contracts4": "NRC721",
     "contracts5": "发行量",
     "contracts6": "交易次数",
   },

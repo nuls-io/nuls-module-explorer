@@ -60,7 +60,7 @@ const en = {
     "sender": "Sender",
     "recipient": "Receiver",
     "passCard": "Token",
-    "abbreviate": "Abbreviate",
+    "abbreviate": "Symbol",
     "week": "Week",
     "month": "Month",
     "year": "Year",
@@ -285,7 +285,7 @@ const en = {
   },
 
   "contracts": {
-    "contracts0": "All contracts",
+    "contracts0": "All",
     "contracts1": "Hide NRC-20 contracts",
     "contracts2": "NRC20 contracts",
     "contracts3": "Total supply",

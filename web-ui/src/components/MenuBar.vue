@@ -14,8 +14,8 @@
       <el-submenu index="contractsBase">
         <template slot="title">{{$t('nav.contracts')}}</template>
         <el-menu-item index="contracts" class="font18 capitalize">{{$t('contracts.contracts0')}}</el-menu-item>
-        <el-menu-item index="nrc20" class="font18 capitalize">{{$t('contracts.contracts2')}}</el-menu-item>
-        <el-menu-item index="nrc721" class="font18 capitalize">{{$t('contracts.contracts4')}}</el-menu-item>
+        <el-menu-item index="nrc20" class="font18 capitalize">NRC20</el-menu-item>
+        <el-menu-item index="nrc721" class="font18 capitalize">NRC721</el-menu-item>
       </el-submenu>
       <el-menu-item index="network" class="font18 fw capitalize">{{$t('network.network')}}</el-menu-item>
     </el-menu>
