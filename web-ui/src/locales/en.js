@@ -60,7 +60,7 @@ const en = {
     "sender": "Sender",
     "recipient": "Receiver",
     "passCard": "Token",
-    "abbreviate": "Abbreviate",
+    "abbreviate": "Symbol",
     "week": "Week",
     "month": "Month",
     "year": "Year",
@@ -216,7 +216,8 @@ const en = {
     "addressList0": "Assets info",
     "addressList1": "Total income",
     "addressList2": "Total expenditure",
-    "addressList3": "Token list"
+    "addressList3": "NRC20",
+    "addressList4": "NRC721",
   },
 
   "transaction": {
@@ -284,11 +285,13 @@ const en = {
   },
 
   "contracts": {
-    "contracts0": "All contracts",
+    "contracts0": "All",
     "contracts1": "Hide NRC-20 contracts",
-    "contracts2": "NRC-20 contracts",
+    "contracts2": "NRC20 contracts",
     "contracts3": "Total supply",
-    "contracts": ""
+    "contracts4": "NRC721 contracts",
+    "contracts5": "Supply",
+    "contracts6": "Transaction number",
   },
 
   "contractsInfo": {

@@ -216,7 +216,8 @@ const cn = {
     "addressList0": "资产信息",
     "addressList1": "总收入",
     "addressList2": "总支出",
-    "addressList3": "通证列表"
+    "addressList3": "持有NRC20",
+    "addressList4": "持有NRC721"
   },
 
   "transaction": {
@@ -284,11 +285,13 @@ const cn = {
   },
 
   "contracts": {
-    "contracts0": "所有合约",
-    "contracts1": "隐藏NRC-20合约",
-    "contracts2": "NRC-20 合约",
+    "contracts0": "全部",
+    "contracts1": "隐藏NRC20合约",
+    "contracts2": "NRC20",
     "contracts3": "总发行量",
-    "contracts": ""
+    "contracts4": "NRC721",
+    "contracts5": "发行量",
+    "contracts6": "交易次数",
   },
 
   "contractsInfo": {

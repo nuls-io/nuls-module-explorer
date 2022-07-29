@@ -80,13 +80,18 @@ export default new Router({
     },
     {
       path: '/contracts',
-      name: 'contracts',
-      component: resolve => require(['@/views/contracts/Contracts'], resolve)
+      name: 'contractsBase',
+      component: resolve => require(['@/views/contracts/ContractsBase'], resolve),
+      children: [
+        { path: '', name: 'contracts', component: resolve => require(['@/views/contracts/Contracts'], resolve) },
+        { path: 'nrc20', name: 'nrc20', component: resolve => require(['@/views/contracts/Nrc20'], resolve) },
+        { path: 'nrc721', name: 'nrc721', component: resolve => require(['@/views/contracts/Nrc721'], resolve) }
+      ]
     },
     {
-      path: '/contracts/info',
+      path: '/contract/info',
       name: 'contractsInfo',
-      component: resolve => require(['@/views/contracts/ContractsInfo'], resolve)
+      component: resolve => require(['@/views/contracts/ContractInfo'], resolve)
     },
     {
       path: '/token/info',

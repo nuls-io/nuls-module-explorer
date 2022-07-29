@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <el-menu :default-active="activedMenu($route.path)" :mode=mode active-text-color="#7db46d"
+    <el-menu :default-active="activedMenu($route.name)" :mode=mode active-text-color="#7db46d"
              @select="handleSelect">
       <el-menu-item index="home" class="font18 fw capitalize">{{$t('nav.home')}}</el-menu-item>
       <el-submenu index="blockChain">
@@ -10,47 +10,15 @@
         <el-menu-item index="transaction" class="font18 capitalize">{{$t('nav.transaction')}}</el-menu-item>
       </el-submenu>
       <el-menu-item index="consensus" class="font18 fw capitalize">{{$t('nav.consensus')}}</el-menu-item>
-      <el-menu-item index="contracts" class="font18 fw capitalize">{{$t('nav.contracts')}}</el-menu-item>
+<!--      <el-menu-item index="contracts" class="font18 fw capitalize">{{$t('nav.contracts')}}</el-menu-item>-->
+      <el-submenu index="contractsBase">
+        <template slot="title">{{$t('nav.contracts')}}</template>
+        <el-menu-item index="contracts" class="font18 capitalize">{{$t('contracts.contracts0')}}</el-menu-item>
+        <el-menu-item index="nrc20" class="font18 capitalize">NRC20</el-menu-item>
+        <el-menu-item index="nrc721" class="font18 capitalize">NRC721</el-menu-item>
+      </el-submenu>
       <el-menu-item index="network" class="font18 fw capitalize">{{$t('network.network')}}</el-menu-item>
     </el-menu>
-    <!--<el-menu
-            default-active="2"
-            class="el-menu-vertical-demo"
-            mode="vertical"
-            @open="handleOpen"
-            @close="handleClose">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
-        </template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
-    </el-menu>-->
-
   </div>
 </template>
 
@@ -84,12 +52,18 @@
        * 导航跳转
        * @param key
        **/
-      handleSelect(key) {
+      handleSelect(key, path) {
         this.navActive = key;
         sessionStorage.setItem('navActive', key);
-        this.$router.push({
-          name: key
-        });
+        if (path.length > 1 && path[0] === 'contractsBase') {
+          this.$router.push({
+            name: path[1]
+          });
+        } else {
+          this.$router.push({
+            name: key
+          });
+        }
         if(key){
           this.$parent.hideMobileMenu();
         }
@@ -99,7 +73,10 @@
        * 导航栏的选中
        **/
       activedMenu(val) {
-        if (val.indexOf('/block') === 0) {
+        // console.log(val, '9999');
+        // if (!val) return '';
+        return val;
+        /*if (val.indexOf('/block') === 0) {
           return 'block'
         } else if (val.indexOf('/address') === 0) {
           return 'address'
@@ -108,12 +85,12 @@
         } else if (val.indexOf('/consensus') === 0 || val.indexOf('/rotation') === 0) {
           return 'consensus'
         } else if (val.indexOf('/contracts') === 0 || val.indexOf('/token') === 0) {
-          return 'contracts'
+          return val
         } else if (val.indexOf('/network') === 0) {
           return 'network'
         } else {
           return 'home'
-        }
+        }*/
       },
 
     },
