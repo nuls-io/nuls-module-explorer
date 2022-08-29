@@ -123,7 +123,8 @@
        * @param type
        */
       toUrl(name, parmes, type) {
-        if (type === 1) {
+        // type 1普通 2合约 3多签
+        if (type !== 2) {
           this.$router.push({
             name: name,
             query: {address: parmes}
