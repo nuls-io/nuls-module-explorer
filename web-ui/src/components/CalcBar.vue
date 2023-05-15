@@ -226,10 +226,12 @@
           newAllEntrust: [{validator: checkNewAllEntrust, trigger: 'change'}],
           newEntrust: [{validator: checkNewEntrust, trigger: 'change'}],
         },
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol,
+        rewardPerYear: ''
       };
     },
     created() {
+      this.getRewardPerYear();
     },
     watch: {
       radio(val, oldVal) {
@@ -248,11 +250,11 @@
         let BN = BigNumber.clone();
         BN.config({DECIMAL_PLACES: 4});
         if (this.radio.toString() === '2') {
-          const newYear = this.newNodeFrom.newCredit * this.newNodeFrom.newEnsure * 5000000 / this.newNodeFrom.newAllEntrust
-            + this.newNodeFrom.newCredit * this.newNodeFrom.newEntrust * 5000000 * this.newNodeFrom.newRadio * 0.01 / this.newNodeFrom.newAllEntrust;
+          const newYear = this.newNodeFrom.newCredit * this.newNodeFrom.newEnsure * this.rewardPerYear / this.newNodeFrom.newAllEntrust
+            + this.newNodeFrom.newCredit * this.newNodeFrom.newEntrust * this.rewardPerYear * this.newNodeFrom.newRadio * 0.01 / this.newNodeFrom.newAllEntrust;
           newInfo.year = BN(newYear).div(1).toNumber();
         } else {
-          const newYear = this.partakeForm.credit * (1 - this.partakeForm.ratio * 0.01) * 5000000 * this.partakeForm.entrust / this.partakeForm.allEntrust;
+          const newYear = this.partakeForm.credit * (1 - this.partakeForm.ratio * 0.01) * this.rewardPerYear * this.partakeForm.entrust / this.partakeForm.allEntrust;
           newInfo.year = BN(newYear).div(1).toNumber();
         }
         newInfo.month = BN(newInfo.year).div(12).toNumber();
@@ -262,6 +264,13 @@
       }
     },
     methods: {
+      getRewardPerYear() {
+        const currentTime = new Date().getTime() / 1000;
+        const reduceTime = new Date('2020-8-12 00:00:00').getTime() / 1000;
+        const reduceDay = (currentTime - reduceTime) / 86400;
+        const reduceMonth = (reduceDay / 30).toFixed(0);
+        this.rewardPerYear = 5000000 * new BigNumber(0.996).pow(reduceMonth)
+      },
       count(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {

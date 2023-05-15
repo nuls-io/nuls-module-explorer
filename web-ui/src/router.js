@@ -89,7 +89,7 @@ export default new Router({
       ]
     },
     {
-      path: '/contract/info',
+      path: '/contracts/info',
       name: 'contractsInfo',
       component: resolve => require(['@/views/contracts/ContractInfo'], resolve)
     },

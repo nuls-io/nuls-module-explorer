@@ -6,10 +6,10 @@
           <router-link to="/contracts">{{ $t('contracts.contracts0') }}</router-link>
         </li>
         <li :class="{active: activeName === 'nrc20'}">
-          <router-link to="/contracts/nrc20">{{ $t('contracts.contracts2') }}</router-link>
+          <router-link to="/contracts/nrc20">NRC20</router-link>
         </li>
         <li :class="{active: activeName === 'nrc721'}">
-          <router-link to="/contracts/nrc721">{{ $t('contracts.contracts4') }}</router-link>
+          <router-link to="/contracts/nrc721">NRC721</router-link>
         </li>
       </ul>
       <div class="content">
