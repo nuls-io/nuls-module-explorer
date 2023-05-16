@@ -205,7 +205,10 @@
       <ul class="outputs fr scroll" style="width: 600px">
         <li class="font14" v-for="item in tokenTransfers" :key="item.keys" style="width: 550px">
           <span class="click" @click="toUrl('addressInfo',item.toAddress)">{{item.toAddress}}</span>
-          <label class="fr" style="width: 200px">{{item.value}}<span> {{item.symbol}}</span></label>
+          <label class="fr" style="width: 200px">
+            {{item.value}}
+            <span class="click" @click="toUrl('contractsInfo',item.contractAddress)"> {{item.symbol}}</span>
+          </label>
         </li>
       </ul>
     </div>
@@ -465,6 +468,8 @@
           newQuery = {contractAddress: params, tabName: 'first'}
         } else if (name === 'transactionInfo') {
           newQuery = {hash: params}
+        } else if (name === 'contractsInfo') {
+          newQuery = { contractAddress: params }
         } else {
           newQuery = {address: params};
         }
