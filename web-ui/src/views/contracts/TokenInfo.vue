@@ -67,6 +67,7 @@
                 </template>
               </el-table-column>
               <el-table-column prop="time" :label="$t('public.time')" width="170" align="left"></el-table-column>
+              <el-table-column prop="tokenId" label="Token ID" width="100" align="left" v-if="tokenType === 3"></el-table-column>
               <el-table-column prop="value" :label="$t('public.amount')" width="100" align="left" v-if="tokenType !== 2"></el-table-column>
               <el-table-column prop="tokenId" label="Token ID" width="100" align="left" v-else></el-table-column>
             </el-table>
