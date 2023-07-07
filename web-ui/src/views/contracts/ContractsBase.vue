@@ -11,6 +11,9 @@
         <li :class="{active: activeName === 'nrc721'}">
           <router-link to="/contracts/nrc721">NRC721</router-link>
         </li>
+        <li :class="{active: activeName === 'nrc1155'}">
+          <router-link to="/contracts/nrc1155">NRC1155</router-link>
+        </li>
       </ul>
       <div class="content">
         <div class="w1200">

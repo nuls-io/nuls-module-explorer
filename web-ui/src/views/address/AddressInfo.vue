@@ -185,7 +185,32 @@
             </el-table-column>
           </el-table>
         </el-tab-pane>
-        <el-tab-pane :label="$t('network.network12')" name="addressFive">
+        <el-tab-pane :label="$t('addressList.addressList5')" name="addressFive">
+          <el-table :data="nrc1155List" stripe border style="width: 100%" class="mt_20" v-loading="nrc1155ListLoading">
+            <el-table-column label="" width="30">
+            </el-table-column>
+            <el-table-column prop="tokenName" :label="$t('public.passCard')" width="160"
+                             align="left"></el-table-column>
+            <el-table-column :label="$t('public.abbreviate')" width="160" align="left">
+              <template slot-scope="scope">
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                  {{ scope.row.tokenSymbol }}
+                  <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
+                </span>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('public.contractAddress')" min-width="160" align="left">
+              <template slot-scope="scope">
+                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">{{ scope.row.contractAddress }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="Token ID" width="120" align="left">
+              <template slot-scope="scope">{{ scope.row.tokenId }}</template>
+            </el-table-column>
+            <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')" width="120" align="left" />
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane :label="$t('network.network12')" name="addressSix">
           <el-table :data="holdData" border v-loading="holdDataLoading">
             <el-table-column prop="chainId" :label="$t('network.network0')" min-width="300" align="center">
             </el-table-column>
@@ -293,6 +318,8 @@
         holdDataLoading: false,
         nrc721List: [],
         nrc721ListLoading: false,
+        nrc1155List: [],
+        nrc1155ListLoading: false
       }
     },
     components: {
@@ -401,6 +428,8 @@
           this.getNrc20ListByAddress();
         } else if (this.activeName === 'addressFour') {
           this.getNrc721ListByAddress()
+        } else if (this.activeName === 'addressFive') {
+          this.getNrc1155ListByAddress()
         } else {
           this.getAccountCrossLedgerList(this.address);
         }
@@ -529,6 +558,20 @@
         })
       },
 
+      getNrc1155ListByAddress() {
+        this.nrc1155ListLoading = true;
+        this.$post('/', 'getAccountToken1155s', [this.pageIndex, this.pageRows, this.address])
+          .then((response) => {
+            //console.log(response);
+            if (response.hasOwnProperty("result")) {
+              this.nrc1155List = response.result.list;
+              this.pageTotal = response.result.totalCount;
+              this.nrc1155ListLoading = false;
+            }
+          }).catch((error) => {
+          console.log(error)
+        })
+      },
       /**
        * 持有跨链资产列表
        */

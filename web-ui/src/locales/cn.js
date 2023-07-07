@@ -217,7 +217,8 @@ const cn = {
     "addressList1": "总收入",
     "addressList2": "总支出",
     "addressList3": "持有NRC20",
-    "addressList4": "持有NRC721"
+    "addressList4": "持有NRC721",
+    "addressList5": "持有NRC1155"
   },
 
   "transaction": {
