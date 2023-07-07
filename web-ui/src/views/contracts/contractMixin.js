@@ -4,7 +4,7 @@ import { divisionDecimals, getLocalTime, timesDecimals } from '@/api/util';
 export default {
   data() {
     return {
-      // contractType: 'all'/'nrc20'/nrc721'
+      // contractType: 'all'/'nrc20'/nrc721'/nrc1155
       hideSwitch: false,
       list: [],
       listLoading: true,
@@ -27,8 +27,17 @@ export default {
      */
     getContractList(type, hideNrc20) {
       const { page, rows } = this.pager;
-      const method = this.contractType !== 'nrc721' ? 'getContractList' : 'getNrc721List';
-      const params = this.contractType !== 'nrc721' ? [page, rows, type, hideNrc20] : [page, rows]
+      const contractType = this.contractType
+      let method, params
+      if (contractType === 'all' || contractType === 'nrc20') {
+        method = 'getContractList'
+        params = [page, rows, type, hideNrc20]
+      } else {
+        params = [page, rows]
+        method = contractType === 'nrc721' ? 'getNrc721List' : 'getNrc1155List'
+      }
+      // const method = this.contractType !== 'nrc721' ? 'getContractList' : 'getNrc721List';
+      // const params = this.contractType !== 'nrc721' ? [page, rows, type, hideNrc20] : [page, rows]
       this.$post('/', method, params)
         .then((response) => {
           //console.log(response);

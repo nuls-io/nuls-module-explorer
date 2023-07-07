@@ -85,7 +85,8 @@ export default new Router({
       children: [
         { path: '', name: 'contracts', component: resolve => require(['@/views/contracts/Contracts'], resolve) },
         { path: 'nrc20', name: 'nrc20', component: resolve => require(['@/views/contracts/Nrc20'], resolve) },
-        { path: 'nrc721', name: 'nrc721', component: resolve => require(['@/views/contracts/Nrc721'], resolve) }
+        { path: 'nrc721', name: 'nrc721', component: resolve => require(['@/views/contracts/Nrc721'], resolve) },
+        { path: 'nrc1155', name: 'nrc1155', component: resolve => require(['@/views/contracts/Nrc1155'], resolve) }
       ]
     },
     {
