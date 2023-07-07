@@ -27,8 +27,8 @@
         </li>
         <li class="tabs_infos fl"><p>{{$t('public.passCard')}}<span>{{contractsInfo.tokenName}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.abbreviate')}}<span>{{contractsInfo.symbol}}</span></p></li>
-        <li class="tabs_infos fl"><p>{{$t('contracts.contracts3')}}<span>{{contractsInfo.totalSupply}}</span></p></li>
-        <li class="tabs_infos fl" v-if="!isNrc721"><p>{{$t('tokenInfo.tokenInfo0')}}<span>{{contractsInfo.decimals}}</span></p></li>
+        <li class="tabs_infos fl" v-if="tokenType !== 3"><p>{{$t('contracts.contracts3')}}<span>{{contractsInfo.totalSupply}}</span></p></li>
+        <li class="tabs_infos fl" v-if="tokenType === 1"><p>{{$t('tokenInfo.tokenInfo0')}}<span>{{contractsInfo.decimals}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.transactionNo')}}<span>{{contractsInfo.transferCount}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('tokenInfo.tokenInfo1')}}<span>{{contractsInfo.ownersCount}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.createAddress')}}<span class="mobile_s click"
@@ -67,7 +67,8 @@
                 </template>
               </el-table-column>
               <el-table-column prop="time" :label="$t('public.time')" width="170" align="left"></el-table-column>
-              <el-table-column prop="value" :label="$t('public.amount')" width="100" align="left" v-if="!isNrc721"></el-table-column>
+              <el-table-column prop="tokenId" label="Token ID" width="100" align="left" v-if="tokenType === 3"></el-table-column>
+              <el-table-column prop="value" :label="$t('public.amount')" width="100" align="left" v-if="tokenType !== 2"></el-table-column>
               <el-table-column prop="tokenId" label="Token ID" width="100" align="left" v-else></el-table-column>
             </el-table>
             <!--<paging :pager="pager" @change="getItemList" v-show="pager.total > pager.rows"></paging>-->
@@ -83,10 +84,9 @@
                                                    @click="toUrl('addressInfo',scope.row.address)">{{ scope.row.address }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="balance" :label="$t('tokenInfo.tokenInfo5')" width="250"
-                               align="left"></el-table-column>
-              <el-table-column prop="percentage" :label="$t('tokenInfo.tokenInfo6')" width="250"
-                               align="left"></el-table-column>
+              <el-table-column :prop="tokenType === 3 ? 'value' : 'balance'" :label="$t('tokenInfo.tokenInfo5')" width="250" align="left"></el-table-column>
+              <el-table-column v-if="tokenType === 3" prop="tokenId" label="Token ID" width="250" align="left"></el-table-column>
+              <el-table-column v-else prop="percentage" :label="$t('tokenInfo.tokenInfo6')" width="250" align="left"></el-table-column>
             </el-table>
           </el-tab-pane>
           <PagingBar :pager="pager" @change="changeList" />
@@ -110,7 +110,7 @@
         activeName: 'tokenFirst',
         //合约地址
         contractAddress: '',
-        isNrc721: false, // 是否是nrc721
+        tokenType: 0, // 0 - 非token, 1 - NRC20, 2 - NRC721, 3 - NRC1155
         //合约详情
         contractsInfo: [],
         //通证交易列表
@@ -131,7 +131,6 @@
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
       this.contractAddress = this.$route.query.contractAddress;
-      // this.isNrc721 = !!this.$route.query.nrc721;
     },
     mounted() {
       this.getContractsInfoByContractsAddress(this.contractAddress);
@@ -152,7 +151,7 @@
                 response.result.totalSupply = timesDecimals(response.result.totalSupply, response.result.decimals);
               }
               response.result.ownersCount = response.result.owners.length;
-              this.isNrc721 = !response.result.nrc20;
+              this.tokenType = response.result.tokenType
               this.contractsInfo = response.result;
               this.getAccountTxList()
             }
@@ -187,16 +186,16 @@
        * 获取通证交易列表
        */
       async getAccountTxList() {
-        const method = this.isNrc721 ? 'getToken721Transfers' : 'getTokenTransfers';
+        const method = this.tokenType === 1 ? 'getTokenTransfers' : this.tokenType === 2 ? 'getToken721Transfers' : 'getToken1155Transfers'
         const { page, rows } = this.pager;
-        this.$post('/', method, [page, rows, '', this.contractAddress])
+        this.$post('/', method, [page, rows, '', this.contractAddress, ''])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 // item.txHashs = superLong(item.txHash, 6);
-                if (item.decimals !== 0) {
+                if (item.decimals) {
                   item.value = timesDecimals(item.value, item.decimals);
                 }
               }
@@ -225,7 +224,7 @@
        */
       async getAccountTokensList() {
         const { page, rows } = this.pager;
-        const method = this.isNrc721 ? 'getContractToken721s' : 'getContractTokens';
+        const method = this.tokenType === 1 ? 'getContractTokens' : this.tokenType === 2 ? 'getContractToken721s' : 'getContractToken1155s'
         this.$post('/', method, [page, rows, this.contractAddress])
           .then((response) => {
             //console.log(response);
@@ -236,7 +235,7 @@
                 if (item.decimals !== 0) {
                   item.balance = timesDecimals(item.balance, item.decimals);
                 }
-                if (this.isNrc721) {
+                if (this.tokenType !== 1) {
                   item.balance = item.tokenCount
                 }
                 item.percentage = fixNumber((parseInt(item.balance) / totalSupply) * 100, 5) + '%'
@@ -303,7 +302,8 @@
     .b-info {
       margin-bottom: 20px;
       .ul {
-        min-height: 215px;
+        // min-height: 215px;
+        overflow: hidden;
         li {
           @media screen and (max-width: 1000px) {
             .mobile_s {

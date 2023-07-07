@@ -218,6 +218,7 @@ const en = {
     "addressList2": "Total expenditure",
     "addressList3": "NRC20",
     "addressList4": "NRC721",
+    "addressList5": "NRC1155"
   },
 
   "transaction": {
