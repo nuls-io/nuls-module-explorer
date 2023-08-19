@@ -7,6 +7,7 @@ const en = {
     "address": "Account",
     "transaction": "Transaction",
     "consensus": "Consensus",
+    "assets":"资产",
     "contracts": "Contracts",
     "blockChain": "Blockchain",
   },
@@ -78,7 +79,7 @@ const en = {
     "status": "Status",
     "input": "Input",
     "output": "Output",
-    "searchTip": "address/height/txhash/...",
+    "searchTip": "address/height/txhash/token search",
     "copy": "Click copy",
     "copysuccess": "Copy success",
     "success": "Success",
@@ -171,6 +172,7 @@ const en = {
     "home7": "14 days Transaction history",
     "home8": "More",
     "home9": "Burned",
+    "home10": "减产倒计时"
   },
 
   "cale": {

@@ -1,24 +1,24 @@
 <template>
   <div class="nav">
-    <el-menu :default-active="activedMenu($route.name)" :mode=mode active-text-color="#7db46d"
+    <el-menu :default-active="activedMenu($route.name)" :mode=mode active-text-color="#00DB82"
              @select="handleSelect">
-      <el-menu-item index="home" class="font18 fw capitalize">{{$t('nav.home')}}</el-menu-item>
+      <el-menu-item index="home" class="font14 fw capitalize">{{$t('nav.home')}}</el-menu-item>
       <el-submenu index="blockChain">
         <template slot="title">{{$t('nav.blockChain')}}</template>
-        <el-menu-item index="block" class="font18 capitalize">{{$t('nav.block')}}</el-menu-item>
-        <el-menu-item index="address" class="font18 capitalize">{{$t('nav.address')}}</el-menu-item>
-        <el-menu-item index="transaction" class="font18 capitalize">{{$t('nav.transaction')}}</el-menu-item>
+        <el-menu-item index="block" class="font14 capitalize">{{$t('nav.block')}}</el-menu-item>
+        <el-menu-item index="address" class="font14 capitalize">{{$t('nav.address')}}</el-menu-item>
+        <el-menu-item index="transaction" class="font14 capitalize">{{$t('nav.transaction')}}</el-menu-item>
       </el-submenu>
-      <el-menu-item index="consensus" class="font18 fw capitalize">{{$t('nav.consensus')}}</el-menu-item>
-<!--      <el-menu-item index="contracts" class="font18 fw capitalize">{{$t('nav.contracts')}}</el-menu-item>-->
+      <el-menu-item index="consensus" class="font14 fw capitalize">{{$t('nav.consensus')}}</el-menu-item>
+     <el-menu-item index="assets" class="font14 fw capitalize">{{$t('nav.assets')}}</el-menu-item>
       <el-submenu index="contractsBase">
         <template slot="title">{{$t('nav.contracts')}}</template>
-        <el-menu-item index="contracts" class="font18 capitalize">{{$t('contracts.contracts0')}}</el-menu-item>
-        <el-menu-item index="nrc20" class="font18 capitalize">NRC20</el-menu-item>
-        <el-menu-item index="nrc721" class="font18 capitalize">NRC721</el-menu-item>
-        <el-menu-item index="nrc1155" class="font18 capitalize">NRC1155</el-menu-item>
+        <el-menu-item index="contracts" class="font14 capitalize">{{$t('contracts.contracts0')}}</el-menu-item>
+        <el-menu-item index="nrc20" class="font14 capitalize">NRC20</el-menu-item>
+        <el-menu-item index="nrc721" class="font14 capitalize">NRC721</el-menu-item>
+        <el-menu-item index="nrc1155" class="font14 capitalize">NRC1155</el-menu-item>
       </el-submenu>
-      <el-menu-item index="network" class="font18 fw capitalize">{{$t('network.network')}}</el-menu-item>
+      <el-menu-item index="network" class="font14 fw capitalize">{{$t('network.network')}}</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -99,20 +99,27 @@
   }
 </script>
 
+<style>
+.el-menu--horizontal .el-menu .el-menu-item{
+  color: #000000;
+}
+</style>
+
 <style lang="less">
   @import "./../assets/css/style";
 
   .nav {
+    height: 68px;
     width: 700px;
     float: left;
     .el-menu{
       //padding: 20px 0 0 0;
+      height: 67px;
       .el-menu-item {
         padding: 0 20px;
-        color: #5e6983;
-        font-size: 18px;
-        height: 80px;
-        line-height: 80px;
+        color: #000000;
+        font-size: 14px;
+        line-height: 68px;
         font-weight: normal;
       }
       .el-submenu {
@@ -121,9 +128,9 @@
             border-color: transparent !important;
           }
           .el-submenu__title{
-            font-size: 18px;
+            font-size: 14px;
             line-height: 60px;
-            color: #5e6983;
+            color: #000000;
           }
         }
       }
@@ -141,8 +148,9 @@
         }
         .el-submenu__title {
           border-bottom-color: transparent !important;
-          font-size: 18px;
-          line-height: 80px;
+          font-size: 14px;
+          line-height: 68px;
+          color: #000000;
         }
       }
     }

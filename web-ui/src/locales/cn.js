@@ -7,6 +7,7 @@ const cn = {
     "address": "账户",
     "transaction": "交易",
     "consensus": "共识",
+    "assets":"资产",
     "contracts": "合约",
     "blockChain": "区块链",
   },
@@ -78,7 +79,7 @@ const cn = {
     "status": "状态",
     "input": "发送者",
     "output": "接收者",
-    "searchTip": "地址/高度/txhash/...",
+    "searchTip": "按地址/高度/Txhash/token搜索",
     "copy": "点击复制",
     "copysuccess": "复制成功",
     "success": "成功",
@@ -171,6 +172,7 @@ const cn = {
     "home7": "14天交易历史",
     "home8": "更多",
     "home9": "已销毁",
+    "home10": "减产倒计时"
   },
 
   "cale": {

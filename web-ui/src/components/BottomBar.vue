@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="bottom bg-gray">
+  <div class="bottom bg-gray black-background">
     <ul class="b_ul w1200">
       <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
         <a href="https://nuls.io/home" target="_blank">{{$t('bottom.website')}}</a>
@@ -22,7 +22,7 @@
       <li class="b_li font14 fl capitalize click" @click="toUrl('protocolUpdate')" v-show="symbol ==='NULS'">
         {{$t('protocolUpdate.upgradeProgress')}}
       </li>
-      <li class="b_li font14 fr">Copyright 2022 © All rights Reserved. NULS</li>
+      <li class="b_li font14 fr">Copyright 2017-2023 © All rights Reserved. NULS</li>
     </ul>
   </div>
 </template>
@@ -145,7 +145,6 @@
 
 <style lang="less">
   @import "./../assets/css/style";
-
   .bottom {
     border-top: @BD1;
     position: fixed;
@@ -154,10 +153,10 @@
     z-index: 9898;
     .b_ul {
       .b_li {
-        color: #2C3856;
+        color: #FFFFFF;
         line-height: 60px;
         width: auto;
-        margin: 0 12px;
+        margin: 0 30px;
         text-align: center;
         @media screen and (max-width: 1000px) {
           line-height: 45px;
@@ -172,7 +171,7 @@
         &:last-child {
           //width: 190px;
           text-align: right;
-          color: @Acolor3;
+          color: #FFFFFF;
           margin-right: 0;
           @media screen and (max-width: 1000px) {
             display: none;
@@ -183,11 +182,13 @@
         }
         a {
           cursor: pointer;
-
+          color: #FFFFFF;
         }
       }
     }
 
   }
-
+  .black-background{
+    background-color: #000000 !important;
+  }
 </style>
