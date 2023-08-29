@@ -42,7 +42,7 @@
           </li>
           <li>
             <p class="font16 node-title">{{ $t('home.home4') }}</p>
-            <h5 class="font24 click-number" @click="toUrl('consensus')">{{ count.tradeNumber }}K</h5>
+            <h5 class="font24 click-number">{{ count.tradeNumber }}K</h5>
           </li>
           <li>
             <p class="font16 clicks node-title" @click="toUrl('destroyList')">{{ $t('home.home9') }}<i class="el-icon-arrow-right"></i></p>
@@ -486,7 +486,6 @@ export default {
     .node-information {
       position: absolute;
       bottom: -55px;
-
       ul {
         display: flex;
         align-items: center;
@@ -672,7 +671,7 @@ export default {
       justify-content: space-between;
 
       .Noun {
-        width: 110px;
+        width: 160px;
         height: 90px;
         display: flex;
         flex-direction: column;
@@ -722,7 +721,7 @@ export default {
           }
 
           .greybox {
-            width: 135px;
+            width: 125px;
             margin: 15px auto 0;
 
             img {
@@ -747,7 +746,7 @@ export default {
 
   .h_chart {
     height: 375px;
-    margin: 50px auto;
+    margin: 20px auto;
 
     .h_chart_left,
     .h_chart_right {
@@ -755,6 +754,7 @@ export default {
       height: 350px;
       float: left;
       border: @BD1;
+      border-radius: 12px;
 
       .h_chart_title {
         margin: 24px 0 1px 0;
@@ -788,10 +788,6 @@ export default {
   }
 
   @media screen and (max-width: 1000px) {
-    .h_height {
-      margin: 1.2rem 0;
-    }
-
     .search {
       width: 90%;
 
@@ -853,5 +849,135 @@ export default {
       background-color: @Bcolour;
     }
   }
+}
+
+@media (max-width:1220px){
+  .home{
+    .consensus-node{
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .h_chart{
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .Information-bar{
+      .node-information{
+        width: 100%;
+        padding: 0 .5rem;
+        ul{
+          li{
+            width: 19%;
+          }
+        }
+      }
+    }
+    .w1200{
+      width: initial;
+    }
+  }
+}
+
+@media (max-width:1000px) {
+  .home {
+    padding-bottom: 50px;
+    .Information-bar {
+      .node-information {
+        width: 100%;
+        padding: 0 0.5rem;
+        ul{
+          li{
+            width: 19%;
+          }
+        }
+      }
+      .search{
+        width: 80%;
+      }
+    }
+    .consensus-node{
+      display: none;
+    }
+    .h_chart{
+      padding: 0 0.5rem;
+      margin-top: 4.5rem;
+      .h_chart_right{
+        margin-top: 1.3rem;
+      }
+    }
+  }
+}
+
+@media (max-width:768px){
+  .home{
+    .Information-bar{
+      .node-information{
+        ul{
+          li{
+            .node-title{
+              font-size: 12px;
+            }
+            .question{
+              margin-left: 2px;
+            }
+            .click-number{
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  } 
+}
+
+@media (max-width:586px){
+  .home{
+    .h_chart{
+      margin-top: 12.5rem;
+    }
+    .Information-bar{
+      .node-information{
+        bottom: -196px;
+        ul{
+          flex-wrap: wrap;
+          li{
+            width: 120px;
+            margin-bottom: 12px;
+          }
+        }
+      }
+    }
+  } 
+}
+
+@media (max-width:513px){
+  .home{
+    .h_chart{
+      margin-top: 12.5rem;
+    }
+    .Information-bar{
+      .node-information{
+        bottom: -196px;
+        ul{
+          flex-wrap: wrap;
+          justify-content: initial;
+          li{
+            width: 30%;
+            margin-right: 5%;
+            &:nth-of-type(3){
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+  } 
+}
+
+</style>
+
+<style>
+.el-tooltip__popper{
+  width: fit-content;
 }
 </style>

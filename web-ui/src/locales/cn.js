@@ -330,7 +330,7 @@ const cn = {
 
   "bottom": {
     "website": "官网",
-    "webWallet": "网页钱包",
+    "webWallet": "轻钱包",
     "community": "社区",
     "about": "问题反馈",
     "explorer1": "1.0浏览器",

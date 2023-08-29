@@ -124,5 +124,10 @@ export default new Router({
       name: 'assets',
       component: resolve => require(['@/views/assets/index'], resolve)
     },
+    {
+      path: '/assets/details',
+      name: 'assetsdetails',
+      component: resolve => require(['@/views/assets/assetsdetails'], resolve)
+    },
   ]
 })

@@ -336,4 +336,40 @@
       }
     }
   }
+  
+  @media (max-width: 1220px){
+    .w1200{
+      width: initial;
+    }
+    .block-info{
+      padding: 0 .5rem;
+    }
+    .info_tabs{
+      .ul{
+        .tabs_infos {
+          width: 50%;
+        }
+      }
+    }
+  }
+  @media (max-width: 1000px){
+    .info_tabs{
+      width: 100%;
+      .ul{
+        .tabs_infos {
+          p{
+            padding: 0 .5rem !important;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            span{
+              line-height: initial;
+              word-break: break-all;
+            }
+          }
+        }
+      }
+    }
+  }
 </style>

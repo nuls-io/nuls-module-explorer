@@ -1,7 +1,7 @@
 <template>
   <div class="consensus-info bg-gray" v-loading="nodeInfoLoading">
     <div class="bg-white">
-      <h2 class="title w1200 font16 fw uppercase">{{nodeInfo.agentId}}</h2>
+      <h2 class="title w1200 font20 fw uppercase">{{nodeInfo.agentId}}</h2>
       <div class="cards w1200">
         <ul class="cards-ul">
           <li class="cards-li fl">
@@ -497,15 +497,17 @@
   @import "./../../assets/css/style";
 
   .consensus-info {
-    //min-height: 1000px;
-    //margin-bottom: 100px;
     .bg-white {
-      height: 170px;
+      background: initial;
       @media screen and (max-width: 1000px) {
         height: 15rem;
       }
+      .cards{
+        height: 100px;
+      }
       .title {
-        margin: 20px auto;
+        margin: 0 auto;
+        padding: 24px 0;
         @media screen and (max-width: 1000px) {
           margin: 1rem auto;
         }
@@ -516,9 +518,10 @@
       .ul {
         min-height: 290px;
       }
+      h3{
+        margin: 0;
+      }
       @media screen and (max-width: 1000px) {
-        margin: 0 2.5% 1rem;
-        width: 95%;
         .ul {
           li {
             p {
@@ -543,5 +546,71 @@
     }
 
   }
+  
+  @media (max-width: 1200px){
+    .cards{
+      padding: 0 .5rem;
+      .cards-ul{
+        display: flex;
+        justify-content: space-between;
+        .cards-li{
+          width: 24%;
+          margin: 0;
+        }
+      }
+    }
+    .el-tabs{
+      padding: 0 .5rem;
+    }
+    .consensus-info{
+      .bg-white{
+        .title{
+          padding-left: .5rem;
+          padding-right: .5rem;
+        }
+      }
+    }
+    .info_tabs{
+      padding: 0 .5rem;
+      .ul{
+        .tabs_infos{
+          width: 50%;
+        }
+      }
+    }
 
+    .w1200{
+      width: initial;
+    }
+  }
+
+@media (max-width: 1000px){
+  .consensus-info{
+    .bg-white{
+      height: initial;
+      .title{
+        margin: 0;
+      }
+    }
+  }
+}
+@media (max-width:686px){
+.consensus-info{
+  .bg-white{
+    .cards{
+      height: initial;
+    }
+  }
+}
+
+  .cards{
+    .cards-ul{
+      flex-wrap: wrap;
+      .cards-li{
+        width: 100% !important;
+        margin-bottom: 12px;
+      }
+    }
+  }
+}
 </style>

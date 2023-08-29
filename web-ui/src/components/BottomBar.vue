@@ -191,4 +191,14 @@
   .black-background{
     background-color: #000000 !important;
   }
+
+  @media (max-width: 1220px){
+    .black-background{
+      .w1200{
+        width: initial;
+      }
+      padding-left: .5rem;
+      padding-right: .5rem;
+    }
+  }
 </style>

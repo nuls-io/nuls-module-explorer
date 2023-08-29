@@ -58,3 +58,13 @@
     },
   }
 </script>
+
+<style lang="less">
+.el-select .el-input .el-input__inner{
+  background: #F2F7FF;
+  color: #000000;
+  font-size: 14px;
+  border: 1px solid #F0F0F8;
+  border-radius: 6px;
+}
+</style>

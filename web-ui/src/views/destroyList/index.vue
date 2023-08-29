@@ -4,22 +4,24 @@
             <p class="destroy-title">Burned Address List</p>
 
             <el-table :data="tableData" style="width: 100%" :cell-class-name="cellClassName">
-                <el-table-column label="Address">
+                <el-table-column label="Address" min-width="150">
                     <template slot-scope="scope">
                         <div class="lineGhei">{{ scope.row.address }}</div>
                     </template>
                 </el-table-column>
-                <el-table-column label="Label">
+                <el-table-column label="Label" min-width="150">
                     <template slot-scope="scope">
-                        <div class="lineGhei">{{ scope.row.date }}</div>
+                        <div class="lineGhei">
+                            <span class="label-box">{{ scope.row.date }}</span>
+                        </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="Quantity（NULS）">
+                <el-table-column label="Quantity（NULS）" min-width="150">
                     <template slot-scope="scope">
                         <div class="lineGhei">{{ scope.row.name }}</div>
                     </template>
                 </el-table-column>
-                <el-table-column label="Percentage">
+                <el-table-column label="Percentage" min-width="150">
                     <template slot-scope="scope">
                         <div class="lineGhei">{{ scope.row.s }}</div>
                     </template>
@@ -110,6 +112,15 @@ export default {
             }
             .lineGhei{
                 line-height: 46px;
+                white-space: nowrap;
+                .label-box{
+                    width: fit-content;
+                    height: fit-content;
+                    padding: 4px 6px;
+                    height: 30px;
+                    border-radius: 6px;
+                    background: #F2F7FF;
+                }
             }
             .custom-style-right{
                 .cell{
@@ -124,4 +135,16 @@ export default {
         }
     }
 }
+
+@media (max-width: 1220px){
+    .destroyList{
+        .w1200{
+            width: initial;
+            padding: 0 .5rem;
+            .destroy-title{
+            }
+        }
+    }
+}
+
 </style>

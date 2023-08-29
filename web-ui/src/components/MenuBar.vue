@@ -1,14 +1,24 @@
 <template>
   <div class="nav">
-    <el-menu :default-active="activedMenu($route.name)" :mode=mode active-text-color="#00DB82"
-             @select="handleSelect">
+    <el-menu 
+      :default-active="activedMenu($route.name)" 
+      :mode="mode"
+      active-text-color="#00DB82"
+      @select="handleSelect">
       <el-menu-item index="home" class="font14 fw capitalize">{{$t('nav.home')}}</el-menu-item>
+
+
       <el-submenu index="blockChain">
         <template slot="title">{{$t('nav.blockChain')}}</template>
-        <el-menu-item index="block" class="font14 capitalize">{{$t('nav.block')}}</el-menu-item>
-        <el-menu-item index="address" class="font14 capitalize">{{$t('nav.address')}}</el-menu-item>
-        <el-menu-item index="transaction" class="font14 capitalize">{{$t('nav.transaction')}}</el-menu-item>
+        <el-menu-item-group>
+          <el-menu-item index="block" class="font14 capitalize">{{$t('nav.block')}}</el-menu-item>
+          <el-menu-item index="address" class="font14 capitalize">{{$t('nav.address')}}</el-menu-item>
+          <el-menu-item index="transaction" class="font14 capitalize">{{$t('nav.transaction')}}</el-menu-item>
+        </el-menu-item-group>
       </el-submenu>
+
+
+
       <el-menu-item index="consensus" class="font14 fw capitalize">{{$t('nav.consensus')}}</el-menu-item>
      <el-menu-item index="assets" class="font14 fw capitalize">{{$t('nav.assets')}}</el-menu-item>
       <el-submenu index="contractsBase">
@@ -19,6 +29,7 @@
         <el-menu-item index="nrc1155" class="font14 capitalize">NRC1155</el-menu-item>
       </el-submenu>
       <el-menu-item index="network" class="font14 fw capitalize">{{$t('network.network')}}</el-menu-item>
+      <el-menu-item class="font14 fw capitalize languagess" @click="selectLanguage(lang,true)">{{lang === 'en' ? 'Cn':'En' }}</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -27,15 +38,40 @@
   export default {
     data() {
       return {
-        mode: 'horizontal'
+        mode: 'horizontal',
+        //语言
+        lang: 'en',
       };
     },
     components: {
       //numberGrow,
     },
     created() {
+      let lang = navigator.language || navigator.userLanguage;//常规浏览器语言和IE浏览器
+      if (sessionStorage.hasOwnProperty('lang')) {
+        this.lang = sessionStorage.getItem('lang')
+      } else {
+        if (lang.substr(0, 2) === 'zh') {
+          this.lang = 'cn'
+        } else {
+          this.lang = 'en'
+        }
+      }
     },
     mounted() {
+      window.onresize = () => {
+        return (() => {
+          this.$nextTick(() => {
+            if(document.documentElement.clientWidth <= 1000){
+              this.mode = "vertical"
+            }else{
+              this.mode = "horizontal"
+            }
+          })
+        })()
+      }
+
+      this.selectLanguage(this.lang, false);
       if (this.$route.path === '/accountInfo') {
         let parmes = this.$route.query.address;
         this.$router.push({
@@ -43,12 +79,24 @@
           query: {address: parmes}
         })
       }
-      setInterval(() => {
-        this.mode = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent) ? 'vertical' : 'horizontal';
-      }, 500)
+      // setInterval(() => {
+      //   this.mode = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent) ? 'vertical' : 'horizontal';
+      // }, 500)
     },
     methods: {
-
+      /**
+       * 语言切换
+       * @param e
+       * @param Boolean
+       */
+       selectLanguage(e, Boolean) {
+        if (Boolean) {
+          this.lang = this.lang === 'en' ? 'cn' : 'en';
+        }
+        sessionStorage.setItem('lang', this.lang);
+        //console.log(this.lang);
+        this.$i18n.locale = this.lang;
+      },
       /**
        * 导航跳转
        * @param key
@@ -107,14 +155,13 @@
 
 <style lang="less">
   @import "./../assets/css/style";
-
+  
   .nav {
-    height: 68px;
-    width: 700px;
     float: left;
+    .languagess{
+      color: #000000 !important;
+    }
     .el-menu{
-      //padding: 20px 0 0 0;
-      height: 67px;
       .el-menu-item {
         padding: 0 20px;
         color: #000000;
@@ -169,6 +216,12 @@
           text-align: center;
         }
       }
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .languagess{
+      display: none;
     }
   }
 </style>

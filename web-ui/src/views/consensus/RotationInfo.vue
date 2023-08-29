@@ -167,16 +167,21 @@
 
 <style lang="less">
   @import "./../../assets/css/style";
-
   .rotation-info {
     .bg-white {
-      height: 70px;
-      .title {
-        margin: 20px auto;
+      background: initial;
+      .title{
+        margin: 0 auto;
+        padding: 24px 0;
+        font-size: 20px;
+        color: #000000;
       }
     }
     .info_tabs {
       margin: 0 auto 20px;
+      h3{
+        margin: 0;
+      }
       .ul {
         min-height: 130px;
         li {
@@ -192,9 +197,6 @@
     }
 
     .r_tab {
-      @media screen and (max-width: 1000px) {
-        width: 95%;
-      }
       .titles {
         margin: 20px auto 0;
         padding-bottom: 5px;
@@ -209,6 +211,27 @@
         padding-bottom: 10px;
       }
     }
+  }
 
+  @media (max-width: 1220px){
+    .rotation-info{
+      .info_tabs{
+        padding: 0 .5rem;
+        .ul{
+          .tabs_infos{
+            width: 50%;
+          }
+        }
+      }
+    }
+    .r_tab{
+      padding: 0 .5rem;
+    }
+    .bg-white{
+      padding: 0 .5rem;
+    }
+    .w1200{
+      width: initial;
+    }
   }
 </style>

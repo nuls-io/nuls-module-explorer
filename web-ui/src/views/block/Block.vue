@@ -2,7 +2,7 @@
   <div class="block bg-gray">
     <div class="bg-white">
       <div class="w1200">
-        <h2 class="title font24 fl capitalize">{{$t('block.block0')}}</h2>
+        <h2 class="font20 fl capitalize block-title">{{$t('block.block0')}}</h2>
         <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('block.block2')"
                    @change="hideOneList"></el-switch>
       </div>
@@ -142,17 +142,45 @@
   .block {
     //height: 1000px;
     @media screen and (max-width: 1000px) {
-      width: 95%;
       margin: 0 auto 0;
     }
+    .block-title{
+      padding: 24px 0;
+      color: #000;
+      font-weight: bold;
+    }
+    .hide-switch{
+      margin-top: 0;
+      padding: 24px 0;
+    }
     .bg-white {
-      height: 126px;
+      background: initial;
       @media screen and (max-width: 1000px) {
         height: 5rem;
       }
     }
     .tabs {
-      margin-bottom: 100px;
+      margin-top: 0;
+      .el-table{
+        border-radius: 12px;
+      }
     }
+  }
+
+  @media (max-width: 1220px){
+    .w1200{
+      width: initial;
+      padding: 0 .5rem;
+    }
+  }
+  @media (max-width: 1000px){
+    .block{
+      .bg-white{
+        height: 3.5rem;
+      }
+      .tabs{
+        margin-top: 1px;
+      }
+    } 
   }
 </style>

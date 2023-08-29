@@ -33,6 +33,7 @@
             </div>
           </div>
           <div class="network-label-div">
+            <p class="my-split shogaix"></p>
             <div class="network-label-box">
               <p class="label-box-title">跨链交易次数</p>
               <p class="label-shuzi">139,300</p>
@@ -138,6 +139,9 @@ export default {
             background: #E9E9F8;
             margin: 16px 0;
           }
+          .shogaix{
+            display: none;
+          }
           .network-label-box{
             display: flex;
             align-items: center;
@@ -186,6 +190,35 @@ export default {
           font-size: 18px;
           color: #000000;
           font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width:1220px) {
+  .network{
+    .w1200{
+      width: initial;
+      padding: 0 .5rem;
+    }
+  }
+}
+@media (max-width:686px) {
+  .network{
+    .w1200{
+      .network-container{
+        .network-label{
+          flex-direction: column;
+          .network-label-div{
+            width: 100%;
+            .shogaix{
+              display: block;
+            }
+          }
+          .border-left{
+            border: none;
+          }
         }
       }
     }

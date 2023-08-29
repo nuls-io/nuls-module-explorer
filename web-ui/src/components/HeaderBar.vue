@@ -218,6 +218,7 @@
     position: relative;
     border-bottom: @BD1;
     height: 68px;
+    background: #FFFFFF;
     .w1200 {
       .header_logo {
         width: 104px;
@@ -268,6 +269,7 @@
               border-radius: 10px;
               border: 1px solid #E9E9F8;
               background: #F6FAFF;
+              font-size: 13px;
               &:focus {
                 width: 250px;
                 border-color: @Ncolour;
@@ -319,19 +321,22 @@
 
     @media screen and (max-width: 1000px) {
       .w1200 {
+        justify-content: space-between;
         .header_logo {
           width: 5.2rem;
           margin: 0 0.5rem;
           .logo {
             width: 5.2rem;
-            margin: 0.5rem 0 0 0;
           }
         }
         .menu {
           display: none;
         }
         .header_language {
+          display: none;
           width: 61.5%;
+          position: absolute;
+          right: 20px;
           .top-search {
             width: 100%;
             .top_height {
@@ -343,7 +348,6 @@
             }
             .el-input {
               width: 100%;
-              margin-top: -0.8rem;
               input {
                 width: 5rem;
                 &:focus {
@@ -357,10 +361,13 @@
           }
         }
         .mobile_ico {
-          display: block;
+          display: flex;
+          align-items: center;
+          height: 68px;
           i {
-            margin: 1rem 1rem 0 0;
             font-size: 1.4rem;
+            padding-right: .5rem;
+            margin: 0;
           }
         }
       }
@@ -372,6 +379,11 @@
         right: 0;
         top: 3.4rem;
         z-index: 9999;
+        .mobile_menu{
+          .language{
+            display: none;
+          }
+        }
         .language {
           display: initial;
           //position: absolute;
@@ -399,6 +411,15 @@
         }
       }
     }
+  }
 
+  @media screen and (max-width: 1220px){
+    .header{
+      .w1200{
+        display: flex;
+        width: initial;
+        padding: 0 0.5rem;
+      }
+    }
   }
 </style>

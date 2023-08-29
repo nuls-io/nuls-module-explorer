@@ -89,7 +89,7 @@
             }}</span>
           </p>
         </li>
-        <li class="tabs_infos fl" v-if="txInfo.type === 4 || txInfo.type === 9">
+        <li class="tabs_infos fl xizeng" v-if="txInfo.type === 4 || txInfo.type === 9">
           <p>{{ $t('public.packAddress') }}
             <span class="click" @click="toUrl('addressInfo', txInfo.txData.packingAddress)">{{
               txInfo.txData.packingAddress }}</span>
@@ -303,7 +303,7 @@
       </ul>
     </div> -->
 
-    <div class="t_mobile">
+    <!-- <div class="t_mobile">
       <el-tabs v-model="activeName">
         <el-tab-pane :label="$t('public.input')" name="first">
           <div>
@@ -330,7 +330,7 @@
           </div>
         </el-tab-pane>
       </el-tabs>
-    </div>
+    </div> -->
 
     <el-dialog title="" :visible.sync="viewDialog" class="dialog_tran">
       <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="copy(txInfo.txDataHex)"
@@ -568,6 +568,7 @@ export default {
   min-height: 800px;
 
   .infoContainer {
+    margin-bottom: 100px;
 
     table {
       border-collapse: collapse;
@@ -822,5 +823,49 @@ export default {
     }
 
   }
+}
+
+@media (max-width: 1220px){
+  .t_info{
+    padding: 0 .5rem;
+    .ul {
+      .tabs_infos{
+        width: 50%;
+      }
+    }
+  }
+  .w1200{
+    width: initial;
+  }
+}
+
+@media (max-width:1000px){
+  .t_info{
+    .infoContainer{
+      overflow-y: auto;
+    }
+    .ul {
+      .xizeng{
+        p{
+          border-bottom: 1px solid #DFE4EF !important;
+        }
+      }
+      .tabs_infos{
+        p{
+          padding: 0 .5rem !important;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 686px){
+  .t_info{
+      .bg-white{
+        .bg-address{
+          font-size: 14px;
+        }
+      }
+    }
 }
 </style>

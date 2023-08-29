@@ -1,20 +1,22 @@
 <template>
   <div class="c_list" v-loading="nodeListLoading">
     <div class="c_list_search">
-      <div class="type_select fl">
-        <SelectBar v-model="nodeTypeRegion" :typeOptions="nodeTypeOptions" typeName="nodeType"
-                   @change="changeNodeType"></SelectBar>
+      <div class="row-center">
+        <div class="type_select fl">
+          <SelectBar v-model="nodeTypeRegion" :typeOptions="nodeTypeOptions" typeName="nodeType"
+                    @change="changeNodeType"></SelectBar>
+        </div>
+        <div class="status_select fl">
+          <SelectBar v-model="nodeStatusRegion" :typeOptions="nodeStatusOptions" typeName="nodeStatus"
+                    @change="changeNodeStatus"></SelectBar>
+        </div>
+        <div class="search_input">
+          <el-input v-model="searchValue" class="search" :placeholder="$t('consensus.search')"
+                    suffix-icon="el-icon-search"></el-input>
+        </div>
       </div>
-      <div class="status_select fl">
-        <SelectBar v-model="nodeStatusRegion" :typeOptions="nodeStatusOptions" typeName="nodeStatus"
-                   @change="changeNodeStatus"></SelectBar>
-      </div>
-      <div class="search_input">
-        <el-input v-model="searchValue" class="search" :placeholder="$t('consensus.search')"
-                  suffix-icon="el-icon-search"></el-input>
-        <i class="iconfont fr click" :class="viewList ? 'icon-list_icon':'icon-chart_icon'"
+      <i class="iconfont fr click " :class="viewList ? 'icon-list_icon':'icon-chart_icon'"
            @click="viewList = !viewList"></i>
-      </div>
     </div>
     <div v-show="!viewList" class="c_tabs">
       <el-table :data="searchData" stripe border style="width: 100%">
@@ -239,6 +241,13 @@
 
   .c_list {
     .c_list_search {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .row-center{
+        display: flex;
+        align-items: center;
+      }
       .type_select {
         width: 174px;
         margin-left: 5px;
@@ -287,6 +296,9 @@
     }
     .c_tabs {
       margin: 20px auto 100px;
+      .el-table{
+        border-radius: 12px;
+      }
     }
     .card-info {
       min-height: 600px;
@@ -367,5 +379,40 @@
 
   }
 
+@media (max-width: 1000px){
+  .consensus{
+    .c_list_search{
+      display: flex;
+      flex-wrap: wrap;
+      .row-center{
+        flex-wrap: wrap;
+      }
+      .type_select, .status_select{
+        margin-right: 16px;
+        margin-bottom: 16px;
+      }
+      .search_input{
+        margin-bottom: 16px;
+        .search{
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
 
+@media (max-width: 686px){
+  .consensus{
+    .w1200{
+      .c_list{
+        .card-info{
+          .card{
+            width: 100% !important;
+            margin-right: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

@@ -25,11 +25,10 @@
       </div>
     </div>
 
+    <div class="w1200">
+      <h2 class="font18 bg-gray-title">{{ $t('public.transactionList') }}</h2>
+    </div>
     <div class="info bg-gray">
-      <div class="w1200">
-        <h2 class="font18 bg-gray-title">{{ $t('public.transactionList') }}</h2>
-      </div>
-
       <div class="bg-gray-container w1200">
         <div class="row">
           <SelectBar size="small" v-model="typeRegion" @change="changeType">
@@ -69,7 +68,7 @@
             v-show="pagerTotal > pagerRows" :total="pagerTotal" :current-page.sync="pagerIndex" :page-size="pagerRows"
             @current-change="pagesList">
           </el-pagination>
-          </div>
+        </div>
       </div>
 
     </div>
@@ -383,6 +382,7 @@ export default {
         }
 
         .chart_bt {
+          width: 108px;
           padding: 5px;
           background: #F4F8FE;
           border-radius: 6px;
@@ -393,13 +393,15 @@ export default {
           font-size: 12px;
           display: flex;
           align-items: center;
-          height: 32px;
+          height: 36px;
           justify-content: space-between;
-
+          .el-button+.el-button{
+            margin: 0;
+          }
           .el-button--text {
-            &:not(:last-child) {
-              margin-right: 8px;
-            }
+            // &:not(:last-child) {
+            //   margin-right: 8px;
+            // }
 
             color: #000000;
             min-width: 28px;
@@ -419,6 +421,7 @@ export default {
             align-items: center;
             justify-content: center;
             color: #000000;
+            margin: 0;
           }
         }
       }
@@ -454,7 +457,7 @@ export default {
   .info {
     width: 100%;
     margin-bottom: 100px;
-
+    padding: 0 .5rem;
     .bg-gray-container {
       background: #FFFFFF;
       padding: 24px;
@@ -526,7 +529,9 @@ export default {
       }
     }
 
-    .w1200 {
+    
+  }
+  .w1200 {
       .bg-gray-title {
         font-weight: 600;
         font-size: 20px;
@@ -534,8 +539,6 @@ export default {
         margin: 24px 0;
       }
     }
-  }
-
   .tabs {
     margin: 0 0 0 0;
 
@@ -552,4 +555,14 @@ export default {
       margin: 35px 0 0 0;
     }
   }
-}</style>
+}
+
+@media (max-width:1220px){
+  .transaction{
+    .w1200{
+      padding: 0 .5rem;
+      width: initial;
+    }
+  }
+}
+</style>

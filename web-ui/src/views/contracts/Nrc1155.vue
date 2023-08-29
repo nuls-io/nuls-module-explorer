@@ -51,6 +51,11 @@ export default {
 </script>
 
 <style lang="less">
-
+.paging .pages .el-pager .active{
+    background-color: #00DB82 !important;
+  }
+.click{
+  color: #00DB82;
+}
 
 </style>

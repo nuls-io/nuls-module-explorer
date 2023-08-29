@@ -2,7 +2,7 @@
   <div class="address bg-gray">
     <div class="bg-white">
       <div class="w1200">
-        <h2 class="title fl capitalize">{{$t('address.address0')}}</h2>
+        <h2 class="fl font20 address-title capitalize">{{$t('address.address0')}}</h2>
         <!--<i class="iconfont icon-dwonload_gray_icon fr hide-switch click" title="更多功能敬请期待..."></i>-->
       </div>
     </div>
@@ -145,19 +145,17 @@
   @import "./../../assets/css/style";
 
   .address {
-    //height: 1050px;
+    
     .bg-white {
-      height: 133px;
-      @media screen and (max-width: 1000px) {
-        height: 5rem;
+      .address-title{
+        padding: 24px 0;
+        font-weight: bold;
       }
+      background: initial;
     }
     .tabs {
       margin-bottom: 100px;
-      @media screen and (max-width: 1000px) {
-        width: 95%;
-        margin: -1.4rem auto 5rem;
-      }
+      margin-top: 0;
       .el-table__header {
         .has-gutter {
           tr {
@@ -166,6 +164,18 @@
             }
           }
         }
+      }
+    }
+  }
+
+  @media (max-width: 1220px){
+    .address{
+      .el-table{
+        border-radius: 12px;
+      }
+      .w1200{
+        width: initial;
+        padding: 0 .5rem;
       }
     }
   }

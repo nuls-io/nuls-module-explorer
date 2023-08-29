@@ -330,7 +330,7 @@ const en = {
 
   "bottom": {
     "website": "Official Website",
-    "webWallet": "Light wallet",
+    "webWallet": "轻钱包",
     "community": "Community",
     "about": "Bug Report",
     "explorer1": "1.0 Explorer",
