@@ -20,7 +20,7 @@
         <li class="tabs_infos fl capitalize">
           <p>
             {{ $t('public.fee') }}
-            <span>{{ txInfo.fees }}<span class="fCN">&nbsp;{{ symbol }}</span></span>
+            <span @click="jionOpen()">{{ txInfo.fees }}<span class="fCN click">&nbsp;{{ symbol }}</span></span>
             <!--<span v-if="contractInfo.length !== 0">
             {{txInfo.fees}}
              <el-tooltip :content="contractInfo.totalFee+'('+$t('transactionInfo.transactionInfo0')+')'+'='
@@ -396,6 +396,11 @@ export default {
     }
   },
   methods: {
+    jionOpen(){
+      this.$router.push({
+        name: 'assetsdetails'
+      })
+    },
 
     /**
      * 根据hash获取交易详情

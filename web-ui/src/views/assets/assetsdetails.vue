@@ -201,7 +201,7 @@ export default {
             padding: 24px 0;
             font-size: 20px;
             color: #000000;
-            font-weight: 600s;
+            font-weight: 600;
             display: flex;
             align-items: center;
 
