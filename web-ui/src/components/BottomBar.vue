@@ -8,10 +8,12 @@
         <a href="https://github.com/nuls-io" target="_blank">Github</a>
       </li>
       <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
-        <a href="https://wallet.nuls.io/" arget="_blank">{{$t('bottom.webWallet')}}</a>
+        <!-- <a href="https://wallet.nuls.io/" arget="_blank">{{$t('bottom.webWallet')}}</a> -->
+        <a href=" https://nuls.io/wallets/" arget="_blank">{{$t('bottom.webWallet')}}</a>
       </li>
       <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
-        <a href="https://bbs.nuls.io/" target="_blank">{{$t('bottom.community')}}</a>
+        <!-- <a href="https://bbs.nuls.io/" target="_blank">{{$t('bottom.community')}}</a> -->
+        <a href=" https://forum.nuls.io/" target="_blank">{{$t('bottom.community')}}</a>
       </li>
       <li class="b_li font14 fl capitalize click" @click="toBugReport" v-show="symbol ==='NULS'">
         {{$t('bottom.about')}}

@@ -124,10 +124,10 @@
 
 <script>
 import axios from 'axios'
+import { API_ROOT } from '@/config'
 import { BigNumber } from 'bignumber.js'
 import CalcBar from '@/components/CalcBar'
 import { superLong, timesDecimals } from '@/api/util.js'
-import { API_ROOT } from '@/config'
 import moment from 'moment'
 
 export default {
@@ -751,7 +751,7 @@ export default {
     .h_chart_left,
     .h_chart_right {
       width: 48.7%;
-      height: 350px;
+      height: 310px;
       float: left;
       border: @BD1;
       border-radius: 12px;

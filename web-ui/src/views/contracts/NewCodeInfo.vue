@@ -23,15 +23,21 @@
                 <span class="click">[Reset]</span>
             </div>
         </div>
+
+        <readContract></readContract>
     </div>
 </template>
 
 <script>
+import readContract from './components/readContract.vue'
 export default {
+    components:{
+        readContract
+    },
     data(){
         return {
             infoActive: 1,
-            accounts: false
+            accounts: false,
         }
     },
     async created(){
@@ -54,6 +60,7 @@ export default {
 
 <style lang="less" scoped>
 .NewCodeInfo{
+    
     .info-box-nav{
         margin-top: 16px;
         display: flex;

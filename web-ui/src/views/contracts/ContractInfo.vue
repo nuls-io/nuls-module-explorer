@@ -403,11 +403,12 @@ export default {
       width: 95%;
     }
     .el-col{
+      margin-bottom: 100px;
+    }
+    .el-tabs {
       padding: 16px 24px  24px;
       border-radius: 12px;
       background: #FFFFFF;
-    }
-    .el-tabs {
       .el-tabs__header {
         .el-tabs__nav-wrap {
           .el-tabs__item {
@@ -430,6 +431,6 @@ export default {
   }
 
   .el-tabs__content {
-    margin-bottom: 100px;
+    margin-bottom: 0;
   }
 }</style>
