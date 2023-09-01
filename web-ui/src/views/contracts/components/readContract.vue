@@ -1,10 +1,15 @@
 <template>
     <div class="read-contract">
-        <div class="contract-method" v-for="(item, index) in modelData" :key="index">
-            <span class="font14">{{ index + 1 }}.{{ item.name }}</span>
-            <div>
-                <img src="../img/lianjie.png" alt="">
-                <img src="../img/zhankai.png" alt="">
+        <div class="box-border" v-for="(item, index) in modelData" :key="index">
+            <div class="contract-method">
+                <span class="font14">{{ index + 1 }}.{{ item.name }}</span>
+                <div>
+                    <img src="../img/lianjie.png" alt="">
+                    <img src="../img/zhankai.png" alt="">
+                </div>
+            </div>
+            <div class="view-results">
+                
             </div>
         </div>
     </div>
@@ -52,17 +57,23 @@ export default {
 
 <style scoped lang="less">
 .read-contract {
-    .contract-method {
-        margin-top: 12px;
-        height: 44px;
-        background: #F9FBFF;
+    .box-border{
         border: 1px solid #EBEBF4;
         border-radius: 8px;
+        margin-top: 12px;
+    }
+    .view-results{
+        height: fit-content;
+        // padding: 16px;
+    }
+    .contract-method {
+        height: 44px;
+        background: #F9FBFF;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding-left: 16px;
-
+        border-bottom: 1px solid #EBEBF4;
         span {
             color: #000000;
         }
