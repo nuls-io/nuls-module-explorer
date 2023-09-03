@@ -367,6 +367,24 @@ const en = {
     "network19": "NULS network flux",
   },
 
+  "call": {
+    "call1": "Please choose a method",
+    "call2": "can not be empty",
+    "call3": "Advanced options",
+    "call4": "Gas Error Predicting Call Contract Transaction",
+    "call5": "Predicting gas anomalies in invoking contract transactions",
+    "call6": "Verify the invocation contract transaction error",
+    "call7": "Verify call contract transaction exception",
+    "call8": "Unchained method call failed",
+    "call9": "Unchained method call exception",
+    "call10": "Gas too small may cause contract transactions to fail",
+    "call11": "Please select an asset",
+  },
+  "messages":{
+    "Paste":'Your browser does not support copying',
+    "copy":"Copied to clipboard"
+  },
+
   ...enLocale
 
 };

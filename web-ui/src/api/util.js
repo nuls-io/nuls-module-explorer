@@ -1,5 +1,6 @@
-import {BigNumber} from 'bignumber.js'
+import { BigNumber } from 'bignumber.js'
 import copy from 'copy-to-clipboard'
+import { RUN_DEV } from '../config'
 
 /**
  * 10的N 次方
@@ -131,7 +132,7 @@ export function timeDifference(dateBegin) {
   let minutes = Math.floor(leave2 / (60 * 1000));
   let leave3 = leave2 % (60 * 1000);      //计算分钟数后剩余的毫秒数
   let seconds = Math.round(leave3 / 1000);
-  return {days: days, hours: hours, minutes: minutes, seconds: seconds};
+  return { days: days, hours: hours, minutes: minutes, seconds: seconds };
 }
 
 /**
@@ -154,6 +155,17 @@ export function getLocalTime(time) {
   return new Date(localTime);
 }
 
+export function getChainId() {
+  let chainId = null
+  if (sessionStorage.getItem('chainId')) {
+    chainId = sessionStorage.getItem('chainId')
+  } else {
+    chainId = RUN_DEV ? 1 : 2;
+  }
+
+  return chainId
+}
+
 export function fixNumber(str, fix = 8) {
   str = '' + str;
   const int = str.split('.')[0];
@@ -161,4 +173,38 @@ export function fixNumber(str, fix = 8) {
   if (!float || !Number(float)) return int;
   float = float.slice(0, fix).replace(/(0+)$/g, '');
   return Number(float) ? int + '.' + float : int;
+}
+
+/**
+ * 获取参数的必填值
+ * @param parameterList
+ * @returns {{allParameter: boolean, args: Array}}
+ */
+export function getArgs(parameterList) {
+  //console.log(parameterList);
+  let newArgs = [];
+  let allParameter = false;
+  if (parameterList.length !== 0) {
+    //循环获取必填参数
+    for (let itme of parameterList) {
+      if (itme.required) {
+        if (itme.value) {
+          allParameter = true;
+          newArgs.push(itme.value)
+        } else {
+          return { allParameter: false, args: newArgs };
+        }
+      } else {
+        allParameter = true;
+        if (!itme.value) {
+          newArgs.push('')
+        } else {
+          newArgs.push(itme.value)
+        }
+      }
+    }
+    return { allParameter: allParameter, args: newArgs };
+  } else {
+    return { allParameter: true, args: newArgs };
+  }
 }

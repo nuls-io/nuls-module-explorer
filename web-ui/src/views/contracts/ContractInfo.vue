@@ -57,7 +57,6 @@
 
     <div class="w1200 contracts-tab">
       <el-col :span="24">
-
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane :label="$t('public.transactionList')" name="first">
             <!-- <SelectBar v-model="contractsTypeRegion" :typeOptions="contractsStatusOptions" typeName="type"
@@ -99,6 +98,7 @@
                 <NewCodeInfo></NewCodeInfo>
             </div>
           </el-tab-pane>
+          
           <el-tab-pane :label="$t('transactionInfo.transactionInfo9')" name="three" v-if="false">
             <el-table :data="modeList" stripe border style="width: 100%" class="mt_20">
               <el-table-column label="" width="30"></el-table-column>
@@ -356,14 +356,6 @@ export default {
         height: 14px;
       }
     }
-
-    @media screen and (max-width: 1000px) {
-      .title {
-        margin: 1rem 0 2.5rem 0;
-        font-size: 1rem;
-        line-height: 1rem;
-      }
-    }
   }
 
   .b-info {
@@ -399,9 +391,6 @@ export default {
 
   .contracts-tab {
     margin-top: 24px;
-    @media screen and (max-width: 1000px) {
-      width: 95%;
-    }
     .el-col{
       margin-bottom: 100px;
     }
@@ -433,4 +422,33 @@ export default {
   .el-tabs__content {
     margin-bottom: 0;
   }
-}</style>
+}
+
+@media (max-width:1220px){
+  .w1200{
+    width: initial;
+  }
+  .contracts-info{
+    padding: 0 .5rem;
+
+    @media (max-width: 600px) {
+      .bg-white h4{
+        font-size: 14px;
+      }
+    }
+    .b-info .ul .tabs_infos, .info_tabs .ul .tabs_infos{
+      width: 50%;
+    }
+  }
+}
+
+@media(max-width: 600px){
+  .b-info .ul .tabs_infos p, .info_tabs .ul .tabs_infos p{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    white-space: nowrap;
+  }
+}
+
+</style>
