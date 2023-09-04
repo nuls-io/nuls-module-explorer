@@ -12,7 +12,7 @@
             <p>连接Nabox钱包</p>
         </div>
 
-        <readContract></readContract>
+        <readContract :infoActive="infoActive"></readContract>
     </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
     },
     data() {
         return {
-            infoActive: 1,
+            infoActive: 1, //1读合约，2写合约，3方法
             accounts: false,
         }
     },

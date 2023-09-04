@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="aaaaaa" v-loading="vLoading">
+        <div v-loading="vLoading">
             <div class="box-border" v-for="(item, index) in modelData" :key="index">
                 <div class="contract-method cur" @click="ReadContract(item)" :id="item.name">
                     <span class="font14">{{ index + 1 }}.{{ item.name }}</span>
@@ -24,7 +24,8 @@
                 <div class="view-results" v-if="item.expand">
                     <div v-for="(domain, index) in item.params" :key="index">
                         <p class="blace-name"><span class="must" v-if="domain.required">*</span>{{ domain.name }}</p>
-                        <el-input :class="domain.customize ? 'required':''" v-model.trim="domain.value" @change="ChongInput(domain)"></el-input>
+                        <el-input :class="domain.customize ? 'required' : ''" v-model.trim="domain.value"
+                            @change="ChongInput(domain)"></el-input>
                     </div>
                     <!-- 显示合约调用结果 -->
                     <p class="blace-name" v-if="item.callResult">{{ item.callResult }}</p>
@@ -40,6 +41,7 @@ import axios from 'axios'
 import { RUN_DEV } from '@/config'
 import { getArgs, getChainId } from '../../../api/util'
 export default {
+    props:['infoActive'],
     data() {
         return {
             searchContract: 'NULSd6Hgz4RrwwbJLSoJkrmMn9zaxvH6xwey7',
@@ -56,37 +58,44 @@ export default {
             openName: null, //根据参数默认暂开读取列表某一项
         }
     },
+    watch: {
+        infoActive: {
+            handler(newval) {
+                console.log(newval, '=====11111111=====')
+            },
+            immediate: true
+        }
+    },
     created() {
         this.getReadContract()
-
-        console.log(this.$route.query)
-        // this.searchContract = ""
         // this.searchContract = this.$route.query?.contractAddress
         this.openName = this.$route.query.name || null
-
-
     },
     methods: {
         async getReadContract() {
             const params = { "jsonrpc": "2.0", "method": 'getContract', "params": [Number(getChainId()), this.searchContract], "id": Math.floor(Math.random() * 1000) };
             const res = await axios.post('/', params)
-            this.decimals = res.data.result.decimals;
-            this.modelList(res.data.result.methods)
+            try {
+                this.decimals = res.data.result.decimals;
+                this.modelList(res.data.result.methods)
+            } catch (error) {
+                console.log(error)
+            }
         },
         changeParameter(item) {
             // 点击调用按钮
             let newArgs = [];
             newArgs = getArgs(item.params, this.decimals);
             const array = item.params
-            if(newArgs.allParameter){
+            if (newArgs.allParameter) {
                 array.forEach(element => {
-                    if(element.hasOwnProperty('customize')){
+                    if (element.hasOwnProperty('customize')) {
                         element.customize = false
                     }
                 });
-            }else{
+            } else {
                 array.forEach(element => {
-                    if(element.hasOwnProperty('customize')){
+                    if (element.hasOwnProperty('customize')) {
                         element.customize = true
                     }
                 });
@@ -106,12 +115,12 @@ export default {
                     let newArgs = [];
                     this.methodCall(this.searchContract, item, newArgs)
                 }
-            }else{
+            } else {
                 // 关闭展开时，初始化必填状态
                 const array = item.params
                 array.forEach(element => {
                     element.value = ''
-                    if(element.hasOwnProperty('customize')){
+                    if (element.hasOwnProperty('customize')) {
                         element.customize = false
                     }
                 });
@@ -154,7 +163,7 @@ export default {
                     element['expand'] = false //初始化关闭展开
                     const valParams = element.params
                     valParams.forEach(valbox => {
-                        if(valbox.required){
+                        if (valbox.required) {
                             valbox['customize'] = false
                         }
                     });
@@ -177,13 +186,13 @@ export default {
                 })
             }
         },
-        ChongInput(domain){
-            if(domain.value){
-                if(domain.hasOwnProperty('customize')){
+        ChongInput(domain) {
+            if (domain.value) {
+                if (domain.hasOwnProperty('customize')) {
                     domain.customize = false
                 }
-            }else{
-                if(domain.hasOwnProperty('customize')){
+            } else {
+                if (domain.hasOwnProperty('customize')) {
                     domain.customize = true
                 }
             }
@@ -196,7 +205,7 @@ export default {
                 const boxqu = item.params
                 boxqu.forEach(element => {
                     element.value = ''
-                    if(element.hasOwnProperty('customize')){
+                    if (element.hasOwnProperty('customize')) {
                         element.customize = false
                     }
                 });
@@ -273,16 +282,19 @@ export default {
         font-size: 14px;
         color: #000000;
         padding: 0 16px;
-        .required{
+
+        .required {
             border: 1px solid red;
             border-radius: 6px;
         }
+
         .blace-name {
             margin: 12px 0;
             font-size: 14px;
             color: #000000;
             word-break: break-all;
-            .must{
+
+            .must {
                 color: red;
             }
         }
@@ -328,5 +340,4 @@ export default {
             }
         }
     }
-}
-</style>
+}</style>
