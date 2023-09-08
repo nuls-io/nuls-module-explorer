@@ -89,6 +89,13 @@ const cn = {
     "consensusLockings": "共识锁定",
     "unavailable": "(已失效)",
     "accountedFor": "占比",
+
+    "err": "验证并广播交易失败:",
+    "err0": "验证并广播交易异常:",
+    "err1": "input和outputs组装错误:",
+    "err2": "获取账户余额失败:",
+    "err3": "获取账户余额异常:",
+    "err4": "跨链交易失败:",
   },
 
   "type": {

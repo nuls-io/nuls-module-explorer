@@ -6,55 +6,94 @@
             <div :class="infoActive == 3 ? 'info-active' : ''" @click="setActive(3)">方法</div>
         </div>
 
-        <div class="nabox-wallet cur" @click="connectWallet">
-            <i class="info-success" v-if="accounts"></i>
-            <i class="info-error" v-else></i>
-            <p>连接Nabox钱包</p>
-        </div>
+        <readContract :infoActive="infoActive" v-if="infoActive !== 3"></readContract>
 
-        <readContract :infoActive="infoActive"></readContract>
+        <CodeInfo v-if="infoActive === 3" :status="contractsInfo.status"
+            :certificationTime="contractsInfo.certificationTime" v-on:contractStatus="contractStatus"></CodeInfo>
     </div>
 </template>
 
 <script>
+import { getChainId, getHeaderInfo ,getLocalTime} from '../../api/util'
 import readContract from './components/readContract.vue'
+import {CODE_URL} from '@/config'
+import axios from 'axios'
+import CodeInfo from './CodeInfo.vue'
 export default {
     components: {
-        readContract
+        readContract,
+        CodeInfo
     },
     data() {
         return {
             infoActive: 1, //1读合约，2写合约，3方法
-            accounts: false,
+            //合约详情
+            contractsInfo: {},
         }
     },
-    async created() {
-        if (window.NaboxWallet) {
-            const accounts = await window.NaboxWallet.request({ method: 'eth_accounts' })
-            this.accounts = accounts[0]
-            console.log(this.accounts, '======accounts')
+    created() {
+        if (this.$route.query.infoActive) {
+            this.infoActive = this.$route.query.infoActive
+        } else {
+            this.infoActive = 1
         }
-    },
-    mounted() {
-        // 监听钱包地址切换
-        window.NaboxWallet.on("accountsChanged", (accounts) => {
-            if (accounts[0]) {
-                this.accounts = accounts[0]
-            } else {
-                this.accounts = false
-            }
-        });
+        this.getContractsInfoByContractsAddress(this.$route.query.contractAddress);
+        getHeaderInfo()
     },
     methods: {
-        async connectWallet() {
-            // NaboxWallet
-            if (typeof window['NaboxWallet'] === "undefined") {
-                alert("Please install Nabox Wallet")
+        /**
+     * 获取子组件的状态值
+     * @param contractStatus
+     **/
+        contractStatus(contractStatus) {
+            this.contractsInfo.status = contractStatus
+        },
+        /**
+         * 根据合约地址获取合约详情
+         * @param address
+        */
+        getContractsInfoByContractsAddress(address) {
+            const params = { "jsonrpc": "2.0", "method": 'getContract', "params": [Number(getChainId()), address], "id": Math.floor(Math.random() * 1000) };
+            axios.post('/', params)
+                .then((response) => {
+                    if (response.data.hasOwnProperty("result")) {
+                        this.getContractAddressInfo(address);
+                        response.data.result.createTime = moment(getLocalTime(response.data.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
+                        if (response.data.result.certificationTime) {
+                            response.data.result.certificationTime = moment(getLocalTime(response.data.result.certificationTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
+                        } else {
+                            response.data.result.certificationTime = 'null'
+                        }
+                        this.contractsInfo = response.data.result;
+                    }
+                }).catch((error) => {
+                    console.log(error)
+                })
+        },
+        /**
+       * 调用认证方法
+       * @param contractsAddress
+       **/
+        async getContractAddressInfo(contractsAddress) {
+            const params = {
+                "jsonrpc": "2.0",
+                "method": 'getContractAddressInfo',
+                "params": [Number(sessionStorage.getItem('chainId')), contractsAddress],
+                "id": Math.floor(Math.random() * 1000)
+            };
+            if (CODE_URL) {
+                axios.post(CODE_URL, params)
+                    .then((response) => {
+                        if (response.data.hasOwnProperty("result")) {
+                            this.contractsInfo.status = response.data.result.status;
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    })
             } else {
-                const accounts = await window.NaboxWallet.request({ method: 'eth_requestAccounts' })
-                this.accounts = accounts[0]
-                console.log(this.accounts, '========')
+                this.contractsInfo.status = 0;
             }
+
         },
         setActive(val) {
             this.infoActive = val
@@ -119,4 +158,5 @@ export default {
     .w1200 {
         width: initial;
     }
-}</style>
+}
+</style>

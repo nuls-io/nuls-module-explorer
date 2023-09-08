@@ -1,6 +1,7 @@
 import { BigNumber } from 'bignumber.js'
 import copy from 'copy-to-clipboard'
 import { RUN_DEV } from '../config'
+import axios from 'axios';
 
 /**
  * 10的N 次方
@@ -166,6 +167,22 @@ export function getChainId() {
   return chainId
 }
 
+/**
+ * 数字乘以精度系数(超长数字)
+ *
+ */
+export function timesDecimalsBig(nu, decimals) {
+  let newInfo = sessionStorage.hasOwnProperty('info') ? JSON.parse(sessionStorage.getItem('info')) : '';
+  let newDecimals = decimals ? decimals : newInfo.defaultAsset.decimals;
+  if (decimals === 0) {
+    return nu
+  }
+  let fmt = { groupSeparator: '', };
+  BigNumber.config({ FORMAT: fmt });
+  let newNu = new BigNumber(Times(nu, Power(newDecimals)));
+  return newNu.toFormat();
+}
+
 export function fixNumber(str, fix = 8) {
   str = '' + str;
   const int = str.split('.')[0];
@@ -173,6 +190,49 @@ export function fixNumber(str, fix = 8) {
   if (!float || !Number(float)) return int;
   float = float.slice(0, fix).replace(/(0+)$/g, '');
   return Number(float) ? int + '.' + float : int;
+}
+
+/**
+ * 获取账户的余额及nonce
+ * @param assetChainId
+ * @param assetId
+ * @param address
+ * @returns {Promise<any>}
+ */
+export async function getNulsBalance(assetChainId = 2, assetId = 1, address) {
+  const params = { "jsonrpc": "2.0", "method": 'getAccountBalance', "params": [Number(getChainId()), assetChainId, assetId, address], "id": Math.floor(Math.random() * 1000) };
+  return await axios.post('/', params)
+    .then((response) => {
+      if (response.data.hasOwnProperty("result")) {
+        return { success: true, data: { balance: response.data.result.balance, nonce: response.data.result.nonce } }
+      } else {
+        return { success: false, data: response.data }
+      }
+    })
+    .catch((error) => {
+      return { success: false, data: error };
+    });
+}
+
+/**
+ * 获取主网最新高度和本地高度
+ */
+export async function getHeaderInfo() {
+  const params = {
+    "jsonrpc": "2.0", "method": "getInfo", "params": [Number(getChainId())], "id": Math.floor(Math.random() * 1000)
+  };
+  await axios.post('/', params)
+    .then((response) => {
+      if (response.data.hasOwnProperty("result")) {
+        sessionStorage.setItem("info", JSON.stringify(response.data.result));
+      } else {
+        sessionStorage.removeItem("info")
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+      sessionStorage.removeItem("info");
+    })
 }
 
 /**

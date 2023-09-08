@@ -1,90 +1,36 @@
 <template>
     <div class="Thecode">
         <div class="info-button">
-            <div :class="infoActive == 1 ? 'info-active':''" @click="setActive(1)">读合同</div>
-            <div :class="infoActive == 2 ? 'info-active':''" @click="setActive(2)">写合同</div>
-            <div :class="infoActive == 3 ? 'info-active':''" @click="setActive(3)">方法</div>
+            <div :class="infoActive === 3 ? 'info-active':''" @click="setActive(3)">代码</div>
+            <div :class="infoActive === 1 ? 'info-active':''" @click="setActive(1)">读合约</div>
+            <div :class="infoActive === 2 ? 'info-active':''" @click="setActive(2)">写合约</div>
         </div>
 
-        <div class="row-center font24px code-title">
-            <img src="../img/title-inco.png" alt="">
-            合约源代码已验证（完全匹配）
-        </div>
+        <showSourceCode v-if="infoActive === 3"></showSourceCode>
 
-        <div class="code-container-list">
-            <div class="code-list">
-                <div>
-                    合同名称
-                    <span>CroToken</span>
-                </div>
-                <p class="feigei"></p>
-                <div>
-                    编译器版本
-                    <span>v0.6.6+commit.6c089d02</span>
-                </div>
-            </div>
-
-            <div class="code-list">
-                <div>
-                    启用优化
-                    <span>是，运行200次</span>
-                </div>
-                <p class="feigei"></p>
-                <div>
-                    其他设置
-                    <span>默认evm版本</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="code-box">
-            <div class="muli">
-                <img src="../img/heyue-yuana.png" alt="">
-                <p class="yuanma">合约源代码<span>（Solidity）</span></p>
-            </div>
-
-            <div class="code-select">
-                <el-select v-model="region1" class="zi-select">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
-                <el-select v-model="region2" class="zi-select">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
-                <el-select v-model="region3">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
-            </div>
-        </div>
-
-        <div class="code-other">
-            <div class="cur">
-                <img src="../img/copey.png" alt="">
-            </div>
-            <div class="cur">
-                <img src="../img/lianjie.png" alt="">
-            </div>
-            <div class="cur">
-                <img src="../img/fangda.png" alt="">
-            </div>
-        </div>
+        <readContract :infoActive="infoActive" v-if="infoActive !== 3"></readContract>
     </div>
 </template>
 
 <script>
+import showSourceCode from './showSourceCode.vue'
+import readContract from '../../contracts/components/readContract.vue'
 export default {
+    components: {
+        showSourceCode,
+        readContract
+    },
     data(){
         return{
-            infoActive: 1,
-            region1: '打开',
-            region2: '大纲',
-            region3: '更多选择'
+            infoActive: 3,
         }
     },
     created(){
-
+        if(this.$route.query.infoActive){
+            this.infoActive = Number(this.$route.query.infoActive) 
+        }else{
+            this.infoActive = 3
+        }
     },
     methods:{
         setActive(val){

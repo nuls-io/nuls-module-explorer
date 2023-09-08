@@ -63,12 +63,11 @@
                 <el-tab-pane label="交易信息" name="first">
                     <Trading></Trading>
                 </el-tab-pane>
-                <el-tab-pane label="持有人" name="second">
+                <el-tab-pane label="持有人">
                     <holder></holder>
                 </el-tab-pane>
-                <el-tab-pane>
+                <el-tab-pane name="second">
                     <span slot="label">代码 <img class="a_position" src="./img/dunpai.png" alt=""></span>
-
                     <Thecode></Thecode>
                 </el-tab-pane>
                 <el-tab-pane label="信息" name="fourth">
@@ -84,6 +83,7 @@ import Holder from './components/Holder.vue'
 import Trading from './components/Trading'
 import Information from './components/information'
 import Thecode from './components/Thecode'
+import { getHeaderInfo} from '../../api/util'
 export default {
     components:{
         Trading,
@@ -96,6 +96,15 @@ export default {
             activeName: 'first'
         }
     },
+    created(){
+        if(this.$route.query.tabName){
+            this.activeName = this.$route.query.tabName
+        }else{
+            this.activeName = "first"
+        }
+
+        getHeaderInfo()
+    },
     methods:{
         handleClick(tab){
         }
@@ -106,6 +115,7 @@ export default {
 <style lang="less">
 .assetsdetails {
     background-color: #F9FAFD;
+    padding-bottom: 100px;
     .a_list_container{
         border-radius: 12px;
         background: #FFFFFF;

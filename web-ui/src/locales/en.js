@@ -89,6 +89,13 @@ const en = {
     "consensusLockings": "Consensus Locking",
     "unavailable": "(Unavailable)",
     "accountedFor": "Accounted",
+
+    "err": "Verify and broadcast transaction failure:",
+    "err0": "Verify and broadcast transaction exceptions:",
+    "err1": "Input and outputs assembly errors:",
+    "err2": "Failed to obtain account balance:",
+    "err3": "Obtain account balance exceptions:",
+    "err4": "Cross-Chain Trading Failure: ",
   },
 
   "type": {
