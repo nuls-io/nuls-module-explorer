@@ -112,11 +112,11 @@
     methods: {
 
       async getActiveAddress() {
-        const result = await this.$post('/', 'getActiveAddressData', [])
+        const result = await this.$post('/', 'getActiveAddressData', [14])
         console.log(result, '333')
         if (result.result) {
           this.timeChartData.columns = ['date', 'count'];
-          this.timeChartData.rows = result.result;
+          this.timeChartData.rows = result.result.reverse();
           this.timeRateDataLoading = false;
         }
       },

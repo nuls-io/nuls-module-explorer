@@ -15,7 +15,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
  */
 export function post(url, methodName, data = {}) {
   return new Promise((resolve, reject) => {
-    if(methodName !=='getOtherChainInfo'){
+    if(methodName !=='getOtherChainInfo' && methodName !== 'getActiveAddressData'){
       data.unshift(Number(sessionStorage.getItem('chainId')));
     }
     const params = {"jsonrpc": "2.0", "method": methodName, "params": data, "id": Math.floor(Math.random() * 1000)};
