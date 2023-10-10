@@ -88,8 +88,7 @@
             <el-table-column prop="lostRate" :label="$t('public.lostRate')" width="150" align="left">
             </el-table-column>
           </el-table>
-          <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
-          </paging>
+          <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows" />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -214,8 +213,8 @@
        * tab 切换
        **/
       handleClick() {
-        this.pager.total = 0;
-        this.pager.page = 1;
+        // this.pager.total = 0;
+        // this.pager.page = 1;
       },
 
       /**
@@ -255,6 +254,7 @@
               }
               this.roundList = response.result.list;
               this.pager.total = response.result.totalCount;
+              console.log(this.pager, 333)
               this.roundListLoading = false;
             }
           }).catch((error) => {
