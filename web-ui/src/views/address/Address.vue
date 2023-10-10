@@ -2,11 +2,19 @@
   <div class="address bg-gray">
     <div class="bg-white">
       <div class="w1200">
-        <h2 class="title fl capitalize">{{$t('address.address0')}}</h2>
-        <!--<i class="iconfont icon-dwonload_gray_icon fr hide-switch click" title="更多功能敬请期待..."></i>-->
+        <h2 class="title capitalize font18">{{$t('address.address1')}}</h2>
+        <ve-line height="260px"
+          :data="timeChartData"
+          :legend-visible="false"
+          :colors="colors"
+          :settings="chartSettings"
+          :extend="chartExtend"
+          :loading="timeRateDataLoading"
+        />
       </div>
     </div>
     <div class="tabs w1200">
+      <h2 class="title fl capitalize font18">{{$t('address.address0')}}</h2>
       <el-table :data="addressList" stripe border style="width: 100%" @sort-change='sortChange'
                 v-loading="addressLoading">
         <el-table-column label="" width="30">
@@ -40,10 +48,33 @@
 <script>
   import paging from '@/components/pagingBar';
   import {timesDecimals} from '@/api/util.js'
+  import moment from 'moment';
 
   export default {
     data() {
+      this.colors = ['#7db46d', '#7db46d', '#7db46d', '#546570', '#c4ccd3'];
+      this.chartExtend = {
+        grid: {
+          top:20,
+          bottom:30,
+          left: 0,
+          right: 0,
+          containLabel:true
+        },
+        xAxis: {
+          axisLabel: {
+            formatter: val => {
+              return moment(val).format('MM/DD')
+            }
+          }
+        },
+      }
       return {
+        timeChartData: {
+          columns: [],
+          rows: []
+        },
+        timeRateDataLoading: true,
         addressLoading: true,
         addressList: [],
         sort: 0,
@@ -57,7 +88,16 @@
     components: {
       paging,
     },
+    computed: {
+      chartSettings() {
+        return {
+          yAxisType: ['normal'],
+          labelMap: {'count': this.$t('address.address2')},
+        };
+      }
+    },
     created() {
+      this.getActiveAddress()
       this.pagesList();
     },
     beforeRouteLeave(to, from, next) {
@@ -70,6 +110,16 @@
       next()
     },
     methods: {
+
+      async getActiveAddress() {
+        const result = await this.$post('/', 'getActiveAddressData', [])
+        console.log(result, '333')
+        if (result.result) {
+          this.timeChartData.columns = ['date', 'count'];
+          this.timeChartData.rows = result.result;
+          this.timeRateDataLoading = false;
+        }
+      },
 
       /**
        * @disc: 获地址列表
@@ -147,13 +197,21 @@
   .address {
     //height: 1050px;
     .bg-white {
-      height: 133px;
+      // height: 133px;
       @media screen and (max-width: 1000px) {
-        height: 5rem;
+        .w1200 {
+          width: 95%;
+          margin: 0 auto ;
+        }
       }
+    }
+    .title {
+      margin: 0;
+      padding: 20px 0;
     }
     .tabs {
       margin-bottom: 100px;
+      margin-top: 0;
       @media screen and (max-width: 1000px) {
         width: 95%;
         margin: -1.4rem auto 5rem;

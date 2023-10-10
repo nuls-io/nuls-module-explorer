@@ -209,7 +209,9 @@ const cn = {
   "blockList": {},
 
   "address": {
-    "address0": "地址列表"
+    "address0": "地址列表",
+    "address1": "活跃地址（近14日）",
+    "address2": "活跃地址",
   },
 
   "addressList": {

@@ -57,7 +57,8 @@ module.exports = {
     open: true, //配置自动启动浏览器
     proxy: {// 配置跨域处理
       '/api': {
-        target: 'http://127.0.0.1:8080/',
+        // target: 'http://127.0.0.1:8080/',
+        target: 'http://beta.nulscan.io/api',
         changeOrigin: true,  // 是否跨域
         pathRewrite: {
           '^/api': '/'
