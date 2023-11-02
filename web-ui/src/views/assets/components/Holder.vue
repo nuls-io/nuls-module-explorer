@@ -3,9 +3,9 @@
         <div class="Holder-title">
             <div>
                 <img src="../img/renshu.png" alt="">
-                <p>总共 298,782 名持有者</p>
+                <p>{{$t('assets.holders',{number: 154.26})}}</p>
             </div>
-            <span>更新于32分钟前</span>
+            <span>{{$t('assets.minutes_ago',{time: 32})}}</span>
         </div>
 
         <el-table :data="tableData" style="width: 100%">
@@ -14,7 +14,7 @@
                     <span>1</span>
                 </template>
             </el-table-column>
-            <el-table-column label="地址" width="280">
+            <el-table-column :label="$t('public.address')" width="280">
                 <template slot-scope="scope">
                     <div class="row-center">
                         <span class="click">0x33566c9...9d75836</span>
@@ -22,17 +22,17 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="数量">
+            <el-table-column :label="$t('tokenInfo.tokenInfo5')">
                 <template slot-scope="scope">
                     <p>1,387,298,408.18914185</p>
                 </template>
             </el-table-column>
-            <el-table-column label="百分百">
+            <el-table-column :label="$t('assets.hundred_percent')">
                 <template slot-scope="scope">
                     <p>1.8593%</p>
                 </template>
             </el-table-column>
-            <el-table-column label="价值">
+            <el-table-column :label="$t('assets.value')">
                 <template slot-scope="scope">
                     <p>$84,193,753.09</p>
                 </template>

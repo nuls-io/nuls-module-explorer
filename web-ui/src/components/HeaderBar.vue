@@ -16,6 +16,7 @@
                     @blur="blurSearch">
             <i class="el-icon-search el-input__icon click" slot="suffix" @click="clickSearch"></i>
           </el-input>
+          <!-- <SearchBar /> -->
         </div>
         <!-- <div class="destroyed font14 fl pc" v-else>
           <i class="iconfont icon-jiandingxiaohui fred"></i>&nbsp;
@@ -49,6 +50,7 @@
   import MenuBar from '@/components/MenuBar';
   import {RUN_DEV, API_ROOT} from '@/config'
   //import {timesDecimals, Plus} from '@/api/util.js'
+  import SearchBar from './SearchBar.vue'
 
   export default {
     data() {
@@ -74,6 +76,7 @@
     },
     components: {
       MenuBar,
+      SearchBar
     },
     created() {
       let lang = navigator.language || navigator.userLanguage;//常规浏览器语言和IE浏览器
@@ -246,6 +249,7 @@
           height: 36px;
           text-align: right;
           margin-right: 16px;
+          position: relative;
           @media screen and (max-width: 1000px) {
             //margin: 1rem 0.5rem 0 0;
           }

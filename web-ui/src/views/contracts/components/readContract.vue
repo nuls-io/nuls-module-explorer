@@ -3,7 +3,7 @@
         <div class="nabox-wallet cur" @click="connectWallet">
             <i class="info-success" v-if="walletaddress"></i>
             <i class="info-error" v-else></i>
-            <p>连接Nabox钱包</p>
+            <p>{{$t('assets.Connect_Nabox_wallet')}}</p>
         </div>
 
         <div class="info-box-nav">
@@ -80,7 +80,7 @@
                     <!-- 显示合约调用结果 -->
                     <p class="blace-name" v-if="item.callResult">{{ item.callResult }}</p>
                     <div v-if="item.params.length > 0 || newinfoActive === 2" class="tijiao font14 cur"
-                        @click="changeParameter(item)">调用</div>
+                        @click="changeParameter(item)">{{$t('assets.transfer')}}</div>
                 </div>
             </div>
         </div>
@@ -612,7 +612,7 @@ export default {
 <style scoped lang="less">
 .read-contract {
     .nabox-wallet {
-        width: 160px;
+        width: fit-content;
         height: 36px;
         border-radius: 8px;
         border: 1px solid #EBEBF4;
@@ -623,7 +623,7 @@ export default {
         align-items: center;
         justify-content: center;
         margin-top: 12px;
-
+        padding: 0 10px;
         .info-error,
         .info-success {
             width: 5px;

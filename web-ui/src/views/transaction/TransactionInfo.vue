@@ -193,12 +193,12 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="资产类型">
+        <el-table-column :label="$t('assets.Asset_type')">
           <template slot-scope="scope">
-            <p class="leixin-let">NULS转账</p>
+            <p class="leixin-let">{{$t('transactionInfo.transactionInfo12')}}</p>
           </template>
         </el-table-column>
-        <el-table-column prop="value" label="数量"></el-table-column>
+        <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')"></el-table-column>
         <el-table-column prop="symbol" label="Symbol"></el-table-column>
         <el-table-column>
           <template slot="header" slot-scope="scope">
@@ -246,18 +246,18 @@
           <template slot-scope="scope">
             <div class="sending-address">
               <p class="address-box click" @click="toUrl('addressInfo', scope.row.fromAddress)">{{ UnpAredd(scope.row.fromAddress) }}</p>
-              <el-tooltip :content="scope.row.fromAddress" placement="bottom" effect="light">
+              <el-tooltip v-if="scope.row.fromAddress" :content="scope.row.fromAddress" placement="bottom" effect="light">
                 <img src="./img/Icontits.svg" alt="">
               </el-tooltip>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="资产类型">
+        <el-table-column :label="$t('assets.Asset_type')">
           <template slot-scope="scope">
-            <p class="leixin-let">{{$t('transactionInfo.transactionInfo11')}}</p>
+            <p class="leixin-let">代币转账</p>
           </template>
         </el-table-column>
-        <el-table-column prop="value" label="数量" min-width="100"></el-table-column>
+        <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')" min-width="100"></el-table-column>
         <el-table-column prop="symbol" label="Symbol"></el-table-column>
         <el-table-column>
           <template slot="header" slot-scope="scope">
@@ -311,12 +311,12 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="资产类型">
+        <el-table-column :label="$t('assets.Asset_type')">
           <template slot-scope="scope">
             <p class="leixin-let">没有此参数</p>
           </template>
         </el-table-column>
-        <el-table-column prop="value" label="数量" min-width="100"></el-table-column>
+        <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')" min-width="100"></el-table-column>
         <el-table-column prop="symbol" label="Symbol"></el-table-column>
         <el-table-column>
           <template slot="header" slot-scope="scope">

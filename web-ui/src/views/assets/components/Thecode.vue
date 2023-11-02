@@ -1,9 +1,9 @@
 <template>
     <div class="Thecode">
         <div class="info-button">
-            <div :class="infoActive === 3 ? 'info-active':''" @click="setActive(3)">代码</div>
-            <div :class="infoActive === 1 ? 'info-active':''" @click="setActive(1)">读合约</div>
-            <div :class="infoActive === 2 ? 'info-active':''" @click="setActive(2)">写合约</div>
+            <div :class="infoActive === 3 ? 'info-active':''" @click="setActive(3)">{{$t('contractsInfo.contractsInfo0')}}</div>
+            <div :class="infoActive === 1 ? 'info-active':''" @click="setActive(1)">{{$t('assets.the_contract')}}</div>
+            <div :class="infoActive === 2 ? 'info-active':''" @click="setActive(2)">{{$t('assets.write_contract')}}</div>
         </div>
 
         <showSourceCode v-if="infoActive === 3"></showSourceCode>

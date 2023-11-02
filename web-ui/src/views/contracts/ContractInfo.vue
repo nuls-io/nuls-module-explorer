@@ -10,7 +10,7 @@
       <h3 class="tabs_title tabs_header">{{ $t('public.basicInfo') }}</h3>
       <ul class="ul">
         <li class="tabs_infos fl">
-          <p>合约地址
+          <p>{{$t('assets.Contract_address')}}
             <span class="click mobile_s"
               @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.creater }}</span>
           </p>
@@ -25,15 +25,15 @@
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>缩写<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>{{$t('public.abbreviate')}}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>总发行量<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>{{$t('home.home3')}}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>精度<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>{{$t('tokenInfo.tokenInfo0')}}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
           </p>
         </li>
 
@@ -41,7 +41,7 @@
           <p>{{ $t('public.transactionNo') }}<span>{{ contractsInfo.txCount }}</span></p>
         </li>
         <li class="tabs_infos fl">
-          <p>持有地址数<span>{{ contractsInfo.balance / 100000000 }}</span></p>
+          <p>{{$t('tokenInfo.tokenInfo1')}}<span>{{ contractsInfo.balance / 100000000 }}</span></p>
         </li>
         <li class="tabs_infos fl">
           <p>{{ $t('public.createAddress') }}
@@ -90,7 +90,7 @@
             <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
 
           </el-tab-pane>
-          <el-tab-pane v-if="!isMobile" label="合约" name="second"
+          <el-tab-pane v-if="!isMobile" :label="$t('nav.contracts')" name="second"
             :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
             <div v-if="activeName === 'second'">
               <!-- <CodeInfo :status="contractsInfo.status" :certificationTime="contractsInfo.certificationTime"

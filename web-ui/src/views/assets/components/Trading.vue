@@ -2,7 +2,7 @@
     <div class="Trading">
         <div class="Trading-title">
             <img src="../img/buno21.png" alt="">
-            <p>发现超过 3,418,029 笔交易<span>（显示最近10k条记录）</span></p>
+            <p>{{$t('assets.transactions_found',{number: 16545.444})}}<span>（{{$t('assets.records',{number: 465.11})}}）</span></p>
         </div>
 
         <el-table :data="tableData" style="width: 100%">
@@ -11,24 +11,24 @@
                     <img src="../img/yanjin.png" class="cur" alt="">
                 </template>
             </el-table-column>
-            <el-table-column label="交易哈希值" width="180">
+            <el-table-column :label="$t('assets.hash_value')" width="180">
                 <template slot-scope="scope">
                     <p class="click">0x87939b2015cc288...</p>
                 </template>
             </el-table-column>
-            <el-table-column label="方式">
+            <el-table-column :label="$t('assets.Way')">
                 <template slot-scope="scope">
                     <p class="label-box">
-                        转移
+                        {{$t('assets.transferON')}}
                     </p>
                 </template>
             </el-table-column>
-            <el-table-column label="时间">
+            <el-table-column :label="$t('public.time')">
                 <template slot-scope="scope">
-                    <span>1分钟前</span>
+                    <span>{{$t('assets.minute_ago',{time: '1'})}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="转出地址" width="180">
+            <el-table-column :label="$t('assets.out_address')" width="180">
                 <template slot-scope="scope">
                     <div class="row-center">
                         <span class="click">0x33566c9...9d75836</span>
@@ -41,7 +41,7 @@
                     <img src="../img/zishi.png" alt="">
                 </template>
             </el-table-column>
-            <el-table-column label="接收地址" width="180">
+            <el-table-column :label="$t('assets.receiving_address')" width="180">
                 <template slot-scope="scope">
                     <div class="row-center">
                         <span class="click">0x33566c9...9d75836</span>
@@ -49,7 +49,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="数量">
+            <el-table-column :label="$t('tokenInfo.tokenInfo5')">
                 <template slot-scope="scope">
                     <p>26,000,000</p>
                 </template>

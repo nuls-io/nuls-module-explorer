@@ -6,52 +6,52 @@
 
         <div class="assetsdetails_container w1200">
             <div class="a_container">
-                <p class="a_title">概述</p>
+                <p class="a_title">{{$t('assets.Overview')}}</p>
                 <div class="a_content">
                     <div class="row-center">
-                        <p>最大总供应量</p>
+                        <p>{{$t('assets.maximum')}}</p>
                         <p>713,837,311,550 USDX</p>
                     </div>
                     <div class="row-center">
-                        <p>小数点位数</p>
+                        <p>{{$t('assets.decimal_places')}}</p>
                         <p>18</p>
                     </div>
                     <div class="row-center">
-                        <p>持有人</p>
+                        <p>{{$t('assets.Holder')}}</p>
                         <p>109,509 <span>(+0.309%)</span></p>
                     </div>
                 </div>
             </div>
             <div class="a_container">
-                <p class="a_title">市场</p>
+                <p class="a_title">{{$t('assets.market')}}</p>
                 <div class="a_content">
                     <div class="row-center">
-                        <p>交易笔数</p>
+                        <p>{{$t('assets.Number_of')}}</p>
                         <p>1,808,998</p>
                     </div>
                     <div class="row-center">
-                        <p>NULS网络流通量</p>
+                        <p>{{$t('assets.traffic')}}</p>
                         <p>$289,393,823</p>
                     </div>
                     <div class="row-center">
-                        <p>网络</p>
+                        <p>{{$t('assets.network')}}</p>
                         <p><img class="img1" src="../../assets/img/logo.png" alt="">Ethereum</p>
                     </div>
                 </div>
             </div>
             <div class="a_container">
-                <p class="a_title">其他信息</p>
+                <p class="a_title">{{$t('assets.other_information')}}</p>
                 <div class="a_content">
-                    <div class="row-center">
-                        <p>代币合约（18位小数）</p>
-                        <p>0x8E870Db...d388289E1 <img class="img2" src="../../assets/img/Icon.png" alt=""></p>
+                    <div class="row-center" :class="i18n_locale ==='en' ? 'adaptation':''">
+                        <p>{{$t('assets.Token_Contract',{number: 18})}}</p>
+                        <p>0x8E870Db...d388289E1 <img class="img2" src="./img/copey.png" alt=""></p>
                     </div>
                     <div class="row-center">
-                        <p>官网</p>
+                        <p>{{$t('bottom.website')}}</p>
                         <p><span>nuls.io</span></p>
                     </div>
                     <div class="row-center">
-                        <p>社区</p>
+                        <p>{{$t('bottom.community')}}</p>
                         <p><img class="img2" src="../../assets/img/Icon.png" alt=""></p>
                     </div>
                 </div>
@@ -60,17 +60,17 @@
 
         <div class="w1200 a_list_container">
             <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="交易信息" name="first">
+                <el-tab-pane :label="$t('assets.Trading_Information')" name="first">
                     <Trading></Trading>
                 </el-tab-pane>
-                <el-tab-pane label="持有人">
+                <el-tab-pane :label="$t('assets.Holder')">
                     <holder></holder>
                 </el-tab-pane>
                 <el-tab-pane name="second">
-                    <span slot="label">代码 <img class="a_position" src="./img/dunpai.png" alt=""></span>
+                    <span slot="label">{{$t('contractsInfo.contractsInfo0')}} <img class="a_position" src="./img/dunpai.png" alt=""></span>
                     <Thecode></Thecode>
                 </el-tab-pane>
-                <el-tab-pane label="信息" name="fourth">
+                <el-tab-pane :label="$t('assets.information')" name="fourth">
                     <information></information>
                 </el-tab-pane>
             </el-tabs>
@@ -93,7 +93,16 @@ export default {
     },
     data() {
         return {
-            activeName: 'first'
+            activeName: 'first',
+            i18n_locale: 'cn',
+        }
+    },
+    watch:{
+        "$i18n.locale":{
+            handler(newval){
+                this.i18n_locale = newval
+            },
+            immediate: true
         }
     },
     created(){
@@ -197,10 +206,14 @@ export default {
                     }
 
                     .img2 {
-                        width: 20px;
-                        border-radius: 50%;
+                        width: 14px;
                         margin-left: 6px;
                     }
+                }
+                .adaptation{
+                    display: flex;
+                    flex-wrap: wrap;
+                    line-height: 28px;
                 }
             }
         }

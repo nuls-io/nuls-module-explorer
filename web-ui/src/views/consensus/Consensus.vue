@@ -380,17 +380,18 @@ export default {
         justify-content: flex-end;
 
         .chart_bt1 {
-          width: 108px;
+          width: fit-content;
           height: 36px;
           background: #F4F8FE;
           border-radius: 6px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 4px;
+          padding: 5px;
 
           .el-button {
-            width: 28px;
+            width: fit-content;
+            padding: 5px;
             height: 24px;
             display: flex;
             align-items: center;
@@ -400,7 +401,7 @@ export default {
           }
 
           .btn {
-            min-width: 28px;
+            // min-width: 28px;
             height: 24px;
             border-radius: 6px;
             background: #FFFFFF;

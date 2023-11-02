@@ -7,7 +7,7 @@ const en = {
     "address": "Account",
     "transaction": "Transaction",
     "consensus": "Consensus",
-    "assets":"资产",
+    "assets":"Assets",
     "contracts": "Contracts",
     "blockChain": "Blockchain",
   },
@@ -179,7 +179,7 @@ const en = {
     "home7": "14 days Transaction history",
     "home8": "More",
     "home9": "Burned",
-    "home10": "减产倒计时"
+    "home10": "Countdown to production cuts"
   },
 
   "cale": {
@@ -337,10 +337,11 @@ const en = {
 
   "bottom": {
     "website": "Official Website",
-    "webWallet": "轻钱包",
+    "webWallet": "light wallet",
     "community": "Community",
     "about": "Bug Report",
     "explorer1": "1.0 Explorer",
+    "Twitter": 'Twitter',
   },
 
   "protocolUpdate": {
@@ -390,6 +391,51 @@ const en = {
   "messages":{
     "Paste":'Your browser does not support copying',
     "copy":"Copied to clipboard"
+  },
+  "assets":{
+    "chain_assets": 'Chain assets',
+    "Contracts": "A total of  {number} Token Contracts found",
+    "Circulation": 'Circulation',
+    "Holder": 'Holder',
+    "Parachain": 'Parachain',
+    "HeterogeneousChain": 'Heterogeneous chain',
+    "NerveNetwork": 'NerveNetwork aims to connect all isolated blockchains and establish a cross-chain asset exchange network, providing all necessary underlying support for the DeFi ecosystem. Let every digital asset holder experience a truly safe, free and transparent DeFi service.',
+    "asset_symbol": 'Main chain asset symbol',
+    "traffic": 'NULS network traffic',
+    "cross-chain": 'Number of cross-chain transactions',
+    "Contract_address": "Contract address",
+    "the_contract": 'Read the contract',
+    "write_contract": 'Write a contract',
+    "transfer": 'Transfer',
+    "Connect_Nabox_wallet": 'Connect Nabox wallet',
+    "Asset_type": 'Asset type',
+    "parameter": 'No such parameter',
+    "Overview": 'Overview',
+    "maximum": 'maximum total supply',
+    "decimal_places": 'Number of decimal places',
+    "market": 'Market',
+    "Number_of": 'Number of transactions',
+    "network": 'Network',
+    "other_information": 'other information',
+    "Token_Contract": 'Token Contract ({number} decimal places)',
+    "Trading_Information": 'Trading Information',
+    "information": 'Information',
+    "holders": 'Total {number} holders',
+    "minutes_ago": 'Updated {time} minutes ago',
+    "hundred_percent": 'One hundred percent',
+    "value": 'Value',
+    "transactions_found": 'Over {number} transactions found',
+    "records": 'Show the last {number} records',
+    "hash_value": 'Transaction hash',
+    "Way": 'Way',
+    "transferON": 'Transfer',
+    "minute_ago": '{time} minute ago',
+    "out_address": 'Transfer-out address',
+    "receiving_address": 'Receiving address',
+    "Volume": 'Volume ({time} hours)',
+    "Market_value": 'Market value',
+    "Circular_supply": 'Circular supply',
+    "data_sources": 'Market data sources'
   },
 
   ...enLocale

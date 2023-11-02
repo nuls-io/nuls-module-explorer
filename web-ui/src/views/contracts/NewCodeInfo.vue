@@ -1,9 +1,9 @@
 <template>
     <div class="NewCodeInfo">
         <div class="info-button">
-            <div :class="infoActive == 1 ? 'info-active' : ''" @click="setActive(1)">读合约</div>
-            <div :class="infoActive == 2 ? 'info-active' : ''" @click="setActive(2)">写合约</div>
-            <div :class="infoActive == 3 ? 'info-active' : ''" @click="setActive(3)">方法</div>
+            <div :class="infoActive == 1 ? 'info-active' : ''" @click="setActive(1)">{{$t('assets.the_contract')}}</div>
+            <div :class="infoActive == 2 ? 'info-active' : ''" @click="setActive(2)">{{$t('assets.write_contract')}}</div>
+            <div :class="infoActive == 3 ? 'info-active' : ''" @click="setActive(3)">{{$t('transactionInfo.transactionInfo9')}}</div>
         </div>
 
         <readContract :infoActive="infoActive" v-if="infoActive !== 3"></readContract>

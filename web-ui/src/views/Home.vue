@@ -11,22 +11,7 @@
           <i class="el-icon-search" slot="suffix" @click="clickSearch"></i>
         </el-input>
 
-        <div class="search-container" v-if="false">
-          <div class="search-scroll">
-            <div class="search-centent">
-              <p class="style1">Tokens</p>
-              <div class="style2"><img src="../assets/img/destroyed.svg" alt=""><p class="sysmol font14">NULS</p><p class="monys font12">$0.21</p></div>
-              <p class="style3">0xa2791bdf2d5055cda4d46ec17f9f429568275047</p>
-              <p class="style3">http://www.nuls.io</p>
-            </div>
-            <div class="search-centent">
-              <p class="style1">Tokens</p>
-              <div class="style2"><img src="../assets/img/destroyed.svg" alt=""><p class="sysmol font14">NULS</p><p class="monys font12">$0.21</p></div>
-              <p class="style3">0xa2791bdf2d5055cda4d46ec17f9f429568275047</p>
-              <p class="style3">http://www.nuls.io</p>
-            </div>
-          </div>
-        </div>
+        <!-- <SearchBar /> -->
       </div>
 
 
@@ -49,7 +34,7 @@
             <h5 class="font24 click-number">{{ destroyedAddressAmount }}</h5>
           </li>
           <li>
-            <div class="font16 node-title">
+            <div class="font16 node-title text-align">
               {{ $t('home.home10') }}
               <el-tooltip placement="right">
                 <div slot="content">
@@ -128,9 +113,14 @@ import { API_ROOT } from '@/config'
 import { BigNumber } from 'bignumber.js'
 import CalcBar from '@/components/CalcBar'
 import { superLong, timesDecimals } from '@/api/util.js'
+import SearchBar from '../components/SearchBar.vue'
 import moment from 'moment'
 
 export default {
+  components:{
+    SearchBar,
+    CalcBar
+  },
   data() {
       this.chartExtend = {
         series: {
@@ -284,9 +274,6 @@ export default {
   destroyed() {
     clearInterval(this.homeSetInterval);
     clearInterval(this.heightSetInterval);
-  },
-  components: {
-    CalcBar
   },
   methods: {
     /**
@@ -517,6 +504,10 @@ export default {
             font-size: 16px;
             color: #9C9CBA;
           }
+          .text-align{
+            text-align: center;
+            line-height: 22px;
+          }
         }
       }
     }
@@ -530,74 +521,6 @@ export default {
       width: 518px;
       margin: 24px auto 0;
       position: relative;
-      .search-container{
-        width: 518px;
-        height: 235px;
-        position: absolute;
-        z-index: 999;
-        top: 52px;
-        border-radius: 12px;
-        background: #FFFFFF;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .search-scroll{
-          padding: 0 16px;
-          width: 500px;
-          height: 220px;
-          background: #FFFFFF;
-          border-radius: 12px;
-          overflow-y: auto;
-          &::-webkit-scrollbar {
-            width: 10px;
-          }
-          &::-webkit-scrollbar-thumb {
-            border-radius: 8px;
-            background-color: #C6D1E2;
-          }
-          &::-webkit-scrollbar-track {
-            border-radius: 8px;
-            background-color: #F2F7FF;
-            border: 1px solid #F2F7FF;
-          }
-        }
-        .search-centent{
-          padding-bottom: 16px;
-          padding-top: 16px;
-          &:not(:last-child){
-            border-bottom: 1px solid #E9E9F8;
-          }
-          .style1{
-            color: #8291A4;
-            font-size: 14px;
-            margin-bottom: 16px;
-          }
-          .style2{
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            img{
-              width: 24px;
-              height: 24px;
-              border-radius: 50%;
-              margin-right: 8px;
-            }
-            .sysmol{
-              color: #000000;
-            }
-            .monys{
-              color: #000000;
-              padding: 5px;
-              border-radius: 6px;
-              background: #F2F7FF;
-            }
-          }
-          .style3{
-            color: #4A4F55;
-            font-size: 14px;
-          }
-        }
-      }
       .el-input__inner {
         height: 44px;
         line-height: 44px;

@@ -2,16 +2,16 @@
     <div class="assets">
         <div class="assets-container w1200">
             <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="ALL" name="first">用户管理</el-tab-pane>
-                <el-tab-pane label="链资产" name="ssss">用户管理</el-tab-pane>
-                <el-tab-pane label="NRC20" name="second">配置管理</el-tab-pane>
-                <el-tab-pane label="NRC721" name="third">角色管理</el-tab-pane>
-                <el-tab-pane label="NRC1155" name="fourth">定时任务补偿</el-tab-pane>
+                <el-tab-pane label="ALL" name="first"></el-tab-pane>
+                <el-tab-pane :label="$t('assets.chain_assets')" name="ssss"></el-tab-pane>
+                <el-tab-pane label="NRC20" name="second"></el-tab-pane>
+                <el-tab-pane label="NRC721" name="third"></el-tab-pane>
+                <el-tab-pane label="NRC1155" name="fourth"></el-tab-pane>
             </el-tabs>
         </div>
 
         <div class="assets-table w1200">
-            <p class="table-titile">A total of  1,271 Token Contracts found</p>
+            <p class="table-titile">{{$t('assets.Contracts',{number: 127})}}</p>
             <el-table :data="tableData" style="width: 100%" :cell-class-name="cellClassName" stripe border>
                 <el-table-column label="ID" width="160">
                     <template slot-scope="scope">
@@ -33,12 +33,12 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="流通量" min-width="160">
+                <el-table-column :label="$t('assets.Circulation')" min-width="160">
                     <template slot-scope="scope">
                         <div>{{ scope.row.date }}</div>
                     </template>
                 </el-table-column>
-                <el-table-column label="持有人" min-width="160">
+                <el-table-column :label="$t('assets.Holder')" min-width="160">
                     <template slot-scope="scope">
                         <div>{{ scope.row.date }}</div>
                     </template>

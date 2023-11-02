@@ -4,7 +4,7 @@
       <div class="w1200">
         <h2 class="font20 fl capitalize block-title">{{$t('block.block0')}}</h2>
         <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('block.block2')"
-                   @change="hideOneList"></el-switch>
+        @change="hideOneList"></el-switch>
       </div>
     </div>
     <div class="tabs w1200">
@@ -154,6 +154,7 @@
       padding: 24px 0;
     }
     .bg-white {
+      height: 80px;
       background: initial;
       @media screen and (max-width: 1000px) {
         height: 5rem;

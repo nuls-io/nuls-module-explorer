@@ -1,26 +1,26 @@
 <template>
     <div class="information">
-        <p class="in-gaishu">概述</p>
+        <p class="in-gaishu">{{$t('assets.Overview')}}</p>
 
         <p class="in-neirong">
             随时随地以加密货币支付和接受支付，使用任何加密货币，都是免费的。
         </p>
 
-        <p class="in-gaishu">市场</p>
+        <p class="in-gaishu">{{$t('assets.market')}}</p>
         <div class="in-gengduo">
-            <p class="in-margin">成交量（24小时）</p>
+            <p class="in-margin">{{$t('assets.Volume',{time: '2'})}}</p>
             <p >$5,781,078.00</p>
         </div>
         <div class="in-gengduo">
-            <p class="in-margin">市值</p>
+            <p class="in-margin">{{$t('assets.Market_value')}}</p>
             <p>$5,657,480,532.88</p>
         </div>
         <div class="in-gengduo">
-            <p class="in-margin">循环供应</p>
+            <p class="in-margin">{{$t('assets.Circular_supply')}}</p>
             <p>120,175,840.00 WETH</p>
         </div>
 
-        <p class="in-from">市场数据来源：<span class="click">Coinmarketcap</span></p>
+        <p class="in-from">{{$t('assets.data_sources')}}：<span class="click">Coinmarketcap</span></p>
     </div>
 </template>
 

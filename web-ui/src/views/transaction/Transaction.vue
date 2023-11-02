@@ -382,7 +382,7 @@ export default {
         }
 
         .chart_bt {
-          width: 108px;
+          width: fit-content;
           padding: 5px;
           background: #F4F8FE;
           border-radius: 6px;
@@ -413,7 +413,7 @@ export default {
           }
 
           .btn {
-            min-width: 28px;
+            width: fit-content;
             height: 24px;
             border-radius: 6px;
             background: #FFFFFF;
