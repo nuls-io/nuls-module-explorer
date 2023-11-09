@@ -1,25 +1,15 @@
 <template>
   <div class="search-container" v-if="true">
     <div class="search-scroll">
-      <div class="search-centent">
-        <p class="style1">Tokens</p>
+      <div class="search-centent cur" v-for="(item,index) in assetsList" :key="index" @click="toAssetInfo(item.id)">
+        <p class="style1" v-if="index === 0">Tokens</p>
         <div class="style2">
-          <img src="../assets/img/destroyed.svg" alt="" />
-          <p class="sysmol font14">NULS</p>
-          <p class="monys font12">$0.21</p>
+          <img :src="symbolLogo(item.name)" alt="" />
+          <p class="sysmol font14">{{item.name}}</p>
+          <p class="monys font12">${{item.inAmount}}</p>
         </div>
-        <p class="style3">0xa2791bdf2d5055cda4d46ec17f9f429568275047</p>
-        <p class="style3">http://www.nuls.io</p>
-      </div>
-      <div class="search-centent">
-        <p class="style1">Tokens</p>
-        <div class="style2">
-          <img src="../assets/img/destroyed.svg" alt="" />
-          <p class="sysmol font14">NULS</p>
-          <p class="monys font12">$0.21</p>
-        </div>
-        <p class="style3">0xa2791bdf2d5055cda4d46ec17f9f429568275047</p>
-        <p class="style3">http://www.nuls.io</p>
+        <p class="style3">{{item.contract}}</p>
+        <p class="style3" v-if="item.website">{{item.website}}</p>
       </div>
     </div>
   </div>
@@ -27,16 +17,32 @@
 
 <script>
 export default {
+  props:{
+    assetsList: Array,
+  },
   data() {
     return {};
   },
+  methods:{
+    symbolLogo(name) {
+      if (name) {
+        return 'https://nuls-cf.oss-us-west-1.aliyuncs.com/icon/' + name + '.png';
+      }else{
+        return "../assets/img/destroyed.svg"
+      }
+    },
+    toAssetInfo(assetKey) {
+        this.$router.push('/assets/details/'+assetKey)
+      }
+  }
 };
 </script>
 
 <style lang="less">
 .search-container {
   width: 518px;
-  height: 235px;
+  height: fit-content;
+  padding: 14px 0;
   position: absolute;
   z-index: 999;
   top: 52px;
@@ -50,7 +56,7 @@ export default {
   .search-scroll {
     padding: 0 16px;
     width: 500px;
-    height: 220px;
+    height: fit-content;
     background: #ffffff;
     border-radius: 12px;
     overflow-y: auto;
@@ -68,8 +74,6 @@ export default {
     }
   }
   .search-centent {
-    padding-bottom: 16px;
-    padding-top: 16px;
     &:not(:last-child) {
       border-bottom: 1px solid #e9e9f8;
     }
@@ -96,6 +100,7 @@ export default {
         padding: 5px;
         border-radius: 6px;
         background: #f2f7ff;
+        margin-left: 8px;
       }
     }
     .style3 {

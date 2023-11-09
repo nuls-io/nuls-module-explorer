@@ -179,7 +179,10 @@ const cn = {
     "home7": "14天交易历史",
     "home8": "更多",
     "home9": "已销毁",
-    "home10": "减产倒计时"
+    "home10": "减产倒计时",
+    "home35": "当前平均区块奖励: {number} NULS",
+    "home36": "减产后平均区块奖励: {number} NULS",
+    "home37": "下一次减产时间：{year}年{month}月{day}日",
   },
 
   "cale": {
@@ -321,7 +324,7 @@ const cn = {
     "codeInfo9": "2.压缩包中的文件目录结构和代码需和部署时保持已一致，否则将导致认证不通过",
     "codeInfo10": "对不起，上传的文件不超过5M",
     "codeInfo11": "请求超时请重试",
-    "codeInfo12": "请输入正确的Address、Txhash、Block",
+    "codeInfo12": "请输入正确的Address、TxHash、Block、Token",
     "codeInfo13": "3.zip包中不可包含非Java文件，否则将导致上传认证失败",
   },
 
@@ -416,6 +419,7 @@ const cn = {
     "market": '市场',
     "Number_of": '交易笔数',
     "network": '网络',
+    "source_chain": "源链",
     "other_information": '其它信息',
     "Token_Contract": '代币合约（{number}位小数）',
     "Trading_Information": '交易信息',

@@ -13,10 +13,13 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
  * @param data
  * @returns {Promise}
  */
-export function post(url, methodName, data = {}) {
+export function post(url, methodName, data = {}, withoutChainId) {
   return new Promise((resolve, reject) => {
     if(methodName !=='getOtherChainInfo'){
       data.unshift(Number(sessionStorage.getItem('chainId')));
+    }
+    if (methodName === "getSymbolInfo" || withoutChainId) {
+      data.shift()
     }
     const params = {"jsonrpc": "2.0", "method": methodName, "params": data, "id": Math.floor(Math.random() * 1000)};
     axios.post(url, params)

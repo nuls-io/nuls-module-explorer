@@ -7,11 +7,11 @@
         <span v-else>{{ height }}</span>
       </div>
       <div class="search">
-        <el-input :placeholder="$t('public.searchTip')" v-model="homeSearch" @keyup.enter.native="clickSearch">
+        <el-input :placeholder="$t('public.searchTip')" v-model="homeSearch" @keyup.enter.native="clickSearch" @input="DynamicMonitoring">
           <i class="el-icon-search" slot="suffix" @click="clickSearch"></i>
         </el-input>
 
-        <!-- <SearchBar /> -->
+        <SearchBar v-if="openSearchBar" :assetsList="assetsList"/>
       </div>
 
 
@@ -38,9 +38,9 @@
               {{ $t('home.home10') }}
               <el-tooltip placement="right">
                 <div slot="content">
-                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">当前平均区块奖励：{{ count.blockRewardBeforeDeflation }} NULS</p>
-                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">减产后平均区块奖励：{{count.blockRewardAfterDeflation}} NULS </p>
-                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">下一次减产时间：{{count.nextDeflationTime}}</p>
+                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{$t('home.home35',{number: count.blockRewardBeforeDeflation})}}</p>
+                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{$t('home.home36',{number: count.blockRewardAfterDeflation})}}</p>
+                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{ $t('home.home37',{year: this.count.Year,month: this.count.month, day: this.count.Day}) }}</p>
                 </div>
                 <img class="question cur" src="../assets//img/Group29.png" alt="">
               </el-tooltip>
@@ -112,7 +112,7 @@ import axios from 'axios'
 import { API_ROOT } from '@/config'
 import { BigNumber } from 'bignumber.js'
 import CalcBar from '@/components/CalcBar'
-import { superLong, timesDecimals } from '@/api/util.js'
+import { superLong, timesDecimals ,getOriginChain} from '@/api/util.js'
 import SearchBar from '../components/SearchBar.vue'
 import moment from 'moment'
 
@@ -211,6 +211,8 @@ export default {
     };
 
     return {
+      assetsList: [],
+      openSearchBar: false,
       moment,
       isMobile: false,
       //搜索的内容
@@ -224,7 +226,9 @@ export default {
         tradeNumber: '0',//总流通量
         blockRewardBeforeDeflation: '0',
         blockRewardAfterDeflation: '0',
-        nextDeflationTime: '',
+        Year: '',
+        month: '',
+        Day: '',
         Countdown_to_production_cuts: ''
       },
       countLoading: true,
@@ -313,8 +317,9 @@ export default {
         this.count.blockRewardBeforeDeflation = newBlockRewardBeforeDeflation.toFormat(2);
         let newBlockRewardAfterDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardAfterDeflation, 11));
         this.count.blockRewardAfterDeflation = newBlockRewardAfterDeflation.toFormat(2);
-
-        this.count.nextDeflationTime = moment(NULSNumber.nextDeflationTime).format('YYYY年MM月DD日')
+        this.count.Year = moment(NULSNumber.nextDeflationTime).format('YYYY');
+        this.count.month = moment(NULSNumber.nextDeflationTime).format('MM');
+        this.count.Day = moment(NULSNumber.nextDeflationTime).format('DD');
         this.count.blockRewardAfterDeflation = newBlockRewardAfterDeflation.toFormat(2);
         this.countdown(NULSNumber.nextDeflationTime)
         let newCirculateNumber = new BigNumber(timesDecimals(NULSNumber.total, 11));
@@ -359,19 +364,21 @@ export default {
         minuteTime = Math.floor(seconds / 60 % 60) < 10 ? '0' + Math.floor(seconds / 60 % 60) : Math.floor(seconds / 60 % 60)
         //秒
         secondTime = Math.floor(seconds % 60) < 10 ? '0' + Math.floor(seconds % 60) : Math.floor(seconds % 60)
-
         this.count.Countdown_to_production_cuts = today+'d:'+hourTime+'h:'+minuteTime+'m'
         console.log('剩余'+today+'天'+ hourTime+'小时'+minuteTime+'分钟'+secondTime+'秒')
     },
-
+    DynamicMonitoring(e){
+      if(!e){
+        this.assetsList = []
+        this.openSearchBar = false
+      }
+    },
     /**
      *  首页全局搜索框
      **/
     clickSearch() {
       this.$post('/', 'search', [this.homeSearch])
         .then((response) => {
-          console.log(response,'搜索到的内容');
-          return false
           if (response.hasOwnProperty("result")) {
             if (response.result.type === 'block') {
               this.$router.push({
@@ -394,13 +401,21 @@ export default {
                 name: 'contractsInfo',
                 query: { contractAddress: response.result.data.contractAddress, tabName: 'first' }
               })
-            } else {
+            // eslint-disable-next-line no-empty
+            }else if(response.result.type === 'asset'){
+              const list = response.result.data
+                list.map(v => {
+                  v.originChain = getOriginChain(v.sourceChainId)
+                })
+                this.assetsList = list
+                this.openSearchBar = true
+            }else {
               this.$message({ message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 1000 });
             }
           } else {
             this.$message({ message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 1000 });
           }
-          this.homeSearch = '';
+          // this.homeSearch = '';
         }).catch((error) => {
           console.log(error)
         })

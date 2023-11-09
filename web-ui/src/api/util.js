@@ -1,7 +1,8 @@
 import { BigNumber } from 'bignumber.js'
 import copy from 'copy-to-clipboard'
-import { RUN_DEV } from '../config'
+import { RUN_DEV, IS_BETA } from '../config'
 import axios from 'axios';
+import { _networkInfo } from '@/api/heterogeneousChainConfig';
 
 /**
  * 10的N 次方
@@ -72,12 +73,21 @@ export function timesDecimals(nu, decimals = 8) {
 }
 
 /**
+ * 旧
  * 数字除以精度系数
  */
 export function divisionDecimals(nu, decimals = 8) {
   let newNu = new BigNumber(Division(nu, Power(decimals)).toString());
   return newNu.toFormat().replace(/[,]/g, '');
 }
+/**
+ * 新
+ * 数字除以精度系数
+ */
+//  export function divisionDecimals(nu, decimals = 8) {
+//   // let newNu = new BigNumber(Division(nu, Power(decimals)).toString());
+//   return new BigNumber(Division(nu, Power(decimals))).toFormat().replace(/[,]/g, '');
+// }
 
 /**
  * 数字乘以精度系数
@@ -85,6 +95,13 @@ export function divisionDecimals(nu, decimals = 8) {
 export function timesDecimals0(nu, decimals = 8) {
   let newNu = new BigNumber(Times(nu, Power(decimals)).toString());
   return Number(newNu);
+}
+//转千分位
+export function toThousands(num = 0) {
+  const N = num.toString().split('.')
+  const int  = N[0]
+  const float = N[1] ? '.'+N[1] : ''
+  return int.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,') + float;
 }
 
 /**
@@ -267,4 +284,23 @@ export function getArgs(parameterList) {
   } else {
     return { allParameter: true, args: newArgs };
   }
+}
+
+export const isBeta = IS_BETA
+/**
+ * @desc 通过异构链id/注册id(nerve、nuls)，获取链名称
+ * @param heterogeneousChainId 异构链id
+ * @param assetChainId 资产id
+ */
+ export function getOriginChain(heterogeneousChainId, assetChainId) {
+  const chainsInfo = Object.values(_networkInfo);
+  let chainName = '';
+  if (heterogeneousChainId !== 0) {
+    chainName = chainsInfo.find(v => v.chainId === heterogeneousChainId)?.name;
+  } else {
+    if (!assetChainId) return 'NULS';
+    const NerveChainId = isBeta ? 5 : 9;
+    chainName = NerveChainId === assetChainId ? 'NERVE' : 'NULS';
+  }
+  return chainName;
 }

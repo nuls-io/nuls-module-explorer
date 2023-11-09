@@ -179,7 +179,10 @@ const en = {
     "home7": "14 days Transaction history",
     "home8": "More",
     "home9": "Burned",
-    "home10": "Countdown to production cuts"
+    "home10": "Countdown to production cuts",
+    "home35": "Current average block rewards: {number} NULS",
+    "home36": "Average block rewards after halving: {number} NULS",
+    "home37": "Next halving：{year}.{month}.{day}"
   },
 
   "cale": {
@@ -321,7 +324,7 @@ const en = {
     "codeInfo9": "2.The file directory structure and code in the zip package need to be consistent with deployment code, or it will result in certificating failure",
     "codeInfo10": "Sorry, the maximum upload file size is 5M",
     "codeInfo11": "Request timeout please retry",
-    "codeInfo12": "Please enter the correct Address, Txhash, Block...",
+    "codeInfo12": "Please enter the correct Address, Txhash, Block, Token",
     "codeInfo13": "3.Zip packages should not contain non-Java files, otherwise upload authentication will fail",
   },
 
@@ -416,6 +419,7 @@ const en = {
     "market": 'Market',
     "Number_of": 'Number of transactions',
     "network": 'Network',
+    "source_chain": "Source chain",
     "other_information": 'other information',
     "Token_Contract": 'Token Contract ({number} decimal places)',
     "Trading_Information": 'Trading Information',

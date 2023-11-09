@@ -5,6 +5,7 @@ const shell = require("shelljs");
 shell.cp(process.cwd() + "/config/" + process.env.NULS_ENV + ".js", process.cwd() + "/src/config.js");
 const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
+  lintOnSave: false,
   publicPath: process.env.NODE_ENV === 'production' ? '/dist/' : '/',
   pluginOptions: {
     i18n: {
@@ -46,7 +47,6 @@ module.exports = {
     'vue-echarts',
     'resize-detector'
   ],
-
   css: {
     sourceMap: true
   },
