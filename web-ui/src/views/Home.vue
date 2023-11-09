@@ -38,14 +38,14 @@
               {{ $t('home.home10') }}
               <el-tooltip placement="right">
                 <div slot="content">
-                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">当前平均区块奖励：13,308 NULS</p>
-                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">减产后平均区块奖励：13,308 NULS </p>
-                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">下一次减产时间：2023年12月20日</p>
+                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">当前平均区块奖励：{{ count.blockRewardBeforeDeflation }} NULS</p>
+                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">减产后平均区块奖励：{{count.blockRewardAfterDeflation}} NULS </p>
+                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">下一次减产时间：{{count.nextDeflationTime}}</p>
                 </div>
                 <img class="question cur" src="../assets//img/Group29.png" alt="">
               </el-tooltip>
             </div>
-            <h5 class="font24 clicks click-number">{{ 0 }}K</h5>
+            <h5 class="font24 clicks click-number">{{count.Countdown_to_production_cuts}}</h5>
           </li>
         </ul>
       </div>
@@ -221,7 +221,11 @@ export default {
         nodeNumber: 0,//节点信息
         entrustNumber: '0',//全网委托总量 consensusTotal
         circulateNumber: '0',//总发行量
-        tradeNumber: '0'//总流通量
+        tradeNumber: '0',//总流通量
+        blockRewardBeforeDeflation: '0',
+        blockRewardAfterDeflation: '0',
+        nextDeflationTime: '',
+        Countdown_to_production_cuts: ''
       },
       countLoading: true,
       //计算器弹框
@@ -303,7 +307,16 @@ export default {
         this.count.nodeNumber = 0
       }
       let NULSNumber = this.$store.state.NULSNumber;
+      console.log(NULSNumber, '----------')
       if (NULSNumber.length !== 0) {
+        let newBlockRewardBeforeDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardBeforeDeflation, 11));
+        this.count.blockRewardBeforeDeflation = newBlockRewardBeforeDeflation.toFormat(2);
+        let newBlockRewardAfterDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardAfterDeflation, 11));
+        this.count.blockRewardAfterDeflation = newBlockRewardAfterDeflation.toFormat(2);
+
+        this.count.nextDeflationTime = moment(NULSNumber.nextDeflationTime).format('YYYY年MM月DD日')
+        this.count.blockRewardAfterDeflation = newBlockRewardAfterDeflation.toFormat(2);
+        this.countdown(NULSNumber.nextDeflationTime)
         let newCirculateNumber = new BigNumber(timesDecimals(NULSNumber.total, 11));
         this.count.circulateNumber = newCirculateNumber.toFormat(2);
         let newEntrustNumber = new BigNumber(timesDecimals(NULSNumber.consensusTotal, 11));
@@ -312,6 +325,43 @@ export default {
         this.count.tradeNumber = newTradeNumber.toFormat(2);
         this.countLoading = false;
       }
+    },
+    countdown(targetTime){
+        if(!targetTime) return false;
+        // 目标时间
+        let newdate = new Date(targetTime)
+        // let setINT = setInterval(() => {
+            // 当前时间
+            let olddate = new Date()
+            // 目标时间减去当前时间
+            let down = newdate - olddate
+            // 当剩余时间为负数时，清楚计时器
+            if(down < 0){
+                // clearInterval(setINT)
+            }
+            this.formatSeconds(down)
+        // },3000)
+    },
+    formatSeconds(value) {
+        var secondTime = 0 //秒
+        var minuteTime = 0; // 分
+        var hourTime = 0; // 小时
+        var today = 0 //天
+        // 全部剩余多少秒
+        var seconds = Math.ceil(value / 1000) 
+        
+        hourTime = Math.floor(seconds / 3600) 
+        //天数
+        today = Math.floor(hourTime / 24)
+        //小时
+        hourTime = Math.floor(hourTime % 24) < 10 ? '0' + Math.floor(hourTime % 24) : Math.floor(hourTime % 24)
+        // 分
+        minuteTime = Math.floor(seconds / 60 % 60) < 10 ? '0' + Math.floor(seconds / 60 % 60) : Math.floor(seconds / 60 % 60)
+        //秒
+        secondTime = Math.floor(seconds % 60) < 10 ? '0' + Math.floor(seconds % 60) : Math.floor(seconds % 60)
+
+        this.count.Countdown_to_production_cuts = today+'d:'+hourTime+'h:'+minuteTime+'m'
+        console.log('剩余'+today+'天'+ hourTime+'小时'+minuteTime+'分钟'+secondTime+'秒')
     },
 
     /**
