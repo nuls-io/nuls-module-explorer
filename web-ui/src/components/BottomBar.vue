@@ -105,7 +105,6 @@
       getNULSNumber() {
         this.$post('/', 'getCoinInfo', [])
           .then((response) => {
-            console.log(response, '获取NULS数量信息');
             if (response.hasOwnProperty("result")) {
               this.$store.commit('SET_NULSNUMBER', response.result);
             }

@@ -115,6 +115,7 @@ import CalcBar from '@/components/CalcBar'
 import { superLong, timesDecimals ,getOriginChain} from '@/api/util.js'
 import SearchBar from '../components/SearchBar.vue'
 import moment from 'moment'
+import { mapState } from 'vuex'
 
 export default {
   components:{
@@ -267,6 +268,11 @@ export default {
       this.getRotationList();
       this.height = this.$store.state.height;
     }, 10000);
+
+    console.log(this.NULSNumber, 'kkkkkkkkkk')
+  },
+  computed:{
+    ...mapState(['NULSNumber'])
   },
   mounted() {
     this.heightSetInterval = setInterval(() => {
@@ -365,7 +371,6 @@ export default {
         //秒
         secondTime = Math.floor(seconds % 60) < 10 ? '0' + Math.floor(seconds % 60) : Math.floor(seconds % 60)
         this.count.Countdown_to_production_cuts = today+'d:'+hourTime+'h:'+minuteTime+'m'
-        console.log('剩余'+today+'天'+ hourTime+'小时'+minuteTime+'分钟'+secondTime+'秒')
     },
     DynamicMonitoring(e){
       if(!e){

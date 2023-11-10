@@ -3,6 +3,7 @@ import copy from 'copy-to-clipboard'
 import { RUN_DEV, IS_BETA } from '../config'
 import axios from 'axios';
 import { _networkInfo } from '@/api/heterogeneousChainConfig';
+import i18n from '../i18n'
 
 /**
  * 10的N 次方
@@ -99,8 +100,8 @@ export function timesDecimals0(nu, decimals = 8) {
 //转千分位
 export function toThousands(num = 0) {
   const N = num.toString().split('.')
-  const int  = N[0]
-  const float = N[1] ? '.'+N[1] : ''
+  const int = N[0]
+  const float = N[1] ? '.' + N[1] : ''
   return int.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,') + float;
 }
 
@@ -292,7 +293,7 @@ export const isBeta = IS_BETA
  * @param heterogeneousChainId 异构链id
  * @param assetChainId 资产id
  */
- export function getOriginChain(heterogeneousChainId, assetChainId) {
+export function getOriginChain(heterogeneousChainId, assetChainId) {
   const chainsInfo = Object.values(_networkInfo);
   let chainName = '';
   if (heterogeneousChainId !== 0) {
@@ -303,4 +304,28 @@ export const isBeta = IS_BETA
     chainName = NerveChainId === assetChainId ? 'NERVE' : 'NULS';
   }
   return chainName;
+}
+
+export async function Copy(val) {
+  const locale = i18n._vm.locale
+  let target = document.createElement('input') //创建input节点
+  target.value = val // 给input的value赋值
+  target.style.position = 'absolute'
+  target.style.top = '-99999px'
+  document.body.appendChild(target) // 向页面插入input节点
+  target.select() // 选中input
+  try {
+    await document.execCommand('Copy') // 执行浏览器复制命令
+    if(locale === 'cn'){
+      alert('复制成功')
+    }else{
+      alert('Copied successfully')
+    }
+  } catch {
+    if(locale === 'cn'){
+      alert('您的浏览器不支持复制')
+    }else{
+      alert('Your browser does not support copying')
+    }
+  }
 }

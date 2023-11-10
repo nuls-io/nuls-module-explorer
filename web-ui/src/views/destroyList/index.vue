@@ -2,9 +2,8 @@
     <div class="destroyList">
         <div class="w1200">
             <p class="destroy-title">Burned Address List</p>
-
             <el-table :data="tableData" style="width: 100%" :cell-class-name="cellClassName">
-                <el-table-column label="Address" min-width="150">
+                <el-table-column label="Address" min-width="260">
                     <template slot-scope="scope">
                         <div class="lineGhei">{{ scope.row.address }}</div>
                     </template>
@@ -12,18 +11,18 @@
                 <el-table-column label="Label" min-width="150">
                     <template slot-scope="scope">
                         <div class="lineGhei">
-                            <span class="label-box">{{ scope.row.date }}</span>
+                            <span class="label-box">{{ scope.row.type }}</span>
                         </div>
                     </template>
                 </el-table-column>
                 <el-table-column label="Quantity（NULS）" min-width="150">
                     <template slot-scope="scope">
-                        <div class="lineGhei">{{ scope.row.name }}</div>
+                        <div class="lineGhei">{{ toThousands(scope.row.value)  }}</div>
                     </template>
                 </el-table-column>
                 <el-table-column label="Percentage" min-width="150">
                     <template slot-scope="scope">
-                        <div class="lineGhei">{{ scope.row.s }}</div>
+                        <div class="lineGhei">{{ scope.row.proportion }}</div>
                     </template>
                 </el-table-column>
             </el-table>
@@ -32,31 +31,20 @@
 </template>
 
 <script>
+import { toThousands } from '@/api/util'
+import { mapState } from 'vuex';
 export default {
     data() {
         return {
-            tableData: [{
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄',
-                s: 'sssssss'
-            }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1517 弄',
-                s: 'sssssss'
-            }, {
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄',
-                s: 'sssssss'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄',
-                s: 'sssssss'
-            }]
+            tableData: [],
+            toThousands
         }
+    },
+    computed:{
+        ...mapState(['NULSNumber'])
+    },
+    created(){
+        this.tableData = this.NULSNumber.destroyInfoList
     },
     methods:{
         cellClassName({row, column, rowIndex, columnIndex}){
@@ -74,7 +62,7 @@ export default {
 <style lang="less">
 .destroyList {
     background-color: #F9FAFD;
-
+    padding-bottom: 100px;
     .w1200 {
         .destroy-title {
             font-size: 20px;
@@ -124,12 +112,12 @@ export default {
             }
             .custom-style-right{
                 .cell{
-                    margin-right: 16px;
+                    // margin-right: 16px;
                 }
             }
             .custom-style-left{
                 .cell{
-                    margin-left: 16px;
+                    // margin-left: 16px;
                 }
             }
         }

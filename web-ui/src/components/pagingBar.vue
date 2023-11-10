@@ -57,10 +57,23 @@
 
   .paging {
     .pages {
+      padding-right: 24px;
       margin: 10px 0 10px 0;
       text-align: right;
-      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .btn-prev,.btn-next{
+        width: 28px;
+          height: 28px;
+          line-height: 28px;
+      }
       .el-pager {
+        li{
+          width: 28px;
+          height: 28px;
+          line-height: 28px;
+        }
         .active {
           background-color: @Ncolour !important;
         }

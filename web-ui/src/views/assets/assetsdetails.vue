@@ -1,9 +1,9 @@
 <template>
   <div class="assetsdetails">
     <div class="w1200">
-      <div class="assetsdetails_title ">
+      <div class="assetsdetails_title">
         <SymbolIcon :icon="assetInfo && assetInfo.symbol" />
-        Token {{assetInfo.name}}({{assetInfo.symbol}})
+        Token {{ assetInfo.name }}({{ assetInfo.symbol }})
       </div>
     </div>
 
@@ -13,15 +13,17 @@
         <div class="a_content">
           <div class="row-center">
             <p>{{ $t("assets.maximum") }}</p>
-            <p>{{ toThousands(assetInfo.totalSupply) }} {{assetInfo.symbol}}</p>
+            <p>
+              {{ toThousands(assetInfo.totalSupply) }} {{ assetInfo.symbol }}
+            </p>
           </div>
           <div class="row-center">
             <p>{{ $t("assets.decimal_places") }}</p>
-            <p>{{assetInfo.decimals}}</p>
+            <p>{{ assetInfo.decimals }}</p>
           </div>
           <div class="row-center">
             <p>{{ $t("assets.Holder") }}</p>
-            <p>{{toThousands(assetInfo.addresses)}} <span>(+0.309%)</span></p>
+            <p>{{ toThousands(assetInfo.addresses) }} <span>(+0.309%)</span></p>
           </div>
         </div>
       </div>
@@ -30,7 +32,7 @@
         <div class="a_content">
           <div class="row-center">
             <p>{{ $t("assets.Number_of") }}</p>
-            <p>{{toThousands(assetInfo.txCount)}}</p>
+            <p>{{ toThousands(assetInfo.txCount) }}</p>
           </div>
           <div class="row-center">
             <p>{{ $t("assets.traffic") }}</p>
@@ -39,11 +41,11 @@
           <div class="row-center">
             <p>{{ $t("assets.source_chain") }}</p>
             <p>
-              <img
+              <!-- <img
                 class="img1"
                 src="../../assets/img/logo.png"
                 alt=""
-              />Ethereum
+              />Ethereum -->
             </p>
           </div>
         </div>
@@ -55,19 +57,58 @@
             class="row-center"
             :class="i18n_locale === 'en' ? 'adaptation' : ''"
           >
-            <p>{{ $t("assets.Token_Contract", { number: 18 }) }}</p>
             <p>
-              0x8E870Db...d388289E1
-              <img class="img2" src="./img/copey.png" alt="" />
+              {{ $t("assets.Token_Contract", { number: assetInfo.decimals }) }}
+            </p>
+            <p>
+              {{ Selection(assetInfo.contract) }}
+              <img
+                class="img2"
+                src="./img/copey.png"
+                alt=""
+                @click="Copy(assetInfo.contract)"
+              />
             </p>
           </div>
           <div class="row-center">
             <p>{{ $t("bottom.website") }}</p>
-            <p><span>nuls.io</span></p>
+            <p class="cur" @click="openUrl(assetInfo.website)">
+              <span>{{ assetInfo.website }}</span>
+            </p>
           </div>
           <div class="row-center">
             <p>{{ $t("bottom.community") }}</p>
-            <p><img class="img2" src="../../assets/img/Icon.png" alt="" /></p>
+            <div class="flex-center" v-if="assetInfo.community">
+              <a
+                :href="assetInfo.community.telegram"
+                v-if="assetInfo.community.telegram"
+                target="_blank"
+              >
+                <img src="./img/telegram.svg" alt="" />
+              </a>
+              <a
+                :href="assetInfo.community.twitter"
+                v-if="assetInfo.community.twitter"
+                target="_blank"
+              >
+                <img src="./img/twitter.svg" alt="" />
+              </a>
+              <a
+                :href="assetInfo.community.medium"
+                v-if="assetInfo.community.medium"
+                target="_blank"
+              >
+                <img src="./img/medium.svg" alt="" />
+              </a>
+              <a
+                :href="assetInfo.community.discord"
+                v-if="assetInfo.community.discord"
+                target="_blank"
+              >
+                <img src="./img/discord.svg" alt="" />
+              </a>
+            </div>
+            <span v-else>--</span>
           </div>
         </div>
       </div>
@@ -76,10 +117,10 @@
     <div class="w1200 a_list_container">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('assets.Trading_Information')" name="first">
-          <Trading></Trading>
+          <Trading :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></Trading>
         </el-tab-pane>
         <el-tab-pane :label="$t('assets.Holder')">
-          <holder></holder>
+          <holder :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></holder>
         </el-tab-pane>
         <el-tab-pane name="second">
           <span slot="label"
@@ -88,9 +129,9 @@
           /></span>
           <Thecode></Thecode>
         </el-tab-pane>
-        <el-tab-pane :label="$t('assets.information')" name="fourth">
+        <!-- <el-tab-pane :label="$t('assets.information')" name="fourth">
           <information></information>
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
   </div>
@@ -101,24 +142,30 @@ import Holder from "./components/Holder.vue";
 import Trading from "./components/Trading";
 import Information from "./components/information";
 import Thecode from "./components/Thecode";
-import SymbolIcon from '@/components/SymbolIcon.vue';
-import { _networkInfo } from '@/api/heterogeneousChainConfig';
-import { getHeaderInfo ,divisionDecimals, toThousands} from "../../api/util";
+import SymbolIcon from "@/components/SymbolIcon.vue";
+import { _networkInfo } from "@/api/heterogeneousChainConfig";
+import {
+  getHeaderInfo,
+  divisionDecimals,
+  toThousands,
+  Copy,
+} from "../../api/util";
 export default {
   components: {
     Trading,
     Holder,
     Information,
     Thecode,
-    SymbolIcon
+    SymbolIcon,
   },
   data() {
     return {
+      Copy,
       activeName: "first",
       i18n_locale: "cn",
       assetId: "",
       assetInfo: {},
-      toThousands
+      toThousands,
     };
   },
   watch: {
@@ -151,6 +198,14 @@ export default {
   },
   methods: {
     handleClick(tab) {},
+    Selection(val) {
+      if (val) {
+        return val.slice(0, 9) + "..." + val.slice(-9);
+      }
+    },
+    openUrl(url) {
+      window.open(url);
+    },
     async getAssetInfo() {
       const result = await this.$post(
         "/",
@@ -188,6 +243,11 @@ export default {
     border-radius: 12px;
     background: #ffffff;
     margin-top: 24px;
+    .el-tabs{
+      .el-tabs__content{
+        overflow: initial;
+      }
+    }
   }
   .el-tabs {
     .a_position {
@@ -244,7 +304,11 @@ export default {
           font-size: 14px;
           color: #000000;
           line-height: 50px;
-
+          .flex-center {
+            a {
+              margin-left: 10px;
+            }
+          }
           &:not(:last-child) {
             border-bottom: 1px solid #e9e9f8;
           }
