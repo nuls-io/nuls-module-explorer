@@ -8,9 +8,7 @@
       </div>
     </div>
     <div class="tabs w1200">
-      <el-table :data="blockList" stripe border style="width: 100%" v-loading="blockLoading">
-        <el-table-column label="" width="30">
-        </el-table-column>
+      <el-table :data="blockList" style="width: 100%" v-loading="blockLoading">
         <el-table-column :label="$t('public.height')" width="130">
           <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
           </template>
@@ -162,8 +160,38 @@
     }
     .tabs {
       margin-top: 0;
+      margin-bottom: 100px;
       .el-table{
         border-radius: 12px;
+        .el-table__header-wrapper{
+          background: #F4F8FE;
+          padding: 0 24px;
+          .el-table__header{
+            width: initial !important;
+          }
+        }
+        .el-table__body-wrapper{
+          padding: 0 24px;
+          .el-table__body{
+            width: initial !important;
+            tr{
+              td{
+                padding: 0 !important;
+                .cell{
+                  line-height: 48px;
+                }
+              }
+            }
+          }
+        }
+        tr{
+          th{
+            background: #F4F8FE;
+            .cell{
+              color: #4A4F55;
+            }
+          }
+        }
       }
     }
   }

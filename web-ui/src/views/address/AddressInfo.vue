@@ -59,7 +59,7 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('public.txList')" name="addressFirst">
           <SelectBar v-model="typeRegion" @change="changeType"></SelectBar>
-          <el-table :data="txList" stripe border style="width: 100%;" class="mt_20" v-loading="txListLoading">
+          <el-table :data="txList" style="width: 100%;" class="mt_20" v-loading="txListLoading">
             <el-table-column :label="$t('public.height')" width="90" align="left">
               <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
               </template>

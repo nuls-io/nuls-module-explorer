@@ -477,7 +477,7 @@ export default {
     get14DaysData(time) {
       this.$post('/', 'getTxStatistical', [time])
         .then((response) => {
-          //console.log(response);
+          console.log(response, '获取14天交易历史数据');
           if (response.hasOwnProperty("result")) {
             this.dayRateData = response.result
           }
@@ -748,7 +748,7 @@ export default {
       float: left;
       border: @BD1;
       border-radius: 12px;
-
+      background: #FFFFFF;
       .h_chart_title {
         margin: 24px 0 1px 0;
         z-index: 9;

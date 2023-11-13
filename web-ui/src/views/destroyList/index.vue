@@ -86,6 +86,16 @@ export default {
             }
             .el-table__header-wrapper{
                 border-bottom: 1px solid #E9E9F8;
+                padding: 0 24px;
+                .el-table__header{
+                    width: initial !important;
+                }
+            }
+            .el-table__body-wrapper{
+                padding: 0 24px;
+                .el-table__body{
+                    width: initial !important;
+                }
             }
             th{
                 .cell{
@@ -94,6 +104,7 @@ export default {
                 }
             }
             td{
+                padding: 0 !important;
                 .cell{
                     border-bottom: 1px solid #E9E9F8;
                 }

@@ -23,6 +23,9 @@ export default {
   data() {
     return {};
   },
+  created(){
+    console.log(this.assetsList, '##########')
+  },
   methods:{
     symbolLogo(name) {
       if (name) {

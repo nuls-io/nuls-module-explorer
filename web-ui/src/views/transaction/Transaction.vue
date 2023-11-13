@@ -108,35 +108,35 @@ export default {
         }
       }
     },
-      this.chartSettings = {
-        yAxisType: ['normal'],
-        labelMap: { 'value': 'TXS' },
-        lineStyle: {
-          width: 1,
-          color: '#00E789'
-        },
-        area: true, //是否展示为面积图
-        itemStyle: { //面积图颜色设置
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              {
-                offset: 0,
-                color: 'rgba(0, 231, 137, 0.5)', // 0% 处的颜色
-              },
-              {
-                offset: 1,
-                color: 'rgba(255, 255, 255, 0)' // 100% 处的颜色
-              }
-            ],
-            globalCoord: false // 缺省为 false
-          }
+    this.chartSettings = {
+      yAxisType: ['normal'],
+      labelMap: { 'value': 'TXS' },
+      lineStyle: {
+        width: 1,
+        color: '#00E789'
+      },
+      area: true, //是否展示为面积图
+      itemStyle: { //面积图颜色设置
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            {
+              offset: 0,
+              color: 'rgba(0, 231, 137, 0.5)', // 0% 处的颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(255, 255, 255, 0)' // 100% 处的颜色
+            }
+          ],
+          globalCoord: false // 缺省为 false
         }
-      };
+      }
+    };
     return {
 
       //统计图数据
@@ -483,6 +483,9 @@ export default {
         border-radius: 5px;
       }
       .el-table{
+        .el-table__header-wrapper{
+          border-radius: 8px;
+        }
         .click{
           color: #00DB82;
         }
@@ -493,6 +496,7 @@ export default {
           }
         }
         th{
+          background: #F4F8FE;
           .cell{
             color: #4A4F55;
           }

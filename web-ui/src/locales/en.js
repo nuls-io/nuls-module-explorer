@@ -274,7 +274,9 @@ const en = {
   "blockList": {},
 
   "address": {
-    "address0": "Address list"
+    "address0": "Address List",
+    "address1": "Active Address (Last 14 Days)",
+    "address2": "Active Address"
   },
 
   "addressList": {

@@ -2,7 +2,7 @@
   <div class="contracts-all">
     <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('contracts.contracts1')"
                @change="hideNrc20List"></el-switch>
-    <el-table :data="list" stripe border>
+    <el-table :data="list" border>
       <el-table-column :label="$t('public.serial')" width="80" align="left">
         <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
       </el-table-column>
