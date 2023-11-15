@@ -41,7 +41,7 @@
       <el-col :span="24">
         <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200">
           <el-tab-pane :label="$t('tokenInfo.tokenInfo2')" name="tokenFirst">
-            <el-table :data="accountTxList" stripe border style="width: 100%" class="mt_20">
+            <el-table :data="accountTxList" style="width: 100%" class="mt_20">
               <el-table-column :label="$t('public.height')" width="100" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click"
@@ -74,7 +74,7 @@
             <!--<paging :pager="pager" @change="getItemList" v-show="pager.total > pager.rows"></paging>-->
           </el-tab-pane>
           <el-tab-pane :label="$t('tokenInfo.tokenInfo3')" name="tokenSecond">
-            <el-table :data="accountTokensList" stripe border style="width: 100%" class="mt_20">
+            <el-table :data="accountTokensList" style="width: 100%" class="mt_20">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column :label="$t('tokenInfo.tokenInfo4')" width="150" align="left">
                 <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>

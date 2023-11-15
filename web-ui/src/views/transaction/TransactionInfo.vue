@@ -720,7 +720,6 @@ export default {
       padding-left: 20px;
       padding-top: 20px;
       padding-bottom: 20px;
-      border-bottom: 1px solid #E9E9F8;
     }
   }
 
@@ -871,7 +870,6 @@ export default {
         .cell {
           font-size: 14px;
           color: #4A4F55;
-          border-bottom: 1px solid #E9E9F8;
 
         }
       }

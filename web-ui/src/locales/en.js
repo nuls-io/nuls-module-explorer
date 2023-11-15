@@ -186,7 +186,8 @@ const en = {
     "undefined": "",
     "1": "General Account",
     "2": "Contract account",
-    "3": "Multi account"
+    "3": "Multi account",
+    "9": "Black hole address"
   },
 
   "nodeType": {

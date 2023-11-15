@@ -61,7 +61,7 @@
             </ul>
           </div>
           <div class="cards-title font14 cb">{{ $t('consensus.consensus8') }}</div>
-          <el-table :data="roundList" stripe border style="width: 100%" v-loading="roundListLoading">
+          <el-table :data="roundList" style="width: 100%" v-loading="roundListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column :label="$t('public.round')" width="100" align="left">
@@ -503,6 +503,18 @@ export default {
             }
           }
         }
+      }
+    }
+  }
+}
+@media(max-width: 568px){
+  .cards{
+    .cards-ul{
+      display: flex;
+      flex-direction: column;
+      .cards-li{
+        width: 100%;
+        margin: 0;
       }
     }
   }

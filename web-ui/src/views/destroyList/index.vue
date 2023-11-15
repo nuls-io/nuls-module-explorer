@@ -8,7 +8,7 @@
                         <div class="lineGhei">{{ scope.row.address }}</div>
                     </template>
                 </el-table-column>
-                <el-table-column label="Label" min-width="150">
+                <el-table-column label="Label" min-width="180">
                     <template slot-scope="scope">
                         <div class="lineGhei">
                             <span class="label-box">{{ scope.row.type }}</span>
@@ -85,17 +85,11 @@ export default {
                 background: #FFFFFF;
             }
             .el-table__header-wrapper{
-                border-bottom: 1px solid #E9E9F8;
+                background: #F4F8FE;
                 padding: 0 24px;
-                .el-table__header{
-                    width: initial !important;
-                }
             }
             .el-table__body-wrapper{
                 padding: 0 24px;
-                .el-table__body{
-                    width: initial !important;
-                }
             }
             th{
                 .cell{
@@ -105,9 +99,6 @@ export default {
             }
             td{
                 padding: 0 !important;
-                .cell{
-                    border-bottom: 1px solid #E9E9F8;
-                }
             }
             .lineGhei{
                 line-height: 46px;

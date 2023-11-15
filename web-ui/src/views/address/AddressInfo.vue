@@ -92,7 +92,7 @@
             <el-option v-for="item in tokenOptions" :key="item[0]" :label="item[1]" :value="item[0]">
             </el-option>
           </el-select>
-          <el-table :data="tokenList" stripe border style="width: 100%" class="mt_20" v-loading="tokenListLoading">
+          <el-table :data="tokenList" style="width: 100%" class="mt_20" v-loading="tokenListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="height" :label="$t('public.height')" width="80" align="left">
@@ -132,7 +132,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList3')" name="addressThree">
-          <el-table :data="nrc20List" stripe border style="width: 100%" class="mt_20" v-loading="nrc20ListLoading">
+          <el-table :data="nrc20List" style="width: 100%" class="mt_20" v-loading="nrc20ListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="120"
@@ -162,7 +162,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList4')" name="addressFour">
-          <el-table :data="nrc721List" stripe border style="width: 100%" class="mt_20" v-loading="nrc721ListLoading">
+          <el-table :data="nrc721List" style="width: 100%" class="mt_20" v-loading="nrc721ListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="160"
@@ -186,7 +186,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList5')" name="addressFive">
-          <el-table :data="nrc1155List" stripe border style="width: 100%" class="mt_20" v-loading="nrc1155ListLoading">
+          <el-table :data="nrc1155List" style="width: 100%" class="mt_20" v-loading="nrc1155ListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="160"
@@ -211,7 +211,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('network.network12')" name="addressSix">
-          <el-table :data="holdData" border v-loading="holdDataLoading">
+          <el-table :data="holdData" v-loading="holdDataLoading">
             <el-table-column prop="chainId" :label="$t('network.network0')" min-width="300" align="center">
             </el-table-column>
             <el-table-column prop="assetId" :label="$t('network.network13')" width="290" align="center">

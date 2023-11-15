@@ -97,15 +97,9 @@ export default {
   .el-table__header-wrapper {
     padding: 0 24px;
     background: #f4f8fe;
-    .el-table__header {
-      width: initial !important;
-    }
   }
   .el-table__body-wrapper {
     padding: 0 24px;
-    .el-table__body {
-      width: initial !important;
-    }
   }
 }
 </style>

@@ -16,7 +16,7 @@
         </el-table-column>
         <el-table-column
           :label="$t('public.address')"
-          min-width="180"
+          width="260"
           align="left"
         >
           <template slot-scope="scope">
@@ -39,7 +39,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('assetInfo.assetInfo24')" min-width="100">
+        <el-table-column :label="$t('assetInfo.assetInfo24')" min-width="130">
           <template slot-scope="scope">{{
             scope.row.balance | toThousands
           }}</template>

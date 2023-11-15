@@ -24,7 +24,7 @@
         @sort-change="sortChange"
         v-loading="addressLoading"
       >
-        <!-- <el-table-column label="" width="30"> </el-table-column> -->
+        <el-table-column label="" width="30"> </el-table-column>
         <el-table-column :label="$t('public.serial')" width="100">
           <template slot-scope="scope">{{
             scope.$index + (pager.page - 1) * pager.rows + 1
@@ -292,8 +292,7 @@ export default {
     margin-bottom: 100px;
     margin-top: 0;
     @media screen and (max-width: 1000px) {
-      width: 95%;
-      margin: -1.4rem auto 5rem;
+      width: 100%;
     }
     .el-table{
       tr{
@@ -307,17 +306,7 @@ export default {
           }
         }
       }
-      .el-table__header-wrapper{
-        padding: 0 24px;
-      }
-      .el-table__body-wrapper{
-        padding: 0 24px;
-        .el-table__body{
-          width: initial !important;
-        }
-      }
       .el-table__header {
-        width: initial !important;
         .has-gutter {
           tr {
             th {
@@ -325,6 +314,21 @@ export default {
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px){
+  .address{
+    padding: 0 .5rem;
+    .bg-white{
+      .w1200{
+        width: 100%;
+        padding: 0;
+      }
+      .autoInf{
+        padding: 20px 0;
       }
     }
   }

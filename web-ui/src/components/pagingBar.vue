@@ -56,9 +56,10 @@
   @import "./../assets/css/style";
 
   .paging {
+    background: #fff;
     .pages {
       padding-right: 24px;
-      margin: 10px 0 10px 0;
+      padding-top: 10px;
       text-align: right;
       display: flex;
       align-items: center;
@@ -86,6 +87,14 @@
         .el-pagination__jump {
           display: none;
         }
+      }
+    }
+  }
+  @media (max-width: 568px){
+    .paging{
+      .pages{
+        white-space: wrap;
+        height: initial;
       }
     }
   }

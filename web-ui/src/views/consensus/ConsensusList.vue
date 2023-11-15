@@ -19,7 +19,7 @@
            @click="viewList = !viewList"></i>
     </div>
     <div v-show="!viewList" class="c_tabs">
-      <el-table :data="searchData" stripe border style="width: 100%">
+      <el-table :data="searchData" style="width: 100%">
         <el-table-column label="" width="30">
         </el-table-column>
         <el-table-column label="ID" min-width="150" align="left">

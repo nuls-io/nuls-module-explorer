@@ -39,6 +39,7 @@
         </div>
 
         <el-table :data="txList" style="width: 100%;" v-loading="txListLoading">
+          <el-table-column width="10" align="left"></el-table-column>
           <el-table-column :label="$t('public.height')" width="90" align="left">
             <template slot-scope="scope"><span class="click" @click="toUrl('blockInfo', scope.row.height)">{{
               scope.row.height }}</span>
@@ -64,7 +65,7 @@
         </el-table>
 
         <div class="paging">
-          <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
+          <el-pagination class="pages" background :pager-count=5 layout="total,prev, pager, next, jumper"
             v-show="pagerTotal > pagerRows" :total="pagerTotal" :current-page.sync="pagerIndex" :page-size="pagerRows"
             @current-change="pagesList">
           </el-pagination>
@@ -382,7 +383,7 @@ export default {
         }
 
         .chart_bt {
-          width: fit-content;
+          min-width: 108px;
           padding: 5px;
           background: #F4F8FE;
           border-radius: 6px;
@@ -568,5 +569,13 @@ export default {
       width: initial;
     }
   }
+}
+@media (max-width: 568px){
+  .paging{
+    .pages{
+      white-space: wrap;
+      height: initial;
+    }
+  } 
 }
 </style>

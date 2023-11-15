@@ -1,7 +1,7 @@
 <template>
   <div class="contract-nrc721">
     <div class="hide-div"></div>
-    <el-table :data="list" border stripe style="width: 100%" v-loading="listLoading">
+    <el-table :data="list" style="width: 100%" v-loading="listLoading">
       <el-table-column :label="$t('public.serial')" width="80" align="left">
         <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
       </el-table-column>

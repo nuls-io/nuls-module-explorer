@@ -18,7 +18,7 @@ export function post(url, methodName, data = {}, withoutChainId) {
     if(methodName !=='getOtherChainInfo'){
       data.unshift(Number(sessionStorage.getItem('chainId')));
     }
-    if (methodName === "getSymbolInfo" || withoutChainId) {
+    if (methodName === "getSymbolInfo" || withoutChainId || methodName === "getTopAssets") {
       data.shift()
     }
     const params = {"jsonrpc": "2.0", "method": methodName, "params": data, "id": Math.floor(Math.random() * 1000)};

@@ -51,7 +51,7 @@
           <SelectBar size="small" v-model="typeRegion" @change="changeType"></SelectBar>
         </div>
         <div class="info_table">
-          <el-table :data="txList" stripe style="width: 100%">
+          <el-table :data="txList" style="width: 100%">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column label="TXID" min-width="250" align="left">
@@ -245,6 +245,9 @@
         padding: 24px;
         .info_table{
           .el-table{
+            .el-table__header-wrapper{
+              border-radius: 8px;
+            }
             th,td{
               .cell{
                 color: #000000;

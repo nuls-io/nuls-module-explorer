@@ -90,7 +90,7 @@
       <el-col :span="24">
         <el-tabs v-model="activeNames" @tab-click="handleClicks">
           <el-tab-pane :label="$t('consensusInfo.consensusInfo7')" name="first" v-loading="blockListLoading">
-            <el-table :data="blockList" stripe border style="width: 100%">
+            <el-table :data="blockList" style="width: 100%">
               <el-table-column label="" width="30">
               </el-table-column>
               <el-table-column :label="$t('public.height')" width="100" align="left">
@@ -117,7 +117,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane :label="$t('consensusInfo.consensusInfo9')" name="second">
-            <el-table :data="punishList" stripe border style="width: 100%">
+            <el-table :data="punishList" style="width: 100%">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column prop="blockHeight" :label="$t('public.height')" width="180"
                                align="left"></el-table-column>
@@ -146,7 +146,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane :label="$t('consensusInfo.consensusInfo10')" name="three">
-            <el-table :data="consensusDeposit" stripe border style="width: 100%">
+            <el-table :data="consensusDeposit" style="width: 100%">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column :label="$t('consensusInfo.consensusInfo11')" min-width="250" align="left">
                 <template slot-scope="scope"><span class="cursor-p click"
@@ -174,7 +174,7 @@
               <el-option v-for="item in depositTypeo" :key="item.value" :label="$t('history.'+item.label)"
                          :value="item.value"></el-option>
             </el-select>
-            <el-table :data="consensusCancelDeposit" stripe border style="width: 100%">
+            <el-table :data="consensusCancelDeposit" style="width: 100%">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column label="TXID" width="200" align="left">
                 <template slot-scope="scope">

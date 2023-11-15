@@ -1,13 +1,14 @@
 <template>
   <div class="asset-tx-info">
-    <div v-loading="loading">
+    <div v-loading="loading" class="assets-container">
       <el-table :data="txList">
         <el-table-column width="20" align="left"></el-table-column>
-        <el-table-column label="#" width="40" align="left">
+        <!-- <el-table-column label="#" width="40" align="left">
           <template slot-scope="scope">
-            <img src="../img/yanjin.png" class="cur" alt="" />
+            <img src="../img/yanjin.png" class="cur" alt="" @click="illustrate = false" v-if="illustrate"/>
+            <img src="../img/biyan.png" class="cur" alt="" @click="illustrate = true" v-else/>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column
           :label="$t('assets.assetInfo19')"
           min-width="145"
@@ -26,7 +27,7 @@
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column min-width="120">
+        <el-table-column min-width="80">
           <template slot="header" slot-scope="scope">
             <FilterWrap
               :label="$t('assets.assetInfo20')"
@@ -50,10 +51,10 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('assets.assetInfo21')" min-width="120">
+        <el-table-column :label="$t('assets.assetInfo21')" min-width="145">
           <template slot-scope="scope">{{ scope.row.time }}</template>
         </el-table-column>
-        <el-table-column min-width="150" align="left">
+        <el-table-column min-width="145" align="left">
           <template slot="header" slot-scope="scope">
             <FilterWrap
               :label="$t('assets.assetInfo22')"
@@ -94,12 +95,12 @@
             <span v-else>--</span>
           </template>
         </el-table-column>
-        <el-table-column label="" width="60">
+        <el-table-column label="" min-width="60">
           <template slot-scope="scope">
             <img src="../img/zishi.png" alt="" />
           </template>
         </el-table-column>
-        <el-table-column min-width="150" align="left">
+        <el-table-column min-width="145" align="left">
           <template slot="header" slot-scope="scope">
             <FilterWrap
               :label="$t('assets.assetInfo23')"
@@ -258,6 +259,7 @@ export default {
       { value: "75", label: "75" },
     ];
     return {
+      illustrate: true,
       loading: true,
       txList: [],
       pager: {
@@ -379,6 +381,9 @@ export default {
   
   <style lang="less">
 .asset-tx-info {
+  .assets-container{
+    width: 100%;
+  }
   .paging {
     display: flex;
     justify-content: flex-end !important;
@@ -428,39 +433,39 @@ export default {
       }
     }
   }
-  .el-table,
-  .el-table__body-wrapper {
-    overflow: initial;
-  }
-  .el-table {
-    .cell {
-      overflow: initial;
-    }
-    .styleBut {
-      width: fit-content;
-      padding: 1px 5px;
-      background: #f2f7ff;
-      font-size: 12px;
-      color: #000000;
-      border-radius: 8px;
-    }
-    tr {
-      th {
-        .cell {
-          font-size: 14px;
-          color: #000000;
-        }
-      }
-    }
-  }
-  .el-table__header-wrapper {
-    overflow: initial;
-    th,
-    .cell,
-    div {
-      overflow: initial;
-    }
-  }
+  // .el-table,
+  // .el-table__body-wrapper {
+  //   overflow: initial;
+  // }
+  // .el-table {
+  //   .cell {
+  //     overflow: initial;
+  //   }
+  //   .styleBut {
+  //     width: fit-content;
+  //     padding: 1px 5px;
+  //     background: #f2f7ff;
+  //     font-size: 12px;
+  //     color: #000000;
+  //     border-radius: 8px;
+  //   }
+  //   tr {
+  //     th {
+  //       .cell {
+  //         font-size: 14px;
+  //         color: #000000;
+  //       }
+  //     }
+  //   }
+  // }
+  // .el-table__header-wrapper {
+  //   overflow: initial;
+  //   th,
+  //   .cell,
+  //   div {
+  //     overflow: initial;
+  //   }
+  // }
   .txType-filter {
     height: 280px;
     overflow-y: auto !important;

@@ -4,9 +4,9 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('assets.chain_assets')" name="Chain_assets">
           <div class="assets-table w1200">
-            <p class="table-titile">
+            <!-- <p class="table-titile">
               {{ $t("assets.Contracts", { number: pager.total }) }}
-            </p>
+            </p> -->
             <el-table
               :data="tableData"
               style="width: 100%"
@@ -19,15 +19,16 @@
               </el-table-column>
               <el-table-column label="Token" width="250">
                 <template slot-scope="scope">
-                  <div class="Token-box" @click="routLink">
-                    <img :src="symbolLogo(scope.row.name)" alt="" />
+                  <div class="Token-box" @click="routLink(scope.row.id)">
+                    <img src="./img/errorimg.png" alt="" />
+                    <!-- <img :src="scope.row.iconUrl" alt="" /> -->
                     <span class="cur color-derl">{{ scope.row.symbol }}</span>
                   </div>
                 </template>
               </el-table-column>
               <el-table-column label="Native Chain" min-width="160">
                 <template slot-scope="scope">
-                  <div class="chain-box">sssssss</div>
+                  <div class="chain-box" v-if="scope.row.sourceChainName">{{scope.row.sourceChainName}}</div>
                 </template>
               </el-table-column>
               <el-table-column
@@ -46,7 +47,7 @@
             </el-table>
 
             <div class="paging">
-              <div class="paging-select">
+              <!-- <div class="paging-select">
                 <span>show</span>
                 <el-select v-model="pagerRows" @change="changePagerRows">
                   <el-option label="20" value="20"></el-option>
@@ -54,8 +55,7 @@
                   <el-option label="100" value="100"></el-option>
                 </el-select>
                 <span>Records</span>
-              </div>
-
+              </div> -->
               <el-pagination
                 class="pages"
                 background
@@ -99,12 +99,12 @@ export default {
     return {
       toThousands,
       activeName: "Chain_assets",
-      pagerRows: 20,
+      // pagerRows: 20,
       tableData: [],
       pager: {
         total: 0,
         page: 1,
-        rows: 20,
+        rows: 15,
       },
       tabName: "Chain_assets",
     };
@@ -122,15 +122,16 @@ export default {
         return "../assets/img/destroyed.svg";
       }
     },
-    changePagerRows(val) {
-      this.pager.rows = Number(val);
-      this.handleClick(this.tabName);
-    },
+    // changePagerRows(val) {
+    //   this.pager.rows = Number(val);
+    //   this.handleClick(this.tabName);
+    // },
     getYearRateData() {
-      this.$post("/", "getTopAssets", []).then((response) => {
+      const { page, rows } = this.pager;
+      this.$post("/", "getTopAssets", [page,rows]).then((response) => {
         if (response.hasOwnProperty("result")) {
           this.pager.total = response.result?.totalCount || 0;
-          this.tableData = response.result;
+          this.tableData = response.result?.list;
         }
       });
     },
@@ -160,10 +161,8 @@ export default {
         }
       });
     },
-    routLink() {
-      this.$router.push({
-        name: "assetsdetails",
-      });
+    routLink(id) {
+      this.$router.push('/assets/details/'+id)
     },
     /**
      * 分页功能
@@ -183,9 +182,6 @@ export default {
     margin-bottom: 150px;
     background: #ffff;
     border-radius: 12px;
-    padding: 0 24px;
-    padding-bottom: 24px;
-
     .table-titile {
       font-size: 14px;
       color: #000000;
@@ -194,6 +190,9 @@ export default {
     }
 
     .paging {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
       .pages {
         height: initial;
       }
@@ -214,10 +213,6 @@ export default {
           right: 10px;
         }
       }
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
     }
 
     .paging .pages .el-pager .active {
@@ -248,12 +243,9 @@ export default {
     }
 
     .el-table {
-      .el-table__header-wrapper {
-        border-radius: 10px;
-      }
       tr {
         th {
-          background: #f4f8fe;
+          background: #F4F8FE;
           .cell {
             color: #4a4f55;
             padding: 0 36px;

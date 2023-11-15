@@ -23,7 +23,7 @@
           </div>
           <div class="row-center">
             <p>{{ $t("assets.Holder") }}</p>
-            <p>{{ toThousands(assetInfo.addresses) }} <span>(+0.309%)</span></p>
+            <p>{{ toThousands(assetInfo.addresses) }} <span>(+{{assetInfo.addressesChangeRate}}%)</span></p>
           </div>
         </div>
       </div>
@@ -36,16 +36,17 @@
           </div>
           <div class="row-center">
             <p>{{ $t("assets.traffic") }}</p>
-            <!-- <p>{{ toThousands(Number(assetInfo.inAmount) - Number(assetInfo.outAmount)) }}</p> -->
+            <p>{{ toThousands(Number(assetInfo.nulsChainSupply)) }}</p>
           </div>
           <div class="row-center">
             <p>{{ $t("assets.source_chain") }}</p>
             <p>
-              <!-- <img
+              <img
                 class="img1"
-                src="../../assets/img/logo.png"
+                :src="assetInfo.iconUrl"
                 alt=""
-              />Ethereum -->
+              />
+              {{assetInfo.sourceChainName}}
             </p>
           </div>
         </div>
@@ -226,10 +227,10 @@ export default {
           info.originNetworkLogo = origin.logo;
         }
         info.community = info.community ? JSON.parse(info.community) || {} : "";
+      console.log(info, "33");
+
         this.assetInfo = info;
-        // this.getCrossInfo();
       }
-      console.log(result, "33");
     },
   },
 };
@@ -243,6 +244,7 @@ export default {
     border-radius: 12px;
     background: #ffffff;
     margin-top: 24px;
+    margin-bottom: 100px;
     .el-tabs{
       .el-tabs__content{
         overflow: initial;
@@ -279,13 +281,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    flex-wrap: wrap;
     .a_container {
       width: 387px;
       height: 199px;
       background: #ffffff;
       border-radius: 12px;
-
+      margin-bottom: 20px;
       .a_title {
         font-size: 16px;
         color: #000000;
@@ -356,5 +358,29 @@ export default {
       }
     }
   }
+}
+
+@media (max-width: 1200px){
+  .w1200{
+    width: initial;
+  }
+  .assetsdetails{
+    padding: 0 .5rem;
+    .assetsdetails_container{
+      .a_container{
+        width: 49%;
+      }
+    }
+  }
+}
+
+@media (max-width: 568px){
+  .assetsdetails{
+    .assetsdetails_container{
+      .a_container{
+        width: 100%;
+      }
+    }
+  } 
 }
 </style>

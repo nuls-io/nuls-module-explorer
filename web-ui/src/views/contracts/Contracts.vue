@@ -2,7 +2,7 @@
   <div class="contracts-all">
     <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('contracts.contracts1')"
                @change="hideNrc20List"></el-switch>
-    <el-table :data="list" border>
+    <el-table :data="list">
       <el-table-column :label="$t('public.serial')" width="80" align="left">
         <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
       </el-table-column>
@@ -52,7 +52,7 @@ export default {
 
 <style lang="less">
 .contracts-all {
-  //padding-bottom: 60px;
+  margin-bottom: 60px;
   .is-checked .el-switch__core{
     border-color: #00DB82 !important;
     background-color: #00DB82 !important;

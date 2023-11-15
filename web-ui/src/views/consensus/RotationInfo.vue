@@ -24,7 +24,7 @@
                    :width="32"
                    :inactive-text="$t('rotationInfo.rotationInfo1')">
         </el-switch>
-        <el-table :data="rotationList" stripe border style="width: 100%; margin:45px 0 100px 0;"
+        <el-table :data="rotationList" style="width: 100%; margin:45px 0 100px 0;"
                   v-loading="rotationInfoLoading">
           <el-table-column label="" width="30">
           </el-table-column>

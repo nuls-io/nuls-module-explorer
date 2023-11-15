@@ -61,7 +61,7 @@
           <el-tab-pane :label="$t('public.transactionList')" name="first">
             <!-- <SelectBar v-model="contractsTypeRegion" :typeOptions="contractsStatusOptions" typeName="type"
                        @change="changeType"></SelectBar> -->
-            <el-table :data="contractsTxList" stripe border style="width: 100%;margin-top: 14px">
+            <el-table :data="contractsTxList" style="width: 100%;margin-top: 14px">
               <el-table-column prop="height" :label="$t('public.height')" width="100" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" @click="toUrl('blockInfo', scope.row.blockHeight)">{{ scope.row.blockHeight
@@ -100,7 +100,7 @@
           </el-tab-pane>
           
           <el-tab-pane :label="$t('transactionInfo.transactionInfo9')" name="three" v-if="false">
-            <el-table :data="modeList" stripe border style="width: 100%" class="mt_20">
+            <el-table :data="modeList" style="width: 100%" class="mt_20">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column prop="name" label="Method" width="280" align="left"></el-table-column>
               <el-table-column prop="height" label="Parameter" min-width="280" align="left">

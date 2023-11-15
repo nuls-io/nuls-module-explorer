@@ -389,5 +389,15 @@
       }
     }
   }
-
+@media (max-width: 568px){
+  .code-info{
+    .certifing{
+      .upload {
+        .upload-info{
+          width: initial;
+        }
+      }
+    }
+  } 
+}
 </style>

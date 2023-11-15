@@ -9,13 +9,14 @@
     </div>
     <div class="tabs w1200">
       <el-table :data="blockList" style="width: 100%" v-loading="blockLoading">
-        <el-table-column :label="$t('public.height')" width="130">
+        <el-table-column width="40"></el-table-column>
+        <el-table-column :label="$t('public.height')" min-width="100">
           <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" :label="$t('public.time')" width="230"></el-table-column>
-        <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="160"></el-table-column>
-        <el-table-column :label="$t('public.outNode')" min-width="185">
+        <el-table-column prop="createTime" :label="$t('public.time')" min-width="160"></el-table-column>
+        <el-table-column prop="txCount" :label="$t('public.transactionNo')" min-width="140"></el-table-column>
+        <el-table-column :label="$t('public.outNode')" min-width="140">
           <template slot-scope="scope">
             <label class="cursor-p" v-show="!scope.row.agentHash">
               {{$t('public.seedNode')}}
@@ -26,8 +27,8 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="size" :label="$t('public.size')+'(byte)'" width="100"></el-table-column>
-        <el-table-column :label="$t('public.blockReward')" width="180" align="center">
+        <el-table-column prop="size" :label="$t('public.size')+'(byte)'" min-width="140"></el-table-column>
+        <el-table-column :label="$t('public.blockReward')" align="center" min-width="140">
           <template slot-scope="scope">{{ scope.row.reward}}</template>
         </el-table-column>
       </el-table>
@@ -162,18 +163,14 @@
       margin-top: 0;
       margin-bottom: 100px;
       .el-table{
-        border-radius: 12px;
+        border-radius: 0;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
         .el-table__header-wrapper{
           background: #F4F8FE;
-          padding: 0 24px;
-          .el-table__header{
-            width: initial !important;
-          }
         }
         .el-table__body-wrapper{
-          padding: 0 24px;
           .el-table__body{
-            width: initial !important;
             tr{
               td{
                 padding: 0 !important;

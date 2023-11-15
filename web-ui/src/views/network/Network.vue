@@ -7,7 +7,7 @@
         <div class="container-title">
           <img src="../../assets/img/destroyed.svg" alt="">
           <span class="container-title-title">NerveNetwork</span>
-          <span class="container-label font14">@{{$t('assets.HeterogeneousChain')}}</span>
+          <!-- <span class="container-label font14">@{{$t('assets.HeterogeneousChain')}}</span> -->
         </div>
         <p class="network-text">
           {{$t('assets.NerveNetwork')}}
@@ -41,7 +41,7 @@
             <p class="my-split"></p>
             <div class="network-label-box">
               <p class="label-box-title">{{$t('bottom.website')}}</p>
-              <p class="label-shuzi network-link">http://nerve.network/</p>
+              <p class="label-shuzi cur network-link" @click="openUrl('http://nerve.network/')">http://nerve.network/</p>
             </div>
             <p class="my-split"></p>
             <div class="network-label-box">
@@ -65,7 +65,7 @@ export default {
     }
   },
   created() {
-
+    this.getHoldData()
   },
   mounted() {
 
@@ -74,7 +74,9 @@ export default {
 
   },
   methods: {
-
+    openUrl(url){
+      window.open(url)
+    },
     /**
      * @disc: 查询平行链信息
      * @params:

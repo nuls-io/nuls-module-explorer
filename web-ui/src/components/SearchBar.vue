@@ -23,9 +23,6 @@ export default {
   data() {
     return {};
   },
-  created(){
-    console.log(this.assetsList, '##########')
-  },
   methods:{
     symbolLogo(name) {
       if (name) {
@@ -35,15 +32,15 @@ export default {
       }
     },
     toAssetInfo(assetKey) {
-        this.$router.push('/assets/details/'+assetKey)
-      }
+      this.$router.push('/assets/details/'+assetKey)
+    }
   }
 };
 </script>
 
 <style lang="less">
 .search-container {
-  width: 518px;
+  width: 100%;
   height: fit-content;
   padding: 14px 0;
   position: absolute;
@@ -58,7 +55,7 @@ export default {
   text-align: initial;
   .search-scroll {
     padding: 0 16px;
-    width: 500px;
+    width: 98%;
     height: fit-content;
     background: #ffffff;
     border-radius: 12px;
