@@ -6,7 +6,7 @@
         <div class="style2">
           <img :src="symbolLogo(item.name)" alt="" />
           <p class="sysmol font14">{{item.name}}</p>
-          <p class="monys font12">${{item.inAmount}}</p>
+          <p class="monys font12" v-if="item.inAmount">${{item.inAmount}}</p>
         </div>
         <p class="style3">{{item.contract}}</p>
         <p class="style3" v-if="item.website">{{item.website}}</p>
@@ -91,6 +91,7 @@ export default {
         height: 24px;
         border-radius: 50%;
         margin-right: 8px;
+        border: 1px solid #D5DBE2;
       }
       .sysmol {
         color: #000000;

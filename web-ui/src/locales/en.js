@@ -509,6 +509,7 @@ const en = {
     "assetInfo29": "Cancel",
     "assetInfo30": "Prev",
     "assetInfo31": "Next",
+    "nodata": 'No data'
   },
 
   ...enLocale

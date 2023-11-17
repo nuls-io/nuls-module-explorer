@@ -61,7 +61,7 @@
             <p>
               {{ $t("assets.Token_Contract", { number: assetInfo.decimals }) }}
             </p>
-            <p>
+            <p class="with-black">
               {{ Selection(assetInfo.contract) }}
               <img
                 class="img2"
@@ -118,10 +118,14 @@
     <div class="w1200 a_list_container">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('assets.Trading_Information')" name="first">
-          <Trading :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></Trading>
+          <div class="nei-lian">
+            <Trading :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></Trading>
+          </div>
         </el-tab-pane>
         <el-tab-pane :label="$t('assets.Holder')">
-          <holder :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></holder>
+          <div class="nei-lian">
+            <holder :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></holder>
+          </div>
         </el-tab-pane>
         <el-tab-pane name="second">
           <span slot="label"
@@ -249,6 +253,9 @@ export default {
       .el-tabs__content{
         overflow: initial;
       }
+      .nei-lian{
+        padding: 0 24px;
+      }
     }
   }
   .el-tabs {
@@ -318,6 +325,9 @@ export default {
           p {
             display: flex;
             align-items: center;
+          }
+          .with-black{
+            color: #000000;
           }
 
           span {

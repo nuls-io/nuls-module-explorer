@@ -3,8 +3,8 @@
     <div class="bg-white w1200">
       <div class="font24 block-info-title">#{{this.height}}</div>
 
-      <div class="to-switch"><i class="el-icon-arrow-left"></i></div>
-      <div class="to-switch"><i class="el-icon-arrow-right"></i></div>
+      <div class="to-switch" @click="addition(false)"><i class="el-icon-arrow-left"></i></div>
+      <div class="to-switch" @click="addition(true)"><i class="el-icon-arrow-right"></i></div>
     </div>
     <div class="info_tabs w1200">
       <h3 class="tabs_title tabs_header capitalize">{{$t('public.basicInfo')}}</h3>
@@ -127,7 +127,21 @@
       }
     },
     methods: {
-
+      // 切换高度
+      addition(val){
+        const pathname = location?.pathname
+        let height = this.$route.query.height
+        height = parseInt(height)
+        if(val){
+          // 增加高度
+          height += 1
+        }else{
+          // 减少高度
+          height -= 1
+        }
+        this.$router.push({path: pathname, query:{height}})
+        this.height = height
+      },
       /**
        * 复制方法
        * @param sting
@@ -152,6 +166,8 @@
 
               response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               this.nodeInfo = response.result
+            }else{
+              this.nodeInfo = {}
             }
           }).catch((error) => {
           console.log(error)

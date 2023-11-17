@@ -121,7 +121,14 @@ export default {
     activedMenu(val) {
       // console.log(val, '9999');
       // if (!val) return '';
-      return val;
+      console.log(val)
+      if(val === "transactionInfo"){
+        return "transaction"
+      }else if(val === "assetsdetails"){
+        return "assets"
+      }else{
+        return val;
+      }
       /*if (val.indexOf('/block') === 0) {
         return 'block'
       } else if (val.indexOf('/address') === 0) {

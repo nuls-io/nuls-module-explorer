@@ -58,7 +58,7 @@
           <p class="Noun-number cur" @click="toUrl('consensus')">{{ count.nodeNumber }}</p>
         </div>
         <p class="section"></p>
-        <ul class="clicks" @click="toUrl('rotationInfo', rotationIndex)">
+        <ul class="clicks jiedian" @click="toUrl('rotationInfo', rotationIndex)">
           <li v-for="(item, index) in packerList" :key="index">
             <p class="tc font12" :class="item.order === pagekerId ? 'sizecolor' : ''">{{ item.agentName ? item.agentName :
               item.packingAddress }}</p>
@@ -269,7 +269,6 @@ export default {
       this.height = this.$store.state.height;
     }, 10000);
 
-    console.log(this.NULSNumber, 'kkkkkkkkkk')
   },
   computed:{
     ...mapState(['NULSNumber'])
@@ -317,7 +316,6 @@ export default {
         this.count.nodeNumber = 0
       }
       let NULSNumber = this.$store.state.NULSNumber;
-      console.log(NULSNumber, '----------')
       if (NULSNumber.length !== 0) {
         let newBlockRewardBeforeDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardBeforeDeflation, 11));
         this.count.blockRewardBeforeDeflation = newBlockRewardBeforeDeflation.toFormat(2);
@@ -661,10 +659,9 @@ export default {
       border-radius: 12px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
 
       .Noun {
-        width: 160px;
+        width: 132.33px;
         height: 90px;
         display: flex;
         flex-direction: column;
@@ -688,6 +685,11 @@ export default {
         width: 1px;
         height: 30px;
         background: #E9E9F8;
+      }
+      .jiedian{
+        li{
+          width: 133.3px;
+        }
       }
 
       ul {

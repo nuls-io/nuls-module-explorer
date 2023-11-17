@@ -194,4 +194,11 @@
       margin: 20px 0 100px 0;
     }
   }
+
+  @media (max-width: 1200px){
+    .w1200{
+      width: 100%;
+      padding: 0 .5rem;
+    }
+  }
 </style>

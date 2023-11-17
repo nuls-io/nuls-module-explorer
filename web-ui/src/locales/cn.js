@@ -508,6 +508,7 @@ const cn = {
     "assetInfo29": "取消",
     "assetInfo30": "上一页",
     "assetInfo31": "下一页",
+    "nodata": "暂无数据"
   },
 
   ...zhLocale

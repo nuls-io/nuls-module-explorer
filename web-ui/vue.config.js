@@ -58,9 +58,9 @@ module.exports = {
     proxy: {// 配置跨域处理
       '/api': {
         // target: 'http://127.0.0.1:8080/',
-        target: "https://beta.public1.nuls.io/jsonrpc",
+        // target: "https://beta.public1.nuls.io/jsonrpc",
         // target: 'http://beta.wallet.nuls.io/api',
-        // target: 'http://beta.nulscan.io/api', //测试地址
+        target: 'http://beta.nulscan.io/api', //测试地址
         changeOrigin: true,  // 是否跨域
         pathRewrite: {
           '^/api': '/'

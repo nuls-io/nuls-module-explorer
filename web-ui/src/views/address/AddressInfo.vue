@@ -230,6 +230,7 @@
         <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
                        v-show="pageTotal > pageRows"
                        :total="pageTotal"
+                       :pager-count=5
                        :current-page.sync="pageIndex"
                        :page-size="pageRows"
                        @current-change="pagingMethod">

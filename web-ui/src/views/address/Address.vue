@@ -102,7 +102,6 @@ export default {
         },
       },
       yAxis: {
-        
         axisLine: {
           lineStyle: {
             color: "#B3B3CF",
@@ -297,7 +296,10 @@ export default {
     .el-table{
       tr{
         th{
-          background: initial;
+          background: #fff !important;
+          .cell{
+            color: #000000;
+          }
         }
         td{
           padding: 0 !important;

@@ -383,6 +383,9 @@ export default {
 .asset-tx-info {
   .assets-container{
     width: 100%;
+    .el-table{
+      border-radius: 0;
+    }
   }
   .paging {
     display: flex;
@@ -433,39 +436,6 @@ export default {
       }
     }
   }
-  // .el-table,
-  // .el-table__body-wrapper {
-  //   overflow: initial;
-  // }
-  // .el-table {
-  //   .cell {
-  //     overflow: initial;
-  //   }
-  //   .styleBut {
-  //     width: fit-content;
-  //     padding: 1px 5px;
-  //     background: #f2f7ff;
-  //     font-size: 12px;
-  //     color: #000000;
-  //     border-radius: 8px;
-  //   }
-  //   tr {
-  //     th {
-  //       .cell {
-  //         font-size: 14px;
-  //         color: #000000;
-  //       }
-  //     }
-  //   }
-  // }
-  // .el-table__header-wrapper {
-  //   overflow: initial;
-  //   th,
-  //   .cell,
-  //   div {
-  //     overflow: initial;
-  //   }
-  // }
   .txType-filter {
     height: 280px;
     overflow-y: auto !important;

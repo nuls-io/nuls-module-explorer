@@ -295,6 +295,7 @@
     .bg-white {
       margin: 20px auto 0;
       padding-bottom: 10px;
+      background: initial;
       @media screen and (max-width: 1000px) {
         padding-bottom: 2.5rem;
       }

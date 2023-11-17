@@ -26,9 +26,9 @@
         </el-switch>
         <el-table :data="rotationList" style="width: 100%; margin:45px 0 100px 0;"
                   v-loading="rotationInfoLoading">
-          <el-table-column label="" width="30">
+          <el-table-column label="" width="10">
           </el-table-column>
-          <el-table-column :label="$t('public.height')" width="120" align="left">
+          <el-table-column :label="$t('public.height')" align="left" min-width="100">
             <template slot-scope="scope">
               <span v-if="rotation === '1' " class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">{{ scope.row.blockHeight }}</span>
               <span v-else>
@@ -42,10 +42,10 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column prop="time" :label="$t('public.time')" width="160" align="left"></el-table-column>
-          <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="120"
+          <el-table-column prop="time" :label="$t('public.time')" align="left" min-width="180"></el-table-column>
+          <el-table-column prop="txCount" :label="$t('public.transactionNo')" min-width="140"
                            align="left"></el-table-column>
-          <el-table-column prop="txid" :label="$t('public.outNode')" min-width="180" align="left">
+          <el-table-column prop="txid" :label="$t('public.outNode')" align="left" min-width="150">
             <template slot-scope="scope">
               <label class="cursor-p" v-show="scope.row.seedPacked ">
                 {{$t('public.seedNode')}}
@@ -56,11 +56,11 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column prop="order" :label="$t('rotationInfo.rotationInfo2')" width="120"
+          <el-table-column prop="order" :label="$t('rotationInfo.rotationInfo2')" min-width="100"
                            align="left"></el-table-column>
           <!-- <el-table-column prop="strua" label="状态" width="120" align="center">
            </el-table-column>-->
-          <el-table-column prop="fee" :label="$t('public.blockReward')+'(NULS)'" width="120" align="left">
+          <el-table-column prop="fee" :label="$t('public.blockReward')+'(NULS)'" align="left" min-width="100">
             <template slot-scope="scope">
               {{ scope.row.reward}}
             </template>
@@ -207,7 +207,7 @@
         line-height: 40px;
       }
       .hide-switch {
-        margin: 20px 0 0 0;
+        margin: 10px 0 0 0;
         padding-bottom: 10px;
       }
     }

@@ -14,11 +14,7 @@
             scope.$index + 1 + (pager.page - 1) * pager.rows
           }}</template>
         </el-table-column>
-        <el-table-column
-          :label="$t('public.address')"
-          width="260"
-          align="left"
-        >
+        <el-table-column :label="$t('public.address')" width="260" align="left">
           <template slot-scope="scope">
             <div class="flex-start">
               <router-link
@@ -141,16 +137,17 @@ export default {
   
   <style lang="less">
 .asset-holders {
-    .el-table{
-        tr{
-            th{
-                .cell{
-                    font-size: 14px;
-                    color: #000000;
-                }
-            }
+  .el-table {
+    border-radius: 0;
+    tr {
+      th {
+        .cell {
+          font-size: 14px;
+          color: #000000;
         }
+      }
     }
+  }
   .flex-start img {
     margin-left: 6px;
     cursor: pointer;

@@ -20,8 +20,8 @@
               <el-table-column label="Token" width="250">
                 <template slot-scope="scope">
                   <div class="Token-box" @click="routLink(scope.row.id)">
-                    <img src="./img/errorimg.png" alt="" />
-                    <!-- <img :src="scope.row.iconUrl" alt="" /> -->
+                    <img :src="scope.row.iconUrl" alt="" v-if="scope.row.iconUrl"/>
+                    <img src="./img/errorimg.png" alt="" v-else/>
                     <span class="cur color-derl">{{ scope.row.symbol }}</span>
                   </div>
                 </template>
@@ -182,6 +182,7 @@ export default {
     margin-bottom: 150px;
     background: #ffff;
     border-radius: 12px;
+    overflow: hidden;
     .table-titile {
       font-size: 14px;
       color: #000000;
@@ -309,7 +310,7 @@ export default {
 
           .is-active {
             color: #00db82;
-            font-weight: 550;
+            font-weight: 400;
           }
         }
       }

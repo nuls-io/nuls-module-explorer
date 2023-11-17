@@ -84,13 +84,6 @@ export default {
             th,td,tr{
                 background: #FFFFFF;
             }
-            .el-table__header-wrapper{
-                background: #F4F8FE;
-                padding: 0 24px;
-            }
-            .el-table__body-wrapper{
-                padding: 0 24px;
-            }
             th{
                 .cell{
                     font-size: 14px;
@@ -112,14 +105,9 @@ export default {
                     background: #F2F7FF;
                 }
             }
-            .custom-style-right{
-                .cell{
-                    // margin-right: 16px;
-                }
-            }
-            .custom-style-left{
-                .cell{
-                    // margin-left: 16px;
+            tr{
+                th{
+                    background: #FFFFFF !important;
                 }
             }
         }

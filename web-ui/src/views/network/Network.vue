@@ -5,16 +5,14 @@
 
       <div class="network-container">
         <div class="container-title">
-          <img src="../../assets/img/destroyed.svg" alt="">
+          <img src="./img/neverwork.png" alt="">
           <span class="container-title-title">NerveNetwork</span>
           <!-- <span class="container-label font14">@{{$t('assets.HeterogeneousChain')}}</span> -->
         </div>
         <p class="network-text">
           {{$t('assets.NerveNetwork')}}
         </p>
-
         <el-divider></el-divider>
-
         <div class="network-label">
           <div class="network-label-div border-left">
             <div class="network-label-box">
@@ -47,6 +45,53 @@
             <div class="network-label-box">
               <p class="label-box-title">{{$t('bottom.Twitter')}}</p>
               <p class="label-shuzi network-link">@nerve_network</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="network-container">
+        <div class="container-title">
+          <img src="./img/enuls.png" alt="">
+          <span class="container-title-title">ENULS</span>
+          <span class="container-label font14">@{{$t('assets.HeterogeneousChain')}}</span>
+        </div>
+        <p class="network-text">
+          {{$t('assets.NerveNetwork')}}
+        </p>
+        <el-divider></el-divider>
+        <div class="network-label">
+          <div class="network-label-div border-left">
+            <div class="network-label-box">
+              <p class="label-box-title">{{$t('assets.asset_symbol')}}</p>
+              <p class="label-shuzi">NULS</p>
+            </div>
+            <p class="my-split"></p>
+            <div class="network-label-box">
+              <p class="label-box-title">{{$t('assets.traffic')}}</p>
+              <p class="label-shuzi">10,942,500.98735767</p>
+            </div>
+            <p class="my-split"></p>
+            <div class="network-label-box">
+              <p class="label-box-title">{{$t('assets.Holder')}}</p>
+              <p class="label-shuzi">12,309</p>
+            </div>
+          </div>
+          <div class="network-label-div">
+            <p class="my-split shogaix"></p>
+            <div class="network-label-box">
+              <p class="label-box-title">{{$t('assets.cross-chain')}}</p>
+              <p class="label-shuzi">139,300</p>
+            </div>
+            <p class="my-split"></p>
+            <div class="network-label-box">
+              <p class="label-box-title">{{$t('bottom.website')}}</p>
+              <p class="label-shuzi cur network-link" @click="openUrl('http://nuls.io')">http://nuls.io</p>
+            </div>
+            <p class="my-split"></p>
+            <div class="network-label-box">
+              <p class="label-box-title">{{$t('bottom.Twitter')}}</p>
+              <p class="label-shuzi network-link">@nuls</p>
             </div>
           </div>
         </div>

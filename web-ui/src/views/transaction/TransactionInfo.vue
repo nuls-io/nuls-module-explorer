@@ -5,7 +5,7 @@
       <h4 class="font20 w1200 bg-address">
         <span class="pc">{{ txhash }}</span>
         <span class="mobile fl">{{ txhashs }}</span>
-        <img src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(txhash)"></img>
+        <img src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(txhash)" />
       </h4>
     </div>
     <div class="w1200 info_tabs">
@@ -20,7 +20,7 @@
         <li class="tabs_infos fl capitalize">
           <p>
             {{ $t('public.fee') }}
-            <span @click="jionOpen()">{{ txInfo.fees }}<span class="fCN click">&nbsp;{{ symbol }}</span></span>
+            <span @click="jionOpen(txInfo)">{{ txInfo.fees }}<span class="fCN click">&nbsp;{{ symbol }}</span></span>
             <!--<span v-if="contractInfo.length !== 0">
             {{txInfo.fees}}
              <el-tooltip :content="contractInfo.totalFee+'('+$t('transactionInfo.transactionInfo0')+')'+'='
@@ -181,7 +181,7 @@
 
     <!-- nuls 转账 -->
     <div class="w1200 token_list bg-white" v-if="nulsTransfers.length > 0">
-      <el-table :data="nulsTransfers" style="width: 100%" :cell-class-name="cellClassName">
+      <el-table :data="nulsTransfers" style="width: 100%" :cell-class-name="cellClassName" :empty-text="$t('assets.nodata')">
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
@@ -241,7 +241,7 @@
     
     <!-- 代币转账 -->
     <div class="w1200 token_list bg-white" v-if="tokenTransfers.length > 0">
-      <el-table :data="tokenTransfers" style="width: 100%">
+      <el-table :data="tokenTransfers" style="width: 100%" :empty-text="$t('assets.nodata')">
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
@@ -254,7 +254,7 @@
         </el-table-column>
         <el-table-column :label="$t('assets.Asset_type')">
           <template slot-scope="scope">
-            <p class="leixin-let">代币转账</p>
+            <p class="leixin-let">{{t('transactionInfo.transactionInfo11')}}</p>
           </template>
         </el-table-column>
         <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')" min-width="100"></el-table-column>
@@ -299,8 +299,9 @@
     </div>
 
     <!-- 发送者，接受者 -->
-    <div class="w1200 token_list bg-white">
-      <el-table :data="txInfo.coinFroms" style="width: 100%">
+    <div class="w1200 token_list bg-white merge">
+      <el-table :empty-text="$t('assets.nodata')" :data="txInfo.coinFroms" style="width: 100%">
+        <el-table-column min-width="15"></el-table-column>
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
@@ -313,75 +314,54 @@
         </el-table-column>
         <el-table-column :label="$t('assets.Asset_type')">
           <template slot-scope="scope">
-            <p class="leixin-let">没有此参数</p>
+            <p class="leixin-let">{{$t('assets.parameter')}}</p>
           </template>
         </el-table-column>
         <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')" min-width="100"></el-table-column>
         <el-table-column prop="symbol" label="Symbol"></el-table-column>
+        
+      </el-table>
+      <el-table :empty-text="$t('assets.nodata')" :data="txInfo.coinTos" style="width: 100%">
         <el-table-column>
           <template slot="header" slot-scope="scope">
             <img src="./img/ssdr145.png" alt="">
           </template>
         </el-table-column>
-        <el-table-column prop="address" :label="$t('public.output')" width="180">
+        <el-table-column prop="address" :label="$t('public.output')" min-width="140">
           <template slot-scope="scope">
-            <div class="sending-address" v-for="(item,index) in txInfo.coinTos" :key="index">
-              <p class="address-box click" @click="toUrl('addressInfo', item.address)">{{ UnpAredd(item.address) }}</p>
-              <el-tooltip :content="item.address" placement="bottom" effect="light">
+            <div class="sending-address">
+              <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address) }}</p>
+              <el-tooltip :content="scope.row.address" placement="bottom" effect="light">
                 <img src="./img/Icontits.svg" alt="">
               </el-tooltip>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Amount" min-width="100">
+        <el-table-column label="Amount">
           <template slot-scope="scope">
-            <div class="ding-box" v-for="(item,index) in txInfo.coinTos" :key="index">
-              {{ item.value }}
+            <div class="ding-box">
+              {{ scope.row.value }}
             </div>
           </template>
         </el-table-column>
         <el-table-column label="Symbol">
           <template slot-scope="scope">
-            <div class="ding-box" v-for="(item,index) in txInfo.coinTos" :key="index">
-              {{ item.symbol }}
+            <div class="ding-box">
+              {{ scope.row.symbol }}
             </div>
           </template>
         </el-table-column>
         <el-table-column label="Locked">
           <template slot-scope="scope">
-            <div class="ding-box" v-for="(item,index) in txInfo.coinTos" :key="index">
-              {{ item.lockTime }}
+            <div class="ding-box">
+              {{ scope.row.lockTime }}
             </div>
           </template>
         </el-table-column>
       </el-table>
     </div>
 
-    <!-- <div class="w1200 t_basics bg-white">
-      <h3 class="tabs_title tabs_header capitalize"><span>{{$t('public.input')}}</span>{{$t('public.output')}}</h3>
-      <ul class="inputs fl scroll">
-        <li class="font14" v-for="item in txInfo.coinFroms" :key="item.key">
-          <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
-          <label class="fr">{{item.value}}<span class="fCN"> {{item.symbol}}</span></label>
-        </li>
-      </ul>
-      <div class="arrow fl">
-        <i class="el-icon-d-arrow-right"></i>
-      </div>
-      <ul class="outputs fr scroll">
-        <li class="font14" v-for="item in txInfo.coinTos" :key="item.key">
-          <span class="click" @click="toUrl('addressInfo',item.address)">{{item.address}}</span>
-          <label class="fr">
-            {{item.value}}
-            <span class="fCN"> {{item.symbol}}
-              <i class="iconfont yellow font12" :title="item.isShowInfo" :class="item.lockTime < 0 ? 'icon-lock_icon':''"></i>
-            </span>
-          </label>
-        </li>
-      </ul>
-    </div> -->
-
-    <!-- <div class="t_mobile">
+    <div class="t_mobile">
       <el-tabs v-model="activeName">
         <el-tab-pane :label="$t('public.input')" name="first">
           <div>
@@ -408,7 +388,7 @@
           </div>
         </el-tab-pane>
       </el-tabs>
-    </div> -->
+    </div>
 
     <el-dialog title="" :visible.sync="viewDialog" class="dialog_tran">
       <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="copy(txInfo.txDataHex)"
@@ -474,6 +454,11 @@ export default {
     }
   },
   methods: {
+    StringProcessing(address){
+      if(address){
+        return address.slice(0,7)+'...'+address.slice(-5);
+      }
+    },
     cellClassName({row, column, rowIndex, columnIndex}){
       if(columnIndex < 4){
         return 'custom-style'
@@ -486,10 +471,9 @@ export default {
         return ''
       }
     },
-    jionOpen() {
-      this.$router.push({
-        name: 'assetsdetails'
-      })
+    jionOpen(txInfo) {
+      const parmse = txInfo.fee.chainId +'-1'
+      this.$router.push("/assets/details/"+parmse)
     },
 
     /**
@@ -590,7 +574,8 @@ export default {
             }
 
             this.txInfo = response.result;
-            console.log(this.txInfo, "发送者，接受者")
+            console.log(this.txInfo.coinFroms, "coinFroms")
+            console.log(this.txInfo.coinTos, "coinTos")
             if (this.txInfo.txData && this.txInfo.txData.args) {
               this.txInfo.txData.args = this.txInfo.txData.args.replace(/<[^<>]+>/g, '');
             }
@@ -666,6 +651,27 @@ export default {
   padding-bottom: 100px;
   .tabs_header {
     background: initial;
+  }
+  .bottom-border{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #E9E9F8;
+    .division{
+      width: 48%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      div{
+        display: block;
+        width: 125px;
+      }
+      .jiac-span{
+        width: 160px;
+      }
+    }
+    .chujie{
+      margin: 0 40px;
+    }
   }
 
   .tabs_title {
@@ -821,114 +827,78 @@ export default {
       }
     }
   }
-
-  .t_basics,
-  .token_list {
-    margin: 30px auto 100px;
-    min-height: 275px;
+  .merge{
+    display: flex;
     border-radius: 12px;
-    overflow: hidden;
     border: 1px solid #EBEBF4;
-
-    .el-table {
-      padding-bottom: 8px;
-      &::before {
-        height: 0;
+    overflow: hidden;
+    .el-table{
+      border-radius: 0;
+      td{
+        border: none;
       }
-      .custom-style{
-        .cell{
-          position: absolute;
-          top: 12px;
+      tr{
+        th{
+          background-color: #FFFFFF !important;
         }
       }
-      .leixin-let {
-        padding: 2px 6px;
-        border-radius: 6px;
-        background: #F2F7FF;
-        width: fit-content;
-        font-size: 12px;
-        color: #000000;
+      tbody tr {
+      &:hover {
+        td {
+          background-color: #FFFFFF;
+        }
       }
-
-      .sending-address {
+    }
+    }
+  }
+  .t_basics, .token_list {
+      //background-color: @bg-white;
+      margin: 30px auto 100px;
+      min-height: 275px;
+      border: @BD1;
+      @media screen and (max-width: 1000px) {
+        display: none;
+      }
+      .sending-address{
         display: flex;
         align-items: center;
-        padding: 4px 0;
-        .address-box {
-          margin-right: 6px;
+        .el-tooltip{
+          margin-left: 4px;
         }
       }
-      .ding-box{
-        padding: 4px 0;
-      }
-      td{
-        padding-bottom: 0 !important;
-      }
-      th {
-        background: initial;
-
-        .cell {
-          font-size: 14px;
-          color: #4A4F55;
-
+      h3 {
+        padding: 0 0 0 30px;
+        border-bottom: @BD1;
+        span {
+          width: 58%;
+          display: block;
+          float: left;
         }
       }
-    }
-
-    .zi-title {
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #E9E9F8;
-
-      p {
-        color: #4A4F55;
-        font-size: 14px;
-      }
-    }
-
-    @media screen and (max-width: 1000px) {
-      display: none;
-    }
-
-    h3 {
-      padding: 0 0 0 20px;
-
-      span {
-        width: 58%;
-        display: block;
-        float: left;
-      }
-    }
-
-    .inputs,
-    .outputs {
-      width: 550px;
-      max-height: 120px;
-      margin: 10px 0 0 0;
-      overflow-x: auto;
-
-      li {
-        margin: 0 20px 0;
-        line-height: 30px;
-
-        label {
-          width: 160px;
-          text-align: center;
-
-          .el-icon-goods {
-            display: initial !important;
+      .inputs, .outputs {
+        width: 550px;
+        max-height: 120px;
+        margin: 10px 0 0 0;
+        overflow-x: auto;
+        li {
+          margin: 0 20px 0;
+          line-height: 30px;
+          label {
+            width: 160px;
+            text-align: right;
+            .el-icon-goods {
+              display: initial !important;
+            }
           }
         }
       }
+      .arrow {
+        width: 50px;
+        text-align: center;
+        color: @Ncolour;
+        line-height: 40px;
+      }
     }
-
-    .arrow {
-      width: 50px;
-      text-align: center;
-      color: @Ncolour;
-      line-height: 40px;
-    }
-  }
 
   .redcal {
     height: 40px;
