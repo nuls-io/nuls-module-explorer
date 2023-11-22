@@ -73,7 +73,7 @@
           <p>{{ $t('public.proportion') }}<span>{{ txInfo.txData.commissionRate }}%</span></p>
         </li>
         <li class="tabs_infos fl capitalize" v-if="txInfo.type === 5 || txInfo.type === 6">
-          <p>{{ $t('public.creditValue') }}<span>{{ txInfo.txData.creditValue }}</span></p>
+          <p class="add-class">{{ $t('public.creditValue') }}<span>{{ txInfo.txData.creditValue }}</span></p>
         </li>
 
         <!--创建、注销节点-->
@@ -300,7 +300,7 @@
 
     <!-- 发送者，接受者 -->
     <div class="w1200 token_list bg-white merge">
-      <el-table :empty-text="$t('assets.nodata')" :data="txInfo.coinFroms" style="width: 100%">
+      <el-table :empty-text="$t('assets.nodata')" :data="fromList" style="width: 100%">
         <el-table-column min-width="15"></el-table-column>
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
@@ -312,22 +312,26 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('assets.Asset_type')">
+        <el-table-column :label="$t('assets.Asset_type')" v-if="showAssetType">
           <template slot-scope="scope">
-            <p class="leixin-let">{{$t('assets.parameter')}}</p>
+            <p class="leixin-let">{{scope.row.assetType}}</p>
           </template>
         </el-table-column>
-        <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')" min-width="100"></el-table-column>
+        <el-table-column :label="$t('tokenInfo.tokenInfo5')" min-width="100">
+          <template slot-scope="scope">
+            <div>{{toThousands(scope.row.amount) }}</div>
+          </template>
+        </el-table-column>
         <el-table-column prop="symbol" label="Symbol"></el-table-column>
         
       </el-table>
-      <el-table :empty-text="$t('assets.nodata')" :data="txInfo.coinTos" style="width: 100%">
+      <el-table :empty-text="$t('assets.nodata')" :data="toList" style="width: 100%">
         <el-table-column>
           <template slot="header" slot-scope="scope">
             <img src="./img/ssdr145.png" alt="">
           </template>
         </el-table-column>
-        <el-table-column prop="address" :label="$t('public.output')" min-width="140">
+        <el-table-column prop="address" :label="$t('public.output')" min-width="160">
           <template slot-scope="scope">
             <div class="sending-address">
               <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address) }}</p>
@@ -340,7 +344,7 @@
         <el-table-column label="Amount">
           <template slot-scope="scope">
             <div class="ding-box">
-              {{ scope.row.value }}
+              {{ scope.row.amount }}
             </div>
           </template>
         </el-table-column>
@@ -351,10 +355,17 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Locked">
+        <el-table-column label="tokenId" v-if="showTokenId">
           <template slot-scope="scope">
             <div class="ding-box">
-              {{ scope.row.lockTime }}
+              {{ scope.row.tokenId}}
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column label="Locked" v-if="showLocked">
+          <template slot-scope="scope">
+            <div class="ding-box">
+              {{ scope.row.locked }}
             </div>
           </template>
         </el-table-column>
@@ -407,17 +418,22 @@
 
 <script>
 import moment from 'moment'
-import { getLocalTime, copys, timesDecimals, superLong } from '@/api/util.js'
+import { getLocalTime, copys, timesDecimals, superLong ,toThousands} from '@/api/util.js'
 
 
 export default {
   data() {
     return {
-
+      toThousands,
       txhash: this.$route.query.hash,
       txhashs: superLong(this.$route.query.hash, 20),
       decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
       txInfo: [],
+      fromList: [],
+      toList: [],
+      showTokenId: false,
+      showAssetType: false,
+      showLocked: false,
       //交易详情加载动画
       txInfoLoading: true,
       activeName: 'second',
@@ -483,40 +499,43 @@ export default {
       this.nulsTransfers = [];
       this.contractInfo = [];
       this.tokenTransfers = [];
-      this.$post('/', 'getTx', [hash])
+      this.$post('/', 'getTx', [hash]).then((response) => {
+        console.log(response.result, '@@@@@@@')
+      })
+      this.$post('/', 'getTxV2', [hash])
         .then((response) => {
-          //console.log(response);
           if (response.hasOwnProperty("result")) {
-            response.result.time = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-            response.result.fees = timesDecimals(response.result.fee.value, 8);
-            response.result.value = timesDecimals(response.result.value, response.result.decimal);
+            console.log(response.result.tx, '1111111111111111111');
+            response.result.tx.time = moment(getLocalTime(response.result.tx.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
+            response.result.tx.fees = timesDecimals(response.result.tx.fee.value, 8);
+            response.result.tx.value = timesDecimals(response.result.tx.value, response.result.tx.decimal);
 
             //黄牌
-            if (response.result.type === 7) {
-              response.result.roundIndex = response.result.txDataList[0].roundIndex;
-              response.result.index = response.result.txDataList[0].index;
-              response.result.reason = response.result.txDataList[0].reason;
-              response.result.txData = { address: '' };
+            if (response.result.tx.type === 7) {
+              response.result.tx.roundIndex = response.result.tx.txDataList[0].roundIndex;
+              response.result.tx.index = response.result.tx.txDataList[0].index;
+              response.result.tx.reason = response.result.tx.txDataList[0].reason;
+              response.result.tx.txData = { address: '' };
             }
             //红牌
-            if (response.result.type === 8) {
-              response.result.roundIndex = response.result.txData.roundIndex;
-              response.result.index = response.result.txData.index;
-              response.result.reason = response.result.txData.reason;
-              //response.result.txDataList ={};
+            if (response.result.tx.type === 8) {
+              response.result.tx.roundIndex = response.result.tx.txData.roundIndex;
+              response.result.tx.index = response.result.tx.txData.index;
+              response.result.tx.reason = response.result.tx.txData.reason;
+              //response.result.tx.txDataList ={};
             }
 
             //创建、调用合约
-            if (response.result.type === 15 || response.result.type === 16 || response.result.type === 17 || response.result.type === 18) {
+            if (response.result.tx.type === 15 || response.result.tx.type === 16 || response.result.tx.type === 17 || response.result.tx.type === 18) {
               this.isContracts = true;
-              if (response.result.txData.hasOwnProperty('resultInfo')) {
-                response.result.txData.resultInfo.totalFee = timesDecimals(response.result.txData.resultInfo.totalFee, 8);
-                response.result.txData.resultInfo.txSizeFee = timesDecimals(response.result.txData.resultInfo.txSizeFee, 8);
-                response.result.txData.resultInfo.actualContractFee = timesDecimals(response.result.txData.resultInfo.actualContractFee, 8);
-                response.result.txData.resultInfo.refundFee = timesDecimals(response.result.txData.resultInfo.refundFee, 8);
-                this.contractInfo = response.result.txData.resultInfo;
-                if (response.result.txData.resultInfo.tokenTransfers) {
-                  let newTokenTransfers = response.result.txData.resultInfo.tokenTransfers;
+              if (response.result.tx.txData.hasOwnProperty('resultInfo')) {
+                response.result.tx.txData.resultInfo.totalFee = timesDecimals(response.result.tx.txData.resultInfo.totalFee, 8);
+                response.result.tx.txData.resultInfo.txSizeFee = timesDecimals(response.result.tx.txData.resultInfo.txSizeFee, 8);
+                response.result.tx.txData.resultInfo.actualContractFee = timesDecimals(response.result.tx.txData.resultInfo.actualContractFee, 8);
+                response.result.tx.txData.resultInfo.refundFee = timesDecimals(response.result.tx.txData.resultInfo.refundFee, 8);
+                this.contractInfo = response.result.tx.txData.resultInfo;
+                if (response.result.tx.txData.resultInfo.tokenTransfers) {
+                  let newTokenTransfers = response.result.tx.txData.resultInfo.tokenTransfers;
                   for (let item in newTokenTransfers) {
                     newTokenTransfers[item].keys = Number(item);
                     newTokenTransfers[item].value = timesDecimals(newTokenTransfers[item].value, newTokenTransfers[item].decimals);
@@ -527,34 +546,34 @@ export default {
               }
             }
 
-            if (response.result.type === 16) {
-              if (response.result.txData.resultInfo.nulsTransfers) {
-                for (let item of response.result.txData.resultInfo.nulsTransfers) {
+            if (response.result.tx.type === 16) {
+              if (response.result.tx.txData.resultInfo.nulsTransfers) {
+                for (let item of response.result.tx.txData.resultInfo.nulsTransfers) {
                   item.txHashs = superLong(item.txHash, 4);
                   item.value = timesDecimals(item.value);
                   for (let k of item.outputs) {
                     k.value = timesDecimals(k.value);
                   }
                 }
-                this.nulsTransfers = response.result.txData.resultInfo.nulsTransfers;
+                this.nulsTransfers = response.result.tx.txData.resultInfo.nulsTransfers;
                 console.log(this.nulsTransfers ,'nuls 转账')
               }
             }
 
-            if (response.result.type === 18) {
+            if (response.result.tx.type === 18) {
               this.contractInfo = { success: true }
             }
 
-            if (response.result.coinFroms) {
-              for (let item of response.result.coinFroms) {
+            if (response.result.tx.coinFroms) {
+              for (let item of response.result.tx.coinFroms) {
                 item.value = timesDecimals(item.amount, item.decimal);
                 item.addresss = superLong(item.address, 10);
               }
-              this.inputNumber = response.result.coinFroms.length;
+              this.inputNumber = response.result.tx.coinFroms.length;
             }
 
-            if (response.result.coinTos) {
-              for (let item of response.result.coinTos) {
+            if (response.result.tx.coinTos) {
+              for (let item of response.result.tx.coinTos) {
                 item.value = timesDecimals(item.amount, item.decimal);
                 item.addresss = superLong(item.address, 10);
                 //根据lockTime字段长度判断是高度锁定还时间锁定
@@ -570,12 +589,29 @@ export default {
                   item.isShowInfo = this.$t('transactionInfo.transactionInfo10') + ":" + expectTime;
                 }
               }
-              this.outNumber = response.result.coinTos.length;
+              this.outNumber = response.result.tx.coinTos.length;
             }
 
-            this.txInfo = response.result;
-            console.log(this.txInfo.coinFroms, "coinFroms")
-            console.log(this.txInfo.coinTos, "coinTos")
+            this.txInfo = response.result.tx;
+            this.fromList = response.result.fromList;
+            this.toList = response.result.toList;
+
+            if(this.fromList.length > 0){
+              if(this.fromList[0].assetType === '' || this.fromList[0].assetType === null || this.fromList[0].assetType === undefined){
+                this.showAssetType = false
+              }else{
+                this.showAssetType = true
+              }
+            }
+            if(this.toList.length > 0){
+              if(this.toList[0].locked){
+                this.showLocked = true
+              }
+              if(this.toList[0].tokenId){
+                this.showTokenId = true
+              }
+            }
+            console.log(response.result, "coinFroms")
             if (this.txInfo.txData && this.txInfo.txData.args) {
               this.txInfo.txData.args = this.txInfo.txData.args.replace(/<[^<>]+>/g, '');
             }
@@ -648,7 +684,7 @@ export default {
 
 .t_info {
   min-height: 800px;
-  padding-bottom: 100px;
+  margin-bottom: 100px;
   .tabs_header {
     background: initial;
   }
@@ -832,6 +868,12 @@ export default {
     border-radius: 12px;
     border: 1px solid #EBEBF4;
     overflow: hidden;
+    @media(max-width: 1000px){
+      flex-direction: column;
+      .el-table_2_column_6{
+        display: none;
+      }
+    }
     .el-table{
       border-radius: 0;
       td{
@@ -848,6 +890,14 @@ export default {
           background-color: #FFFFFF;
         }
       }
+      .leixin-let{
+        width: fit-content;
+        padding: 2px 5px;
+        background: #F2F7FF;
+        font-size: 12px;
+        color: #000000;
+        border-radius: 8px;
+      }
     }
     }
   }
@@ -857,8 +907,13 @@ export default {
       min-height: 275px;
       border: @BD1;
       @media screen and (max-width: 1000px) {
-        display: none;
+        // display: none;
       }
+      .el-table--scrollable-x{
+        .el-table__body-wrapper{
+          overflow: initial;
+        }
+      } 
       .sending-address{
         display: flex;
         align-items: center;
@@ -909,8 +964,7 @@ export default {
     display: none;
 
     @media screen and (max-width: 1000px) {
-      display: block;
-      width: 95%;
+      // display: block;
       margin: 1rem auto 0;
     }
   }
@@ -947,7 +1001,7 @@ export default {
           color: @Mcolour;
           border-bottom: @BD1;
         }
-
+t_info
         .dialog-info {
           background-color: @Bcolour1;
           margin: 30px 30px 0 30px;
@@ -997,6 +1051,12 @@ export default {
           padding: 0 .5rem !important;
         }
       }
+    }
+    .info_tabs .ul .tabs_infos:nth-last-child(2) p{
+      border-bottom: none;
+    }
+    .add-class{
+      border-bottom: 1px solid #DFE4EF !important;
     }
   }
 }

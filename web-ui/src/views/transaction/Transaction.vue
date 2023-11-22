@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <ve-line height="300px" style="top: -25px" :data="timeChartData" :legend-visible="false" :colors="colors"
+        <ve-line height="310px" style="top: -25px" :data="timeChartData" :legend-visible="false" :colors="colors"
           :extend="chartExtend" :settings="chartSettings" :loading="timeRateDataLoading">
         </ve-line>
       </div>
@@ -365,7 +365,7 @@ export default {
       background: #FFFFFF;
       border-radius: 12px;
       padding: 24px;
-      height: 300px;
+      height: 336px;
 
       .transaction-echarts-box {
         display: flex;

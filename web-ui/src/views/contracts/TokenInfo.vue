@@ -31,9 +31,12 @@
         <li class="tabs_infos fl" v-if="tokenType === 1"><p>{{$t('tokenInfo.tokenInfo0')}}<span>{{contractsInfo.decimals}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.transactionNo')}}<span>{{contractsInfo.transferCount}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('tokenInfo.tokenInfo1')}}<span>{{contractsInfo.ownersCount}}</span></p></li>
-        <li class="tabs_infos fl"><p>{{$t('public.createAddress')}}<span class="mobile_s click"
-                                                                         @click="toUrl('addressInfo',contractsInfo.creater)">{{contractsInfo.creater}}</span>
-        </p></li>
+        <li class="tabs_infos fl">
+          <p class="addvorder">
+            {{$t('public.createAddress')}}
+            <span class="mobile_s click" @click="toUrl('addressInfo',contractsInfo.creater)">{{contractsInfo.creater}}</span>
+          </p>
+        </li>
         <li class="tabs_infos fl"><p>{{$t('public.createTime')}}<span>{{contractsInfo.createTime}}</span></p></li>
       </ul>
     </div>
@@ -317,12 +320,30 @@
     .token-info_table {
       margin-top: 20px;
       @media screen and (max-width: 1000px) {
-        width: 95%;
         margin: 1rem auto 0;
       }
       .el-tabs__content {
         margin-bottom: 65px;
       }
+    }
+  }
+  @media (max-width: 1200px){
+    .token-info{
+      .w1200{
+        width: initial;
+      }
+      .b-info{
+        .ul{
+          .tabs_infos{
+            width: 100%;
+            border-right: none;
+            .addvorder{
+              border-bottom: 1px solid #DFE4EF;
+            }
+          }
+        }
+      } 
+      padding: 0 .5rem;
     }
   }
 
