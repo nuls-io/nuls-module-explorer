@@ -10,27 +10,20 @@
 
       <div class="header_language fl">
         <div class="top-search fl" v-if="navActive !== 'home' && navActive !== '/'">
-          <div class="top_height fl" v-if="!topLong">
-            <i class="iconfont icon-block fCN font20"></i>
-            <!-- <span>{{height}}</span>-->
-            <label class="number-grow-warp">
-              <span>{{count.height}}</span>
-            </label>
-            <!--<numberGrow :value="count.height"></numberGrow>-->
-          </div>
           <el-input v-model="searchValue" class="fr" :placeholder="$t('public.searchTip')"
                     @keyup.enter.native="clickSearch"
                     @focus="focusSearch"
                     @blur="blurSearch">
             <i class="el-icon-search el-input__icon click" slot="suffix" @click="clickSearch"></i>
           </el-input>
+          <!-- <SearchBar /> -->
         </div>
-        <div class="destroyed font14 fl pc" v-else>
+        <!-- <div class="destroyed font14 fl pc" v-else>
           <i class="iconfont icon-jiandingxiaohui fred"></i>&nbsp;
           {{$t('home.home9')}}：{{destroyedAddressAmount}}
           <span class="fCN">&nbsp;NULS</span>
-        </div>
-        <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? 'CN':'EN' }}</div>
+        </div> -->
+        <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? 'Cn':'En' }}</div>
       </div>
       <div class="mobile_ico fr">
         <i class="el-icon-menu" @click="showMobile = !showMobile"></i>
@@ -42,7 +35,7 @@
         <div class="mobile_menu">
           <MenuBar></MenuBar>
           <div class="cb"></div>
-          <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? 'CN':'EN' }}</div>
+          <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? 'Cn':'En' }}</div>
         </div>
       </div>
     </el-collapse-transition>
@@ -57,6 +50,7 @@
   import MenuBar from '@/components/MenuBar';
   import {RUN_DEV, API_ROOT} from '@/config'
   //import {timesDecimals, Plus} from '@/api/util.js'
+  import SearchBar from './SearchBar.vue'
 
   export default {
     data() {
@@ -82,6 +76,7 @@
     },
     components: {
       MenuBar,
+      SearchBar
     },
     created() {
       let lang = navigator.language || navigator.userLanguage;//常规浏览器语言和IE浏览器
@@ -225,26 +220,36 @@
   .header {
     position: relative;
     border-bottom: @BD1;
+    height: 68px;
+    background: #FFFFFF;
     .w1200 {
       .header_logo {
         width: 104px;
+        height: 68px;
+        display: flex;
+        align-items: center;
         margin-right: 20px;
         .logo {
-          width: 110px;
-          height: 44px;
-          margin: 18px 0 0 0;
+          width: 72px;
+          height: 32px;
         }
       }
       .menu {
+        height: 68px;
         width: 670px;
       }
       .header_language {
         width: 406px;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
         .top-search {
           width: 320px;
-          height: 30px;
-          margin: 25px 10px 0 0;
+          height: 36px;
           text-align: right;
+          margin-right: 16px;
+          position: relative;
           @media screen and (max-width: 1000px) {
             //margin: 1rem 0.5rem 0 0;
           }
@@ -258,14 +263,28 @@
           }
           .el-input {
             width: 80%;
+            border-radius: 10px;
+            overflow: hidden;
             input {
-              width: 150px;
+              width: 260px;
               transition: width 400ms ease, background 400ms ease, border-radius 400ms ease;
-              height: 30px;
-              line-height: 30px;
+              height: 36px;
+              line-height: 36px;
+              border-radius: 10px;
+              border: 1px solid #E9E9F8;
+              background: #F6FAFF;
+              font-size: 13px;
               &:focus {
                 width: 250px;
                 border-color: @Ncolour;
+              }
+            }
+            .el-input__suffix{
+              width: 36px;
+              background: #00DB82;
+              right: 0;
+              .el-icon-search:before{
+                color: #FFFFFF;
               }
             }
             .el-input__icon {
@@ -274,20 +293,26 @@
             }
           }
         }
-        .destroyed {
-          line-height: 80px;
-          text-align: right;
-          width: 330px;
-          i {
-            font-size: 1rem;
-          }
-        }
+        // .destroyed {
+        //   line-height: 68px;
+        //   text-align: right;
+        //   width: 330px;
+        //   i {
+        //     font-size: 1rem;
+        //   }
+        // }
         .language {
-          width: 60px;
-          color: @Acolor;
-          line-height: 80px;
+          width: 36px;
+          height: 36px;
+          color: #000000;
+          font-size: 14px;
           cursor: pointer;
           text-align: right;
+          display: flex;
+          background: #F2F7FF;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10px;
         }
       }
       .mobile_ico {
@@ -300,19 +325,22 @@
 
     @media screen and (max-width: 1000px) {
       .w1200 {
+        justify-content: space-between;
         .header_logo {
           width: 5.2rem;
           margin: 0 0.5rem;
           .logo {
             width: 5.2rem;
-            margin: 0.5rem 0 0 0;
           }
         }
         .menu {
           display: none;
         }
         .header_language {
+          display: none;
           width: 61.5%;
+          position: absolute;
+          right: 20px;
           .top-search {
             width: 100%;
             .top_height {
@@ -324,7 +352,6 @@
             }
             .el-input {
               width: 100%;
-              margin-top: -0.8rem;
               input {
                 width: 5rem;
                 &:focus {
@@ -338,10 +365,13 @@
           }
         }
         .mobile_ico {
-          display: block;
+          display: flex;
+          align-items: center;
+          height: 68px;
           i {
-            margin: 1rem 1rem 0 0;
             font-size: 1.4rem;
+            padding-right: .5rem;
+            margin: 0;
           }
         }
       }
@@ -353,6 +383,11 @@
         right: 0;
         top: 3.4rem;
         z-index: 9999;
+        .mobile_menu{
+          .language{
+            display: none;
+          }
+        }
         .language {
           display: initial;
           //position: absolute;
@@ -380,6 +415,15 @@
         }
       }
     }
+  }
 
+  @media screen and (max-width: 1220px){
+    .header{
+      .w1200{
+        display: flex;
+        width: initial;
+        padding: 0 0.5rem;
+      }
+    }
   }
 </style>

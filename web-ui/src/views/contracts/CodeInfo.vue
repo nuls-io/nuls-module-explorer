@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="code-source fl">
-          <div class="tr"><i class="iconfont icon-copy_icon click" @click="copy(codeInfo)"></i></div>
+          <div class="tr code-bottom"><i class="iconfont icon-copy_icon click" @click="copy(codeInfo)"></i></div>
           <div class="code-source-info bg-gray">
             <pre>{{codeInfo}}</pre>
           </div>
@@ -79,19 +79,19 @@
         codeInfo: '',
       };
     },
-    created() {
-      setTimeout(() => {
-        this.ifCertified = this.status === 2;
-        if (this.ifCertified) {
-          this.getContractCodeTree(this.contractsAddress);
-        }
-      }, 100);
-
+    watch:{
+      status:{
+        handler(newval){
+          this.ifCertified = newval === 2;
+          if (this.ifCertified) {
+            this.getContractCodeTree(this.contractsAddress);
+          }
+        },
+        immediate: true
+      }
     },
-    mounted() {
-    },
+    
     methods: {
-
       /**
        * 获取zip文件转换为文件流
        **/
@@ -254,28 +254,31 @@
 
       }
       .code-list {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
         .code-tree {
-          width: 300px;
+          width: 30%;
           .code-tree-title {
             color: @Acolor1;
             height: 40px;
+            margin-bottom: 10px;
             h6, i {
               margin-top: 20px;
-            }
-            h6 {
-              margin-left: 30px;
             }
           }
           .code-trees {
             height: 390px;
-            margin: 0 0 0 30px;
             border: @BD1;
             overflow-x: auto;
           }
         }
         .code-source {
-          margin: 20px 20px 0 10px;
-          width: 865px;
+          margin: 20px 0 0 10px;
+          width: 69%;
+          .code-bottom{
+            margin-bottom: 10px;
+          }
           .code-source-info {
             height: 390px;
             overflow-x: auto;
@@ -370,5 +373,31 @@
       }
     }
   }
-
+  @media (max-width: 1000px){
+    .code-info{
+      .certified{
+        .code-list{
+          flex-wrap: wrap;
+          .code-tree{
+            width: 100%;
+          }
+          .code-source{
+            width: 100%;
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+@media (max-width: 568px){
+  .code-info{
+    .certifing{
+      .upload {
+        .upload-info{
+          width: initial;
+        }
+      }
+    }
+  } 
+}
 </style>

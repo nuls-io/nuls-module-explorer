@@ -59,7 +59,7 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('public.txList')" name="addressFirst">
           <SelectBar v-model="typeRegion" @change="changeType"></SelectBar>
-          <el-table :data="txList" stripe border style="width: 100%;" class="mt_20" v-loading="txListLoading">
+          <el-table :data="txList" style="width: 100%;" class="mt_20" v-loading="txListLoading">
             <el-table-column :label="$t('public.height')" width="90" align="left">
               <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
               </template>
@@ -92,7 +92,7 @@
             <el-option v-for="item in tokenOptions" :key="item[0]" :label="item[1]" :value="item[0]">
             </el-option>
           </el-select>
-          <el-table :data="tokenList" stripe border style="width: 100%" class="mt_20" v-loading="tokenListLoading">
+          <el-table :data="tokenList" style="width: 100%" class="mt_20" v-loading="tokenListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="height" :label="$t('public.height')" width="80" align="left">
@@ -132,7 +132,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList3')" name="addressThree">
-          <el-table :data="nrc20List" stripe border style="width: 100%" class="mt_20" v-loading="nrc20ListLoading">
+          <el-table :data="nrc20List" style="width: 100%" class="mt_20" v-loading="nrc20ListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="120"
@@ -162,7 +162,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList4')" name="addressFour">
-          <el-table :data="nrc721List" stripe border style="width: 100%" class="mt_20" v-loading="nrc721ListLoading">
+          <el-table :data="nrc721List" style="width: 100%" class="mt_20" v-loading="nrc721ListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="160"
@@ -186,7 +186,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList5')" name="addressFive">
-          <el-table :data="nrc1155List" stripe border style="width: 100%" class="mt_20" v-loading="nrc1155ListLoading">
+          <el-table :data="nrc1155List" style="width: 100%" class="mt_20" v-loading="nrc1155ListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="160"
@@ -211,7 +211,7 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('network.network12')" name="addressSix">
-          <el-table :data="holdData" border v-loading="holdDataLoading">
+          <el-table :data="holdData" v-loading="holdDataLoading">
             <el-table-column prop="chainId" :label="$t('network.network0')" min-width="300" align="center">
             </el-table-column>
             <el-table-column prop="assetId" :label="$t('network.network13')" width="290" align="center">
@@ -230,6 +230,7 @@
         <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
                        v-show="pageTotal > pageRows"
                        :total="pageTotal"
+                       :pager-count=5
                        :current-page.sync="pageIndex"
                        :page-size="pageRows"
                        @current-change="pagingMethod">
@@ -662,9 +663,13 @@
     //min-height: 800px;
     margin-bottom: 100px;
     .bg-white {
+      background: initial;
       .title {
-        padding-bottom: 60px;
-        margin: 40px auto 0;
+        padding: 24px 0;
+        margin: 0 auto 0;
+        font-size: 20px;
+        color: #000000;
+        font-weight: bold;
         .click {
           margin-left: 20px;
         }
@@ -679,7 +684,7 @@
       }
     }
     .top {
-      margin: -24px auto 0;
+      margin: 0 auto 0;
       height: 255px;
       @media screen and (max-width: 1000px) {
         height: auto;
@@ -781,6 +786,49 @@
         margin: 10px 0 0 0;
         @media screen and (max-width: 1000px) {
           margin: 0.5rem 0.5rem 0 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1220px){
+    .address-info{
+      padding: 0 .5rem;
+      .top{
+        display: flex;
+        justify-content: space-between;
+        .top-left,.top-right{
+          width: 49%;
+          margin:  0;
+        }
+      }
+      .w1200{
+        width: initial;
+      }
+    }
+  }
+  @media(max-width: 1000px){
+    .address-info{
+      .top{
+        .top-right{
+          width: 100%;
+        }
+      }
+      .bg-white{
+        .title{
+          padding: 24px 0;
+          font-size: 16px;
+          color: #000000;
+        }
+      }
+    }
+  }
+  @media(max-width: 686px){
+    .address-info{
+      .bg-white{
+        .title{
+          padding: 24px 0;
+          font-size: 14px;
         }
       }
     }
