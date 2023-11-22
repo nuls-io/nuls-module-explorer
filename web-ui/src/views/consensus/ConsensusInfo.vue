@@ -1,7 +1,7 @@
 <template>
   <div class="consensus-info bg-gray" v-loading="nodeInfoLoading">
     <div class="bg-white">
-      <h2 class="title w1200 font16 fw uppercase">{{nodeInfo.agentId}}</h2>
+      <h2 class="title w1200 font20 fw uppercase">{{nodeInfo.agentId}}</h2>
       <div class="cards w1200">
         <ul class="cards-ul">
           <li class="cards-li fl">
@@ -90,7 +90,7 @@
       <el-col :span="24">
         <el-tabs v-model="activeNames" @tab-click="handleClicks">
           <el-tab-pane :label="$t('consensusInfo.consensusInfo7')" name="first" v-loading="blockListLoading">
-            <el-table :data="blockList" stripe border style="width: 100%">
+            <el-table :data="blockList" style="width: 100%">
               <el-table-column label="" width="30">
               </el-table-column>
               <el-table-column :label="$t('public.height')" width="100" align="left">
@@ -117,7 +117,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane :label="$t('consensusInfo.consensusInfo9')" name="second">
-            <el-table :data="punishList" stripe border style="width: 100%">
+            <el-table :data="punishList" style="width: 100%">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column prop="blockHeight" :label="$t('public.height')" width="180"
                                align="left"></el-table-column>
@@ -146,7 +146,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane :label="$t('consensusInfo.consensusInfo10')" name="three">
-            <el-table :data="consensusDeposit" stripe border style="width: 100%">
+            <el-table :data="consensusDeposit" style="width: 100%">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column :label="$t('consensusInfo.consensusInfo11')" min-width="250" align="left">
                 <template slot-scope="scope"><span class="cursor-p click"
@@ -174,7 +174,7 @@
               <el-option v-for="item in depositTypeo" :key="item.value" :label="$t('history.'+item.label)"
                          :value="item.value"></el-option>
             </el-select>
-            <el-table :data="consensusCancelDeposit" stripe border style="width: 100%">
+            <el-table :data="consensusCancelDeposit" style="width: 100%">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column label="TXID" width="200" align="left">
                 <template slot-scope="scope">
@@ -497,15 +497,17 @@
   @import "./../../assets/css/style";
 
   .consensus-info {
-    //min-height: 1000px;
-    //margin-bottom: 100px;
     .bg-white {
-      height: 170px;
+      background: initial;
       @media screen and (max-width: 1000px) {
         height: 15rem;
       }
+      .cards{
+        height: 100px;
+      }
       .title {
-        margin: 20px auto;
+        margin: 0 auto;
+        padding: 24px 0;
         @media screen and (max-width: 1000px) {
           margin: 1rem auto;
         }
@@ -516,9 +518,10 @@
       .ul {
         min-height: 290px;
       }
+      h3{
+        margin: 0;
+      }
       @media screen and (max-width: 1000px) {
-        margin: 0 2.5% 1rem;
-        width: 95%;
         .ul {
           li {
             p {
@@ -543,5 +546,71 @@
     }
 
   }
+  
+  @media (max-width: 1200px){
+    .cards{
+      padding: 0 .5rem;
+      .cards-ul{
+        display: flex;
+        justify-content: space-between;
+        .cards-li{
+          width: 24%;
+          margin: 0;
+        }
+      }
+    }
+    .el-tabs{
+      padding: 0 .5rem;
+    }
+    .consensus-info{
+      .bg-white{
+        .title{
+          padding-left: .5rem;
+          padding-right: .5rem;
+        }
+      }
+    }
+    .info_tabs{
+      padding: 0 .5rem;
+      .ul{
+        .tabs_infos{
+          width: 50%;
+        }
+      }
+    }
 
+    .w1200{
+      width: initial;
+    }
+  }
+
+@media (max-width: 1000px){
+  .consensus-info{
+    .bg-white{
+      height: initial;
+      .title{
+        margin: 0;
+      }
+    }
+  }
+}
+@media (max-width:686px){
+.consensus-info{
+  .bg-white{
+    .cards{
+      height: initial;
+    }
+  }
+}
+
+  .cards{
+    .cards-ul{
+      flex-wrap: wrap;
+      .cards-li{
+        width: 100% !important;
+        margin-bottom: 12px;
+      }
+    }
+  }
+}
 </style>

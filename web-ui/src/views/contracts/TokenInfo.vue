@@ -31,9 +31,12 @@
         <li class="tabs_infos fl" v-if="tokenType === 1"><p>{{$t('tokenInfo.tokenInfo0')}}<span>{{contractsInfo.decimals}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('public.transactionNo')}}<span>{{contractsInfo.transferCount}}</span></p></li>
         <li class="tabs_infos fl"><p>{{$t('tokenInfo.tokenInfo1')}}<span>{{contractsInfo.ownersCount}}</span></p></li>
-        <li class="tabs_infos fl"><p>{{$t('public.createAddress')}}<span class="mobile_s click"
-                                                                         @click="toUrl('addressInfo',contractsInfo.creater)">{{contractsInfo.creater}}</span>
-        </p></li>
+        <li class="tabs_infos fl">
+          <p class="addvorder">
+            {{$t('public.createAddress')}}
+            <span class="mobile_s click" @click="toUrl('addressInfo',contractsInfo.creater)">{{contractsInfo.creater}}</span>
+          </p>
+        </li>
         <li class="tabs_infos fl"><p>{{$t('public.createTime')}}<span>{{contractsInfo.createTime}}</span></p></li>
       </ul>
     </div>
@@ -41,7 +44,7 @@
       <el-col :span="24">
         <el-tabs v-model="activeName" @tab-click="handleClick" class="w1200">
           <el-tab-pane :label="$t('tokenInfo.tokenInfo2')" name="tokenFirst">
-            <el-table :data="accountTxList" stripe border style="width: 100%" class="mt_20">
+            <el-table :data="accountTxList" style="width: 100%" class="mt_20">
               <el-table-column :label="$t('public.height')" width="100" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click"
@@ -74,7 +77,7 @@
             <!--<paging :pager="pager" @change="getItemList" v-show="pager.total > pager.rows"></paging>-->
           </el-tab-pane>
           <el-tab-pane :label="$t('tokenInfo.tokenInfo3')" name="tokenSecond">
-            <el-table :data="accountTokensList" stripe border style="width: 100%" class="mt_20">
+            <el-table :data="accountTokensList" style="width: 100%" class="mt_20">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column :label="$t('tokenInfo.tokenInfo4')" width="150" align="left">
                 <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
@@ -295,6 +298,7 @@
     .bg-white {
       margin: 20px auto 0;
       padding-bottom: 10px;
+      background: initial;
       @media screen and (max-width: 1000px) {
         padding-bottom: 2.5rem;
       }
@@ -316,12 +320,30 @@
     .token-info_table {
       margin-top: 20px;
       @media screen and (max-width: 1000px) {
-        width: 95%;
         margin: 1rem auto 0;
       }
       .el-tabs__content {
         margin-bottom: 65px;
       }
+    }
+  }
+  @media (max-width: 1200px){
+    .token-info{
+      .w1200{
+        width: initial;
+      }
+      .b-info{
+        .ul{
+          .tabs_infos{
+            width: 100%;
+            border-right: none;
+            .addvorder{
+              border-bottom: 1px solid #DFE4EF;
+            }
+          }
+        }
+      } 
+      padding: 0 .5rem;
     }
   }
 

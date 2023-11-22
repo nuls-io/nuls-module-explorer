@@ -114,5 +114,20 @@ export default new Router({
       name: 'protocolUpdate',
       component: resolve => require(['@/views/protocol_update/Index'], resolve)
     },
+    {
+      path: '/destroy/list',
+      name: 'destroyList',
+      component: resolve => require(['@/views/destroyList/index'], resolve)
+    },
+    {
+      path: '/assets',
+      name: 'assets',
+      component: resolve => require(['@/views/assets/index'], resolve)
+    },
+    {
+      path: '/assets/details/:assetId',
+      name: 'assetsdetails',
+      component: resolve => require(['@/views/assets/assetsdetails'], resolve)
+    },
   ]
 })
