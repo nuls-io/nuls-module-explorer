@@ -12,11 +12,13 @@
         <li class="tabs_infos fl">
           <p>{{$t('assets.Contract_address')}}
             <span class="click mobile_s"
-              @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.creater }}</span>
+              @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.contractAddress }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{ $t('public.status') }}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>
+            {{ $t('public.status') }}
+            <span >{{ $t('contractStatus.' + contractsInfo.status) }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -25,23 +27,28 @@
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.abbreviate')}}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>{{$t('public.abbreviate')}}
+            <span>{{ contractsInfo.symbol }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('home.home3')}}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>
+            {{$t('home.home3')}}
+            <span>{{ timesDecimals(contractsInfo.totalSupply, contractsInfo.decimals, 0) }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('tokenInfo.tokenInfo0')}}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>
+            {{$t('tokenInfo.tokenInfo0')}}
+            <span>{{ contractsInfo.decimals }}</span>
           </p>
         </li>
 
         <li class="tabs_infos fl">
-          <p>{{ $t('public.transactionNo') }}<span>{{ contractsInfo.txCount }}</span></p>
+          <p>{{ $t('public.transactionNo') }}<span>{{ contractsInfo.transferCount }}</span></p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('tokenInfo.tokenInfo1')}}<span>{{ contractsInfo.balance / 100000000 }}</span></p>
+          <p>{{$t('tokenInfo.tokenInfo1')}}<span>{{ contractsInfo.ownersCount }}</span></p>
         </li>
         <li class="tabs_infos fl">
           <p>{{ $t('public.createAddress') }}
@@ -123,7 +130,7 @@ import moment from 'moment'
 import paging from '@/components/pagingBar';
 import SelectBar from '@/components/SelectBar';
 import CodeInfo from '@/views/contracts/CodeInfo';
-import { getLocalTime, superLong, copys, divisionDecimals } from '@/api/util.js'
+import { getLocalTime, superLong, copys, divisionDecimals , timesDecimals } from '@/api/util.js'
 import axios from 'axios'
 import { CODE_URL } from '@/config'
 import NewCodeInfo from './NewCodeInfo'
@@ -131,6 +138,7 @@ import NewCodeInfo from './NewCodeInfo'
 export default {
   data() {
     return {
+      timesDecimals,
       symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//symbol
       decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
       isMobile: false,
@@ -231,6 +239,12 @@ export default {
               response.result.certificationTime = moment(getLocalTime(response.result.certificationTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
             } else {
               response.result.certificationTime = 'null'
+            }
+
+            if(response.result.owners != null){
+              response.result["ownersCount"] = response.result.owners.length;
+            }else{
+              response.result["ownersCount"] = 0;
             }
             this.contractsInfo = response.result;
             this.modeList = response.result.methods;

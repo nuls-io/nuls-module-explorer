@@ -36,7 +36,7 @@
                 min-width="160"
               >
                 <template slot-scope="scope">
-                  <div>{{ toThousands(scope.row.totalSupply) }}</div>
+                  <div>{{ toThousands(timesDecimals(scope.row.totalSupply,scope.row.decimals)) }}</div>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('assets.Holder')" min-width="160">
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { toThousands } from "../../api/util";
+import { toThousands , timesDecimals} from "../../api/util";
 import Nrc20 from "../contracts/Nrc20.vue";
 import Nrc721 from '../contracts/Nrc721.vue'
 import Nrc1155 from '../contracts/Nrc1155.vue'
@@ -97,6 +97,7 @@ export default {
   },
   data() {
     return {
+      timesDecimals,
       toThousands,
       activeName: "Chain_assets",
       // pagerRows: 20,

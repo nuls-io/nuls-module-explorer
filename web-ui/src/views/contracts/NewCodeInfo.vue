@@ -19,6 +19,7 @@ import readContract from './components/readContract.vue'
 import {CODE_URL} from '@/config'
 import axios from 'axios'
 import CodeInfo from './CodeInfo.vue'
+import moment from 'moment'
 export default {
     components: {
         readContract,
@@ -56,6 +57,7 @@ export default {
             const params = { "jsonrpc": "2.0", "method": 'getContract', "params": [Number(getChainId()), address], "id": Math.floor(Math.random() * 1000) };
             axios.post('/', params)
                 .then((response) => {
+                    console.log(response, '=response.data.result')
                     if (response.data.hasOwnProperty("result")) {
                         this.getContractAddressInfo(address);
                         response.data.result.createTime = moment(getLocalTime(response.data.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
@@ -64,6 +66,7 @@ export default {
                         } else {
                             response.data.result.certificationTime = 'null'
                         }
+                        
                         this.contractsInfo = response.data.result;
                     }
                 }).catch((error) => {

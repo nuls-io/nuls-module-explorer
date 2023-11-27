@@ -36,7 +36,7 @@
           </div>
           <div class="row-center">
             <p>{{ $t("assets.traffic") }}</p>
-            <p>{{ toThousands(Number(assetInfo.nulsChainSupply)) }}</p>
+            <p>{{ toThousands(timesDecimals(Number(assetInfo.nulsChainSupply), assetInfo.decimals)) }}</p>
           </div>
           <div class="row-center">
             <p>{{ $t("assets.source_chain") }}</p>
@@ -64,6 +64,7 @@
             <p class="with-black">
               {{ Selection(assetInfo.contract) }}
               <img
+                v-if="assetInfo.contract"
                 class="img2"
                 src="./img/copey.png"
                 alt=""
@@ -127,13 +128,13 @@
             <holder :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></holder>
           </div>
         </el-tab-pane>
-        <el-tab-pane name="second">
+        <!-- <el-tab-pane name="second">
           <span slot="label"
             >{{ $t("contractsInfo.contractsInfo0") }}
             <img class="a_position" src="./img/dunpai.png" alt=""
           /></span>
           <Thecode></Thecode>
-        </el-tab-pane>
+        </el-tab-pane> -->
         <!-- <el-tab-pane :label="$t('assets.information')" name="fourth">
           <information></information>
         </el-tab-pane> -->
@@ -145,7 +146,6 @@
 <script>
 import Holder from "./components/Holder.vue";
 import Trading from "./components/Trading";
-import Information from "./components/information";
 import Thecode from "./components/Thecode";
 import SymbolIcon from "@/components/SymbolIcon.vue";
 import { _networkInfo } from "@/api/heterogeneousChainConfig";
@@ -154,18 +154,19 @@ import {
   divisionDecimals,
   toThousands,
   Copy,
+  timesDecimals
 } from "../../api/util";
 export default {
   components: {
     Trading,
     Holder,
-    Information,
     Thecode,
     SymbolIcon,
   },
   data() {
     return {
       Copy,
+      timesDecimals,
       activeName: "first",
       i18n_locale: "cn",
       assetId: "",

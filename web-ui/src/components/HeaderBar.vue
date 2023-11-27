@@ -10,13 +10,15 @@
 
       <div class="header_language fl">
         <div class="top-search fl" v-if="navActive !== 'home' && navActive !== '/'">
-          <el-input v-model="searchValue" class="fr" :placeholder="$t('public.searchTip')"
-                    @keyup.enter.native="clickSearch"
-                    @focus="focusSearch"
-                    @blur="blurSearch">
+          <el-input 
+              v-model="searchValue" class="fr" :placeholder="$t('public.searchTip')"
+                @keyup.enter.native="clickSearch"
+                @focus="focusSearch"
+                @input="DynamicMonitoring"
+                @blur="blurSearch">
             <i class="el-icon-search el-input__icon click" slot="suffix" @click="clickSearch"></i>
           </el-input>
-          <!-- <SearchBar /> -->
+          <SearchBar v-if="openSearchBar" :assetsList="assetsList" @clearModel="clearModel"/>
         </div>
         <!-- <div class="destroyed font14 fl pc" v-else>
           <i class="iconfont icon-jiandingxiaohui fred"></i>&nbsp;
@@ -49,12 +51,14 @@
   import logo from '@/assets/img/logo.svg'
   import MenuBar from '@/components/MenuBar';
   import {RUN_DEV, API_ROOT} from '@/config'
-  //import {timesDecimals, Plus} from '@/api/util.js'
+  import { getOriginChain } from '@/api/util.js'
   import SearchBar from './SearchBar.vue'
 
   export default {
     data() {
       return {
+        openSearchBar: false,
+        assetsList: [],
         logoSvg: logo,
         //默认选择菜单
         navActive: sessionStorage.hasOwnProperty('navActive') ? sessionStorage.getItem('navActive') : 'home',
@@ -100,7 +104,12 @@
       this.getAddressInfo();
     },
     methods: {
-
+      DynamicMonitoring(e){
+        if(!e){
+          this.assetsList = []
+          this.openSearchBar = false
+        }
+      },
       /**
        * @disc: 获销毁数量
        * @date: 2019-11-15 16:37
@@ -130,7 +139,10 @@
       blurSearch() {
         this.topLong = false;
       },
-
+      clearModel(){
+        this.assetsList = []
+        this.openSearchBar = false
+      },
       /**
        *  顶部搜索框
        **/
@@ -159,6 +171,13 @@
                   name: 'contractsInfo',
                   query: {contractAddress: response.result.data.contractAddress, tabName: 'first'}
                 })
+              }else if(response.result.type === 'asset'){
+                const list = response.result.data
+                  list.map(v => {
+                    v.originChain = getOriginChain(v.sourceChainId)
+                  })
+                  this.assetsList = list
+                  this.openSearchBar = true
               } else {
                 this.$message({message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 1000});
               }
@@ -252,6 +271,9 @@
           position: relative;
           @media screen and (max-width: 1000px) {
             //margin: 1rem 0.5rem 0 0;
+          }
+          .search-container{
+            width: initial;
           }
           .top_height {
             line-height: 30px;

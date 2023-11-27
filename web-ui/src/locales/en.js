@@ -509,7 +509,13 @@ const en = {
     "assetInfo29": "Cancel",
     "assetInfo30": "Prev",
     "assetInfo31": "Next",
-    "nodata": 'No data'
+    "assetInfo32": "Percentage",
+    "nodata": 'No data',
+    "BurnedList": "Burned Address List",
+    "Address": 'Address',
+    "Quantity": "Quantity（NULS）",
+    'label': 'Label',
+    'Broken_link': 'Broken link'
   },
 
   ...enLocale

@@ -32,6 +32,7 @@ export default {
       }
     },
     toAssetInfo(assetKey) {
+      this.$emit('clearModel')
       this.$router.push('/assets/details/'+assetKey)
     }
   }
@@ -76,6 +77,10 @@ export default {
   .search-centent {
     &:not(:last-child) {
       border-bottom: 1px solid #e9e9f8;
+      padding-bottom: 16px;
+    }
+    &:not(:first-child){
+      padding-top: 16px;
     }
     .style1 {
       color: #8291a4;

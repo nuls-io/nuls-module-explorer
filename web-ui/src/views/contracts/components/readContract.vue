@@ -3,7 +3,8 @@
         <div class="nabox-wallet cur" @click="connectWallet">
             <i class="info-success" v-if="walletaddress"></i>
             <i class="info-error" v-else></i>
-            <p>{{$t('assets.Connect_Nabox_wallet')}}</p>
+            <p v-if="walletaddress">{{walletaddress}}</p>
+            <p v-else>{{$t('assets.Connect_Nabox_wallet')}}</p>
         </div>
 
         <div class="info-box-nav">
@@ -163,7 +164,6 @@ export default {
         Onchange(item) {
             item.otherValue = 0
             item.ifValues = false
-            item.senior = item.senior
             this.$forceUpdate()
         },
         async getAccountCrossLedgerList(address) {
@@ -171,7 +171,6 @@ export default {
             if (address) {
                 const params = { "jsonrpc": "2.0", "method": 'getAccountCrossLedgerList', "params": [Number(getChainId()), address], "id": Math.floor(Math.random() * 1000) };
                 const res = await axios.post('/', params)
-                console.log(res, 'ffffffffff')
                 if (res.data.result) {
                     this.multipleAsset = res.data.result
                 }
@@ -632,7 +631,9 @@ export default {
             background: #F64141;
             margin-right: 8px;
         }
-
+        p{
+            word-break: break-all;
+        }
         .info-success {
             background: #00DB82;
         }

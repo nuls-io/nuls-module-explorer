@@ -344,7 +344,7 @@
         <el-table-column label="Amount">
           <template slot-scope="scope">
             <div class="ding-box">
-              {{ scope.row.amount }}
+              {{ timesDecimals(scope.row.amount, scope.row.decimals)  }}
             </div>
           </template>
         </el-table-column>
@@ -424,6 +424,7 @@ import { getLocalTime, copys, timesDecimals, superLong ,toThousands} from '@/api
 export default {
   data() {
     return {
+      timesDecimals,
       toThousands,
       txhash: this.$route.query.hash,
       txhashs: superLong(this.$route.query.hash, 20),
@@ -499,13 +500,9 @@ export default {
       this.nulsTransfers = [];
       this.contractInfo = [];
       this.tokenTransfers = [];
-      this.$post('/', 'getTx', [hash]).then((response) => {
-        console.log(response.result, '@@@@@@@')
-      })
       this.$post('/', 'getTxV2', [hash])
         .then((response) => {
           if (response.hasOwnProperty("result")) {
-            console.log(response.result.tx, '1111111111111111111');
             response.result.tx.time = moment(getLocalTime(response.result.tx.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
             response.result.tx.fees = timesDecimals(response.result.tx.fee.value, 8);
             response.result.tx.value = timesDecimals(response.result.tx.value, response.result.tx.decimal);

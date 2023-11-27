@@ -508,7 +508,13 @@ const cn = {
     "assetInfo29": "取消",
     "assetInfo30": "上一页",
     "assetInfo31": "下一页",
-    "nodata": "暂无数据"
+    "assetInfo32": "占比",
+    "nodata": "暂无数据",
+    "BurnedList": "烧毁的地址列表",
+    "Address": '地址',
+    "Quantity": "数量（NULS）",
+    'label': '标签',
+    'Broken_link': '断开链接'
   },
 
   ...zhLocale
