@@ -24,8 +24,8 @@
           <span v-show="nodeInfo.seedPacked">{{$t('public.seedNode')}}</span>
           </p>
         </li>
-        <li class="tabs_infos fl capitalize">
-          <p>{{$t('public.packAddress')}}<span class="click" @click="toUrl('addressInfo',nodeInfo.packingAddress)">{{nodeInfo.packingAddress}}</span></p>
+        <li class="tabs_infos fl">
+          <p>{{$t('public.packAddress')}}<span class="click" @click="toUrl('addressInfo',packingAddress)">{{packingAddress}}</span></p>
         </li>
         <li class="tabs_infos fl capitalize"><p>{{$t('public.transactionNo')}}<span>{{nodeInfo.txCount}}</span></p></li>
         <li class="tabs_infos fl capitalize"><p>{{$t('public.size')}} <span>{{nodeInfo.size}} Bytes</span></p></li>
@@ -89,6 +89,7 @@
         //高度
         height:this.$route.query.height,
         //块信息
+        packingAddress: '',
         nodeInfo: {},
         //交易类型
         typeRegion: 0,
@@ -165,7 +166,9 @@
               response.result.totalFee= timesDecimals(response.result.totalFee, 8);
 
               response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
+              console.log(response.result, 111111111111)
               this.nodeInfo = response.result
+              this.packingAddress = response.result.packingAddress
             }else{
               this.nodeInfo = {}
             }

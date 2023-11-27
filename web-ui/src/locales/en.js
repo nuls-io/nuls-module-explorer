@@ -477,7 +477,7 @@ const en = {
     "network": 'Network',
     "source_chain": "Source chain",
     "other_information": 'other information',
-    "Token_Contract": 'Token Contract ({number} decimal places)',
+    "Token_Contract": 'Token Contract',
     "Trading_Information": 'Trading Information',
     "information": 'Information',
     "holders": 'Total {number} holders',
@@ -509,7 +509,14 @@ const en = {
     "assetInfo29": "Cancel",
     "assetInfo30": "Prev",
     "assetInfo31": "Next",
-    "nodata": 'No data'
+    "assetInfo32": "Percentage",
+    "nodata": 'No data',
+    "BurnedList": "Burned Address List",
+    "Address": 'Address',
+    "Quantity": "Quantity（NULS）",
+    'label': 'Label',
+    'Broken_link': 'Broken link',
+    'sourceCode': 'Source code',
   },
 
   ...enLocale

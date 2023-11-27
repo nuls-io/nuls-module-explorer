@@ -4,6 +4,7 @@ import { RUN_DEV, IS_BETA } from '../config'
 import axios from 'axios';
 import { _networkInfo } from '@/api/heterogeneousChainConfig';
 import i18n from '../i18n'
+import { Message } from 'element-ui';
 
 /**
  * 10的N 次方
@@ -67,10 +68,10 @@ export function Division(nu, arg) {
 /**
  * 数字除以精度系数
  */
-export function timesDecimals(nu, decimals = 8) {
+export function timesDecimals(nu, decimals = 8, reserve = 2) {
   let newDecimals = decimals ? decimals : Number(sessionStorage.getItem('decimals'));
   let newNu = new BigNumber(Division(nu, Power(newDecimals)).toString());
-  return newNu.toFormat().replace(/[,]/g, '');
+  return newNu.toFormat(reserve, 1).replace(/[,]/g, '');
 }
 
 /**
@@ -317,15 +318,27 @@ export async function Copy(val) {
   try {
     await document.execCommand('Copy') // 执行浏览器复制命令
     if(locale === 'cn'){
-      alert('复制成功')
+      Message({
+        type: 'success',
+        message: '复制成功'
+      })
     }else{
-      alert('Copied successfully')
+      Message({
+        type: 'success',
+        message: 'Copied successfully'
+      })
     }
   } catch {
     if(locale === 'cn'){
-      alert('您的浏览器不支持复制')
+      Message({
+        type: 'error',
+        message: '您的浏览器不支持复制'
+      })
     }else{
-      alert('Your browser does not support copying')
+      Message({
+        type: 'error',
+        message: 'Your browser does not support copying'
+      })
     }
   }
 }

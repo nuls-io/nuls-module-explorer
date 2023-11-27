@@ -1,26 +1,26 @@
 <template>
     <div class="destroyList">
         <div class="w1200">
-            <p class="destroy-title">Burned Address List</p>
+            <p class="destroy-title">{{$t('assets.BurnedList')}}</p>
             <el-table :data="tableData" style="width: 100%" :cell-class-name="cellClassName">
-                <el-table-column label="Address" min-width="260">
+                <el-table-column :label="$t('assets.Address')" min-width="260">
                     <template slot-scope="scope">
                         <div class="lineGhei">{{ scope.row.address }}</div>
                     </template>
                 </el-table-column>
-                <el-table-column label="Label" min-width="180">
+                <el-table-column :label="$t('assets.label')" min-width="180">
                     <template slot-scope="scope">
                         <div class="lineGhei">
                             <span class="label-box">{{ scope.row.type }}</span>
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="Quantity（NULS）" min-width="150">
+                <el-table-column :label="$t('assets.Quantity')" min-width="150">
                     <template slot-scope="scope">
                         <div class="lineGhei">{{ toThousands(scope.row.value)  }}</div>
                     </template>
                 </el-table-column>
-                <el-table-column label="Percentage" min-width="150">
+                <el-table-column :label="$t('assets.assetInfo32')" min-width="150">
                     <template slot-scope="scope">
                         <div class="lineGhei">{{ scope.row.proportion }}</div>
                     </template>

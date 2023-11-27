@@ -7,6 +7,7 @@
       <el-submenu index="blockChain">
         <template slot="title">{{ $t('nav.blockChain') }}</template>
         <el-menu-item-group>
+          <el-menu-item index="contracts" class="font14 capitalize">{{ $t('nav.contracts') }}</el-menu-item>
           <el-menu-item index="block" class="font14 capitalize">{{ $t('nav.block') }}</el-menu-item>
           <el-menu-item index="address" class="font14 capitalize">{{ $t('nav.address') }}</el-menu-item>
           <el-menu-item index="transaction" class="font14 capitalize">{{ $t('nav.transaction') }}</el-menu-item>
@@ -17,13 +18,13 @@
 
       <el-menu-item index="consensus" class="font14 fw capitalize">{{ $t('nav.consensus') }}</el-menu-item>
       <el-menu-item index="assets" class="font14 fw capitalize">{{ $t('nav.assets') }}</el-menu-item>
-      <el-submenu index="contractsBase">
+      <!-- <el-submenu index="contractsBase">
         <template slot="title">{{ $t('nav.contracts') }}</template>
         <el-menu-item index="contracts" class="font14 capitalize">{{ $t('contracts.contracts0') }}</el-menu-item>
         <el-menu-item index="nrc20" class="font14 capitalize">NRC20</el-menu-item>
         <el-menu-item index="nrc721" class="font14 capitalize">NRC721</el-menu-item>
         <el-menu-item index="nrc1155" class="font14 capitalize">NRC1155</el-menu-item>
-      </el-submenu>
+      </el-submenu> -->
       <el-menu-item index="network" class="font14 fw capitalize">{{ $t('network.network') }}</el-menu-item>
       <el-menu-item class="font14 fw capitalize languagess" @click="selectLanguage(lang, true)">{{ lang === 'en' ? 'Cn' : 'En'
       }}</el-menu-item>
@@ -119,13 +120,14 @@ export default {
      * 导航栏的选中
      **/
     activedMenu(val) {
-      // console.log(val, '9999');
       // if (!val) return '';
       console.log(val)
       if(val === "transactionInfo"){
         return "transaction"
       }else if(val === "assetsdetails"){
         return "assets"
+      }else if(val === 'nrc20' || val === 'nrc721' || val === 'nrc1155'){
+        return "contracts"
       }else{
         return val;
       }

@@ -88,8 +88,7 @@ export default {
         }
     },
     created(){
-        // this.getContractsInfoByContractsAddress(this.$route.query.contractAddress);
-        this.getContractsInfoByContractsAddress("NULSd6HgrEtRT9r151GxBMG6hAVvdahgnSw7w");
+        this.getContractsInfoByContractsAddress('0x348371cfc7782d336c890b733d792258e1809216');
     },
     methods: {
         /**
@@ -104,10 +103,11 @@ export default {
          * @param address
         */
         getContractsInfoByContractsAddress(address) {
+            console.log(address,111111111)
+
             const params = { "jsonrpc": "2.0", "method": 'getContract', "params": [Number(getChainId()), address], "id": Math.floor(Math.random() * 1000) };
             axios.post('/', params)
                 .then((response) => {
-                    console.log(response.data,111111111)
                     if (response.data.hasOwnProperty("result")) {
                         this.getContractAddressInfo(address);
                         response.data.result.createTime = moment(getLocalTime(response.data.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');

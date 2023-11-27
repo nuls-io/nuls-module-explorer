@@ -38,6 +38,7 @@
               {{ $t('home.home10') }}
               <el-tooltip placement="right">
                 <div slot="content">
+                  <p>{{count.blockRewardBeforeDeflation}}</p>
                   <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{$t('home.home35',{number: count.blockRewardBeforeDeflation})}}</p>
                   <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{$t('home.home36',{number: count.blockRewardAfterDeflation})}}</p>
                   <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{ $t('home.home37',{year: this.count.Year,month: this.count.month, day: this.count.Day}) }}</p>
@@ -317,14 +318,15 @@ export default {
       }
       let NULSNumber = this.$store.state.NULSNumber;
       if (NULSNumber.length !== 0) {
-        let newBlockRewardBeforeDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardBeforeDeflation, 11));
-        this.count.blockRewardBeforeDeflation = newBlockRewardBeforeDeflation.toFormat(2);
-        let newBlockRewardAfterDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardAfterDeflation, 11));
-        this.count.blockRewardAfterDeflation = newBlockRewardAfterDeflation.toFormat(2);
+        console.log(NULSNumber.blockRewardBeforeDeflation)
+        let newBlockRewardBeforeDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardBeforeDeflation, 8, 5));
+        this.count.blockRewardBeforeDeflation = newBlockRewardBeforeDeflation.toFormat(5);
+        console.log(NULSNumber.blockRewardAfterDeflation)
+        let newBlockRewardAfterDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardAfterDeflation, 8, 5));
+        this.count.blockRewardAfterDeflation = newBlockRewardAfterDeflation.toFormat(5);
         this.count.Year = moment(NULSNumber.nextDeflationTime).format('YYYY');
         this.count.month = moment(NULSNumber.nextDeflationTime).format('MM');
         this.count.Day = moment(NULSNumber.nextDeflationTime).format('DD');
-        this.count.blockRewardAfterDeflation = newBlockRewardAfterDeflation.toFormat(2);
         this.countdown(NULSNumber.nextDeflationTime)
         let newCirculateNumber = new BigNumber(timesDecimals(NULSNumber.total, 11));
         this.count.circulateNumber = newCirculateNumber.toFormat(2);
