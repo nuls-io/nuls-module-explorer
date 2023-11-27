@@ -476,7 +476,7 @@ const cn = {
     "network": '网络',
     "source_chain": "源链",
     "other_information": '其它信息',
-    "Token_Contract": '代币合约（{number}位小数）',
+    "Token_Contract": '代币合约',
     "Trading_Information": '交易信息',
     "information": '信息',
     "holders": '总共 {number} 名持有者',
@@ -514,7 +514,8 @@ const cn = {
     "Address": '地址',
     "Quantity": "数量（NULS）",
     'label': '标签',
-    'Broken_link': '断开链接'
+    'Broken_link': '断开链接',
+    'sourceCode': '源代码',
   },
 
   ...zhLocale

@@ -100,9 +100,7 @@
           <el-tab-pane v-if="!isMobile" :label="$t('nav.contracts')" name="second"
             :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
             <div v-if="activeName === 'second'">
-              <!-- <CodeInfo :status="contractsInfo.status" :certificationTime="contractsInfo.certificationTime"
-                v-on:contractStatus="contractStatus"></CodeInfo> -->
-                <NewCodeInfo></NewCodeInfo>
+                <NewCodeInfo :certificationTime="certificationTime"></NewCodeInfo>
             </div>
           </el-tab-pane>
           
@@ -166,6 +164,7 @@ export default {
         page: 1,
         rows: 15,
       },
+      certificationTime: "null",
       //地址定时器
       contractAddressInterval: null,
     }
@@ -235,12 +234,6 @@ export default {
           if (response.hasOwnProperty("result")) {
             this.getContractAddressInfo(address);
             response.result.createTime = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-            if (response.result.certificationTime) {
-              response.result.certificationTime = moment(getLocalTime(response.result.certificationTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-            } else {
-              response.result.certificationTime = 'null'
-            }
-
             if(response.result.owners != null){
               response.result["ownersCount"] = response.result.owners.length;
             }else{
@@ -265,12 +258,11 @@ export default {
         "params": [Number(sessionStorage.getItem('chainId')), contractsAddress],
         "id": Math.floor(Math.random() * 1000)
       };
-      //console.log(CODE_URL);
       if (CODE_URL) {
         axios.post(CODE_URL, params)
           .then((response) => {
-            //console.log(response);
             if (response.data.hasOwnProperty("result")) {
+              this.certificationTime = response.data.result.certificationTime;
               this.contractsInfo.status = response.data.result.status;
             }
           }).catch((error) => {
@@ -279,7 +271,6 @@ export default {
       } else {
         this.contractsInfo.status = 0;
       }
-
     },
 
     /**

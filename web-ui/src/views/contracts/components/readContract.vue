@@ -56,7 +56,7 @@
 
                             <div class="margintop" v-if="item.payable">
                                 <p>Value(NULS)</p>
-                                <el-input class="margintop" v-model="item.values"></el-input>
+                                <el-input class="margintop" v-model="item.values" @input="Monitor($event, item)"></el-input>
                             </div>
 
                             <div class="transfer-multiple-asset" v-if="item.payableMultyAsset"
@@ -161,6 +161,10 @@ export default {
         });
     },
     methods: {
+        Monitor(val, item){
+            item.values = val;
+            this.$forceUpdate();
+        },
         Onchange(item) {
             item.otherValue = 0
             item.ifValues = false
@@ -246,7 +250,6 @@ export default {
             }
         },
         async changeParameter(item) {
-            console.log(item, '======item')
             if (this.newinfoActive === 2) {
                 // 写合约
                 let condition = true
@@ -311,7 +314,7 @@ export default {
                         data.multyAssetValues = []
                     }
                     console.log(JSON.stringify(data) )
-                    item.callResult = "transaction hash: " + await nabox.contractCall(data) // 返回交易hash
+                    item.callResult = "transaction hash: " + await window.nabox.contractCall(data) // 返回交易hash
                     this.$forceUpdate()
                 }
             } else {
@@ -347,9 +350,8 @@ export default {
        **/
         getBalanceByAddress(assetChainId, assetId, address) {
             getNulsBalance(assetChainId, assetId, address).then((response) => {
-                console.log(response.data, '===获取账户余额');
-                if (response.data.success) {
-                    this.balanceInfo = response.data.data;
+                if (response.success) {
+                    this.balanceInfo = response.data;
                 } else {
                     this.$message({ message: this.$t('public.err2') + response.data.error.data, type: 'error', duration: 3000 });
                 }
@@ -520,13 +522,10 @@ export default {
                 "jsonrpc": "2.0", "method": 'imputedContractCallGas',
                 "params": [Number(getChainId()), sender, value, contractAddress, methodName, methodDesc, args, multyAssetArray], "id": Math.floor(Math.random() * 1000)
             };
-            console.log(params, '===========')
             const _this = this
             return await axios.post('/', params)
                 .then(async (response) => {
                     if (response.data.hasOwnProperty("result")) {
-                        console.log(response.data, '预估调用合约交易的gas');
-                        console.log(item, 'itemitemitemitemitem');
                         item.gas = response.data.result.gasLimit;
                         item.oldGasNumber = response.data.result.gasLimit;
                         let contractConstructorArgsTypes = await _this.getContractMethodArgsTypes(contractAddress, methodName, methodDesc);
@@ -546,6 +545,7 @@ export default {
                             methodDesc: methodDesc,
                             args: newArgs
                         };
+
                     } else {
                         _this.$message({ message: _this.$t('call.call4') + response.data, type: 'error', duration: 3000 });
                     }

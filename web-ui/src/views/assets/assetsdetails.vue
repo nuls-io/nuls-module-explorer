@@ -59,7 +59,7 @@
             :class="i18n_locale === 'en' ? 'adaptation' : ''"
           >
             <p>
-              {{ $t("assets.Token_Contract", { number: assetInfo.decimals }) }}
+              {{ $t("assets.Token_Contract") }}
             </p>
             <p class="with-black">
               {{ Selection(assetInfo.contract) }}

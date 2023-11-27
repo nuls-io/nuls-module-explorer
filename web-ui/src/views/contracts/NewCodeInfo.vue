@@ -3,13 +3,13 @@
         <div class="info-button">
             <div :class="infoActive == 1 ? 'info-active' : ''" @click="setActive(1)">{{$t('assets.the_contract')}}</div>
             <div :class="infoActive == 2 ? 'info-active' : ''" @click="setActive(2)">{{$t('assets.write_contract')}}</div>
-            <div :class="infoActive == 3 ? 'info-active' : ''" @click="setActive(3)">{{$t('transactionInfo.transactionInfo9')}}</div>
+            <div :class="infoActive == 3 ? 'info-active' : ''" @click="setActive(3)">{{$t('assets.sourceCode')}}</div>
         </div>
 
         <readContract :infoActive="infoActive" v-if="infoActive !== 3"></readContract>
 
         <CodeInfo v-if="infoActive === 3" :status="contractsInfo.status"
-            :certificationTime="contractsInfo.certificationTime" v-on:contractStatus="contractStatus"></CodeInfo>
+            :certificationTime="certificationTime" v-on:contractStatus="contractStatus"></CodeInfo>
     </div>
 </template>
 
@@ -21,6 +21,7 @@ import axios from 'axios'
 import CodeInfo from './CodeInfo.vue'
 import moment from 'moment'
 export default {
+    props:['certificationTime'],
     components: {
         readContract,
         CodeInfo
@@ -30,6 +31,14 @@ export default {
             infoActive: 1, //1读合约，2写合约，3方法
             //合约详情
             contractsInfo: {},
+        }
+    },
+    watch:{
+        certificationTime:{
+            handler(newval){
+                this.certificationTime = moment(getLocalTime(newval)).format('YYYY-MM-DD HH:mm:ss');
+            },
+            immediate: true
         }
     },
     created() {
@@ -61,11 +70,6 @@ export default {
                     if (response.data.hasOwnProperty("result")) {
                         this.getContractAddressInfo(address);
                         response.data.result.createTime = moment(getLocalTime(response.data.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-                        if (response.data.result.certificationTime) {
-                            response.data.result.certificationTime = moment(getLocalTime(response.data.result.certificationTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-                        } else {
-                            response.data.result.certificationTime = 'null'
-                        }
                         
                         this.contractsInfo = response.data.result;
                     }
