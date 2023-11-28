@@ -12,7 +12,7 @@
       <h3 class="tabs_title tabs_header capitalize">{{ $t('public.basicInfo') }}</h3>
       <ul class="ul" ref="menu">
         <li class="tabs_infos fl capitalize">
-          <p>{{ $t('public.amount') }}<span>{{ txInfo.value }}</span></p>
+          <p>{{ $t('public.amount') }}<span>{{ timesDecimals(Number(txInfo.value), txInfo.decimal)  }}</span></p>
         </li>
         <li class="tabs_infos fl capitalize">
           <p>{{ $t('public.type') }}<span>{{ $t('type.' + txInfo.type) }}</span></p>
@@ -596,6 +596,7 @@ export default {
               this.outNumber = response.result.toList.length;
             }
 
+            console.log(response.result, '11111')
             this.txInfo = response.result.tx;
             this.fromList = response.result.fromList;
             this.toList = response.result.toList;
