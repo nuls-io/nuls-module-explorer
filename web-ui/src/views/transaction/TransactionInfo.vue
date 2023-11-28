@@ -154,7 +154,7 @@
           </p>
         </li>
         <!--调用合约-->
-        <li class="tabs_infos fl capitalize" v-if="txInfo.type === 16">
+        <li class="tabs_infos fl" v-if="txInfo.type === 16">
           <p>{{ $t('transactionInfo.transactionInfo9') }}
             <span>
               {{ txInfo.txData.methodName }}
@@ -180,8 +180,9 @@
     </div>
 
     <!-- nuls 转账 -->
-    <div class="w1200 token_list bg-white" v-if="nulsTransfers.length > 0">
+    <div class="w1200 token_list bg-white merge" v-if="nulsTransfers.length > 0">
       <el-table :data="nulsTransfers" style="width: 100%" :cell-class-name="cellClassName" :empty-text="$t('assets.nodata')">
+        <el-table-column min-width="15"></el-table-column>
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
@@ -199,7 +200,13 @@
           </template>
         </el-table-column>
         <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')"></el-table-column>
-        <el-table-column prop="symbol" label="Symbol"></el-table-column>
+        <el-table-column label="Symbol">
+          <template slot-scope="scope">
+            <div class="ding-box">
+              NULS
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column>
           <template slot="header" slot-scope="scope">
             <img src="./img/ssdr145.png" alt="">
@@ -215,7 +222,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Amount">
+        <el-table-column :label="$t('tokenInfo.tokenInfo5')">
           <template slot-scope="scope">
             <div class="ding-box" v-for="(item, index) in scope.row.outputs" :key="index">
               {{ item.value }}
@@ -225,7 +232,7 @@
         <el-table-column label="Symbol">
           <template slot-scope="scope">
             <div class="ding-box" v-for="(item, index) in scope.row.outputs" :key="index">
-              {{ item.symbol }}
+              {{ item.symbol || 'NULS' }}
             </div>
           </template>
         </el-table-column>
@@ -240,8 +247,9 @@
     </div>
     
     <!-- 代币转账 -->
-    <div class="w1200 token_list bg-white" v-if="tokenTransfers.length > 0">
+    <div class="w1200 token_list bg-white merge" v-if="tokenTransfers.length > 0">
       <el-table :data="tokenTransfers" style="width: 100%" :empty-text="$t('assets.nodata')">
+        <el-table-column min-width="15"></el-table-column>
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
@@ -319,7 +327,7 @@
         </el-table-column>
         <el-table-column :label="$t('tokenInfo.tokenInfo5')" min-width="100">
           <template slot-scope="scope">
-            <div>{{toThousands(scope.row.amount) }}</div>
+            <div>{{ toThousands(timesDecimals(scope.row.amount, scope.row.decimals)) }}</div>
           </template>
         </el-table-column>
         <el-table-column prop="symbol" label="Symbol"></el-table-column>
@@ -344,7 +352,7 @@
         <el-table-column label="Amount">
           <template slot-scope="scope">
             <div class="ding-box">
-              {{ timesDecimals(scope.row.amount, scope.row.decimals)  }}
+              {{ toThousands(timesDecimals(scope.row.amount, scope.row.decimals)) }}
             </div>
           </template>
         </el-table-column>
@@ -899,12 +907,18 @@ export default {
     }
   }
   .t_basics, .token_list {
-      //background-color: @bg-white;
       margin: 30px auto 100px;
       min-height: 275px;
       border: @BD1;
       @media screen and (max-width: 1000px) {
         // display: none;
+      }
+      .el-table{
+        tr{
+          th{
+            background: initial !important;
+          }
+        }
       }
       .el-table--scrollable-x{
         .el-table__body-wrapper{
