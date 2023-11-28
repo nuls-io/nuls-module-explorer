@@ -385,7 +385,7 @@
         <el-tab-pane :label="$t('public.input')" name="first">
           <div>
             <ul class="inputs scroll">
-              <li class="font14" v-for="item in txInfo.coinFroms" :key="item.key">
+              <li class="font14" v-for="item in txInfo.fromList" :key="item.key">
                 <span class="click" @click="toUrl('addressInfo', item.address)">{{ item.addresss }}</span>
                 <label class="fr">{{ item.value }}<span class="fCN"> {{ item.symbol }}</span></label>
               </li>
@@ -395,7 +395,7 @@
         <el-tab-pane :label="$t('public.output')" name="second">
           <div>
             <ul class="outputs scroll">
-              <li class="font14" v-for="item in txInfo.coinTos" :key="item.key">
+              <li class="font14" v-for="item in txInfo.toList" :key="item.key">
                 <span class="click" @click="toUrl('addressInfo', item.address)">{{ item.addresss }}</span>
                 <label class="fr">
                   {{ item.value }}
@@ -568,17 +568,16 @@ export default {
             if (response.result.tx.type === 18) {
               this.contractInfo = { success: true }
             }
-
-            if (response.result.tx.coinFroms) {
-              for (let item of response.result.tx.coinFroms) {
+            if (response.result.fromList) {
+              for (let item of response.result.fromList) {
                 item.value = timesDecimals(item.amount, item.decimal);
                 item.addresss = superLong(item.address, 10);
               }
-              this.inputNumber = response.result.tx.coinFroms.length;
+              this.inputNumber = response.result.fromList.length;
             }
 
-            if (response.result.tx.coinTos) {
-              for (let item of response.result.tx.coinTos) {
+            if (response.result.toList) {
+              for (let item of response.result.toList) {
                 item.value = timesDecimals(item.amount, item.decimal);
                 item.addresss = superLong(item.address, 10);
                 //根据lockTime字段长度判断是高度锁定还时间锁定
@@ -594,7 +593,7 @@ export default {
                   item.isShowInfo = this.$t('transactionInfo.transactionInfo10') + ":" + expectTime;
                 }
               }
-              this.outNumber = response.result.tx.coinTos.length;
+              this.outNumber = response.result.toList.length;
             }
 
             this.txInfo = response.result.tx;
@@ -616,7 +615,6 @@ export default {
                 this.showTokenId = true
               }
             }
-            console.log(response.result, "coinFroms")
             if (this.txInfo.txData && this.txInfo.txData.args) {
               this.txInfo.txData.args = this.txInfo.txData.args.replace(/<[^<>]+>/g, '');
             }
