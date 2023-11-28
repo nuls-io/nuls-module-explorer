@@ -12,11 +12,13 @@
         <li class="tabs_infos fl">
           <p>{{$t('assets.Contract_address')}}
             <span class="click mobile_s"
-              @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.creater }}</span>
+              @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.contractAddress }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{ $t('public.status') }}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>
+            {{ $t('public.status') }}
+            <span >{{ $t('contractStatus.' + contractsInfo.status) }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -25,23 +27,28 @@
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.abbreviate')}}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>{{$t('public.abbreviate')}}
+            <span>{{ contractsInfo.symbol }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('home.home3')}}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>
+            {{$t('home.home3')}}
+            <span>{{ timesDecimals(contractsInfo.totalSupply, contractsInfo.decimals, 0) }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('tokenInfo.tokenInfo0')}}<span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+          <p>
+            {{$t('tokenInfo.tokenInfo0')}}
+            <span>{{ contractsInfo.decimals }}</span>
           </p>
         </li>
 
         <li class="tabs_infos fl">
-          <p>{{ $t('public.transactionNo') }}<span>{{ contractsInfo.txCount }}</span></p>
+          <p>{{ $t('public.transactionNo') }}<span>{{ contractsInfo.transferCount }}</span></p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('tokenInfo.tokenInfo1')}}<span>{{ contractsInfo.balance / 100000000 }}</span></p>
+          <p>{{$t('tokenInfo.tokenInfo1')}}<span>{{ contractsInfo.ownersCount }}</span></p>
         </li>
         <li class="tabs_infos fl">
           <p>{{ $t('public.createAddress') }}
@@ -90,12 +97,14 @@
             <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
 
           </el-tab-pane>
-          <el-tab-pane v-if="!isMobile" :label="$t('nav.contracts')" name="second"
+          <el-tab-pane v-if="!isMobile" name="second"
             :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
+            <span slot="label">
+              {{$t('nav.contracts')}}
+              <img v-if="contractsInfo.status == 2" src="./img/Certification.svg" class="authenticate" alt="" srcset=""> 
+            </span>
             <div v-if="activeName === 'second'">
-              <!-- <CodeInfo :status="contractsInfo.status" :certificationTime="contractsInfo.certificationTime"
-                v-on:contractStatus="contractStatus"></CodeInfo> -->
-                <NewCodeInfo></NewCodeInfo>
+                <NewCodeInfo :certificationTime="certificationTime"></NewCodeInfo>
             </div>
           </el-tab-pane>
           
@@ -123,7 +132,7 @@ import moment from 'moment'
 import paging from '@/components/pagingBar';
 import SelectBar from '@/components/SelectBar';
 import CodeInfo from '@/views/contracts/CodeInfo';
-import { getLocalTime, superLong, copys, divisionDecimals } from '@/api/util.js'
+import { getLocalTime, superLong, copys, divisionDecimals , timesDecimals } from '@/api/util.js'
 import axios from 'axios'
 import { CODE_URL } from '@/config'
 import NewCodeInfo from './NewCodeInfo'
@@ -131,6 +140,7 @@ import NewCodeInfo from './NewCodeInfo'
 export default {
   data() {
     return {
+      timesDecimals,
       symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//symbol
       decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
       isMobile: false,
@@ -158,6 +168,7 @@ export default {
         page: 1,
         rows: 15,
       },
+      certificationTime: "null",
       //地址定时器
       contractAddressInterval: null,
     }
@@ -227,10 +238,10 @@ export default {
           if (response.hasOwnProperty("result")) {
             this.getContractAddressInfo(address);
             response.result.createTime = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-            if (response.result.certificationTime) {
-              response.result.certificationTime = moment(getLocalTime(response.result.certificationTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-            } else {
-              response.result.certificationTime = 'null'
+            if(response.result.owners != null){
+              response.result["ownersCount"] = response.result.owners.length;
+            }else{
+              response.result["ownersCount"] = 0;
             }
             this.contractsInfo = response.result;
             this.modeList = response.result.methods;
@@ -251,12 +262,11 @@ export default {
         "params": [Number(sessionStorage.getItem('chainId')), contractsAddress],
         "id": Math.floor(Math.random() * 1000)
       };
-      //console.log(CODE_URL);
       if (CODE_URL) {
         axios.post(CODE_URL, params)
           .then((response) => {
-            //console.log(response);
             if (response.data.hasOwnProperty("result")) {
+              this.certificationTime = response.data.result.certificationTime;
               this.contractsInfo.status = response.data.result.status;
             }
           }).catch((error) => {
@@ -265,7 +275,6 @@ export default {
       } else {
         this.contractsInfo.status = 0;
       }
-
     },
 
     /**
@@ -398,6 +407,10 @@ export default {
       padding: 16px 24px  24px;
       border-radius: 12px;
       background: #FFFFFF;
+      .authenticate{
+        position: relative;
+        top: -6px;
+      }
       .el-tabs__header {
         .el-tabs__nav-wrap {
           .el-tabs__item {

@@ -4,8 +4,8 @@
       <div class="top-info">
         <h5 class="font16 fw fl"><i class="el-icon-success fCN"></i>{{$t('codeInfo.codeInfo0')}}</h5>
         <div class="fr">
-          <span class="font12">{{$t('codeInfo.codeInfo1')}}:NVM V1.0.0 </span>
-          <span class="font12">{{$t('codeInfo.codeInfo2')}}:{{certificationTime ==='null' ? certificationTimes: certificationTime}}</span>
+          <span class="font12">{{$t('codeInfo.codeInfo1')}}：NVM V1.0.0 </span>
+          <span class="font12">{{$t('codeInfo.codeInfo2')}}：{{certificationTime ==='null' ? certificationTimes: certificationTime}}</span>
         </div>
       </div>
       <div class="code-list">

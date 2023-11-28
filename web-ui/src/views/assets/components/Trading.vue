@@ -384,7 +384,18 @@ export default {
   .assets-container{
     width: 100%;
     .el-table{
+      overflow: initial;
       border-radius: 0;
+      th, .cell, .el-table__header-wrapper{
+        overflow: initial;
+      }
+      .el-input__inner:focus, .el-button--primary:hover{
+        border-color: #00DB82;
+      }
+      .el-button--primary{
+        background: #00DB82;
+        border-color: #00DB82;
+      }
     }
   }
   .paging {

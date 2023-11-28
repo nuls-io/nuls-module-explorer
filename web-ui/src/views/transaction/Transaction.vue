@@ -46,8 +46,10 @@
             </template>
           </el-table-column>
           <el-table-column label="TXID" min-width="280" align="left">
-            <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo', scope.row.hash)">{{
-              scope.row.hashs }}</span>
+            <template slot-scope="scope">
+              <router-link tag="a" :to="{ path: '/transaction/info', query: { hash: scope.row.hash }}" class="click">
+                  {{ scope.row.hashs }}
+                </router-link>
             </template>
           </el-table-column>
           <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
@@ -57,10 +59,10 @@
             </template>
           </el-table-column>
           <el-table-column :label="$t('public.amount')" width="160" align="left">
-            <template slot-scope="scope">{{ scope.row.value }}{{ scope.row.symbol }}</template>
+            <template slot-scope="scope">{{ scope.row.value }} {{ scope.row.symbol }}</template>
           </el-table-column>
           <el-table-column :label="$t('public.fee')" width="160" align="left">
-            <template slot-scope="scope">{{ scope.row.fees }}{{ scope.row.fee.symbol }}</template>
+            <template slot-scope="scope">{{ scope.row.fees }} {{ scope.row.fee.symbol }}</template>
           </el-table-column>
         </el-table>
 
@@ -150,7 +152,7 @@ export default {
       //交易类型
       typeRegion: 0,
       //隐藏滑块
-      hideSwitch: false,
+      hideSwitch: true,
       //交易列表
       txList: [],
       //交易列表加载动画
@@ -162,8 +164,8 @@ export default {
       //分页信息
       pagerTotal: 0,
       pagerIndex: 1,
-      pagerRows: 6,
-
+      pagerRows: 20,
+      isCtrl: false,
       symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
       decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
       activeName: 'first',
@@ -176,6 +178,7 @@ export default {
     this.getYearRateData(this.timeRate);
     this.getTransactionsTotal();
     this.tabNameList();
+    this.keyDown()
   },
   mounted() {
   },
@@ -189,7 +192,33 @@ export default {
     next()
   },
   methods: {
-
+    keyDown() {
+        // 键盘按下事件
+        document.onkeydown = (e) => {
+          // 取消默认事件
+          e.preventDefault();   
+          //事件对象兼容
+          let e1 = e || event || window.event || arguments.callee.caller.arguments[0]
+          //  ctrl：17  
+          switch (e1.keyCode) {
+            case 17:
+              this.isCtrl= true;  // 如果ctrl按下就让他按下的标识符变为true
+              break;
+          }
+        }
+        // 键盘抬起事件
+        document.onkeyup = (e) => {
+          // 取消默认事件
+          e.preventDefault();
+          //事件对象兼容
+          let e1 = e || event || window.event || arguments.callee.caller.arguments[0]
+          switch (e1.keyCode) {
+            case 17: 
+              this.isCtrl = false;  // 如果ctrl抬起下就让他按下的标识符变为false
+              break;
+          }
+        }
+      },
     /**
      * 获取交易历史数据统计
      */
