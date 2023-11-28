@@ -97,8 +97,12 @@
             <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
 
           </el-tab-pane>
-          <el-tab-pane v-if="!isMobile" :label="$t('nav.contracts')" name="second"
+          <el-tab-pane v-if="!isMobile" name="second"
             :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
+            <span slot="label">
+              {{$t('nav.contracts')}}
+              <img v-if="contractsInfo.status == 2" src="./img/Certification.svg" class="authenticate" alt="" srcset=""> 
+            </span>
             <div v-if="activeName === 'second'">
                 <NewCodeInfo :certificationTime="certificationTime"></NewCodeInfo>
             </div>
@@ -403,6 +407,10 @@ export default {
       padding: 16px 24px  24px;
       border-radius: 12px;
       background: #FFFFFF;
+      .authenticate{
+        position: relative;
+        top: -6px;
+      }
       .el-tabs__header {
         .el-tabs__nav-wrap {
           .el-tabs__item {

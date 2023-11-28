@@ -162,6 +162,7 @@ export default {
     },
     methods: {
         Monitor(val, item){
+            console.log(item, '22222222222')
             item.values = val;
             this.$forceUpdate();
         },
@@ -250,6 +251,7 @@ export default {
             }
         },
         async changeParameter(item) {
+            console.log(item, '%%%%%%%%%%')
             if (this.newinfoActive === 2) {
                 // 写合约
                 let condition = true
@@ -301,7 +303,7 @@ export default {
                     }
                     const data = {
                         from: this.walletaddress, //钱包地址
-                        value: 0,
+                        value: item.values * Math.pow(10, 8),
                         contractAddress: this.searchContract,
                         methodName: item.name,
                         methodDesc: item.desc,
@@ -313,7 +315,7 @@ export default {
                     }else{
                         data.multyAssetValues = []
                     }
-                    console.log(JSON.stringify(data) )
+                    console.log(data, '@@@@@@@')
                     item.callResult = "transaction hash: " + await window.nabox.contractCall(data) // 返回交易hash
                     this.$forceUpdate()
                 }

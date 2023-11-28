@@ -68,10 +68,15 @@ export function Division(nu, arg) {
 /**
  * 数字除以精度系数
  */
-export function timesDecimals(nu, decimals = 8, reserve = 2) {
-  let newDecimals = decimals ? decimals : Number(sessionStorage.getItem('decimals'));
+export function timesDecimals(nu, decimals = 8, reserve) { 
+  // let newDecimals = decimals ? decimals : Number(sessionStorage.getItem('decimals'));
+  let newDecimals = decimals;
   let newNu = new BigNumber(Division(nu, Power(newDecimals)).toString());
-  return newNu.toFormat(reserve, 1).replace(/[,]/g, '');
+  if(reserve){
+    return newNu.toFormat(reserve, 1).replace(/[,]/g, '');
+  }else{
+    return newNu.toFormat().replace(/[,]/g, '');
+  }
 }
 
 /**

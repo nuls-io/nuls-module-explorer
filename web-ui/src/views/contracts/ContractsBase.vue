@@ -1,12 +1,12 @@
 <template>
   <div class="contracts bg-gray">
     <div class="assets-container w1200">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('contracts.contracts0')" name="/contracts/"></el-tab-pane>
         <el-tab-pane label="NRC20" name="/contracts/nrc20"></el-tab-pane>
         <el-tab-pane label="NRC721" name="/contracts/nrc721"></el-tab-pane>
         <el-tab-pane label="NRC1155" name="/contracts/nrc1155"></el-tab-pane>
-      </el-tabs>
+      </el-tabs> -->
     </div>
     <div class="bg-white">
       <div class="content">
