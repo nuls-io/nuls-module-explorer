@@ -26,7 +26,7 @@
         <el-menu-item index="nrc1155" class="font14 capitalize">NRC1155</el-menu-item>
       </el-submenu> -->
       <el-menu-item index="network" class="font14 fw capitalize">{{ $t('network.network') }}</el-menu-item>
-      <el-menu-item class="font14 fw capitalize languagess" @click="selectLanguage(lang, true)">{{ lang === 'en' ? 'Cn' : 'En'
+      <el-menu-item class="font14 fw capitalize languagess" @click="selectLanguage(lang, true)">{{ lang === 'en' ? 'Zh' : 'En'
       }}</el-menu-item>
     </el-menu>
   </div>

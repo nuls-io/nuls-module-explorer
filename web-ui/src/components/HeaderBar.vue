@@ -25,7 +25,7 @@
           {{$t('home.home9')}}：{{destroyedAddressAmount}}
           <span class="fCN">&nbsp;NULS</span>
         </div> -->
-        <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? 'Cn':'En' }}</div>
+        <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? 'Zh':'En' }}</div>
       </div>
       <div class="mobile_ico fr">
         <i class="el-icon-menu" @click="showMobile = !showMobile"></i>
@@ -37,7 +37,7 @@
         <div class="mobile_menu">
           <MenuBar></MenuBar>
           <div class="cb"></div>
-          <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? 'Cn':'En' }}</div>
+          <div class="language font14 fr" @click="selectLanguage(lang,true)">{{lang === 'en' ? 'Zh':'En' }}</div>
         </div>
       </div>
     </el-collapse-transition>
