@@ -5,7 +5,7 @@
         <a href="https://nuls.io/home" target="_blank">{{$t('bottom.website')}}</a>
       </li>
       <li class="b_li font14 fl" v-show="symbol ==='NULS'">
-        <a href="https://github.com/nuls-io" target="_blank">Github</a>
+        <a href="https://github.com/nuls-io" target="_blank">GitHub</a>
       </li>
       <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
         <!-- <a href="https://wallet.nuls.io/" arget="_blank">{{$t('bottom.webWallet')}}</a> -->
