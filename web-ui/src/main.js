@@ -11,7 +11,6 @@ import {API_ROOT, RUN_DEV} from "./config";
 Vue.use(JSONView);
 
 Vue.config.productionTip = false;
-//定义全局变量
 Vue.prototype.$post = post;
 
 async function getChainInfoBeforeRender() {
