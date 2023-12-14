@@ -11,6 +11,7 @@ import {API_ROOT, RUN_DEV} from "./config";
 Vue.use(JSONView);
 
 Vue.config.productionTip = false;
+
 Vue.prototype.$post = post;
 
 async function getChainInfoBeforeRender() {
