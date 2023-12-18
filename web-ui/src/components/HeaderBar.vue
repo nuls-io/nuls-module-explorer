@@ -179,10 +179,10 @@
                   this.assetsList = list
                   this.openSearchBar = true
               } else {
-                this.$message({message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 1000});
+                this.$message({message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 2000});
               }
             } else {
-              this.$message({message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 1000});
+              this.$message({message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 2000});
             }
             this.searchValue = '';
           }).catch((error) => {
@@ -308,6 +308,9 @@
               .el-icon-search:before{
                 color: #FFFFFF;
               }
+            }
+            .el-input__inner{
+              padding-right: 45px;
             }
             .el-input__icon {
               line-height: 30px;

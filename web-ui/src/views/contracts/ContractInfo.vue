@@ -3,7 +3,7 @@
     <div class="bg-white">
       <h4 class="font20 w1200">
         {{ contractsAddress }}
-        <img src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(contractsAddress)">
+        <img class="cur" src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(contractsAddress)">
       </h4>
     </div>
     <div class="w1200 b-info">

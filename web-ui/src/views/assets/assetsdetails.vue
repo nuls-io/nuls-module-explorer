@@ -292,7 +292,6 @@ export default {
     flex-wrap: wrap;
     .a_container {
       width: 387px;
-      height: 199px;
       background: #ffffff;
       border-radius: 12px;
       margin-bottom: 20px;
@@ -349,7 +348,7 @@ export default {
         .adaptation {
           display: flex;
           flex-wrap: wrap;
-          line-height: 28px;
+          line-height: 50px;
         }
       }
     }
