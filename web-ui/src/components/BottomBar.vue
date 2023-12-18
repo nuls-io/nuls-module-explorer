@@ -157,11 +157,14 @@
         color: #FFFFFF;
         line-height: 60px;
         width: auto;
-        margin: 0 30px;
+        margin: 0 20px;
         text-align: center;
         @media screen and (max-width: 1000px) {
           line-height: 45px;
           margin: 0 6px;
+        }
+        @media (min-width: 1000px) and (max-width: 1100px) {
+          margin: 0 10px;
         }
         &:first-child {
           margin-left: 0;

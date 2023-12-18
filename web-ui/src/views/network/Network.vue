@@ -220,7 +220,7 @@ export default {
 <style lang="less">
 .network {
   background-color: #F9FAFD;
-
+  padding-bottom: 60px;
   .w1200 {
     .network-title {
       color: #000000;

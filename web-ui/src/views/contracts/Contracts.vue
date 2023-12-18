@@ -2,7 +2,8 @@
   <div class="contracts-all">
     <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('contracts.contracts1')"
                @change="hideNrc20List"></el-switch>
-    <el-table :data="list">
+    <el-table class="contarracts-teble" :data="list">
+      <el-table-column width="20" align="left"></el-table-column>
       <el-table-column :label="$t('public.serial')" width="80" align="left">
         <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
       </el-table-column>
@@ -46,6 +47,14 @@ export default {
   mixins: [contractMixin],
   components: {
     PagingBar
+  },
+  watch:{
+    list:{
+      handler(newval){
+        console.log(newval , '00000000000000')
+
+      },immediate: true
+    }
   }
 }
 </script>
@@ -70,6 +79,17 @@ export default {
   .hide-div {
     width: 100%;
     height: 23px;
+  }
+  .contarracts-teble{
+    tr{
+      th{
+        background: #ffffff !important;
+        .cell{
+          font-size: 14px;
+          color: #000000;
+        }
+      }
+    }
   }
 }
 </style>

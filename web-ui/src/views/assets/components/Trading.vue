@@ -11,7 +11,7 @@
         </el-table-column> -->
         <el-table-column
           :label="$t('assets.assetInfo19')"
-          min-width="145"
+          min-width="200"
           align="left"
         >
           <template slot-scope="scope">
@@ -27,7 +27,7 @@
             </router-link>
           </template>
         </el-table-column>
-        <el-table-column min-width="80">
+        <el-table-column min-width="125">
           <template slot="header" slot-scope="scope">
             <FilterWrap
               :label="$t('assets.assetInfo20')"
@@ -51,10 +51,10 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('assets.assetInfo21')" min-width="145">
+        <el-table-column :label="$t('assets.assetInfo21')" min-width="160">
           <template slot-scope="scope">{{ scope.row.time }}</template>
         </el-table-column>
-        <el-table-column min-width="145" align="left">
+        <el-table-column width="190" align="left">
           <template slot="header" slot-scope="scope">
             <FilterWrap
               :label="$t('assets.assetInfo22')"
@@ -100,7 +100,7 @@
             <img src="../img/zishi.png" alt="" />
           </template>
         </el-table-column>
-        <el-table-column min-width="145" align="left">
+        <el-table-column min-width="190" align="left">
           <template slot="header" slot-scope="scope">
             <FilterWrap
               :label="$t('assets.assetInfo23')"
@@ -322,14 +322,12 @@ export default {
           v.amount = divisionDecimals(v.amount, this.decimals);
           v.time = moment(v.txTime * 1000).format("YYYY-MM-DD HH:mm:ss");
         });
-        console.log(list, "==xxxx");
         this.txList = list;
         this.pager.total = totalCount;
         this.loading = false;
       }
     },
     filterTxType(type) {
-      console.log(type, "==================");
       this.typeFilter = type;
       this.pager.page = 1;
       this.showTypeFilter = false;
@@ -386,15 +384,24 @@ export default {
     .el-table{
       overflow: initial;
       border-radius: 0;
-      th, .cell, .el-table__header-wrapper{
-        overflow: initial;
-      }
       .el-input__inner:focus, .el-button--primary:hover{
         border-color: #00DB82;
       }
       .el-button--primary{
         background: #00DB82;
         border-color: #00DB82;
+      }
+      .styleBut{
+        white-space: nowrap;
+      }
+
+      tr{
+        th{
+          .cell{
+            color: #000000;
+            font-size: 14px;
+          }
+        }
       }
     }
   }

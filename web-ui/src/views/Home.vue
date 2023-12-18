@@ -7,11 +7,12 @@
         <span v-else>{{ height }}</span>
       </div>
       <div class="search">
-        <el-input :placeholder="$t('public.searchTip')" v-model="homeSearch" @keyup.enter.native="clickSearch" @input="DynamicMonitoring">
+        <el-input :placeholder="$t('public.searchTip')" v-model="homeSearch" @keyup.enter.native="clickSearch"
+          @input="DynamicMonitoring">
           <i class="el-icon-search" slot="suffix" @click="clickSearch"></i>
         </el-input>
 
-        <SearchBar v-if="openSearchBar" :assetsList="assetsList"/>
+        <SearchBar v-if="openSearchBar" :assetsList="assetsList" />
       </div>
 
 
@@ -30,7 +31,8 @@
             <h5 class="font24 click-number">{{ count.tradeNumber }}K</h5>
           </li>
           <li>
-            <p class="font16 clicks node-title" @click="toUrl('destroyList')">{{ $t('home.home9') }}<i class="el-icon-arrow-right"></i></p>
+            <p class="font16 clicks node-title" @click="toUrl('destroyList')">{{ $t('home.home9') }}<i
+                class="el-icon-arrow-right"></i></p>
             <h5 class="font24 click-number">{{ destroyedAddressAmount }}</h5>
           </li>
           <li>
@@ -38,15 +40,24 @@
               {{ $t('home.home10') }}
               <el-tooltip placement="right">
                 <div slot="content">
-                  <p>{{count.blockRewardBeforeDeflation}}</p>
-                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{$t('home.home35',{number: count.blockRewardBeforeDeflation})}}</p>
-                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{$t('home.home36',{number: count.blockRewardAfterDeflation})}}</p>
-                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{ $t('home.home37',{year: this.count.Year,month: this.count.month, day: this.count.Day}) }}</p>
+                  <p>{{ count.blockRewardBeforeDeflation }}</p>
+                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{ $t('home.home35', {
+                    number:
+                      count.blockRewardBeforeDeflation
+                  }) }}</p>
+                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{ $t('home.home36', {
+                    number:
+                      count.blockRewardAfterDeflation
+                  }) }}</p>
+                  <p style="font-size: 12px; color: #FFFFFF; line-height: 20px;">{{ $t('home.home37', {
+                    year:
+                      this.count.Year, month: this.count.month, day: this.count.Day
+                  }) }}</p>
                 </div>
                 <img class="question cur" src="../assets//img/Group29.png" alt="">
               </el-tooltip>
             </div>
-            <h5 class="font24 clicks click-number">{{count.Countdown_to_production_cuts}}</h5>
+            <h5 class="font24 clicks click-number">{{ count.Countdown_to_production_cuts }}</h5>
           </li>
         </ul>
       </div>
@@ -93,12 +104,12 @@
         <div class="h_chart_title tc">
           <span class="font14 tc capitalize">{{ $t('home.home7') }}</span>
           <label class="calc fr font14 cursor-p click capitalize" @click="toUrl('transaction')">
-            {{ $t('home.home8')}}
+            {{ $t('home.home8') }}
             <img src="../assets//img/More.svg" alt="">
           </label>
         </div>
-        <ve-line height="100%" width="100%" style="top: -40px" :loading="dayChartLoading" :data="dayChartData" :extend="chartExtend"
-          :legend-visible="false" :settings="daySettings">
+        <ve-line height="100%" width="100%" style="top: -40px" :loading="dayChartLoading" :data="dayChartData"
+          :extend="chartExtend" :legend-visible="false" :settings="daySettings">
         </ve-line>
       </div>
     </div>
@@ -113,49 +124,56 @@ import axios from 'axios'
 import { API_ROOT } from '@/config'
 import { BigNumber } from 'bignumber.js'
 import CalcBar from '@/components/CalcBar'
-import { superLong, timesDecimals ,getOriginChain} from '@/api/util.js'
+import { superLong, timesDecimals, getOriginChain } from '@/api/util.js'
 import SearchBar from '../components/SearchBar.vue'
 import moment from 'moment'
 import { mapState } from 'vuex'
 
 export default {
-  components:{
+  components: {
     SearchBar,
     CalcBar
   },
   data() {
-      this.chartExtend = {
-        series: {
-          showSymbol: false,//取消折线图上的小圆点
-        },
-        tooltip:{
-          trigger: 'axis',
-          textStyle:{
-            color: '#000000'
-          }
-        },
-        xAxis:{
-          axisLine:{
-            lineStyle:{
-              color: '#B3B3CF'
-            }
-          }
-        },
-        yAxis:{
-          axisLine:{
-            lineStyle:{
-              color: '#B3B3CF'
-            }
+    this.chartExtend = {
+      grid: {
+        top: 60,
+        bottom: 30,
+        left: 10,
+        right: 10,
+        containLabel: true
+      },
+      series: {
+        showSymbol: false,//取消折线图上的小圆点
+      },
+      tooltip: {
+        trigger: 'axis',
+        textStyle: {
+          color: '#000000'
+        }
+      },
+      xAxis: {
+        axisLine: {
+          lineStyle: {
+            color: '#B3B3CF'
           }
         }
       },
+      yAxis: {
+        axisLine: {
+          lineStyle: {
+            color: '#B3B3CF'
+          }
+        }
+      }
+    };
       this.yearSettings = {
         yAxisType: ['percent'],
         labelMap: {
-          'value': 'APR'
+          value: 'APR'
         },
         area: true,
-        lineStyle:{
+        lineStyle: {
           width: 1,
           color: '#00E789'
         },
@@ -185,7 +203,7 @@ export default {
       labelMap: {
         'value': 'TXS'
       },
-      lineStyle:{
+      lineStyle: {
         width: 1,
         color: '#00E789'
       },
@@ -271,7 +289,7 @@ export default {
     }, 10000);
 
   },
-  computed:{
+  computed: {
     ...mapState(['NULSNumber'])
   },
   mounted() {
@@ -337,43 +355,43 @@ export default {
         this.countLoading = false;
       }
     },
-    countdown(targetTime){
-        if(!targetTime) return false;
-        // 目标时间
-        let newdate = new Date(targetTime)
-        // let setINT = setInterval(() => {
-            // 当前时间
-            let olddate = new Date()
-            // 目标时间减去当前时间
-            let down = newdate - olddate
-            // 当剩余时间为负数时，清楚计时器
-            if(down < 0){
-                // clearInterval(setINT)
-            }
-            this.formatSeconds(down)
-        // },3000)
+    countdown(targetTime) {
+      if (!targetTime) return false;
+      // 目标时间
+      let newdate = new Date(targetTime)
+      // let setINT = setInterval(() => {
+      // 当前时间
+      let olddate = new Date()
+      // 目标时间减去当前时间
+      let down = newdate - olddate
+      // 当剩余时间为负数时，清楚计时器
+      if (down < 0) {
+        // clearInterval(setINT)
+      }
+      this.formatSeconds(down)
+      // },3000)
     },
     formatSeconds(value) {
-        var secondTime = 0 //秒
-        var minuteTime = 0; // 分
-        var hourTime = 0; // 小时
-        var today = 0 //天
-        // 全部剩余多少秒
-        var seconds = Math.ceil(value / 1000) 
-        
-        hourTime = Math.floor(seconds / 3600) 
-        //天数
-        today = Math.floor(hourTime / 24)
-        //小时
-        hourTime = Math.floor(hourTime % 24) < 10 ? '0' + Math.floor(hourTime % 24) : Math.floor(hourTime % 24)
-        // 分
-        minuteTime = Math.floor(seconds / 60 % 60) < 10 ? '0' + Math.floor(seconds / 60 % 60) : Math.floor(seconds / 60 % 60)
-        //秒
-        secondTime = Math.floor(seconds % 60) < 10 ? '0' + Math.floor(seconds % 60) : Math.floor(seconds % 60)
-        this.count.Countdown_to_production_cuts = today+'d:'+hourTime+'h:'+minuteTime+'m'
+      var secondTime = 0 //秒
+      var minuteTime = 0; // 分
+      var hourTime = 0; // 小时
+      var today = 0 //天
+      // 全部剩余多少秒
+      var seconds = Math.ceil(value / 1000)
+
+      hourTime = Math.floor(seconds / 3600)
+      //天数
+      today = Math.floor(hourTime / 24)
+      //小时
+      hourTime = Math.floor(hourTime % 24) < 10 ? '0' + Math.floor(hourTime % 24) : Math.floor(hourTime % 24)
+      // 分
+      minuteTime = Math.floor(seconds / 60 % 60) < 10 ? '0' + Math.floor(seconds / 60 % 60) : Math.floor(seconds / 60 % 60)
+      //秒
+      secondTime = Math.floor(seconds % 60) < 10 ? '0' + Math.floor(seconds % 60) : Math.floor(seconds % 60)
+      this.count.Countdown_to_production_cuts = today + 'd:' + hourTime + 'h:' + minuteTime + 'm'
     },
-    DynamicMonitoring(e){
-      if(!e){
+    DynamicMonitoring(e) {
+      if (!e) {
         this.assetsList = []
         this.openSearchBar = false
       }
@@ -406,19 +424,19 @@ export default {
                 name: 'contractsInfo',
                 query: { contractAddress: response.result.data.contractAddress, tabName: 'first' }
               })
-            // eslint-disable-next-line no-empty
-            }else if(response.result.type === 'asset'){
+              // eslint-disable-next-line no-empty
+            } else if (response.result.type === 'asset') {
               const list = response.result.data
-                list.map(v => {
-                  v.originChain = getOriginChain(v.sourceChainId)
-                })
-                this.assetsList = list
-                this.openSearchBar = true
-            }else {
-              this.$message({ message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 1000 });
+              list.map(v => {
+                v.originChain = getOriginChain(v.sourceChainId)
+              })
+              this.assetsList = list
+              this.openSearchBar = true
+            } else {
+              this.$message({ message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 2000 });
             }
           } else {
-            this.$message({ message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 1000 });
+            this.$message({ message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 2000 });
           }
           // this.homeSearch = '';
         }).catch((error) => {
@@ -439,16 +457,22 @@ export default {
     getRotationList() {
       this.$post('/', 'getBestRoundInfo', [])
         .then((response) => {
-          //console.log(response);
           if (response.hasOwnProperty("result")) {
-            for (let item of response.result.itemList) {
-              item.agentName = item.agentName ? item.agentName : superLong(item.seedAddress, 6);
+            try {
+              this.rotationIndex = response.result.index;
+              this.pagekerId = response.result.packerOrder;
+              const itemList = response.result.itemList
+              if(itemList.length > 0){
+                for (let item of response.result.itemList) {
+                  item.agentName = item.agentName ? item.agentName : superLong(item.seedAddress, 6);
+                }
+                this.packerList = response.result.itemList.slice(response.result.packerOrder - 1, response.result.packerOrder + 6);
+                let packed = response.result.itemList.slice(response.result.packerOrder - 2, response.result.packerOrder - 1);
+                this.packerList.unshift(packed[0]);
+              }
+            } catch (error) {
+              console.log(error)
             }
-            this.rotationIndex = response.result.index;
-            this.pagekerId = response.result.packerOrder;
-            this.packerList = response.result.itemList.slice(response.result.packerOrder - 1, response.result.packerOrder + 6);
-            let packed = response.result.itemList.slice(response.result.packerOrder - 2, response.result.packerOrder - 1);
-            this.packerList.unshift(packed[0]);
             this.packerListLoading = false;
           }
         })
@@ -501,7 +525,6 @@ export default {
         })
       }
     },
-
   },
   watch: {
     yearRateData: function () {
@@ -543,6 +566,7 @@ export default {
     .node-information {
       position: absolute;
       bottom: -55px;
+
       ul {
         display: flex;
         align-items: center;
@@ -574,7 +598,8 @@ export default {
             font-size: 16px;
             color: #9C9CBA;
           }
-          .text-align{
+
+          .text-align {
             text-align: center;
             line-height: 22px;
           }
@@ -591,11 +616,13 @@ export default {
       width: 518px;
       margin: 24px auto 0;
       position: relative;
+
       .el-input__inner {
         height: 44px;
         line-height: 44px;
         border-radius: 12px;
         border: none;
+        padding-right: 40px;
 
         &::-webkit-input-placeholder {
           color: @Acolor2;
@@ -612,7 +639,7 @@ export default {
         display: flex;
         align-items: center;
         right: 14px;
-        font-size: 18px;
+        font-size: 16px;
       }
     }
   }
@@ -671,7 +698,8 @@ export default {
         justify-content: center;
 
         .Noun-title {
-          font-size: 16px;
+          font-size: 14px;
+          white-space: nowrap;
           color: #9C9CBA;
         }
 
@@ -688,8 +716,9 @@ export default {
         height: 30px;
         background: #E9E9F8;
       }
-      .jiedian{
-        li{
+
+      .jiedian {
+        li {
           width: 133.3px;
         }
       }
@@ -753,15 +782,18 @@ export default {
       border: @BD1;
       border-radius: 12px;
       background: #FFFFFF;
+
       .h_chart_title {
         margin: 24px 0 1px 0;
         z-index: 9;
         position: relative;
-        .font14{
+
+        .font14 {
           color: #000000;
           font-size: 14px;
         }
-        .icon-calculator_icon::before{
+
+        .icon-calculator_icon::before {
           color: #00DB82;
         }
       }
@@ -848,28 +880,32 @@ export default {
   }
 }
 
-@media (max-width:1220px){
-  .home{
-    .consensus-node{
+@media (max-width:1220px) {
+  .home {
+    .consensus-node {
       padding-left: 0.5rem;
       padding-right: 0.5rem;
     }
-    .h_chart{
+
+    .h_chart {
       padding-left: 0.5rem;
       padding-right: 0.5rem;
     }
-    .Information-bar{
-      .node-information{
+
+    .Information-bar {
+      .node-information {
         width: 100%;
         padding: 0 .5rem;
-        ul{
-          li{
+
+        ul {
+          li {
             width: 19%;
           }
         }
       }
     }
-    .w1200{
+
+    .w1200 {
       width: initial;
     }
   }
@@ -878,103 +914,114 @@ export default {
 @media (max-width:1000px) {
   .home {
     padding-bottom: 50px;
+
     .Information-bar {
       .node-information {
         width: 100%;
         padding: 0 0.5rem;
-        ul{
-          li{
+
+        ul {
+          li {
             width: 19%;
           }
         }
       }
-      .search{
+
+      .search {
         width: 80%;
       }
     }
-    .consensus-node{
+
+    .consensus-node {
       display: none;
     }
-    .h_chart{
+
+    .h_chart {
       padding: 0 0.5rem;
       margin-top: 4.5rem;
-      .h_chart_right{
+
+      .h_chart_right {
         margin-top: 1.3rem;
       }
     }
   }
 }
 
-@media (max-width:768px){
-  .home{
-    .Information-bar{
-      .node-information{
-        ul{
-          li{
-            .node-title{
+@media (max-width:768px) {
+  .home {
+    .Information-bar {
+      .node-information {
+        ul {
+          li {
+            .node-title {
               font-size: 12px;
             }
-            .question{
+
+            .question {
               margin-left: 2px;
             }
-            .click-number{
+
+            .click-number {
               font-size: 14px;
             }
           }
         }
       }
     }
-  } 
+  }
 }
 
-@media (max-width:586px){
-  .home{
-    .h_chart{
+@media (max-width:586px) {
+  .home {
+    .h_chart {
       margin-top: 12.5rem;
     }
-    .Information-bar{
-      .node-information{
+
+    .Information-bar {
+      .node-information {
         bottom: -196px;
-        ul{
+
+        ul {
           flex-wrap: wrap;
-          li{
+
+          li {
             width: 120px;
             margin-bottom: 12px;
           }
         }
       }
     }
-  } 
+  }
 }
 
-@media (max-width:513px){
-  .home{
-    .h_chart{
+@media (max-width:513px) {
+  .home {
+    .h_chart {
       margin-top: 12.5rem;
     }
-    .Information-bar{
-      .node-information{
+
+    .Information-bar {
+      .node-information {
         bottom: -196px;
-        ul{
+
+        ul {
           flex-wrap: wrap;
           justify-content: initial;
-          li{
+
+          li {
             width: 30%;
             margin-right: 5%;
-            &:nth-of-type(3){
+
+            &:nth-of-type(3) {
               margin-right: 0;
             }
           }
         }
       }
     }
-  } 
-}
+  }
+}</style>
 
-</style>
-
-<style>
-.el-tooltip__popper{
+<style>.el-tooltip__popper {
   width: fit-content;
-}
-</style>
+}</style>

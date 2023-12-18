@@ -5,14 +5,14 @@
       <h4 class="font20 w1200 bg-address">
         <span class="pc">{{ txhash }}</span>
         <span class="mobile fl">{{ txhashs }}</span>
-        <img src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(txhash)" />
+        <img class="cur" src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(txhash)" />
       </h4>
     </div>
     <div class="w1200 info_tabs">
       <h3 class="tabs_title tabs_header capitalize">{{ $t('public.basicInfo') }}</h3>
       <ul class="ul" ref="menu">
         <li class="tabs_infos fl capitalize">
-          <p>{{ $t('public.amount') }}<span>{{ timesDecimals(Number(txInfo.value), txInfo.decimal)  }}</span></p>
+          <p>{{ $t('public.amount') }}<span>{{ txInfo.value }}</span></p>
         </li>
         <li class="tabs_infos fl capitalize">
           <p>{{ $t('public.type') }}<span>{{ $t('type.' + txInfo.type) }}</span></p>

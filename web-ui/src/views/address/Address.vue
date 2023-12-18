@@ -5,25 +5,13 @@
         {{ $t("address.address1") }}
       </h2>
       <div class="w1200">
-        <ve-line
-          height="260px"
-          :data="timeChartData"
-          :legend-visible="false"
-          :colors="colors"
-          :settings="chartSettings"
-          :extend="chartExtend"
-          :loading="timeRateDataLoading"
-        />
+        <ve-line height="260px" :data="timeChartData" :legend-visible="false" :colors="colors" :settings="chartSettings"
+          :extend="chartExtend" :loading="timeRateDataLoading" />
       </div>
     </div>
     <div class="tabs w1200">
       <h2 class="title fl capitalize font18">{{ $t("address.address0") }}</h2>
-      <el-table
-        :data="addressList"
-        style="width: 100%"
-        @sort-change="sortChange"
-        v-loading="addressLoading"
-      >
+      <el-table :data="addressList" style="width: 100%" @sort-change="sortChange" v-loading="addressLoading">
         <el-table-column label="" width="30"> </el-table-column>
         <el-table-column :label="$t('public.serial')" width="100">
           <template slot-scope="scope">{{
@@ -32,10 +20,7 @@
         </el-table-column>
         <el-table-column :label="$t('public.address')" min-width="280">
           <template slot-scope="scope">
-            <span
-              class="cursor-p click"
-              @click="toUrl('addressInfo', scope.row.address, scope.row.type)"
-            >
+            <span class="cursor-p click" @click="toUrl('addressInfo', scope.row.address, scope.row.type)">
               {{ scope.row.address }}
             </span>
           </template>
@@ -46,19 +31,11 @@
         <el-table-column :label="$t('public.total')" width="200" align="left">
           <template slot-scope="scope">{{ scope.row.totalBalance }}</template>
         </el-table-column>
-        <el-table-column
-          :label="$t('public.accountedFor')"
-          width="200"
-          align="left"
-        >
+        <el-table-column :label="$t('public.accountedFor')" width="200" align="left">
           <template slot-scope="scope">{{ scope.row.proportion }}</template>
         </el-table-column>
       </el-table>
-      <paging
-        :pager="pager"
-        @change="pagesList"
-        v-show="pager.total > pager.rows"
-      >
+      <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows">
       </paging>
     </div>
   </div>
@@ -71,97 +48,41 @@ import moment from "moment";
 
 export default {
   data() {
-      this.colors = ['#7db46d', '#7db46d', '#7db46d', '#546570', '#c4ccd3'];
-      this.chartExtend = {
-        grid: {
-          top:20,
-          bottom:30,
-          left: 0,
-          right: 0,
-          containLabel:true
-        },
-        xAxis: {
-          axisLabel: {
-            formatter: val => {
-              return moment(val).format('MM/DD')
-            }
-          }
-        },
-      }
     this.colors = ["#7db46d", "#7db46d", "#7db46d", "#546570", "#c4ccd3"];
     this.chartExtend = {
       grid: {
         top: 20,
         bottom: 30,
-        left: 0,
-        right: 0,
-        containLabel: true,
+        left: 10,
+        right: 10,
+        containLabel: true
       },
       series: {
-        showSymbol: false, //取消折线图上的小圆点
+        showSymbol: false,//取消折线图上的小圆点
       },
       tooltip: {
-        trigger: "axis",
+        trigger: 'axis',
         textStyle: {
-          color: "#000000",
-        },
+          color: '#000000'
+        }
       },
       xAxis: {
         axisLine: {
           lineStyle: {
-            color: "#B3B3CF",
-          },
-        },
-        axisLabel: {
-          formatter: (val) => {
-            return moment(val).format("MM/DD");
-          },
-        },
+            color: '#B3B3CF'
+          }
+        }
       },
       yAxis: {
         axisLine: {
           lineStyle: {
-            color: "#B3B3CF",
-          },
-        },
-      },
-    };
-    this.chartSettings = {
-      yAxisType: ["KMB"],
-      labelMap: {'count': this.$t('address.address2')},
-      lineStyle: {
-        width: 1,
-        color: "#00E789",
-      },
-      area: true, //是否展示为面积图
-      itemStyle: {
-        //面积图颜色设置
-        color: {
-          type: "linear",
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            {
-              offset: 0,
-              color: "rgba(0, 231, 137, 0.5)", // 0% 处的颜色
-            },
-            {
-              offset: 1,
-              color: "rgba(255, 255, 255, 0)", // 100% 处的颜色
-            },
-          ],
-          globalCoord: false, // 缺省为 false
-        },
-      },
-    };
+            color: '#B3B3CF'
+          }
+        }
+      }
+    }
     return {
-        timeChartData: {
-          columns: [],
-          rows: []
-        },
-        timeRateDataLoading: true,
+      timeRateDataLoading: true,
       timeChartData: {
         columns: [],
         rows: [],
@@ -175,26 +96,50 @@ export default {
         page: 1,
         rows: 15,
       },
+      i18n_locale: 'cn',
     };
   },
   components: {
     paging,
   },
-    computed: {
-      chartSettings() {
-        return {
-          yAxisType: ['normal'],
-          labelMap: {'count': this.$t('address.address2')},
-        };
-      }
-    },
+  computed: {
+    chartSettings() {
+      return {
+        labelMap: { 'count': this.$t('address.address2')},
+        lineStyle: {
+          width: 1,
+          color: '#00E789'
+        },
+        area: true, //是否展示为面积图
+        itemStyle: { //面积图颜色设置
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              {
+                offset: 0,
+                color: 'rgba(0, 231, 137, 0.5)', // 0% 处的颜色
+              },
+              {
+                offset: 1,
+                color: 'rgba(255, 255, 255, 0)' // 100% 处的颜色
+              }
+            ],
+            globalCoord: false // 缺省为 false
+          }
+        }
+      };
+    }
+  },
   created() {
-      this.getActiveAddress()
+    this.getActiveAddress()
     this.getActiveAddress();
     this.pagesList();
   },
   beforeRouteLeave(to, from, next) {
-    //console.log(to.name);
     if (to.name === "addressInfo") {
       from.meta.keepAlive = true;
     } else {
@@ -205,7 +150,6 @@ export default {
   methods: {
     async getActiveAddress() {
       const result = await this.$post("/", "getActiveAddressData", [14]);
-      console.log(result, "333");
       if (result.result) {
         this.timeChartData.columns = ["date", "count"];
         this.timeChartData.rows = result.result.reverse();
@@ -293,11 +237,13 @@ export default {
     background-color: initial;
     display: flex;
     flex-direction: column;
+
     .w1200 {
       background: #fff;
       padding: 10px 40px 0;
       border-radius: 12px;
     }
+
     .autoInf {
       margin: auto;
       background: inherit;
@@ -305,6 +251,7 @@ export default {
       font-size: 20px;
       font-weight: 550;
     }
+
     @media screen and (max-width: 1000px) {
       .w1200 {
         width: 95%;
@@ -312,33 +259,41 @@ export default {
       }
     }
   }
+
   .title {
     margin: 0;
     padding: 20px 0;
     font-weight: 550;
     font-size: 20px;
   }
+
   .tabs {
     margin-bottom: 100px;
     margin-top: 0;
+
     @media screen and (max-width: 1000px) {
       width: 100%;
     }
-    .el-table{
-      tr{
-        th{
+
+    .el-table {
+      tr {
+        th {
           background: #fff !important;
-          .cell{
+
+          .cell {
             color: #000000;
           }
         }
-        td{
+
+        td {
           padding: 0 !important;
-          .cell{
+
+          .cell {
             line-height: 48px;
           }
         }
       }
+
       .el-table__header {
         .has-gutter {
           tr {
@@ -352,15 +307,17 @@ export default {
   }
 }
 
-@media (max-width: 1200px){
-  .address{
+@media (max-width: 1200px) {
+  .address {
     padding: 0 .5rem;
-    .bg-white{
-      .w1200{
+
+    .bg-white {
+      .w1200 {
         width: 100%;
         padding: 0;
       }
-      .autoInf{
+
+      .autoInf {
         padding: 20px 0;
       }
     }
