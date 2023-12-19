@@ -189,7 +189,7 @@
               <p class="address-box click" @click="toUrl('addressInfo', scope.row.from)">{{ UnpAredd(scope.row.from) }}
               </p>
               <el-tooltip :content="scope.row.from" placement="bottom" effect="light">
-                <img src="./img/Icontits.svg" alt="">
+                <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
             </div>
           </template>
@@ -217,7 +217,7 @@
             <div class="sending-address" v-for="(item, index) in scope.row.outputs" :key="index">
               <p class="address-box click" @click="toUrl('addressInfo', item.to)">{{ UnpAredd(item.to) }}</p>
               <el-tooltip :content="item.to" placement="bottom" effect="light">
-                <img src="./img/Icontits.svg" alt="">
+                <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
             </div>
           </template>
@@ -255,7 +255,7 @@
             <div class="sending-address">
               <p class="address-box click" @click="toUrl('addressInfo', scope.row.fromAddress)">{{ UnpAredd(scope.row.fromAddress) }}</p>
               <el-tooltip v-if="scope.row.fromAddress" :content="scope.row.fromAddress" placement="bottom" effect="light">
-                <img src="./img/Icontits.svg" alt="">
+                <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
             </div>
           </template>
@@ -277,7 +277,7 @@
             <div class="sending-address">
               <p class="address-box click" @click="toUrl('addressInfo', scope.row.toAddress)">{{ UnpAredd(scope.row.toAddress) }}</p>
               <el-tooltip :content="scope.row.toAddress" placement="bottom" effect="light">
-                <img src="./img/Icontits.svg" alt="">
+                <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
             </div>
           </template>
@@ -312,12 +312,13 @@
         <el-table-column min-width="15"></el-table-column>
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
-            <div class="sending-address">
+            <div class="sending-address" v-if="scope.row.address">
               <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address) }}</p>
               <el-tooltip :content="scope.row.address" placement="bottom" effect="light">
-                <img src="./img/Icontits.svg" alt="">
+                <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
             </div>
+            <p v-else>--</p>
           </template>
         </el-table-column>
         <el-table-column :label="$t('assets.Asset_type')" v-if="showAssetType">
@@ -344,7 +345,7 @@
             <div class="sending-address">
               <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address) }}</p>
               <el-tooltip :content="scope.row.address" placement="bottom" effect="light">
-                <img src="./img/Icontits.svg" alt="">
+                <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
             </div>
           </template>
@@ -363,17 +364,20 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="tokenId" v-if="showTokenId">
+        <el-table-column label="tokenID" v-if="showTokenId">
           <template slot-scope="scope">
-            <div class="ding-box">
-              {{ scope.row.tokenId}}
+            <div class="ding-box" v-if="scope.row.tokenId">
+              #{{scope.row.tokenId}}
+            </div>
+            <div class="ding-box" v-else>
+              -
             </div>
           </template>
         </el-table-column>
         <el-table-column label="Locked" v-if="showLocked">
           <template slot-scope="scope">
             <div class="ding-box">
-              {{ scope.row.locked }}
+              {{ toUpperCase(scope.row.locked) }}
             </div>
           </template>
         </el-table-column>
@@ -609,10 +613,12 @@ export default {
               }
             }
             if(this.toList.length > 0){
-              if(this.toList[0].locked){
+              const obj = this.toList[0]
+              if(obj.locked != null){
                 this.showLocked = true
               }
-              if(this.toList[0].tokenId){
+              
+              if(this.txInfo.type == 16){
                 this.showTokenId = true
               }
             }
@@ -623,7 +629,11 @@ export default {
           }
         })
     },
-
+    toUpperCase(locked){
+      let capitalizedFirst = locked.toString();
+      capitalizedFirst = capitalizedFirst.slice(0,1).toUpperCase() +capitalizedFirst.slice(1).toLowerCase();
+      return capitalizedFirst;
+    },
     /**
      * 复制方法
      * @param sting
@@ -813,6 +823,9 @@ export default {
       border-top-left-radius: 12px;
       border-top-right-radius: 12px;
       color: #000000;
+      padding-left: 20px;
+      font-size: 18px;
+      font-weight: 550;
     }
 
     .ul {
@@ -929,6 +942,9 @@ export default {
         align-items: center;
         .el-tooltip{
           margin-left: 4px;
+        }
+        .Icontits:hover{
+          transform: rotate(180deg);
         }
       }
       h3 {

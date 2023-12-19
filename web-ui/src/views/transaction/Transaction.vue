@@ -54,12 +54,16 @@
           </el-table-column>
           <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
           </el-table-column>
-          <el-table-column :label="$t('public.type')" width="160" align="left">
+          <el-table-column :label="$t('public.type')" min-width="90" align="left">
             <template slot-scope="scope"><span class="capitalize">{{ $t('type.' + scope.row.type) }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('public.amount')" width="160" align="left">
-            <template slot-scope="scope">{{ scope.row.value }} {{ scope.row.symbol }}</template>
+          <el-table-column :label="$t('public.amount')" min-width="160" align="left">
+            <template slot-scope="scope">
+              <p class="addmoy">
+                {{ scope.row.value }} {{ scope.row.symbol }}
+              </p>
+            </template>
           </el-table-column>
           <el-table-column :label="$t('public.fee')" width="160" align="left">
             <template slot-scope="scope">{{ scope.row.fees }} {{ scope.row.fee.symbol }}</template>
@@ -148,7 +152,7 @@ export default {
         rows: []
       },
       timeRateDataLoading: true,
-      timeRate: 2,
+      timeRate: 1,
       //交易类型
       typeRegion: 0,
       //隐藏滑块
@@ -530,6 +534,11 @@ export default {
           .cell{
             color: #4A4F55;
           }
+        }
+        .addmoy{
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
         }
       }
       .row {
