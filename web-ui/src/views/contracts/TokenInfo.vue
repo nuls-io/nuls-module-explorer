@@ -58,7 +58,8 @@
               </el-table-column>
               <el-table-column :label="$t('public.sender')" min-width="180" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.fromAddress)">{{ superLong(scope.row.fromAddress) }}</span>
+                  <span class="cursor-p click" v-if="scope.row.fromAddress" @click="toUrl('addressInfo',scope.row.fromAddress)">{{ superLong(scope.row.fromAddress) }}</span>
+                  <span class="cursor-p click" v-else>--</span>
                 </template>
               </el-table-column>
               <!--<el-table-column prop="" label="" width="50" align="center">

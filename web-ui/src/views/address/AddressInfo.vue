@@ -181,7 +181,7 @@
               </template>
             </el-table-column>
             <el-table-column label="Token ID" width="120" align="left">
-              <template slot-scope="scope">{{ scope.row.tokenID }}</template>
+              <template slot-scope="scope">#{{ scope.row.tokenID }}</template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -205,7 +205,9 @@
               </template>
             </el-table-column>
             <el-table-column label="Token ID" width="120" align="left">
-              <template slot-scope="scope">{{ scope.row.tokenId }}</template>
+              <template slot-scope="scope">
+                <p>#{{ scope.row.tokenId }}</p>
+              </template>
             </el-table-column>
             <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')" width="120" align="left" />
           </el-table>

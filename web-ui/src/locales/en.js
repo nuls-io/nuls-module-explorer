@@ -79,7 +79,7 @@ const en = {
     "status": "Status",
     "input": "Input",
     "output": "Output",
-    "searchTip": "address/height/txhash/token search",
+    "searchTip": "Address/Height/TxHash/Token",
     "copy": "Click copy",
     "copysuccess": "Copy success",
     "success": "Success",
@@ -233,7 +233,7 @@ const en = {
     "home7": "14 days Transaction history",
     "home8": "More",
     "home9": "Burned",
-    "home10": "Countdown To Production Cuts",
+    "home10": "Halving Countdown",
     "home35": "Current average block rewards: {number} NULS",
     "home36": "Average block rewards after halving: {number} NULS",
     "home37": "Next halving：{year}.{month}.{day}"

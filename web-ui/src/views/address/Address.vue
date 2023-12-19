@@ -29,7 +29,7 @@
           <template slot-scope="scope">{{ scope.row.locked }}</template>
         </el-table-column>
         <el-table-column :label="$t('public.total')" width="200" align="left">
-          <template slot-scope="scope">{{ scope.row.totalBalance }}</template>
+          <template slot-scope="scope">{{ toThousands(scope.row.totalBalance)  }}</template>
         </el-table-column>
         <el-table-column :label="$t('public.accountedFor')" width="200" align="left">
           <template slot-scope="scope">{{ scope.row.proportion }}</template>
@@ -43,7 +43,7 @@
 
 <script>
 import paging from "@/components/pagingBar";
-import { timesDecimals } from "@/api/util.js";
+import { timesDecimals , toThousands} from "@/api/util.js";
 import moment from "moment";
 
 export default {
@@ -82,6 +82,7 @@ export default {
       }
     }
     return {
+      toThousands,
       timeRateDataLoading: true,
       timeChartData: {
         columns: [],

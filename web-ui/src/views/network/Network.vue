@@ -44,7 +44,7 @@
             <p class="my-split"></p>
             <div class="network-label-box">
               <p class="label-box-title">{{ $t('bottom.Twitter') }}</p>
-              <p class="label-shuzi network-link">@nerve_network</p>
+              <p class="label-shuzi network-link cur" @click="openUrl('https://twitter.com/nerve_network')">@nerve_network</p>
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@
             <p class="my-split"></p>
             <div class="network-label-box">
               <p class="label-box-title">{{ $t('bottom.Twitter') }}</p>
-              <p class="label-shuzi network-link">@nuls</p>
+              <p class="label-shuzi network-link cur" @click="openUrl('https://twitter.com/Nuls')">@nuls</p>
             </div>
           </div>
         </div>

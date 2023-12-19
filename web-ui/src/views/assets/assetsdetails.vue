@@ -62,7 +62,7 @@
               {{ $t("assets.Token_Contract") }}
             </p>
             <p class="with-black">
-              {{ Selection(assetInfo.contract) }}
+              {{ Selection(assetInfo.contract) || '--' }}
               <img
                 v-if="assetInfo.contract"
                 class="img2"
@@ -74,8 +74,11 @@
           </div>
           <div class="row-center">
             <p>{{ $t("bottom.website") }}</p>
-            <p class="cur" @click="openUrl(assetInfo.website)">
+            <p class="cur" @click="openUrl(assetInfo.website)" v-if="assetInfo.website">
               <span>{{ assetInfo.website }}</span>
+            </p>
+            <p v-else>
+              <span style="color: #000000;">--</span>
             </p>
           </div>
           <div class="row-center">
@@ -110,7 +113,7 @@
                 <img src="./img/discord.svg" alt="" />
               </a>
             </div>
-            <span v-else>--</span>
+            <span v-else style="color:#000000;">--</span>
           </div>
         </div>
       </div>
@@ -301,6 +304,7 @@ export default {
         line-height: 50px;
         border-bottom: 1px solid #e9e9f8;
         padding-left: 24px;
+        font-weight: 550;
       }
 
       .a_content {

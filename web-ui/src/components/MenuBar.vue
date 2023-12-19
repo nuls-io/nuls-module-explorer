@@ -121,13 +121,14 @@ export default {
      **/
     activedMenu(val) {
       // if (!val) return '';
-      console.log(val)
       if(val === "transactionInfo"){
         return "transaction"
       }else if(val === "assetsdetails"){
         return "assets"
       }else if(val === 'nrc20' || val === 'nrc721' || val === 'nrc1155'){
         return "contracts"
+      }else if (val && val.indexOf('address') > -1) {
+        return 'address'
       }else{
         return val;
       }
