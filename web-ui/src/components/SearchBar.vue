@@ -5,11 +5,15 @@
         <p class="style1" v-if="index === 0">Tokens</p>
         <div class="style2">
           <img :src="symbolLogo(item.name)" alt="" />
-          <p class="sysmol font14">{{item.name}}</p>
-          <p class="monys font12" v-if="item.price">${{item.price}}</p>
+          <div class="dispay">
+            <div class="flex">
+              <p class="sysmol font14">{{item.name}}</p>
+              <p class="monys font12" v-if="item.price">${{item.price}}</p>
+            </div>
+            <p class="style3">{{item.contract}}</p>
+            <p class="style3" v-if="item.website">{{item.website}}</p>
+          </div>
         </div>
-        <p class="style3">{{item.contract}}</p>
-        <p class="style3" v-if="item.website">{{item.website}}</p>
       </div>
     </div>
   </div>
@@ -92,8 +96,8 @@ export default {
       align-items: center;
       margin-bottom: 12px;
       img {
-        width: 24px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
         margin-right: 8px;
         border: 1px solid #D5DBE2;
@@ -107,6 +111,14 @@ export default {
         border-radius: 6px;
         background: #f2f7ff;
         margin-left: 8px;
+      }
+      .dispay{
+        display: flex;
+        flex-direction: column;
+        .flex{
+          display: flex;
+          align-items: center;
+        }
       }
     }
     .style3 {

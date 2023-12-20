@@ -47,14 +47,6 @@ export default {
   mixins: [contractMixin],
   components: {
     PagingBar
-  },
-  watch:{
-    list:{
-      handler(newval){
-        console.log(newval , '00000000000000')
-
-      },immediate: true
-    }
   }
 }
 </script>

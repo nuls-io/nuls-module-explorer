@@ -121,7 +121,8 @@
         <!--创建、调用合约-->
         <li class="tabs_infos fl"
           v-if="txInfo.type === 15 || txInfo.type === 16 || txInfo.type === 17 || txInfo.type === 18">
-          <p>{{ $t('public.contractAddress') }}
+          <p class="tabs_infos-pox">
+            {{ $t('public.contractAddress') }}
             <span class="click" @click="toUrl('contractsInfo', contractInfo.contractAddress)">
               {{ contractInfo.contractAddress }}
             </span>
@@ -154,7 +155,7 @@
           </p>
         </li>
         <!--调用合约-->
-        <li class="tabs_infos fl" v-if="txInfo.type === 16">
+        <li class="tabs_infos fl tabs_infos-move" v-if="txInfo.type === 16">
           <p>{{ $t('transactionInfo.transactionInfo9') }}
             <span>
               {{ txInfo.txData.methodName }}
@@ -614,12 +615,13 @@ export default {
             }
             if(this.toList.length > 0){
               const obj = this.toList[0]
-              if(obj.locked != null){
-                this.showLocked = true
-              }
               
               if(this.txInfo.type == 16){
                 this.showTokenId = true
+              }else{
+                if(obj.locked != null){
+                  this.showLocked = true
+                }
               }
             }
             if (this.txInfo.txData && this.txInfo.txData.args) {
@@ -837,7 +839,21 @@ export default {
         .tabs_infos_long {
           width: 50%;
         }
+        .tabs_infos-pox {
+          @media (max-width: 586px) {
+            display: flex;
+            white-space: nowrap;
+            flex-wrap: wrap;
+            justify-content: space-between;
 
+          }
+          span{
+            @media (max-width: 490px) {
+              display: block;
+              width: 100%;
+            }
+          }
+        }
         .border-botton-line {
           border-bottom: 1px solid #E9E9F8;
         }
@@ -865,6 +881,13 @@ export default {
 
           .click {
             color: #00DB82;
+          }
+        }
+      }
+      .tabs_infos-move{
+        p{
+          @media (max-width: 1000px) {
+            border-bottom: 1px solid #DFE4EF;
           }
         }
       }

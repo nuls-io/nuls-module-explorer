@@ -73,7 +73,7 @@ export default {
     }
     .filter-content {
       position: absolute;
-      left: calc(100% - 25px);
+      // left: calc(100% - 25px);
       top: calc(100% - 5px);
       border-radius: 8px;
       background: #fff;
