@@ -99,7 +99,7 @@
               <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="TXID" min-width="80" align="left">
+            <el-table-column label="TXID" width="200" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click"
                       @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
@@ -115,7 +115,7 @@
                 <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.toAddress)">{{ scope.row.toAddresss }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="createTime" :label="$t('public.time')" width="200" align="left"></el-table-column>
+            <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
             <el-table-column :label="$t('public.amount')" width="180" align="left">
               <template slot-scope="scope">
                 <span v-show="scope.row.showValue" class="fCN">+{{ scope.row.value }} </span>
@@ -128,7 +128,6 @@
                 scope.row.toBalance}}{{scope.row.symbol }}
               </template>
             </el-table-column>
-            -
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList3')" name="addressThree">

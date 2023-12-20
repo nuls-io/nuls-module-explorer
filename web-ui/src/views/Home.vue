@@ -438,7 +438,6 @@ export default {
           } else {
             this.$message({ message: this.$t('codeInfo.codeInfo12'), type: 'error', duration: 2000 });
           }
-          // this.homeSearch = '';
         }).catch((error) => {
           console.log(error)
         })

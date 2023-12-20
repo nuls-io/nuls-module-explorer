@@ -387,6 +387,9 @@ export default {
       .el-input__inner:focus, .el-button--primary:hover{
         border-color: #00DB82;
       }
+      .el-table__header-wrapper{
+        overflow: initial;
+      }
       .el-button--primary{
         background: #00DB82;
         border-color: #00DB82;
@@ -397,9 +400,11 @@ export default {
 
       tr{
         th{
+          overflow: initial;
           .cell{
             color: #000000;
             font-size: 14px;
+            overflow: initial;
           }
         }
       }
