@@ -7,7 +7,7 @@
         <span v-else>{{ height }}</span>
       </div>
       <div class="search">
-        <el-input :placeholder="$t('public.searchTip')" v-model="homeSearch" @keyup.enter.native="clickSearch"
+        <el-input type="text" :placeholder="$t('public.searchTip')" v-model="homeSearch" @keyup.enter.native="clickSearch"
           @input="DynamicMonitoring">
           <i class="el-icon-search" slot="suffix" @click="clickSearch"></i>
         </el-input>

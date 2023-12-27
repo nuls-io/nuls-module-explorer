@@ -149,7 +149,6 @@
        **/
       copy(sting) {
         copys(sting);
-        this.$message({message: '复制成功', type: 'success', duration: 1000});
       },
 
       /**
@@ -334,7 +333,11 @@
         background: #FFFFFF;
         border-top-left-radius: 12px;
         border-top-right-radius: 12px;
+        padding-left: 20px;
         color: #000000;
+        @media (max-width: 1000px) {
+          padding-left: 0.5rem;
+        }
       }
       .ul {
         min-height: 210px;

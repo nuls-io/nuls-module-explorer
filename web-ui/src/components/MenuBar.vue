@@ -121,7 +121,7 @@ export default {
      **/
     activedMenu(val) {
       // if (!val) return '';
-      console.log(val, 'ppppppppppp')
+      console.log(val, 'consensus')
       if(val === "transactionInfo"){
         return "transaction"
       }else if(val === "assetsdetails" || val.indexOf('token') > -1){
@@ -134,6 +134,8 @@ export default {
         return 'contracts';
       }else if (val && val.indexOf('block') > -1) {
         return 'block';
+      }else if ( val && val.indexOf('consensus') > -1 || val.indexOf('rotation') > -1 ) {
+        return 'consensus'
       }else{
         return val;
       }

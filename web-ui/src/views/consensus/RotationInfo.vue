@@ -42,10 +42,10 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column prop="time" :label="$t('public.time')" align="left" min-width="180"></el-table-column>
-          <el-table-column prop="txCount" :label="$t('public.transactionNo')" min-width="140"
+          <el-table-column prop="time" :label="$t('public.time')" align="left" min-width="130"></el-table-column>
+          <el-table-column prop="txCount" :label="$t('public.transactionNo')" min-width="160"
                            align="left"></el-table-column>
-          <el-table-column prop="txid" :label="$t('public.outNode')" align="left" min-width="150">
+          <el-table-column prop="txid" :label="$t('public.outNode')" align="left" min-width="130">
             <template slot-scope="scope">
               <label class="cursor-p" v-show="scope.row.seedPacked ">
                 {{$t('public.seedNode')}}
@@ -60,7 +60,7 @@
                            align="left"></el-table-column>
           <!-- <el-table-column prop="strua" label="状态" width="120" align="center">
            </el-table-column>-->
-          <el-table-column prop="fee" :label="$t('public.blockReward')+'(NULS)'" align="left" min-width="100">
+          <el-table-column prop="fee" :label="$t('public.blockReward')+'(NULS)'" align="left" min-width="160">
             <template slot-scope="scope">
               {{ scope.row.reward}}
             </template>

@@ -17,21 +17,16 @@
         <el-table-column :label="$t('public.address')" width="260" align="left">
           <template slot-scope="scope">
             <div class="flex-start">
-              <router-link
-                tag="a"
-                :to="{
-                  path: '/address/info',
-                  query: { address: scope.row.address },
-                }"
-                class="click"
-              >
+              <router-link tag="a" :to="{
+                path: '/address/info',
+                query: { address: scope.row.address },
+              }" class="click">
                 {{ superLong(scope.row.address) }}
               </router-link>
-              <img
-                @click="copy(scope.row.address)"
-                src="../img/fuzhi.png"
-                alt=""
-              />
+              <div class="tags" v-if="scope.row.tag">
+                {{ scope.row.tag }}
+              </div>
+              <img @click="copy(scope.row.address)" src="../img/fuzhi.png" alt="" />
             </div>
           </template>
         </el-table-column>
@@ -52,16 +47,12 @@
           </template>
         </el-table-column>
       </el-table>
-      <paging
-        :pager="pager"
-        @change="getHolders"
-        v-show="pager.total > pager.rows"
-      ></paging>
+      <paging :pager="pager" @change="getHolders" v-show="pager.total > pager.rows"></paging>
     </div>
   </div>
 </template>
   
-  <script>
+<script>
 import {
   superLong,
   copys,
@@ -125,20 +116,16 @@ export default {
     },
     copy(sting) {
       copys(sting);
-      this.$message({
-        message: this.$t("public.copysuccess"),
-        type: "success",
-        duration: 1000,
-      });
     },
   },
 };
 </script>
   
-  <style lang="less">
+<style lang="less">
 .asset-holders {
   .el-table {
     border-radius: 0;
+
     tr {
       th {
         .cell {
@@ -148,19 +135,39 @@ export default {
       }
     }
   }
-  .flex-start img {
-    margin-left: 6px;
-    cursor: pointer;
+
+  .flex-start {
+    display: flex;
+    align-items: center;
+    img {
+      margin-left: 6px;
+      cursor: pointer;
+    }
+
+    .tags {
+      margin-left: 6px;
+      width: fit-content;
+      padding: 2px 4px;
+      line-height: initial;
+      border-radius: 4px;
+      background: #00DB82;
+      color: #ffffff;
+      font-size: 12px;
+    }
+
   }
+
   .total {
     display: flex;
     margin: 0 24px 16px;
     align-items: center;
+
     img {
       width: 14px;
       height: 12px;
       margin-right: 6px;
     }
+
     span {
       font-size: 14px;
     }

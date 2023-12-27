@@ -12,12 +12,12 @@
               style="width: 100%"
               :cell-class-name="cellClassName"
             >
-              <el-table-column label="ID" min-width="90">
+              <el-table-column label="ID" min-width="130">
                 <template slot-scope="scope">
                   <div>#{{ scope.row.id }}</div>
                 </template>
               </el-table-column>
-              <el-table-column label="Token" min-width="180">
+              <el-table-column label="Token" min-width="200">
                 <template slot-scope="scope">
                   <div class="Token-box" @click="routLink(scope.row.id)">
                     <img :src="scope.row.iconUrl" alt="" v-if="scope.row.iconUrl"/>
@@ -26,14 +26,14 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="Native Chain" min-width="98">
+              <el-table-column label="Native Chain" min-width="160">
                 <template slot-scope="scope">
                   <div class="chain-box" v-if="scope.row.sourceChainName">{{scope.row.sourceChainName}}</div>
                 </template>
               </el-table-column>
               <el-table-column
                 :label="$t('assets.Circulation')"
-                min-width="160"
+                min-width="190"
               >
                 <template slot-scope="scope">
                   <div>{{ toThousands(timesDecimals(scope.row.totalSupply,scope.row.decimals)) }}</div>
