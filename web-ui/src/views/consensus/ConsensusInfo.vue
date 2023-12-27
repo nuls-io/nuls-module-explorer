@@ -59,11 +59,13 @@
         <li class="tabs_infos fl"><p>{{$t('public.proportion')}}<span>{{nodeInfo.commissionRate}}%</span></p></li>
         <li class="tabs_infos fl">
           <p>
-            {{$t('consensusInfo.consensusInfo14')}}
-            <el-tooltip placement="top">
-              <div slot="content" class="info">{{$t('consensusInfo.consensusInfo15')}}</div>
-              <i class="el-icon-warning"></i>
-            </el-tooltip>
+            <label>
+              {{$t('consensusInfo.consensusInfo14')}}
+              <el-tooltip placement="top">
+                <div slot="content" class="info">{{$t('consensusInfo.consensusInfo15')}}</div>
+                <i class="el-icon-warning"></i>
+              </el-tooltip>
+            </label>
             <span>
               {{nodeInfo.agentReward}}
               <span class="fCN">&nbsp;{{symbol}}</span>
@@ -111,6 +113,7 @@
                              v-show="pager.total > pager.rows"
                              :total="pager.total"
                              :current-page.sync="pager.page"
+                             :pager-count="5"
                              :page-size="pager.rows"
                              @current-change="pagesBlockList">
               </el-pagination>
@@ -139,6 +142,7 @@
               <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
                              v-show="pager.total > pager.rows"
                              :total="pager.total"
+                             :pager-count="5"
                              :current-page.sync="pager.page"
                              :page-size="pager.rows"
                              @current-change="pagesPunishList">
@@ -163,6 +167,7 @@
               <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
                              v-show="pager.total > pager.rows"
                              :total="pager.total"
+                             :pager-count="5"
                              :current-page.sync="pager.page"
                              :page-size="pager.rows"
                              @current-change="pagesConsensusDepositList">
@@ -212,6 +217,7 @@
               <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
                              v-show="pager.total > pager.rows"
                              :total="pager.total"
+                             :pager-count="5"
                              :current-page.sync="pager.page"
                              :page-size="pager.rows"
                              @current-change="pagesConsensusCancelDepositList">
@@ -313,7 +319,6 @@
        **/
       copy(sting) {
         copys(sting);
-        this.$message({message: this.$t('public.copysuccess'), type: 'success', duration: 1000});
       },
 
       /**
@@ -497,6 +502,10 @@
   @import "./../../assets/css/style";
 
   .consensus-info {
+    .el-pagination{
+      white-space: wrap;
+      height: initial;
+    }
     .bg-white {
       background: initial;
       @media screen and (max-width: 1000px) {
@@ -542,7 +551,7 @@
       }
     }
     .el-tabs {
-      margin-bottom: 60px;
+      margin-bottom: 120px;
     }
 
   }
@@ -575,6 +584,16 @@
       .ul{
         .tabs_infos{
           width: 50%;
+          @media (max-width: 568px) {
+              p{
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                span{
+                  float: initial;
+                }
+              }
+          }
         }
       }
     }

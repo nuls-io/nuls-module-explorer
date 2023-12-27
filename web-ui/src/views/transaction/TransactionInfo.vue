@@ -173,7 +173,7 @@
           </p>
           <p v-else class="row-betw">
             {{ $t('public.remarks') }}
-            <span class="scroll overflow">{{ txInfo.remark || '-' }}</span>
+            <i class="scroll overflow">{{ txInfo.remark || '-' }}</i>
           </p>
         </li>
         <p class="cb"></p>
@@ -319,10 +319,10 @@
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
             </div>
-            <p v-else>--</p>
+            <p v-else class="click">--</p>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('assets.Asset_type')" v-if="showAssetType">
+        <el-table-column :label="$t('assets.Asset_type')" width="100" v-if="showAssetType">
           <template slot-scope="scope">
             <p class="leixin-let">{{scope.row.assetType}}</p>
           </template>
@@ -332,7 +332,7 @@
             <div>{{ toThousands(timesDecimals(scope.row.amount, scope.row.decimals)) }}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="symbol" label="Symbol"></el-table-column>
+        <el-table-column prop="symbol" label="Symbol" min-width="100"></el-table-column>
         
       </el-table>
       <el-table :empty-text="$t('assets.nodata')" :data="toList" style="width: 100%">
@@ -642,7 +642,6 @@ export default {
      **/
     copy(sting) {
       copys(sting);
-      this.$message({ message: this.$t('public.copysuccess'), type: 'success', duration: 1000 });
     },
 
     /**
@@ -828,6 +827,9 @@ export default {
       padding-left: 20px;
       font-size: 18px;
       font-weight: 550;
+      @media (max-width: 1000px) {
+        padding-left: 0.5rem;
+      }
     }
 
     .ul {
@@ -859,12 +861,8 @@ export default {
         }
 
         .row-betw {
-          position: relative;
-
-          span {
-            position: absolute;
-            right: 20px;
-          }
+          display: flex;
+          justify-content: space-between;
         }
 
         p {
@@ -916,6 +914,11 @@ export default {
     }
     .el-table{
       border-radius: 0;
+      overflow: auto;
+      .el-table__header-wrapper{
+        overflow: initial;
+      }
+      
       td{
         border: none;
       }

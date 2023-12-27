@@ -68,13 +68,13 @@ export function Division(nu, arg) {
 /**
  * 数字除以精度系数
  */
-export function timesDecimals(nu, decimals = 8, reserve) { 
+export function timesDecimals(nu, decimals = 8, reserve) {
   // let newDecimals = decimals ? decimals : Number(sessionStorage.getItem('decimals'));
   let newDecimals = decimals;
   let newNu = new BigNumber(Division(nu, Power(newDecimals)).toString());
-  if(reserve){
+  if (reserve) {
     return newNu.toFormat(reserve, 1).replace(/[,]/g, '');
-  }else{
+  } else {
     return newNu.toFormat().replace(/[,]/g, '');
   }
 }
@@ -140,7 +140,10 @@ export function superLong(string, leng) {
  * 复制 copy
  * @param value
  */
-export const copys = (value) => copy(value);
+// export const copys = (value) => copy(value);
+export function copys (value) {
+  Copy(value)
+};
 
 /**
  * 计数时间差
@@ -322,24 +325,24 @@ export async function Copy(val) {
   target.select() // 选中input
   try {
     await document.execCommand('Copy') // 执行浏览器复制命令
-    if(locale === 'cn'){
+    if (locale === 'cn') {
       Message({
         type: 'success',
         message: '复制成功'
       })
-    }else{
+    } else {
       Message({
         type: 'success',
         message: 'Copied successfully'
       })
     }
   } catch {
-    if(locale === 'cn'){
+    if (locale === 'cn') {
       Message({
         type: 'error',
         message: '您的浏览器不支持复制'
       })
-    }else{
+    } else {
       Message({
         type: 'error',
         message: 'Your browser does not support copying'

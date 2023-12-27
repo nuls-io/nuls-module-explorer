@@ -224,7 +224,6 @@
        **/
       copy(sting) {
         copys(sting);
-        this.$message({message: this.$t('public.copysuccess'), type: 'success', duration: 1000});
       },
 
     }

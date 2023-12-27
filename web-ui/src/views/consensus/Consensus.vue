@@ -2,8 +2,8 @@
   <div class="consensus">
     <div class="top-chart w1200 ">
       <div class="chart_title">
-        <h2 class="fl font18">{{ $t('consensus.consensus0') }}</h2>
-        <div class="fr">
+        <h2 class="title-box">{{ $t('consensus.consensus0') }}</h2>
+        <div class="fr right-tir">
           <div class="font16">
             <span class="font12 capitalize">{{ $t('home.home4') }}:</span> {{ circulation }}K
             <span class="font12 capitalize">{{ $t('home.home2') }}:</span> {{ consensusTotal }}K
@@ -348,20 +348,25 @@ export default {
   }
 
   .top-chart {
-    @media screen and (max-width: 1000px) {
-      display: none;
-    }
+    // @media screen and (max-width: 1000px) {
+    //   display: none;
+    // }
 
     .chart_title {
-      padding: 24px 0;
-      height: 20px;
-
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       h2 {
         font-size: 20px;
         color: #000000;
         font-weight: 600;
+        margin-bottom: 24px;
       }
-
+      .right-tir{
+        margin-bottom: 24px;
+      }
     }
 
     .chart_info {
@@ -369,7 +374,6 @@ export default {
       border-radius: 12px;
       border: 1px solid #EBEBF4;
       padding: 20px;
-      margin-top: 24px;
       height: 320px;
 
       .chart_bt {

@@ -144,6 +144,9 @@
       h4{
         margin-bottom: 12px;
       }
+      .el-progress.is-success .el-progress-bar__inner{
+        background-color: #00DB82;
+      }
     }
     .chart_info {
       margin: 20px 0 0 0;
