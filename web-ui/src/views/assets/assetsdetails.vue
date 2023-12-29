@@ -128,7 +128,7 @@
         </el-tab-pane>
         <el-tab-pane :label="$t('assets.Holder')">
           <div class="nei-lian">
-            <holder :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></holder>
+            <Holder :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></Holder>
           </div>
         </el-tab-pane>
         <!-- <el-tab-pane name="second">

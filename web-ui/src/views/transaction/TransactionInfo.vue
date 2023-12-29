@@ -503,7 +503,7 @@ export default {
     },
     jionOpen(txInfo) {
       const parmse = txInfo.fee.chainId +'-1'
-      this.$router.push("/assets/details/"+parmse)
+      this.$router.push("/Assets/details/"+parmse)
     },
 
     /**
@@ -614,14 +614,21 @@ export default {
               }
             }
             if(this.toList.length > 0){
-              const obj = this.toList[0]
+              // const obj = this.toList[0]
               
-              if(this.txInfo.type == 16){
+              // if(this.txInfo.symbol == 'NULS'){
+              //   this.showTokenId = true
+              // }else{
+              //   if(obj.locked != null){
+              //     this.showLocked = true
+              //   }
+              // }
+
+              if(this.toList[0].locked !== null){
+                this.showLocked = true
+              }
+              if(this.toList[0].tokenId !== null){
                 this.showTokenId = true
-              }else{
-                if(obj.locked != null){
-                  this.showLocked = true
-                }
               }
             }
             if (this.txInfo.txData && this.txInfo.txData.args) {
@@ -651,7 +658,7 @@ export default {
      */
     toUrl(name, params) {
       let newQuery = {};
-      if (name === "consensusInfo") {
+      if (name === "ConsensusInfo") {
         newQuery = { hash: params };
       } else if (name === "rotationInfo") {
         newQuery = { rotation: params };

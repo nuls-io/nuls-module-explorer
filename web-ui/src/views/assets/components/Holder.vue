@@ -18,7 +18,7 @@
           <template slot-scope="scope">
             <div class="flex-start">
               <router-link tag="a" :to="{
-                path: '/address/info',
+                path: '/Assets/holderAddress/'+assetKey,
                 query: { address: scope.row.address },
               }" class="click">
                 {{ superLong(scope.row.address) }}
@@ -96,13 +96,13 @@ export default {
         this.pager.page,
         this.pager.rows,
       ]);
-      console.log(result, "==--=");
       if (result.result) {
         const { list, totalCount } = result.result;
         list.map((v) => {
           v.balance = divisionDecimals(v.balance, this.decimals);
           v.rate = fixNumber(v.rate / 100, 8) + "%";
         });
+        console.log(list, '持有人列表')
         this.holders = list;
         this.pager.total = totalCount;
         this.loading = false;
@@ -144,16 +144,7 @@ export default {
       cursor: pointer;
     }
 
-    .tags {
-      margin-left: 6px;
-      width: fit-content;
-      padding: 2px 4px;
-      line-height: initial;
-      border-radius: 4px;
-      background: #00DB82;
-      color: #ffffff;
-      font-size: 12px;
-    }
+    
 
   }
 

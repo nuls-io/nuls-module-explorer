@@ -8,8 +8,10 @@
 
         <readContract :infoActive="infoActive" v-if="infoActive !== 3"></readContract>
 
-        <CodeInfo v-if="infoActive === 3" :status="contractsInfo.status"
-            :certificationTime="certificationTime" v-on:contractStatus="contractStatus"></CodeInfo>
+        <CodeInfo v-if="infoActive === 3" 
+            :status="contractsInfo.status"
+            :certificationTime="certificationTime" 
+            v-on:contractStatus="contractStatus"></CodeInfo>
     </div>
 </template>
 

@@ -26,7 +26,7 @@
             </el-table-column>
             <!-- <el-table-column label="TXID(Nerve)" width="330" align="center">
                <template slot-scope="scope">
-                 <span class="click" @click="toUrl('networkInfo',scope.row.hash0)">{{ scope.row.hash0 }}</span>
+                 <span class="click" @click="toUrl('ParachainsInfo',scope.row.hash0)">{{ scope.row.hash0 }}</span>
                </template>
              </el-table-column>-->
             <el-table-column prop="time" :label="$t('public.time')" width="180" align="center">

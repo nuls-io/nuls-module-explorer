@@ -37,7 +37,7 @@ export default {
     },
     toAssetInfo(assetKey) {
       this.$emit('clearModel')
-      this.$router.push('/assets/details/'+assetKey)
+      this.$router.push('/Assets/details/'+assetKey)
     }
   }
 };

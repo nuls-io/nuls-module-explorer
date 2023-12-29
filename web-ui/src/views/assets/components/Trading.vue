@@ -12,7 +12,7 @@
         <el-table-column :label="$t('assets.assetInfo19')" min-width="200" align="left">
           <template slot-scope="scope">
             <router-link tag="a" :to="{
-              path: '/transaction/info',
+              path: '/Transaction/info',
               query: { hash: scope.row.hash },
             }" class="click">
               {{ sliceHash(scope.row.hash) }}
@@ -59,7 +59,7 @@
           <template slot-scope="scope">
             <div class="flex-start" v-if="scope.row.to">
               <router-link tag="a" :to="{
-                path: '/address/info',
+                path: '/Accounts/info',
                 query: { address: scope.row.to },
               }" class="click">
                 {{ superLong(scope.row.to) }}
@@ -94,7 +94,7 @@
           <template slot-scope="scope">
             <div class="flex-start" v-if="scope.row.from">
               <router-link tag="a" :to="{
-                path: '/address/info',
+                path: '/Accounts/info',
                 query: { address: scope.row.from },
               }" class="click">
                 {{ superLong(scope.row.from) }}

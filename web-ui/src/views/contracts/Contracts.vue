@@ -36,6 +36,7 @@
 <script>
 import PagingBar from '@/components/pagingBar';
 import contractMixin from './contractMixin';
+import { watch } from 'vue';
 
 export default {
   data() {
@@ -47,6 +48,13 @@ export default {
   mixins: [contractMixin],
   components: {
     PagingBar
+  },
+  watch:{
+    list:{
+      handler(newval){
+        console.log(newval, '--------Contracts 列表')
+      },immediate: true
+    }
   }
 }
 </script>

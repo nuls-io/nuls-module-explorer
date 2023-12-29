@@ -92,49 +92,43 @@
             <div class="box address">
                 <p>FILTERED BY TOKEN HOLDER</p>
                 <div>
-                    <p>0x62cC232DEE4A3AA15F602C5Dd5e31c5d18B05e0E</p>
-                    <img src="./img/copey.png" alt="">
+                    <p class="cur" @click="RouteJump(personalInformation.address)">{{ personalInformation.address }}</p>
+                    <img @click="Copy(personalInformation.address)" src="./img/copey.png" alt="">
                 </div>
             </div>
             <div class="box">
-                <p class="title">余额</p>
-                <p class="syst">108304 LUNA</p>
+                <p class="title">{{ $t('public.balance') }}</p>
+                <p class="syst">{{ toThousands(personalInformation.balance) }} {{ assetInfo.symbol }}</p>
             </div>
             <div class="box">
-                <p class="title">价值</p>
-                <p class="syst">$3,342,345.12(≈12330.34 NULS)</p>
+                <p class="title">{{ $t('assetInfo.assetInfo27') }}</p>
+                <p class="syst">${{ toThousands(personalInformation.value) }}(≈{{ toThousands(personalInformation.rate) }}
+                    NULS)</p>
             </div>
         </div>
 
         <div class="w1200 a_list_container">
-            <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tabs v-model="activeName">
                 <el-tab-pane :label="$t('assets.Trading_Information')" name="first">
                     <div class="nei-lian">
-                        <holderAddressTrading :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></holderAddressTrading>
-                    </div>
-                </el-tab-pane>
-                <el-tab-pane :label="$t('assets.Holder')">
-                    <div class="nei-lian">
-                        <holder :assetKey="assetInfo.id" :decimals="assetInfo.decimals"></holder>
+                        <holderAddressTrading :assetKey="assetInfo.id" :decimals="assetInfo.decimals">
+                        </holderAddressTrading>
                     </div>
                 </el-tab-pane>
                 <!-- <el-tab-pane name="second">
-            <span slot="label"
-              >{{ $t("contractsInfo.contractsInfo0") }}
-              <img class="a_position" src="./img/dunpai.png" alt=""
-            /></span>
-            <Thecode></Thecode>
-          </el-tab-pane> -->
-                <!-- <el-tab-pane :label="$t('assets.information')" name="fourth">
-            <information></information>
-          </el-tab-pane> -->
+                    <span slot="label">{{ $t("contractsInfo.contractsInfo0") }}
+                        <img class="a_position" src="./img/dunpai.png" alt="" /></span>
+                    <Thecode></Thecode>
+                </el-tab-pane>
+                <el-tab-pane :label="$t('assets.information')" name="fourth">
+                    <information></information>
+                </el-tab-pane> -->
             </el-tabs>
         </div>
     </div>
 </template>
   
 <script>
-import Holder from "./components/Holder.vue";
 import holderAddressTrading from "./components/holderAddressTrading";
 import Thecode from "./components/Thecode";
 import SymbolIcon from "@/components/SymbolIcon.vue";
@@ -144,12 +138,12 @@ import {
     divisionDecimals,
     toThousands,
     Copy,
+    Plus,
     timesDecimals
 } from "../../api/util";
 export default {
     components: {
         holderAddressTrading,
-        Holder,
         Thecode,
         SymbolIcon,
     },
@@ -162,6 +156,7 @@ export default {
             assetId: "",
             assetInfo: {},
             toThousands,
+            personalInformation: {}
         };
     },
     watch: {
@@ -191,9 +186,10 @@ export default {
         }
 
         getHeaderInfo();
+        this.getByAssetKey()
     },
     methods: {
-        handleClick(tab) { },
+
         Selection(val) {
             if (val) {
                 return val.slice(0, 9) + "..." + val.slice(-9);
@@ -201,6 +197,22 @@ export default {
         },
         openUrl(url) {
             window.open(url);
+        },
+        RouteJump(address){
+            this.$router.push('/Accounts/info?address='+address)
+        },
+        async getByAssetKey() {
+            const chainId = sessionStorage.getItem('chainId')
+            const result = await this.$post(
+                "/",
+                "getOneHolderByAssetKey",
+                [Number(chainId), this.assetId, this.$route.query.address],
+                true
+            );
+            console.log(result, '111111111111')
+            if (result?.result) {
+                this.personalInformation = result.result
+            }
         },
         async getAssetInfo() {
             const result = await this.$post(
@@ -280,44 +292,58 @@ export default {
             }
         }
     }
-    .assetsdetails-account{
+
+    .assetsdetails-account {
         display: flex;
         align-items: center;
         background: #ffffff;
         padding-top: 20px;
         padding-bottom: 20px;
         border-radius: 12px;
-        .box{
+
+        .box {
             width: 30%;
-            &:not(:last-child){
-                border-right: 1px solid #E9E9F8;
+
+            @media (min-width: 1000px) {
+                &:not(:last-child) {
+                    border-right: 1px solid #E9E9F8;
+                }
             }
+
             padding-left: 24px;
-            .title{
+
+            .title {
                 font-size: 14px;
                 color: #4A4F55;
                 margin: 0;
             }
-            .syst{
+
+            .syst {
                 font-size: 14px;
                 margin-top: 8px;
                 color: #000000;
             }
+
         }
-        .address{
+
+        .address {
             width: 40%;
-            p{
+
+            p {
                 font-size: 14px;
                 color: #000000;
             }
-            div{
+
+            div {
                 display: flex;
                 align-items: center;
                 margin-top: 8px;
-                p{
+
+                p {
                     color: #00DB82;
                 }
-                img{
+
+                img {
                     width: 12px;
                     height: 12px;
                     margin-left: 6px;
@@ -325,7 +351,29 @@ export default {
                 }
             }
         }
+
+        @media (max-width: 1000px) {
+            flex-direction: column;
+
+            .address {
+                width: 100%;
+            }
+
+            .box {
+                padding: 16px 20px;
+                width: 100%;
+
+                .title {
+                    padding: 0;
+                }
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid #E9E9F8;
+                }
+            }
+        }
     }
+
     .assetsdetails_container {
         display: flex;
         align-items: center;
@@ -442,5 +490,4 @@ export default {
             }
         }
     }
-}
-</style>
+}</style>

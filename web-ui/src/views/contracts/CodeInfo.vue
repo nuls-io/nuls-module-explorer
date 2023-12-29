@@ -303,6 +303,8 @@
         .el-button {
           width: 350px;
           margin: 40px auto 0;
+          background-color: #00DB82;
+          border-color: #00DB82;
         }
         .upload-info {
           width: 460px;

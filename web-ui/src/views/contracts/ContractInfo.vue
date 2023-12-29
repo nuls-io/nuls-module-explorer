@@ -3,22 +3,23 @@
     <div class="bg-white">
       <h4 class="font20 w1200">
         {{ contractsAddress }}
-        <img class="cur" src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(contractsAddress)">
+        <img class="cur" src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')"
+          @click="copy(contractsAddress)">
       </h4>
     </div>
     <div class="w1200 b-info">
       <h3 class="tabs_title tabs_header">{{ $t('public.basicInfo') }}</h3>
       <ul class="ul">
         <li class="tabs_infos fl">
-          <p>{{$t('assets.Contract_address')}}
-            <span class="click mobile_s"
-              @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.contractAddress }}</span>
+          <p>{{ $t('assets.Contract_address') }}
+            <span class="click mobile_s" @click="toUrl('addressInfo', contractsInfo.creater)">{{
+              contractsInfo.contractAddress }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
           <p>
             {{ $t('public.status') }}
-            <span >{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+            <span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -27,19 +28,19 @@
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.abbreviate')}}
+          <p>{{ $t('public.abbreviate') }}
             <span>{{ contractsInfo.symbol }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
           <p>
-            {{$t('home.home3')}}
+            {{ $t('home.home3') }}
             <span>{{ timesDecimals(contractsInfo.totalSupply, contractsInfo.decimals, 0) }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
           <p>
-            {{$t('tokenInfo.tokenInfo0')}}
+            {{ $t('tokenInfo.tokenInfo0') }}
             <span>{{ contractsInfo.decimals }}</span>
           </p>
         </li>
@@ -48,12 +49,12 @@
           <p>{{ $t('public.transactionNo') }}<span>{{ contractsInfo.transferCount }}</span></p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('tokenInfo.tokenInfo1')}}<span>{{ contractsInfo.ownersCount }}</span></p>
+          <p>{{ $t('tokenInfo.tokenInfo1') }}<span>{{ contractsInfo.ownersCount }}</span></p>
         </li>
         <li class="tabs_infos fl">
           <p>{{ $t('public.createAddress') }}
-            <span class="click mobile_s"
-              @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.creater }}</span>
+            <span class="click mobile_s" @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.creater
+            }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -77,7 +78,7 @@
               </el-table-column>
               <el-table-column :label="$t('public.contractMethod')" width="150" align="left">
                 <template slot-scope="scope">
-                  <span>{{ scope.row.contractMethod }}</span>
+                  <span>{{ titleCase(scope.row.contractMethod) }}</span>
                 </template>
               </el-table-column>
               <el-table-column label="TXID" min-width="280" align="left">
@@ -88,7 +89,7 @@
               </el-table-column>
               <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
               <el-table-column prop="type" :label="$t('public.type')" width="180" align="left">
-                <template slot-scope="scope">{{ $t('type.' + scope.row.type) }}</template>
+                <template slot-scope="scope">{{ titleCase($t('type.' + scope.row.type))  }}</template>
               </el-table-column>
               <el-table-column :label="$t('public.fee') + '(' + symbol + ')'" width="180" align="left">
                 <template slot-scope="scope">{{ scope.row.fee.value }}</template>
@@ -100,14 +101,14 @@
           <el-tab-pane v-if="!isMobile" name="second"
             :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
             <span slot="label">
-              {{$t('nav.contracts')}}
-              <img v-if="contractsInfo.status == 2" src="./img/Certification.svg" class="authenticate" alt="" srcset=""> 
+              {{ $t('nav.contracts') }}
+              <img v-if="contractsInfo.status == 2" src="./img/Certification.svg" class="authenticate" alt="" srcset="">
             </span>
             <div v-if="activeName === 'second'">
-                <NewCodeInfo :certificationTime="certificationTime"></NewCodeInfo>
+              <NewCodeInfo :certificationTime="certificationTime"></NewCodeInfo>
             </div>
           </el-tab-pane>
-          
+
           <el-tab-pane :label="$t('transactionInfo.transactionInfo9')" name="three" v-if="false">
             <el-table :data="modeList" style="width: 100%" class="mt_20">
               <el-table-column label="" width="30"></el-table-column>
@@ -132,7 +133,7 @@ import moment from 'moment'
 import paging from '@/components/pagingBar';
 import SelectBar from '@/components/SelectBar';
 import CodeInfo from '@/views/contracts/CodeInfo';
-import { getLocalTime, superLong, copys, divisionDecimals , timesDecimals } from '@/api/util.js'
+import { getLocalTime, superLong, copys, divisionDecimals, timesDecimals ,titleCase } from '@/api/util.js'
 import axios from 'axios'
 import { CODE_URL } from '@/config'
 import NewCodeInfo from './NewCodeInfo'
@@ -140,6 +141,7 @@ import NewCodeInfo from './NewCodeInfo'
 export default {
   data() {
     return {
+      titleCase,
       timesDecimals,
       symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//symbol
       decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
@@ -208,7 +210,6 @@ export default {
     }
   },
   methods: {
-
     /**
      * 获取子组件的状态值
      * @param contractStatus
@@ -234,12 +235,13 @@ export default {
         .then((response) => {
           //console.log(response);
           //console.log(response.result.status);
+          console.log(response, 111111111111111111)
           if (response.hasOwnProperty("result")) {
             this.getContractAddressInfo(address);
             response.result.createTime = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-            if(response.result.owners != null){
+            if (response.result.owners != null) {
               response.result["ownersCount"] = response.result.owners.length;
-            }else{
+            } else {
               response.result["ownersCount"] = 0;
             }
             this.contractsInfo = response.result;
@@ -265,6 +267,7 @@ export default {
         axios.post(CODE_URL, params)
           .then((response) => {
             if (response.data.hasOwnProperty("result")) {
+              console.log(response.data.result.certificationTime, '调用认证方法')
               this.certificationTime = response.data.result.certificationTime;
               this.contractsInfo.status = response.data.result.status;
             }
@@ -379,6 +382,7 @@ export default {
       min-height: 214px;
       border-bottom-left-radius: 12px;
       border-bottom-right-radius: 12px;
+
       li {
         background: #FFFFFF;
 
@@ -399,17 +403,21 @@ export default {
 
   .contracts-tab {
     margin-top: 24px;
-    .el-col{
+
+    .el-col {
       margin-bottom: 100px;
     }
+
     .el-tabs {
-      padding: 16px 24px  24px;
+      padding: 16px 24px 24px;
       border-radius: 12px;
       background: #FFFFFF;
-      .authenticate{
+
+      .authenticate {
         position: relative;
         top: -6px;
       }
+
       .el-tabs__header {
         .el-tabs__nav-wrap {
           .el-tabs__item {
@@ -436,31 +444,34 @@ export default {
   }
 }
 
-@media (max-width:1220px){
-  .w1200{
+@media (max-width:1220px) {
+  .w1200 {
     width: initial;
   }
-  .contracts-info{
+
+  .contracts-info {
     padding: 0 .5rem;
 
     @media (max-width: 600px) {
-      .bg-white h4{
+      .bg-white h4 {
         font-size: 14px;
       }
     }
-    .b-info .ul .tabs_infos, .info_tabs .ul .tabs_infos{
+
+    .b-info .ul .tabs_infos,
+    .info_tabs .ul .tabs_infos {
       width: 50%;
     }
   }
 }
 
-@media(max-width: 600px){
-  .b-info .ul .tabs_infos p, .info_tabs .ul .tabs_infos p{
+@media(max-width: 600px) {
+
+  .b-info .ul .tabs_infos p,
+  .info_tabs .ul .tabs_infos p {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     white-space: nowrap;
   }
-}
-
-</style>
+}</style>

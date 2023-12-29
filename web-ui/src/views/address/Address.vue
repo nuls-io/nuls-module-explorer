@@ -20,9 +20,12 @@
         </el-table-column>
         <el-table-column :label="$t('public.address')" min-width="280">
           <template slot-scope="scope">
-            <span class="cursor-p click" @click="toUrl('addressInfo', scope.row.address, scope.row.type)">
+            <div class="cursor-p click flex-center" @click="toUrl('addressInfo', scope.row.address, scope.row.type)">
               {{ scope.row.address }}
-            </span>
+              <div class="tags" v-if="scope.row.tag">
+                {{ scope.row.tag }}
+              </div>
+            </div>
           </template>
         </el-table-column>
         <el-table-column :label="$t('public.locking')" width="200" align="left">
@@ -170,7 +173,7 @@ export default {
         : 1;
       this.$post("/", "getAssetRanking", [chainId, 1, page, rows]).then(
         (response) => {
-          //console.log(response);
+          console.log(response, '获地址列表');
           if (response.hasOwnProperty("result")) {
             for (let item of response.result.list) {
               item.totalBalance = timesDecimals(item.totalBalance, 8);
