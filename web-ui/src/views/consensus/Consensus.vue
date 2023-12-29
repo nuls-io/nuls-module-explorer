@@ -334,12 +334,17 @@ export default {
   //min-height: 555px;
   box-sizing: border-box;
   background-color: #F9FAFD;
-  margin-bottom: 60px;
+  margin-bottom: 120px;
   .cards{
     .cards-ul{
       .cards-li{
         margin-bottom: 12px;
       }
+    }
+  }
+  .paging{
+    .el-pagination{
+      flex-wrap: wrap;
     }
   }
 

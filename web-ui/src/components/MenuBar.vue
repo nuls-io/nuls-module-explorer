@@ -16,8 +16,8 @@
 
 
 
-      <el-menu-item index="consensus" class="font14 fw capitalize">{{ $t('nav.consensus') }}</el-menu-item>
-      <el-menu-item index="assets" class="font14 fw capitalize">{{ $t('nav.assets') }}</el-menu-item>
+      <el-menu-item index="Consensus" class="font14 fw capitalize">{{ $t('nav.consensus') }}</el-menu-item>
+      <el-menu-item index="Assets" class="font14 fw capitalize">{{ $t('nav.assets') }}</el-menu-item>
       <!-- <el-submenu index="contractsBase">
         <template slot="title">{{ $t('nav.contracts') }}</template>
         <el-menu-item index="contracts" class="font14 capitalize">{{ $t('contracts.contracts0') }}</el-menu-item>
@@ -25,9 +25,10 @@
         <el-menu-item index="nrc721" class="font14 capitalize">NRC721</el-menu-item>
         <el-menu-item index="nrc1155" class="font14 capitalize">NRC1155</el-menu-item>
       </el-submenu> -->
-      <el-menu-item index="network" class="font14 fw capitalize">{{ $t('network.network') }}</el-menu-item>
-      <el-menu-item class="font14 fw capitalize languagess" @click="selectLanguage(lang, true)">{{ lang === 'en' ? 'Zh' : 'En'
-      }}</el-menu-item>
+      <el-menu-item index="Parachains" class="font14 fw capitalize">{{ $t('network.network') }}</el-menu-item>
+      <div class="font14 fw capitalize languagess el-menu-item" @click="selectLanguage(lang, true)">
+        {{ lang === 'en' ? 'Zh' : 'En' }}
+      </div>
     </el-menu>
   </div>
 </template>
@@ -124,8 +125,8 @@ export default {
       console.log(val, 'consensus')
       if(val === "transactionInfo"){
         return "transaction"
-      }else if(val === "assetsdetails" || val.indexOf('token') > -1){
-        return "assets"
+      }else if(val === "Assetsdetails" || (val && val.indexOf('token') > -1) || val === 'holderAddress'){
+        return "Assets"
       }else if(val === 'nrc20' || val === 'nrc721' || val === 'nrc1155'){
         return "contracts"
       }else if (val && val.indexOf('address') > -1) {
@@ -134,26 +135,12 @@ export default {
         return 'contracts';
       }else if (val && val.indexOf('block') > -1) {
         return 'block';
-      }else if ( val && val.indexOf('consensus') > -1 || val.indexOf('rotation') > -1 ) {
-        return 'consensus'
+      }else if ( val && val.indexOf('Consensus') > -1 || (val && val.indexOf('rotation') > -1) ) {
+        return 'Consensus'
       }else{
         return val;
       }
-      /*if (val.indexOf('/block') === 0) {
-        return 'block'
-      } else if (val.indexOf('/address') === 0) {
-        return 'address'
-      } else if (val.indexOf('/transaction') === 0) {
-        return 'transaction'
-      } else if (val.indexOf('/consensus') === 0 || val.indexOf('/rotation') === 0) {
-        return 'consensus'
-      } else if (val.indexOf('/contracts') === 0 || val.indexOf('/token') === 0) {
-        return val
-      } else if (val.indexOf('/network') === 0) {
-        return 'network'
-      } else {
-        return 'home'
-      }*/
+      
     },
 
   },
@@ -165,6 +152,7 @@ export default {
 .el-menu--horizontal .el-menu .el-menu-item {
   color: #000000;
 }
+
 </style>
 
 <style lang="less">

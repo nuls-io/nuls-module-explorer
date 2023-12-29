@@ -132,13 +132,12 @@
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList3')" name="addressThree">
           <el-table :data="nrc20List" style="width: 100%" class="mt_20" v-loading="nrc20ListLoading">
-            <el-table-column label="" width="30">
-            </el-table-column>
+            <el-table-column label="" width="30"></el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="120"
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="120" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress, scope.row.address)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
                 </span>
@@ -146,7 +145,9 @@
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="180" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">{{ scope.row.contractAddress }}</span>
+                <div class="cursor-p click flex-center" @click="toUrl('contractsInfo',scope.row.contractAddress)">
+                  {{ scope.row.contractAddress }}
+                </div>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" width="180" align="left">
@@ -176,7 +177,9 @@
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">{{ scope.row.contractAddress }}</span>
+                <div class="cursor-p click flex-center" @click="toUrl('contractsInfo',scope.row.contractAddress)">
+                  {{ scope.row.contractAddress }}
+                </div>
               </template>
             </el-table-column>
             <el-table-column label="Token ID" width="120" align="left">
@@ -200,7 +203,9 @@
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">{{ scope.row.contractAddress }}</span>
+                <div class="cursor-p click flex-center" @click="toUrl('contractsInfo',scope.row.contractAddress)">
+                  {{ scope.row.contractAddress }}
+                </div>
               </template>
             </el-table-column>
             <el-table-column label="Token ID" width="120" align="left">
@@ -219,7 +224,7 @@
             </el-table-column>
             <el-table-column :label="$t('network.network2')" width="290" align="center">
               <template slot-scope="scope">
-                <span class="click" @click="toUrl('networkInfo',scope.row.chainId)">{{ scope.row.symbol }}</span>
+                <span class="click" @click="toUrl('ParachainsInfo',scope.row.chainId)">{{ scope.row.symbol }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="balance" :label="$t('network.network14')" width="290" align="center">
@@ -397,6 +402,7 @@
                 this.tokenOptions[item] = response.result.tokens[item].split(',');
               }
               this.tokenOptions.unshift(["", this.$t('type.0')]);
+              console.log(response.result, '新----------')
               this.addressInfo = response.result;
             }
           })
@@ -519,6 +525,7 @@
                 item.balance = timesDecimals(item.balance, item.decimals);
                 item.lock = timesDecimals(item.lockedBalance, item.decimals);
               }
+              console.log(response.result.list, 'NRC-20列表')
               this.nrc20List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc20ListLoading = false;
@@ -550,6 +557,7 @@
                   })
                 })
               }
+              console.log(list, 'NRC-721列表')
               this.nrc721List = list;
               this.pageTotal = response.result.totalCount;
               this.nrc721ListLoading = false;
@@ -565,6 +573,7 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
+              console.log(response.result.list, 'NRC-1155列表')
               this.nrc1155List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc1155ListLoading = false;
@@ -585,6 +594,7 @@
               for (let item of response.result) {
                 item.balance = timesDecimals(item.totalBalance, item.decimals);
               }
+              console.log(response.result, '持有跨链资产列表')
               this.holdData = response.result;
               this.pageTotal = response.result.totalCount;
               this.holdDataLoading = false;
@@ -609,8 +619,8 @@
         } else if (name === 'contractsInfo') {
           newParmes = {contractAddress: parmes, tabName: 'first'}
         } else if (name === 'tokenInfo') {
-          newParmes = {contractAddress: parmes}
-        } else if (name === 'networkInfo') {
+          newParmes = {contractAddress: parmes, address: this.$route.query.address}
+        } else if (name === 'ParachainsInfo') {
           newParmes = {chainId: parmes}
         } else {
           newParmes = {hash: parmes}

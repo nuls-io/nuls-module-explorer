@@ -132,6 +132,7 @@ export default {
       this.$post("/", "getTopAssets", [page,rows]).then((response) => {
         if (response.hasOwnProperty("result")) {
           this.pager.total = response.result?.totalCount || 0;
+          console.log(response.result?.list, 'sssssssssssssss')
           this.tableData = response.result?.list;
         }
       });
@@ -163,7 +164,7 @@ export default {
       });
     },
     routLink(id) {
-      this.$router.push('/assets/details/'+id)
+      this.$router.push('/Assets/details/'+id)
     },
     /**
      * 分页功能

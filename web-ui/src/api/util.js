@@ -315,6 +315,18 @@ export function getOriginChain(heterogeneousChainId, assetChainId) {
   return chainName;
 }
 
+// 首字母大写
+export function titleCase(str) {
+  if(str){
+    var newarr, newarr1 = [];
+    newarr = str.toLowerCase().split(" ");
+    for (var i = 0; i < newarr.length; i++) {
+      newarr1.push(newarr[i][0].toUpperCase() + newarr[i].substring(1));
+    }
+    return newarr1.join(' ');
+  }
+}
+
 export async function Copy(val) {
   const locale = i18n._vm.locale
   let target = document.createElement('input') //创建input节点

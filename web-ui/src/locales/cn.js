@@ -451,6 +451,9 @@ const cn = {
     "copy":"已复制到剪切板"
   },
   "assets": {
+    "arrive": '到',
+    "from": '从',
+    "model": '模式',
     "chain_assets": '链资产',
     "Contracts": "共找到 {number} 个代币合约",
     "Circulation": '流通量',

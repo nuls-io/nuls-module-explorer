@@ -50,7 +50,7 @@
               <label class="cursor-p" v-show="scope.row.seedPacked ">
                 {{$t('public.seedNode')}}
               </label>
-              <span class="cursor-p click" @click="toUrl('consensusInfo',scope.row.agentHash)"
+              <span class="cursor-p click" @click="toUrl('ConsensusInfo',scope.row.agentHash)"
                     v-show="!scope.row.seedPacked">
                 {{ scope.row.agentName}}
               </span>

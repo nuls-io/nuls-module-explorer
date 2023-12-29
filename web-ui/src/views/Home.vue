@@ -24,7 +24,7 @@
           </li>
           <li>
             <p class="font16 node-title">{{ $t('home.home2') }}</p>
-            <h5 class="font24 clicks click-number" @click="toUrl('consensus')">{{ count.entrustNumber }}K</h5>
+            <h5 class="font24 clicks click-number" @click="toUrl('Consensus')">{{ count.entrustNumber }}K</h5>
           </li>
           <li>
             <p class="font16 node-title">{{ $t('home.home4') }}</p>
@@ -67,7 +67,7 @@
       <div class="h_animation w1200" v-loading="packerListLoading">
         <div class="Noun">
           <p class="Noun-title">{{ $t('home.home1') }}</p>
-          <p class="Noun-number cur" @click="toUrl('consensus')">{{ count.nodeNumber }}</p>
+          <p class="Noun-number cur" @click="toUrl('Consensus')">{{ count.nodeNumber }}</p>
         </div>
         <p class="section"></p>
         <ul class="clicks jiedian" @click="toUrl('rotationInfo', rotationIndex)">
@@ -500,7 +500,6 @@ export default {
     get14DaysData(time) {
       this.$post('/', 'getTxStatistical', [time])
         .then((response) => {
-          console.log(response, '获取14天交易历史数据');
           if (response.hasOwnProperty("result")) {
             this.dayRateData = response.result
           }

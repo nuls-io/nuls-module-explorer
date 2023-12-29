@@ -18,7 +18,7 @@
         </li>
         <li class="tabs_infos fl capitalize">
           <p>{{$t('public.outNode')}}
-          <span class="click" @click="toUrl('consensusInfo',nodeInfo.agentHash)" v-show="!nodeInfo.seedPacked">
+          <span class="click" @click="toUrl('ConsensusInfo',nodeInfo.agentHash)" v-show="!nodeInfo.seedPacked">
           {{nodeInfo.agentAlias ? nodeInfo.agentAlias: nodeInfo.agentId }}
           </span>
           <span v-show="nodeInfo.seedPacked">{{$t('public.seedNode')}}</span>
@@ -60,7 +60,7 @@
             </el-table-column>
             <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
             <el-table-column :label="$t('public.type')" width="180" align="left">
-              <template slot-scope="scope">{{ $t('type.'+scope.row.type) }}</template>
+              <template slot-scope="scope">{{ titleCase($t('type.'+scope.row.type))  }}</template>
             </el-table-column>
             <el-table-column :label="$t('public.amount')+'('+symbol+')'" width="180" align="left">
               <template slot-scope="scope">{{scope.row.value}}</template>
@@ -81,11 +81,12 @@
   import moment from 'moment'
   import paging from '@/components/pagingBar';
   import SelectBar from '@/components/SelectBar';
-  import {getLocalTime, superLong, copys,timesDecimals} from '@/api/util.js'
+  import {getLocalTime, superLong, copys,timesDecimals, titleCase } from '@/api/util.js'
 
   export default {
     data() {
       return {
+        titleCase,
         //高度
         height:this.$route.query.height,
         //块信息
@@ -165,7 +166,6 @@
               response.result.totalFee= timesDecimals(response.result.totalFee, 8);
 
               response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
-              console.log(response.result, 111111111111)
               this.nodeInfo = response.result
               this.packingAddress = response.result.packingAddress
             }else{

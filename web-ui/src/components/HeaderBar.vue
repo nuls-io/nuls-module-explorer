@@ -33,7 +33,7 @@
         <div class="mobile_menu">
           <MenuBar></MenuBar>
           <div class="cb"></div>
-          <div class="language font14 fr" @click="selectLanguage(lang, true)">{{ lang === 'en' ? 'Zh' : 'En' }}</div>
+          <!-- <div class="language font14 fr" @click="selectLanguage(lang, true)">{{ lang === 'en' ? 'Zh' : 'En' }}</div> -->
         </div>
       </div>
     </el-collapse-transition>
@@ -291,7 +291,8 @@ export default {
           width: 80%;
           border-radius: 10px;
           overflow: hidden;
-
+          position: relative;
+          z-index: 99;
           input {
             width: 260px;
             transition: width 400ms ease, background 400ms ease, border-radius 400ms ease;

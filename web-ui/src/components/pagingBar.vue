@@ -93,8 +93,15 @@
   @media (max-width: 568px){
     .paging{
       .pages{
+        padding-right: initial;
+        display: flex;
+        flex-wrap: wrap;
         white-space: wrap;
         height: initial;
+        .el-pager {
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }

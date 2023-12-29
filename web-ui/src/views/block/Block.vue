@@ -22,7 +22,7 @@
               {{$t('public.seedNode')}}
             </label>
             <span class="cursor-p click" :class="scope.row.agentAlias ? '' : 'uppercase'"
-                  @click="toUrl('consensusInfo',scope.row.agentHash)" v-show="scope.row.agentHash">
+                  @click="toUrl('ConsensusInfo',scope.row.agentHash)" v-show="scope.row.agentHash">
               {{scope.row.agentAlias ? scope.row.agentAlias : scope.row.agentId}}
             </span>
           </template>
@@ -119,7 +119,7 @@
       toUrl(name, parmes) {
         let newQuery = {};
         console.log(name);
-        if (name === 'consensusInfo') {
+        if (name === 'ConsensusInfo') {
           newQuery = {hash: parmes};
           console.log(newQuery)
         } else {

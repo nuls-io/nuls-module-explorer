@@ -24,7 +24,7 @@
         </el-table-column>
         <el-table-column label="ID" min-width="150" align="left">
           <template slot-scope="scope"><span class="cursor-p click uppercase"
-                                             @click="toUrl('consensusInfo',scope.row.txHash)">{{ scope.row.agentId }}</span>
+                                             @click="toUrl('ConsensusInfo',scope.row.txHash)">{{ scope.row.agentId }}</span>
           </template>
           <!--<template slot-scope="scope"><span class="uppercase">{{ scope.row.agentId }}</span></template>-->
         </el-table-column>
@@ -41,7 +41,7 @@
         </el-table-column>
         <el-table-column :label="$t('public.entrust')+'('+symbol+')'" width="150" align="left">
           <template slot-scope="scope"><span class="cursor-p click uppercase"
-                                             @click="toUrl('consensusInfo',scope.row.txHash,'three')">{{ scope.row.totalDeposit}}</span>
+                                             @click="toUrl('ConsensusInfo',scope.row.txHash,'three')">{{ scope.row.totalDeposit}}</span>
           </template>
           <!-- <template slot-scope="scope">{{ scope.row.totalDeposit/100000000 }}</template>-->
         </el-table-column>
@@ -51,7 +51,7 @@
     </div>
 
     <div v-show="viewList" class="card-info">
-      <div class="card fl click" @click="toUrl('consensusInfo',item.txHash)" v-for="item in searchData"
+      <div class="card fl click" @click="toUrl('ConsensusInfo',item.txHash)" v-for="item in searchData"
            :key="item.agentId">
         <h3 class="tabs_title tabs_infos" :class="item.agentAlias ? '' : 'uppercase'">
           {{ item.agentAlias ? item.agentAlias : item.agentId }}

@@ -12,28 +12,28 @@
                 <el-table-column :label="$t('assets.assetInfo19')" min-width="200" align="left">
                     <template slot-scope="scope">
                         <router-link tag="a" :to="{
-                            path: '/transaction/info',
+                            path: '/Transaction/info',
                             query: { hash: scope.row.hash },
                         }" class="click">
                             {{ sliceHash(scope.row.hash) }}
                         </router-link>
                     </template>
                 </el-table-column>
-                <el-table-column label="模式" min-width="125">
+                <el-table-column :label="$t('assets.model')" min-width="125">
                     <template slot-scope="scope">
                         <div class="styleBut">
-
+                            {{ $t("type." + scope.row.txType) }}
                         </div>
                     </template>
                 </el-table-column>
                 <el-table-column :label="$t('assets.assetInfo21')" min-width="160">
                     <template slot-scope="scope">{{ scope.row.time }}</template>
                 </el-table-column>
-                <el-table-column width="190" align="left" label="从">
+                <el-table-column width="190" align="left" :label="$t('assets.from')">
                     <template slot-scope="scope">
                         <div class="flex-start" v-if="scope.row.from">
                             <router-link tag="a" :to="{
-                                path: '/address/info',
+                                path: '/Accounts/info',
                                 query: { address: scope.row.from },
                             }" class="click">
                                 {{ superLong(scope.row.from) }}
@@ -48,11 +48,11 @@
                         <img src="../img/zishi.png" alt="" />
                     </template>
                 </el-table-column>
-                <el-table-column min-width="190" align="left" label="到">
+                <el-table-column min-width="190" align="left" :label="$t('assets.arrive')">
                     <template slot-scope="scope">
                         <div class="flex-start" v-if="scope.row.to">
                             <router-link tag="a" :to="{
-                                path: '/address/info',
+                                path: '/Accounts/info',
                                 query: { address: scope.row.to },
                             }" class="click">
                                 {{ superLong(scope.row.to) }}
@@ -223,13 +223,10 @@ export default {
         async getTxList() {
             const { page, rows } = this.pager;
             this.loading = true;
-            //2, this.fromFilter, this.toFilter
-            const { typeFilter, fromFilter, toFilter } = this;
-            const txType = Number(typeFilter) ? typeFilter : "";
             const result = await this.$post(
                 "/",
                 "getTxsByAssetKey",
-                [this.assetKey, page, rows, txType, fromFilter, toFilter],
+                [this.assetKey, page, rows, this.$route.query.address, this.$route.query.address],
                 true
             );
             if (result.result) {
