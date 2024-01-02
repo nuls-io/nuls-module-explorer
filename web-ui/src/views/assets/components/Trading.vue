@@ -12,7 +12,7 @@
         <el-table-column :label="$t('assets.assetInfo19')" min-width="200" align="left">
           <template slot-scope="scope">
             <router-link tag="a" :to="{
-              path: '/Transaction/info',
+              path: '/Transactions/info',
               query: { hash: scope.row.hash },
             }" class="click">
               {{ sliceHash(scope.row.hash) }}

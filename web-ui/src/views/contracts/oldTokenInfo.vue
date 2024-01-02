@@ -20,8 +20,7 @@
             </label>
             <label v-else>
               <span class="cursor-p click" v-if="contractsInfo.status === 0"
-                @click="toUrl('contractsInfo', contractsInfo.contractAddress, 'second')">{{ $t('contractStatus.' +
-                  contractsInfo.status) }}</span>
+                @click="toUrl('contractsInfo', contractsInfo.contractAddress, 'second')">{{ $t('contractStatus.' + contractsInfo.status) }}</span>
               <span v-if="contractsInfo.status !== 0">{{ $t('contractStatus.' + contractsInfo.status) }}</span>
             </label>
           </p>
@@ -47,32 +46,14 @@
         <li class="tabs_infos fl">
           <p class="addvorder">
             {{ $t('public.createAddress') }}
-            <span class="mobile_s click" @click="toUrl('addressInfo', contractsInfo.creater)">
-              {{ contractsInfo.creater }}
-            </span>
+            <span class="mobile_s click"
+              @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.creater }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
           <p>{{ $t('public.createTime') }}<span>{{ contractsInfo.createTime }}</span></p>
         </li>
       </ul>
-    </div>
-    <div class="assetsdetails-account w1200">
-      <div class="box address">
-        <p>{{$t('assets.holder_address')}}</p>
-        <div>
-          <p class="cur" @click="RouteJump(personalInformation.address)">{{ personalInformation.address }}</p>
-          <img @click="Copy(personalInformation.address)" src="../assets/img/copey.png" alt="">
-        </div>
-      </div>
-      <div class="box">
-        <p class="title">{{ $t('public.balance') }}</p>
-        <p class="syst">{{ toThousands(personalInformation.balance) }} {{ contractsInfo.symbol }}</p>
-      </div>
-      <div class="box">
-        <p class="title">{{ $t('assetInfo.assetInfo27') }}</p>
-        <!-- <p class="syst">${{ toThousands(personalInformation.value) }}(≈{{ toThousands(personalInformation.rate) }} NULS)</p> -->
-      </div>
     </div>
     <div class="token-info_table">
       <el-col :span="24">
@@ -84,47 +65,37 @@
                   <span class="cursor-p click" @click="toUrl('blockInfo', scope.row.height)">{{ scope.row.height }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="TXID" min-width="90" align="left">
+              <el-table-column label="TXID" min-width="120" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" @click="toUrl('transactionInfo', scope.row.txHash)">{{
                     superLong(scope.row.txHash) }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('public.sender')" min-width="100" align="left">
+              <el-table-column :label="$t('public.sender')" min-width="180" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" v-if="scope.row.fromAddress"
                     @click="toUrl('addressInfo', scope.row.fromAddress)">{{ superLong(scope.row.fromAddress) }}</span>
                   <span class="cursor-p click" v-else>--</span>
                 </template>
               </el-table-column>
-              
-              <el-table-column :label="$t('public.recipient')" min-width="100" align="left">
+              <!--<el-table-column prop="" label="" width="50" align="center">
+                    <template>》88</template>
+                  </el-table-column>-->
+              <el-table-column :label="$t('public.recipient')" min-width="180" align="left">
                 <template slot-scope="scope"><span class="cursor-p click"
                     @click="toUrl('addressInfo', scope.row.toAddress)">{{ superLong(scope.row.toAddress) }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="time" :label="$t('public.time')" min-width="100" align="left"></el-table-column>
+              <el-table-column prop="time" :label="$t('public.time')" width="170" align="left"></el-table-column>
               <el-table-column prop="tokenId" label="Token ID" width="100" align="left"
                 v-if="tokenType === 3"></el-table-column>
-              <el-table-column prop="value" :label="$t('public.amount')" min-width="100" align="left"
+              <el-table-column prop="value" :label="$t('public.amount')" width="100" align="left"
                 v-if="tokenType !== 2"></el-table-column>
               <el-table-column prop="tokenId" label="Token ID" width="100" align="left" v-else></el-table-column>
             </el-table>
+            <!--<paging :pager="pager" @change="getItemList" v-show="pager.total > pager.rows"></paging>-->
           </el-tab-pane>
-
-          <el-tab-pane v-if="!isMobile" name="second"
-            :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
-            <span slot="label">
-              {{$t('nav.contracts')}}
-              <img v-if="contractsInfo.status == 2" src="./img/Certification.svg" class="authenticate" alt="" srcset=""> 
-            </span>
-            <div v-if="activeName === 'second'">
-                <NewCodeInfo :certificationTime="certificationTime"></NewCodeInfo>
-            </div>
-          </el-tab-pane>
-
-          <!-- 持有地址 -->
-          <!-- <el-tab-pane :label="$t('tokenInfo.tokenInfo3')" name="tokenSecond">
+          <el-tab-pane :label="$t('tokenInfo.tokenInfo3')" name="tokenSecond">
             <el-table :data="accountTokensList" style="width: 100%" class="mt_20">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column :label="$t('tokenInfo.tokenInfo4')" width="150" align="left">
@@ -142,26 +113,24 @@
               <el-table-column v-else prop="percentage" :label="$t('tokenInfo.tokenInfo6')" width="250"
                 align="left"></el-table-column>
             </el-table>
-          </el-tab-pane> -->
+          </el-tab-pane>
           <PagingBar :pager="pager" @change="changeList" />
         </el-tabs>
       </el-col>
     </div>
   </div>
 </template>
-
+  
 <script>
 import PagingBar from '@/components/pagingBar';
 import moment from 'moment'
-import { fixNumber, getLocalTime, superLong, timesDecimals, toThousands } from '@/api/util.js';
+import { fixNumber, getLocalTime, superLong, timesDecimals } from '@/api/util.js';
 import axios from 'axios'
-import NewCodeInfo from './NewCodeInfo.vue'
 import { CODE_URL } from '@/config'
 
 export default {
   data() {
     return {
-      toThousands,
       isMobile: false,
       activeName: 'tokenFirst',
       //合约地址
@@ -173,19 +142,16 @@ export default {
       accountTxList: [],
       //持币账户列表
       accountTokensList: [],
-      certificationTime: 'null',
       //分页数据
       pager: {
         total: 0,
         page: 1,
         rows: 8,
-      },
-      personalInformation: {}
+      }
     }
   },
   components: {
-    PagingBar,
-    NewCodeInfo
+    PagingBar
   },
   created() {
     this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
@@ -195,20 +161,6 @@ export default {
     this.getContractsInfoByContractsAddress(this.contractAddress);
   },
   methods: {
-    async getTokenHolder() {
-      const chainId = sessionStorage.getItem('chainId')
-      const method = this.tokenType === 1 ? 'getTokenHolderInfo' : this.tokenType === 2 ? 'getToken721HolderInfo' : 'getToken1155HolderInfo'
-      const result = await this.$post(
-        "/",
-        method,
-        [Number(chainId), this.$route.query.contractAddress, this.$route.query.address],
-        true
-      );
-      console.log(result, '------result')
-      if (result?.result) {
-        this.personalInformation = result.result
-      }
-    },
 
     /**
      * 根据合约地址获取合约详情
@@ -227,7 +179,6 @@ export default {
             this.tokenType = response.result.tokenType
             this.contractsInfo = response.result;
             this.getAccountTxList()
-            this.getTokenHolder()
           }
         }).catch((error) => {
           console.log(error)
@@ -249,7 +200,6 @@ export default {
         .then((response) => {
           console.log(response.data);
           if (response.data.hasOwnProperty("result")) {
-            this.certificationTime = response.data.result.certificationTime;
             this.contractsInfo.status = response.data.result.status;
           }
         }).catch((error) => {
@@ -263,13 +213,7 @@ export default {
     async getAccountTxList() {
       const method = this.tokenType === 1 ? 'getTokenTransfers' : this.tokenType === 2 ? 'getToken721Transfers' : 'getToken1155Transfers'
       const { page, rows } = this.pager;
-      let prest;
-      if (method === 'getTokenTransfers') {
-        prest = [page, rows, this.$route.query.address, this.contractAddress]
-      } else {
-        prest = [page, rows, this.$route.query.address, this.contractAddress, '']
-      }
-      this.$post('/', method, prest)
+      this.$post('/', method, [page, rows, '', this.contractAddress, ''])
         .then((response) => {
           //console.log(response);
           if (response.hasOwnProperty("result")) {
@@ -280,7 +224,6 @@ export default {
                 item.value = timesDecimals(item.value, item.decimals);
               }
             }
-            console.log(response.result.list, 'ccccccccccccc')
             this.accountTxList = response.result.list;
             this.pager.total = response.result.totalCount;
           }
@@ -368,7 +311,7 @@ export default {
   },
 }
 </script>
-
+  
 <style lang="less">
 @import "./../../assets/css/style";
 
@@ -382,87 +325,6 @@ export default {
 
     @media screen and (max-width: 1000px) {
       padding-bottom: 2.5rem;
-    }
-  }
-
-  .assetsdetails-account {
-    display: flex;
-    align-items: center;
-    background: #ffffff;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 12px;
-
-    .box {
-      width: 30%;
-
-      @media (min-width: 1000px) {
-        &:not(:last-child) {
-          border-right: 1px solid #E9E9F8;
-        }
-      }
-
-      padding-left: 24px;
-
-      .title {
-        font-size: 14px;
-        color: #4A4F55;
-        margin: 0;
-      }
-
-      .syst {
-        font-size: 14px;
-        margin-top: 8px;
-        color: #000000;
-      }
-
-    }
-
-    .address {
-      width: 40%;
-
-      p {
-        font-size: 14px;
-        color: #000000;
-      }
-
-      div {
-        display: flex;
-        align-items: center;
-        margin-top: 8px;
-
-        p {
-          color: #00DB82;
-        }
-
-        img {
-          width: 12px;
-          height: 12px;
-          margin-left: 6px;
-          cursor: pointer;
-        }
-      }
-    }
-
-    @media (max-width: 1000px) {
-      flex-direction: column;
-
-      .address {
-        width: 100%;
-      }
-
-      .box {
-        padding: 16px 20px;
-        width: 100%;
-
-        .title {
-          padding: 0;
-        }
-
-        &:not(:last-child) {
-          border-bottom: 1px solid #E9E9F8;
-        }
-      }
     }
   }
 
@@ -491,10 +353,7 @@ export default {
     }
 
     .el-tabs__content {
-      margin-bottom: 80px;
-      background: #fff;
-      padding: 10px;
-      border-radius: 12px;
+      margin-bottom: 65px;
     }
   }
 }
@@ -520,5 +379,4 @@ export default {
 
     padding: 0 .5rem;
   }
-}
-</style>
+}</style>

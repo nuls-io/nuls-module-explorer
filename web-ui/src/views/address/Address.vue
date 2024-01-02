@@ -32,7 +32,7 @@
           <template slot-scope="scope">{{ scope.row.locked }}</template>
         </el-table-column>
         <el-table-column :label="$t('public.total')" width="200" align="left">
-          <template slot-scope="scope">{{ toThousands(scope.row.totalBalance)  }}</template>
+          <template slot-scope="scope">{{ toThousands(scope.row.totalBalance) }}</template>
         </el-table-column>
         <el-table-column :label="$t('public.accountedFor')" width="200" align="left">
           <template slot-scope="scope">{{ scope.row.proportion }}</template>
@@ -46,7 +46,7 @@
 
 <script>
 import paging from "@/components/pagingBar";
-import { timesDecimals , toThousands} from "@/api/util.js";
+import { timesDecimals, toThousands } from "@/api/util.js";
 import moment from "moment";
 
 export default {
@@ -67,6 +67,10 @@ export default {
         trigger: 'axis',
         textStyle: {
           color: '#000000'
+        },
+        formatter: function (params) {
+          params = params[0];
+          return params.data[0] + '<br/>' + '<span class="naboxs">活跃地址</span>  ' + '<span>&emsp;</span>' + '<span class="naboxs">' + params.data[1] + '</span>' 
         }
       },
       xAxis: {
@@ -109,7 +113,7 @@ export default {
   computed: {
     chartSettings() {
       return {
-        labelMap: { 'count': this.$t('address.address2')},
+        labelMap: { 'count': this.$t('address.address2') },
         lineStyle: {
           width: 1,
           color: '#00E789'
@@ -237,6 +241,9 @@ export default {
 @import "./../../assets/css/style";
 
 .address {
+  .naboxs{
+    font-weight: bold;
+  }
   .bg-white {
     background-color: initial;
     display: flex;

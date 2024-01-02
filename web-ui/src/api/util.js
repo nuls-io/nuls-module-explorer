@@ -339,11 +339,13 @@ export async function Copy(val) {
     await document.execCommand('Copy') // 执行浏览器复制命令
     if (locale === 'cn') {
       Message({
+        offset: 90,
         type: 'success',
         message: '复制成功'
       })
     } else {
       Message({
+        offset: 90,
         type: 'success',
         message: 'Copied successfully'
       })
@@ -351,11 +353,13 @@ export async function Copy(val) {
   } catch {
     if (locale === 'cn') {
       Message({
+        offset: 90,
         type: 'error',
         message: '您的浏览器不支持复制'
       })
     } else {
       Message({
+        offset: 90,
         type: 'error',
         message: 'Your browser does not support copying'
       })

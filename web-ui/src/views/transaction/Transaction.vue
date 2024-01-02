@@ -47,7 +47,7 @@
           </el-table-column>
           <el-table-column label="TXID" min-width="280" align="left">
             <template slot-scope="scope">
-              <router-link tag="a" :to="{ path: '/Transaction/info', query: { hash: scope.row.hash }}" class="click">
+              <router-link tag="a" :to="{ path: '/Transactions/info', query: { hash: scope.row.hash }}" class="click">
                   {{ scope.row.hashs }}
                 </router-link>
             </template>
@@ -182,7 +182,8 @@ export default {
     this.getYearRateData(this.timeRate);
     this.getTransactionsTotal();
     this.tabNameList();
-    this.keyDown()
+    //此次打开，首页的搜索，和导航上的搜索就会出现输入，粘贴，删除失效的问题
+    // this.keyDown() 
   },
   mounted() {
   },

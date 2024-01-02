@@ -218,16 +218,16 @@
         </el-tab-pane>
         <el-tab-pane :label="$t('network.network12')" name="addressSix">
           <el-table :data="holdData" v-loading="holdDataLoading">
-            <el-table-column prop="chainId" :label="$t('network.network0')" min-width="300" align="center">
+            <el-table-column prop="chainId" :label="$t('network.network0')" min-width="100" align="center">
             </el-table-column>
-            <el-table-column prop="assetId" :label="$t('network.network13')" width="290" align="center">
+            <el-table-column prop="assetId" :label="$t('network.network13')" min-width="100" align="center">
             </el-table-column>
-            <el-table-column :label="$t('network.network2')" width="290" align="center">
+            <el-table-column :label="$t('network.network2')" min-width="120" align="center">
               <template slot-scope="scope">
                 <span class="click" @click="toUrl('ParachainsInfo',scope.row.chainId)">{{ scope.row.symbol }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="balance" :label="$t('network.network14')" width="290" align="center">
+            <el-table-column prop="balance" :label="$t('network.network14')" min-width="160" align="center">
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -332,6 +332,7 @@
     components: {
       SelectBar
     },
+  
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
       this.getAddressInfo(this.address);
@@ -402,7 +403,7 @@
                 this.tokenOptions[item] = response.result.tokens[item].split(',');
               }
               this.tokenOptions.unshift(["", this.$t('type.0')]);
-              console.log(response.result, '新----------')
+              console.log(this.tokenOptions, '新----------')
               this.addressInfo = response.result;
             }
           })
@@ -651,7 +652,6 @@
         this.activeName = 'addressFirst';
         this.addressNumber = [];
         this.txListLoading = true;
-        this.getAddressInfo(this.address);
         this.tabNameList();
 
         //延迟加载饼状图
@@ -661,7 +661,14 @@
             rows: this.addressNumber
           };
         }, 500);
-      }
+      },
+      "$i18n.locale":{
+        handler(newval){
+          this.getAddressInfo(this.address)
+        },
+        deep: true,
+        immediate: true
+      },
     }
   }
 </script>

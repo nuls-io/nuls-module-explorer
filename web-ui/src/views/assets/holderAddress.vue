@@ -55,7 +55,7 @@
                             {{ $t("assets.Token_Contract") }}
                         </p>
                         <p class="with-black">
-                            {{ Selection(assetInfo.contract) }}
+                            {{ Selection(assetInfo.contract) || '--' }}
                             <img v-if="assetInfo.contract" class="img2" src="./img/copey.png" alt=""
                                 @click="Copy(assetInfo.contract)" />
                         </p>
@@ -90,7 +90,7 @@
 
         <div class="assetsdetails-account w1200">
             <div class="box address">
-                <p>FILTERED BY TOKEN HOLDER</p>
+                <p>{{$t('assets.holder_address')}}</p>
                 <div>
                     <p class="cur" @click="RouteJump(personalInformation.address)">{{ personalInformation.address }}</p>
                     <img @click="Copy(personalInformation.address)" src="./img/copey.png" alt="">
