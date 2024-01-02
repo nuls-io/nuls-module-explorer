@@ -43,7 +43,7 @@ export default new Router({
       }
     },
     {
-      path: '/Transaction',
+      path: '/Transactions',
       name: 'transaction',
       component: resolve => require(['@/views/transaction/Transaction'], resolve),
       meta: {
@@ -51,7 +51,7 @@ export default new Router({
       }
     },
     {
-      path: '/Transaction/info',
+      path: '/Transactions/info',
       name: 'transactionInfo',
       component: resolve => require(['@/views/transaction/TransactionInfo'], resolve)
     },
@@ -98,6 +98,11 @@ export default new Router({
       path: '/Token/info',
       name: 'tokenInfo',
       component: resolve => require(['@/views/contracts/TokenInfo'], resolve)
+    },
+    {
+      path: '/OldToken/info',
+      name: 'oldTokenInfo',
+      component: resolve => require(['@/views/contracts/oldTokenInfo'], resolve)
     },
     {
       path: '/Parachains',

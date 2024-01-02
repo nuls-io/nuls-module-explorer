@@ -480,6 +480,7 @@ const cn = {
     "source_chain": "源链",
     "other_information": '其它信息',
     "Token_Contract": '代币合约',
+    "holder_address": "持有人地址",
     "Trading_Information": '交易信息',
     "information": '信息',
     "holders": '总共 {number} 名持有者',

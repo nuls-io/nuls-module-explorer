@@ -614,28 +614,20 @@ export default {
               }
             }
             if(this.toList.length > 0){
-              // const obj = this.toList[0]
-              
-              // if(this.txInfo.symbol == 'NULS'){
-              //   this.showTokenId = true
-              // }else{
-              //   if(obj.locked != null){
-              //     this.showLocked = true
-              //   }
-              // }
-
-              if(this.toList[0].locked !== null){
-                this.showLocked = true
-              }
-              if(this.toList[0].tokenId !== null){
+              const obj = this.toList[0]
+              if(obj.assetType === "NRC1155" || obj.assetType === 'NRC721'){
                 this.showTokenId = true
+              }else{
+                if(obj.locked != null){
+                  this.showLocked = true
+                }
               }
             }
             if (this.txInfo.txData && this.txInfo.txData.args) {
               this.txInfo.txData.args = this.txInfo.txData.args.replace(/<[^<>]+>/g, '');
             }
-            this.txInfoLoading = false;
           }
+          this.txInfoLoading = false;
         })
     },
     toUpperCase(locked){

@@ -144,7 +144,6 @@ export default {
     },
 
   },
-  watch: {}
 }
 </script>
 

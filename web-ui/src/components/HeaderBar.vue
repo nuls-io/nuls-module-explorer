@@ -10,7 +10,7 @@
 
       <div class="header_language fl">
         <div class="top-search fl" v-if="navActive !== 'home' && navActive !== '/'">
-          <el-input type="text" v-model="searchValue" class="fr" :placeholder="$t('public.searchTip')"
+          <el-input v-model="searchValue" class="fr" :placeholder="$t('public.searchTip')"
             @keyup.enter.native="clickSearch" @focus="focusSearch" @input="DynamicMonitoring" @blur="blurSearch">
             <i class="el-icon-search el-input__icon click" slot="suffix" @click="clickSearch"></i>
           </el-input>
