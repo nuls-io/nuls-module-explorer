@@ -105,10 +105,12 @@ export function timesDecimals0(nu, decimals = 8) {
 }
 //转千分位
 export function toThousands(num = 0) {
-  const N = num.toString().split('.')
-  const int = N[0]
-  const float = N[1] ? '.' + N[1] : ''
-  return int.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,') + float;
+  if(Number(num) > 0){
+    const N = num.toString().split('.')
+    const int = N[0]
+    const float = N[1] ? '.' + N[1] : ''
+    return int.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,') + float;
+  }
 }
 
 /**
