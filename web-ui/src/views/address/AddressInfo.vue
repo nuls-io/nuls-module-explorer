@@ -137,7 +137,7 @@
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="120" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress, scope.row.address)">
+                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress, scope.row.address)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
                 </span>
@@ -169,7 +169,7 @@
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
                 </span>
@@ -195,7 +195,7 @@
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
                 </span>
@@ -224,7 +224,8 @@
             </el-table-column>
             <el-table-column :label="$t('network.network2')" min-width="120" align="center">
               <template slot-scope="scope">
-                <span class="click" @click="toUrl('ParachainsInfo',scope.row.chainId)">{{ scope.row.symbol }}</span>
+                <!-- <span class="click" @click="toUrl('ParachainsInfo',scope.row.chainId)">{{ scope.row.symbol }}</span> -->
+                <span class="click" @click="toUrl('holderAddress',scope.row)">{{ scope.row.symbol }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="balance" :label="$t('network.network14')" min-width="160" align="center">
@@ -611,6 +612,7 @@
        * @param parmes
        */
       toUrl(name, parmes) {
+        console.log(parmes, '00000000000000')
         let newParmes = {};
         if (name === 'addressInfo') {
           this.address = parmes;
@@ -619,10 +621,14 @@
           newParmes = {height: parmes}
         } else if (name === 'contractsInfo') {
           newParmes = {contractAddress: parmes, tabName: 'first'}
-        } else if (name === 'tokenInfo') {
+        } else if (name === 'oldTokenInfo') {
           newParmes = {contractAddress: parmes, address: this.$route.query.address}
-        } else if (name === 'ParachainsInfo') {
-          newParmes = {chainId: parmes}
+        } else if (name === 'holderAddress') {
+          this.$router.push({
+            path: '/Assets/holderAddress/'+parmes.assetKey,
+            query: { address: parmes.address },
+          })
+          return false
         } else {
           newParmes = {hash: parmes}
         }
