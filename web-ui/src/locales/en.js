@@ -62,6 +62,7 @@ const en = {
     "recipient": "To Address",
     "passCard": "Token",
     "abbreviate": "Symbol",
+    "symbol": "Symbol",
     "week": "Week",
     "month": "Month",
     "year": "Year",
@@ -181,6 +182,8 @@ const en = {
     "assetInfo25": "Total {number} holders",
     "assetInfo26": "Percentage",
     "assetInfo27": "Value",
+    "assetInfo28": "Locked",
+    "assetInfo29": "Asset ID",
   },
   "addressType": {
     "undefined": "",

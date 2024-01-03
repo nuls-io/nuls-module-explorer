@@ -62,6 +62,7 @@ const cn = {
     "recipient": "接收者",
     "passCard": "通证",
     "abbreviate": "缩写",
+    "symbol": '符号',
     "week": "周",
     "month": "月",
     "year": "年",
@@ -180,6 +181,8 @@ const cn = {
     "assetInfo25": "总共 {number} 名持有者",
     "assetInfo26": "百分比",
     "assetInfo27": "价值",
+    "assetInfo28": "锁定中",
+    "assetInfo29": "资产ID",
   },
   "addressType": {
     "undefined": "",

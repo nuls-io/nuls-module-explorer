@@ -201,7 +201,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')"></el-table-column>
-        <el-table-column label="Symbol">
+        <el-table-column :label="$t('public.symbol')">
           <template slot-scope="scope">
             <div class="ding-box">
               NULS
@@ -230,14 +230,14 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Symbol">
+        <el-table-column :label="$t('public.symbol')">
           <template slot-scope="scope">
             <div class="ding-box" v-for="(item, index) in scope.row.outputs" :key="index">
               {{ item.symbol || 'NULS' }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Locked">
+        <el-table-column :label="$t('assetInfo.assetInfo28')">
           <template slot-scope="scope">
             <div class="ding-box" v-for="(item, index) in scope.row.outputs" :key="index">
               {{ item.lockTime }}
@@ -267,7 +267,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')" min-width="100"></el-table-column>
-        <el-table-column prop="symbol" label="Symbol"></el-table-column>
+        <el-table-column prop="symbol" :label="$t('public.symbol')"></el-table-column>
         <el-table-column>
           <template slot="header" slot-scope="scope">
             <img src="./img/ssdr145.png" alt="">
@@ -283,21 +283,21 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Amount" min-width="100">
+        <el-table-column :label="$t('assetInfo.assetInfo24')" min-width="100">
           <template slot-scope="scope">
             <div class="ding-box">
               {{ scope.row.value }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Symbol">
+        <el-table-column :label="$t('public.symbol')">
           <template slot-scope="scope">
             <div class="ding-box">
               {{ scope.row.symbol }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Locked">
+        <el-table-column :label="$t('assetInfo.assetInfo28')">
           <template slot-scope="scope">
             <div class="ding-box" v-for="(item, index) in scope.row.outputs" :key="index">
               {{ item.lockTime }}
@@ -332,7 +332,7 @@
             <div>{{ toThousands(timesDecimals(scope.row.amount, scope.row.decimals)) }}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="symbol" label="Symbol" min-width="100"></el-table-column>
+        <el-table-column prop="symbol" :label="$t('public.symbol')" min-width="100"></el-table-column>
         
       </el-table>
       <el-table :empty-text="$t('assets.nodata')" :data="toList" style="width: 100%">
@@ -351,21 +351,21 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Amount">
+        <el-table-column :label="$t('assetInfo.assetInfo24')">
           <template slot-scope="scope">
             <div class="ding-box">
               {{ toThousands(timesDecimals(scope.row.amount, scope.row.decimals)) }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Symbol">
+        <el-table-column :label="$t('public.symbol')">
           <template slot-scope="scope">
             <div class="ding-box">
               {{ scope.row.symbol }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="tokenID" v-if="showTokenId">
+        <el-table-column :label="$t('assetInfo.assetInfo29')" v-if="showTokenId">
           <template slot-scope="scope">
             <div class="ding-box" v-if="scope.row.tokenId">
               #{{scope.row.tokenId}}
@@ -375,7 +375,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Locked" v-if="showLocked">
+        <el-table-column :label="$t('assetInfo.assetInfo28')" v-if="showLocked">
           <template slot-scope="scope">
             <div class="ding-box">
               {{ toUpperCase(scope.row.locked) }}
@@ -618,7 +618,7 @@ export default {
               if(obj.assetType === "NRC1155" || obj.assetType === 'NRC721'){
                 this.showTokenId = true
               }else{
-                if(obj.locked != null){
+                if(obj.locked){
                   this.showLocked = true
                 }
               }

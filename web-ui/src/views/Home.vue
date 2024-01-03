@@ -608,6 +608,9 @@ export default {
     .h_height {
       font-size: 20px;
       color: #FFFFFF;
+      span{
+        user-select: none;
+      }
     }
 
     .search {

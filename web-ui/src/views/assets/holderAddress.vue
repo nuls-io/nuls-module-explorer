@@ -55,7 +55,8 @@
                             {{ $t("assets.Token_Contract") }}
                         </p>
                         <p class="with-black">
-                            {{ Selection(assetInfo.contract) || '--' }}
+                            <span v-if="assetInfo.contract">{{Selection(assetInfo.contract)}}</span>
+                            <span v-else class="blueness">--</span>
                             <img v-if="assetInfo.contract" class="img2" src="./img/copey.png" alt=""
                                 @click="Copy(assetInfo.contract)" />
                         </p>
@@ -422,6 +423,9 @@ export default {
 
                     .with-black {
                         color: #000000;
+                        .blueness{
+                            color: #00db82;
+                        }
                     }
 
                     span {
