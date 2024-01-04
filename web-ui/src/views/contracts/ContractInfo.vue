@@ -235,7 +235,6 @@ export default {
         .then((response) => {
           //console.log(response);
           //console.log(response.result.status);
-          console.log(response, 111111111111111111)
           if (response.hasOwnProperty("result")) {
             this.getContractAddressInfo(address);
             response.result.createTime = moment(getLocalTime(response.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
@@ -267,7 +266,7 @@ export default {
         axios.post(CODE_URL, params)
           .then((response) => {
             if (response.data.hasOwnProperty("result")) {
-              console.log(response.data.result.certificationTime, '调用认证方法')
+              // console.log(response.data.result.certificationTime, '调用认证方法')
               this.certificationTime = response.data.result.certificationTime;
               this.contractsInfo.status = response.data.result.status;
             }

@@ -103,7 +103,6 @@ export default {
          * @param address
         */
         getContractsInfoByContractsAddress(address) {
-            console.log(address,111111111)
 
             const params = { "jsonrpc": "2.0", "method": 'getContract', "params": [Number(getChainId()), address], "id": Math.floor(Math.random() * 1000) };
             axios.post('/', params)
@@ -117,7 +116,6 @@ export default {
                             response.data.result.certificationTime = 'null'
                         }
                         this.contractsInfo = response.data.result;
-                        console.log(this.contractsInfo, '======contractsInfo=======')
                     }
                 }).catch((error) => {
                     console.log(error)
@@ -137,7 +135,6 @@ export default {
             if (CODE_URL) {
                 axios.post(CODE_URL, params)
                     .then((response) => {
-                        console.log(response.data, '22222222')
                         if (response.data.hasOwnProperty("result")) {
                             this.contractsInfo.status = response.data.result.status;
                         }

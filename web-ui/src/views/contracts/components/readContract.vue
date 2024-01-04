@@ -141,7 +141,7 @@ export default {
         this.openName = this.$route.query.name || null
         
         const accounts = await window['NaboxWallet'].request({ method: 'eth_accounts' })
-        console.log(accounts, '获取钱包地址')
+        // console.log(accounts, '获取钱包地址')
         if (accounts[0]) {
             this.walletaddress = accounts[0]
             this.getAccountCrossLedgerList(accounts[0]) //传钱包地址
@@ -419,7 +419,6 @@ export default {
         },
 
         ReadandWrite(e, item){
-            console.log(e, item, '0000000000')
             if(!e){
                 item.callResult = ''
                 this.$forceUpdate()
@@ -567,11 +566,9 @@ export default {
        * @param  methodDesc
        */
         async getContractMethodArgsTypes(contractAddress, methodName, methodDesc) {
-            console.log('=======获取合约指定函数的参数类型')
             const params = { "jsonrpc": "2.0", "method": 'getContractMethodArgsTypes', "params": [Number(getChainId()), contractAddress, methodName, methodDesc], "id": Math.floor(Math.random() * 1000) };
             return await axios.post('/', params)
                 .then((response) => {
-                    console.log(response.data, ' 获取合约指定函数的参数类型');
                     if (response.data.hasOwnProperty("result")) {
                         return { success: true, data: response.data.result };
                     } else {

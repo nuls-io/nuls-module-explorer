@@ -177,7 +177,7 @@ export default {
         : 1;
       this.$post("/", "getAssetRanking", [chainId, 1, page, rows]).then(
         (response) => {
-          console.log(response, '获地址列表');
+          // console.log(response, '获地址列表');
           if (response.hasOwnProperty("result")) {
             for (let item of response.result.list) {
               item.totalBalance = timesDecimals(item.totalBalance, 8);

@@ -51,7 +51,7 @@ export default {
   watch:{
     list:{
       handler(newval){
-        console.log(newval, '--------Contracts 列表')
+        // console.log(newval, '--------Contracts 列表')
       },immediate: true
     }
   }

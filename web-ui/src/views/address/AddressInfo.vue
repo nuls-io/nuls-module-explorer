@@ -404,7 +404,6 @@
                 this.tokenOptions[item] = response.result.tokens[item].split(',');
               }
               this.tokenOptions.unshift(["", this.$t('type.0')]);
-              console.log(this.tokenOptions, '新----------')
               this.addressInfo = response.result;
             }
           })
@@ -527,7 +526,7 @@
                 item.balance = timesDecimals(item.balance, item.decimals);
                 item.lock = timesDecimals(item.lockedBalance, item.decimals);
               }
-              console.log(response.result.list, 'NRC-20列表')
+              // console.log(response.result.list, 'NRC-20列表')
               this.nrc20List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc20ListLoading = false;
@@ -559,7 +558,7 @@
                   })
                 })
               }
-              console.log(list, 'NRC-721列表')
+              // console.log(list, 'NRC-721列表')
               this.nrc721List = list;
               this.pageTotal = response.result.totalCount;
               this.nrc721ListLoading = false;
@@ -575,7 +574,7 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              console.log(response.result.list, 'NRC-1155列表')
+              // console.log(response.result.list, 'NRC-1155列表')
               this.nrc1155List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc1155ListLoading = false;
@@ -596,7 +595,7 @@
               for (let item of response.result) {
                 item.balance = timesDecimals(item.totalBalance, item.decimals);
               }
-              console.log(response.result, '持有跨链资产列表')
+              // console.log(response.result, '持有跨链资产列表')
               this.holdData = response.result;
               this.pageTotal = response.result.totalCount;
               this.holdDataLoading = false;
@@ -612,7 +611,6 @@
        * @param parmes
        */
       toUrl(name, parmes) {
-        console.log(parmes, '00000000000000')
         let newParmes = {};
         if (name === 'addressInfo') {
           this.address = parmes;

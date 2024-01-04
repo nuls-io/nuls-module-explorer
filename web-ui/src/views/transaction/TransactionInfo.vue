@@ -567,7 +567,6 @@ export default {
                     newTokenTransfers[item].value = timesDecimals(newTokenTransfers[item].value, newTokenTransfers[item].decimals);
                   }
                   this.tokenTransfers = newTokenTransfers
-                  console.log(this.tokenTransfers, "代币转账")
                 }
               }
             }
@@ -582,7 +581,6 @@ export default {
                   }
                 }
                 this.nulsTransfers = response.result.tx.txData.resultInfo.nulsTransfers;
-                console.log(this.nulsTransfers, 'nuls 转账')
               }
             }
 

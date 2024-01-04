@@ -336,10 +336,8 @@ export default {
       }
       let NULSNumber = this.$store.state.NULSNumber;
       if (NULSNumber.length !== 0) {
-        console.log(NULSNumber.blockRewardBeforeDeflation)
         let newBlockRewardBeforeDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardBeforeDeflation, 8, 5));
         this.count.blockRewardBeforeDeflation = newBlockRewardBeforeDeflation.toFormat(5);
-        console.log(NULSNumber.blockRewardAfterDeflation)
         let newBlockRewardAfterDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardAfterDeflation, 8, 5));
         this.count.blockRewardAfterDeflation = newBlockRewardAfterDeflation.toFormat(5);
         this.count.Year = moment(NULSNumber.nextDeflationTime).format('YYYY');
@@ -430,7 +428,6 @@ export default {
               list.map(v => {
                 v.originChain = getOriginChain(v.sourceChainId)
               })
-              console.log(list, '=========list===========')
               this.assetsList = list
               this.openSearchBar = true
             } else {

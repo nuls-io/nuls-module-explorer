@@ -145,7 +145,7 @@ export default {
     clickSearch() {
       this.$post('/', 'search', [this.searchValue])
         .then((response) => {
-          console.log(response, '-----------response-------------');
+          // console.log(response, '-----------response-------------');
           if (response.hasOwnProperty("result")) {
             if (response.result.type === 'block') {
               this.$router.push({

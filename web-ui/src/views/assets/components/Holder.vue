@@ -43,7 +43,7 @@
         </el-table-column>
         <el-table-column :label="$t('assetInfo.assetInfo27')" min-width="100">
           <template slot-scope="scope">
-            <span v-if="scope.row.value">${{ toThousands(scope.row.value) }}</span>
+            <span v-if="scope.row.value > 0">${{ toThousands(scope.row.value) }}</span>
             <span v-else>--</span>
           </template>
         </el-table-column>
@@ -100,14 +100,16 @@ export default {
       if (result.result) {
         const { list, totalCount } = result.result;
         list.map((v) => {
-          v.balance = divisionDecimals(v.balance, this.decimals);
+          v.balance = divisionDecimals(v.balance, this.decimals); 
+          if(v.value){
+            v.value = Number(v.value)
+          }
           v.rate = fixNumber(v.rate / 100, 8) + "%";
         });
-        console.log(list, '持有人列表')
         this.holders = list;
         this.pager.total = totalCount;
-        this.loading = false;
       }
+      this.loading = false;
     },
     sliceHash(str) {
       return str.slice(0, 20) + "...";

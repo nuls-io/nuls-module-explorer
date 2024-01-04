@@ -30,7 +30,7 @@ export default {
   watch:{
     $route:{
       handler(newval){
-        console.log(newval.path)
+        // console.log(newval.path)
         this.activeName = newval.path
       },
       immediate: true
@@ -44,7 +44,7 @@ export default {
   methods:{
     handleClick(tab, event) {
       this.$router.push(tab.name)
-      console.log(tab.name)
+      // console.log(tab.name)
     },
   }
 }

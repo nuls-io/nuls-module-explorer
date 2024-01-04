@@ -215,7 +215,6 @@ export default {
                 [Number(chainId), this.assetId, this.$route.query.address],
                 true
             );
-            console.log(result, '中间部分请求接口')
             if (result?.result) {
                 this.personalInformation = result.result
             }
@@ -227,7 +226,6 @@ export default {
                 [this.assetId],
                 true
             );
-            console.log(result,'$$$$$$$$$$$$')
             if (result.result) {
                 const info = result.result;
                 info.totalSupply = divisionDecimals(info.totalSupply, info.decimals);
@@ -241,7 +239,6 @@ export default {
                     info.originNetworkLogo = origin.logo;
                 }
                 info.community = info.community ? JSON.parse(info.community) || {} : "";
-                console.log(info, "33");
 
                 this.assetInfo = info;
             }

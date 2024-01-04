@@ -230,7 +230,6 @@ export default {
                 [this.assetKey, page, rows, "", this.$route.query.address, this.$route.query.address],
                 true
             );
-            console.log(result, '交易信息')
             if (result.result) {
                 const { list, totalCount } = result.result;
                 list.map((v) => {

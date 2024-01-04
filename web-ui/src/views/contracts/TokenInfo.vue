@@ -204,7 +204,7 @@ export default {
         [Number(chainId), this.$route.query.contractAddress, this.$route.query.address],
         true
       );
-      console.log(result, '------result')
+      // console.log(result, '------result')
       if (result?.result) {
         this.personalInformation = result.result
       }
@@ -280,7 +280,7 @@ export default {
                 item.value = timesDecimals(item.value, item.decimals);
               }
             }
-            console.log(response.result.list, 'ccccccccccccc')
+            // console.log(response.result.list, 'ccccccccccccc')
             this.accountTxList = response.result.list;
             this.pager.total = response.result.totalCount;
           }

@@ -68,7 +68,7 @@ export default {
             const params = { "jsonrpc": "2.0", "method": 'getContract', "params": [Number(getChainId()), address], "id": Math.floor(Math.random() * 1000) };
             axios.post('/', params)
                 .then((response) => {
-                    console.log(response, '=response.data.result')
+                    // console.log(response, '=response.data.result')
                     if (response.data.hasOwnProperty("result")) {
                         this.getContractAddressInfo(address);
                         response.data.result.createTime = moment(getLocalTime(response.data.result.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
