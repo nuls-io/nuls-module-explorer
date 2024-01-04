@@ -32,7 +32,7 @@
                     <div v-for="(domain, index) in item.params" :key="index">
                         <p class="blace-name"><span class="must" v-if="domain.required">*</span>{{ domain.name }}</p>
                         <el-input :class="domain.customize ? 'required' : ''" v-model.trim="domain.value"
-                            @change="ChongInput(domain)"></el-input>
+                            @change="ChongInput(domain)" @input="ReadandWrite($event, item)"></el-input>
                     </div>
 
                     <!-- 写 -->
@@ -418,6 +418,13 @@ export default {
             this.vLoading = false
         },
 
+        ReadandWrite(e, item){
+            console.log(e, item, '0000000000')
+            if(!e){
+                item.callResult = ''
+                this.$forceUpdate()
+            }
+        },
         ChongInput(domain) {
             if (domain.value) {
                 if (domain.hasOwnProperty('customize')) {

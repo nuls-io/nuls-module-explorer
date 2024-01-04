@@ -455,6 +455,7 @@ const en = {
     "copy":"Copied to clipboard"
   },
   "assets":{
+    "Business_lock": 'Business lock',
     "Unlock_time": 'Unlock time：',
     "arrive": "To Address",
     "from": 'From Address',

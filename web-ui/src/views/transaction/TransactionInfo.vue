@@ -382,11 +382,15 @@
         </el-table-column>
         <el-table-column :label="$t('assetInfo.assetInfo28')" v-if="showLocked" align="center">
           <template slot-scope="scope">
-            <div class="ding-box">
+            <div class="ding-box" v-if="scope.row.lockTime > 0">
               <el-tooltip :content="$t('assets.Unlock_time') + OnUnlockTime(scope.row.lockTime)" placement="bottom" effect="light">
-                <i class="el-icon-lock"></i>
+                <i class="el-icon-lock cur"></i>
               </el-tooltip>
-              <!-- {{ toUpperCase(scope.row.locked) }} -->
+            </div>
+            <div class="ding-box" v-if="scope.row.lockTime == 0">
+              <el-tooltip :content="$t('assets.Business_lock')" placement="bottom" effect="light">
+                <i class="el-icon-lock cur"></i>
+              </el-tooltip>
             </div>
           </template>
         </el-table-column>
