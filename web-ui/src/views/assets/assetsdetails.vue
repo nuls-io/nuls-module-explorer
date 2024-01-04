@@ -41,11 +41,14 @@
           <div class="row-center">
             <p>{{ $t("assets.source_chain") }}</p>
             <p>
+
               <img
                 class="img1"
                 :src="assetInfo.iconUrl"
                 alt=""
+                v-if="assetInfo.iconUrl"
               />
+              <img class="img1" src="./img/errorimg.png" alt="" v-else>
               {{assetInfo.sourceChainName}}
             </p>
           </div>
@@ -235,7 +238,7 @@ export default {
           info.originNetworkLogo = origin.logo;
         }
         info.community = info.community ? JSON.parse(info.community) || {} : "";
-      console.log(info, "33");
+        console.log(info, "33");
 
         this.assetInfo = info;
       }
@@ -290,7 +293,6 @@ export default {
 
   .assetsdetails_container {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     .a_container {
@@ -314,6 +316,7 @@ export default {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          flex-wrap: wrap;
           font-size: 14px;
           color: #000000;
           line-height: 50px;
@@ -329,6 +332,8 @@ export default {
           p {
             display: flex;
             align-items: center;
+            white-space: nowrap;
+
           }
           .with-black{
             color: #000000;
@@ -339,7 +344,9 @@ export default {
           }
 
           .img1 {
+            display: block;
             width: 20px;
+            height: 20px;
             border-radius: 50%;
             margin-right: 6px;
           }

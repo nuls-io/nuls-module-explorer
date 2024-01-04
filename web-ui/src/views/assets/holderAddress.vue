@@ -41,7 +41,8 @@
                     <div class="row-center">
                         <p>{{ $t("assets.source_chain") }}</p>
                         <p>
-                            <img class="img1" :src="assetInfo.iconUrl" alt="" />
+                            <img class="img1" :src="assetInfo.iconUrl" alt="" v-if="assetInfo.iconUrl"/>
+                            <img class="img1" src="./img/errorimg.png" alt="" v-else>
                             {{ assetInfo.sourceChainName }}
                         </p>
                     </div>
@@ -104,9 +105,9 @@
             </div>
             <div class="box">
                 <p class="title">{{ $t('assetInfo.assetInfo27') }}</p>
-                <p class="syst" v-if="personalInformation.value">
+                <p class="syst" v-if="personalInformation.value > 0">
                     ${{ toThousands(personalInformation.value) }}
-                    <span v-if="personalInformation.nulsValue">(≈{{ toThousands(personalInformation.nulsValue) }}NULS)</span>
+                    <span v-if="personalInformation.nulsValue > 0">(≈{{ toThousands(personalInformation.nulsValue) }}NULS)</span>
                 </p>
                 <p v-else>--</p>
             </div>
@@ -439,6 +440,8 @@ export default {
 
                     .img1 {
                         width: 20px;
+                        display: block;
+                        height: 20px;
                         border-radius: 50%;
                         margin-right: 6px;
                     }

@@ -456,8 +456,8 @@ const en = {
   },
   "assets":{
     "Unlock_time": 'Unlock time：',
-    "arrive": "Arrive",
-    "from": 'From',
+    "arrive": "To Address",
+    "from": 'From Address',
     "model": 'Model',
     "chain_assets": 'Chain assets',
     "Contracts": "A total of  {number} Token Contracts found",

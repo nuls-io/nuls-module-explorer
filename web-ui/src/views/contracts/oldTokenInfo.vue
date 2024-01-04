@@ -86,12 +86,12 @@
                     @click="toUrl('addressInfo', scope.row.toAddress)">{{ superLong(scope.row.toAddress) }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="time" :label="$t('public.time')" width="170" align="left"></el-table-column>
-              <el-table-column prop="tokenId" label="Token ID" width="100" align="left"
+              <el-table-column prop="time" :label="$t('public.time')" min-width="170" align="left"></el-table-column>
+              <el-table-column prop="tokenId" label="Token ID" min-width="100" align="left"
                 v-if="tokenType === 3"></el-table-column>
-              <el-table-column prop="value" :label="$t('public.amount')" width="100" align="left"
+              <el-table-column prop="value" :label="$t('public.amount')" min-width="100" align="left"
                 v-if="tokenType !== 2"></el-table-column>
-              <el-table-column prop="tokenId" label="Token ID" width="100" align="left" v-else></el-table-column>
+              <el-table-column prop="tokenId" label="Token ID" min-width="100" align="left" v-else></el-table-column>
             </el-table>
             <!--<paging :pager="pager" @change="getItemList" v-show="pager.total > pager.rows"></paging>-->
           </el-tab-pane>
@@ -213,7 +213,13 @@ export default {
     async getAccountTxList() {
       const method = this.tokenType === 1 ? 'getTokenTransfers' : this.tokenType === 2 ? 'getToken721Transfers' : 'getToken1155Transfers'
       const { page, rows } = this.pager;
-      this.$post('/', method, [page, rows, '', this.contractAddress, ''])
+      let prest ;
+      if(this.$route.query?.state){
+        prest = [page, rows, '', this.contractAddress]
+      }else{
+        prest = [page, rows, '', this.contractAddress, '']
+      }
+      this.$post('/', method, prest)
         .then((response) => {
           //console.log(response);
           if (response.hasOwnProperty("result")) {
