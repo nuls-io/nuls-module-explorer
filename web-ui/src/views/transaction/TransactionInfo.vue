@@ -182,7 +182,8 @@
 
     <!-- nuls 转账 -->
     <div class="w1200 token_list bg-white merge" v-if="nulsTransfers.length > 0">
-      <el-table :data="nulsTransfers" style="width: 100%" :cell-class-name="cellClassName" :empty-text="$t('assets.nodata')">
+      <el-table :data="nulsTransfers" style="width: 100%" :cell-class-name="cellClassName"
+        :empty-text="$t('assets.nodata')">
         <el-table-column min-width="15"></el-table-column>
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
@@ -197,7 +198,7 @@
         </el-table-column>
         <el-table-column :label="$t('assets.Asset_type')">
           <template slot-scope="scope">
-            <p class="leixin-let">{{$t('transactionInfo.transactionInfo12')}}</p>
+            <p class="leixin-let">{{ $t('transactionInfo.transactionInfo12') }}</p>
           </template>
         </el-table-column>
         <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')"></el-table-column>
@@ -246,7 +247,7 @@
         </el-table-column>
       </el-table>
     </div>
-    
+
     <!-- 代币转账 -->
     <div class="w1200 token_list bg-white merge" v-if="tokenTransfers.length > 0">
       <el-table :data="tokenTransfers" style="width: 100%" :empty-text="$t('assets.nodata')">
@@ -254,7 +255,8 @@
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
-              <p class="address-box click" @click="toUrl('addressInfo', scope.row.fromAddress)">{{ UnpAredd(scope.row.fromAddress) }}</p>
+              <p class="address-box click" @click="toUrl('addressInfo', scope.row.fromAddress)">{{
+                UnpAredd(scope.row.fromAddress) }}</p>
               <el-tooltip v-if="scope.row.fromAddress" :content="scope.row.fromAddress" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -263,7 +265,7 @@
         </el-table-column>
         <el-table-column :label="$t('assets.Asset_type')">
           <template slot-scope="scope">
-            <p class="leixin-let">{{t('transactionInfo.transactionInfo11')}}</p>
+            <p class="leixin-let">{{ t('transactionInfo.transactionInfo11') }}</p>
           </template>
         </el-table-column>
         <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')" min-width="100"></el-table-column>
@@ -276,7 +278,8 @@
         <el-table-column prop="address" :label="$t('public.output')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
-              <p class="address-box click" @click="toUrl('addressInfo', scope.row.toAddress)">{{ UnpAredd(scope.row.toAddress) }}</p>
+              <p class="address-box click" @click="toUrl('addressInfo', scope.row.toAddress)">{{
+                UnpAredd(scope.row.toAddress) }}</p>
               <el-tooltip :content="scope.row.toAddress" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -314,7 +317,8 @@
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address" v-if="scope.row.address">
-              <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address) }}</p>
+              <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address)
+              }}</p>
               <el-tooltip :content="scope.row.address" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -324,7 +328,7 @@
         </el-table-column>
         <el-table-column :label="$t('assets.Asset_type')" width="100" v-if="showAssetType">
           <template slot-scope="scope">
-            <p class="leixin-let">{{scope.row.assetType}}</p>
+            <p class="leixin-let">{{ scope.row.assetType }}</p>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tokenInfo.tokenInfo5')" min-width="100">
@@ -333,7 +337,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="symbol" :label="$t('public.symbol')" min-width="100"></el-table-column>
-        
+
       </el-table>
       <el-table :empty-text="$t('assets.nodata')" :data="toList" style="width: 100%">
         <el-table-column>
@@ -344,7 +348,8 @@
         <el-table-column prop="address" :label="$t('public.output')" min-width="160">
           <template slot-scope="scope">
             <div class="sending-address">
-              <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address) }}</p>
+              <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address)
+              }}</p>
               <el-tooltip :content="scope.row.address" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -368,17 +373,20 @@
         <el-table-column :label="$t('assetInfo.assetInfo29')" v-if="showTokenId">
           <template slot-scope="scope">
             <div class="ding-box" v-if="scope.row.tokenId">
-              #{{scope.row.tokenId}}
+              #{{ scope.row.tokenId }}
             </div>
             <div class="ding-box" v-else>
               -
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('assetInfo.assetInfo28')" v-if="showLocked">
+        <el-table-column :label="$t('assetInfo.assetInfo28')" v-if="showLocked" align="center">
           <template slot-scope="scope">
             <div class="ding-box">
-              {{ toUpperCase(scope.row.locked) }}
+              <el-tooltip :content="$t('assets.Unlock_time') + OnUnlockTime(scope.row.lockTime)" placement="bottom" effect="light">
+                <i class="el-icon-lock"></i>
+              </el-tooltip>
+              <!-- {{ toUpperCase(scope.row.locked) }} -->
             </div>
           </template>
         </el-table-column>
@@ -431,7 +439,7 @@
 
 <script>
 import moment from 'moment'
-import { getLocalTime, copys, timesDecimals, superLong ,toThousands} from '@/api/util.js'
+import { getLocalTime, copys, timesDecimals, superLong, toThousands } from '@/api/util.js'
 
 
 export default {
@@ -484,26 +492,30 @@ export default {
     }
   },
   methods: {
-    StringProcessing(address){
-      if(address){
-        return address.slice(0,7)+'...'+address.slice(-5);
+    OnUnlockTime(lockTime){
+      lockTime = lockTime * 1000;
+      return moment(lockTime).format('YYYY-MM-DD HH:mm:ss');
+    },
+    StringProcessing(address) {
+      if (address) {
+        return address.slice(0, 7) + '...' + address.slice(-5);
       }
     },
-    cellClassName({row, column, rowIndex, columnIndex}){
-      if(columnIndex < 4){
+    cellClassName({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex < 4) {
         return 'custom-style'
       }
     },
     UnpAredd(address) {
-      if(address){
+      if (address) {
         return address.slice(0, 7) + "..." + address.slice(-5)
-      }else{
+      } else {
         return ''
       }
     },
     jionOpen(txInfo) {
-      const parmse = txInfo.fee.chainId +'-1'
-      this.$router.push("/Assets/details/"+parmse)
+      const parmse = txInfo.fee.chainId + '-1'
+      this.$router.push("/Assets/details/" + parmse)
     },
 
     /**
@@ -566,7 +578,7 @@ export default {
                   }
                 }
                 this.nulsTransfers = response.result.tx.txData.resultInfo.nulsTransfers;
-                console.log(this.nulsTransfers ,'nuls 转账')
+                console.log(this.nulsTransfers, 'nuls 转账')
               }
             }
 
@@ -606,19 +618,19 @@ export default {
             this.fromList = response.result.fromList;
             this.toList = response.result.toList;
 
-            if(this.fromList.length > 0){
-              if(this.fromList[0].assetType === '' || this.fromList[0].assetType === null || this.fromList[0].assetType === undefined){
+            if (this.fromList.length > 0) {
+              if (this.fromList[0].assetType === '' || this.fromList[0].assetType === null || this.fromList[0].assetType === undefined) {
                 this.showAssetType = false
-              }else{
+              } else {
                 this.showAssetType = true
               }
             }
-            if(this.toList.length > 0){
+            if (this.toList.length > 0) {
               const obj = this.toList[0]
-              if(obj.assetType === "NRC1155" || obj.assetType === 'NRC721'){
+              if (obj.assetType === "NRC1155" || obj.assetType === 'NRC721') {
                 this.showTokenId = true
-              }else{
-                if(obj.locked){
+              } else {
+                if (obj.locked) {
                   this.showLocked = true
                 }
               }
@@ -630,9 +642,9 @@ export default {
           this.txInfoLoading = false;
         })
     },
-    toUpperCase(locked){
+    toUpperCase(locked) {
       let capitalizedFirst = locked.toString();
-      capitalizedFirst = capitalizedFirst.slice(0,1).toUpperCase() +capitalizedFirst.slice(1).toLowerCase();
+      capitalizedFirst = capitalizedFirst.slice(0, 1).toUpperCase() + capitalizedFirst.slice(1).toLowerCase();
       return capitalizedFirst;
     },
     /**
@@ -699,27 +711,33 @@ export default {
 .t_info {
   min-height: 800px;
   margin-bottom: 100px;
+
   .tabs_header {
     background: initial;
   }
-  .bottom-border{
+
+  .bottom-border {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #E9E9F8;
-    .division{
+
+    .division {
       width: 48%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      div{
+
+      div {
         display: block;
         width: 125px;
       }
-      .jiac-span{
+
+      .jiac-span {
         width: 160px;
       }
     }
-    .chujie{
+
+    .chujie {
       margin: 0 40px;
     }
   }
@@ -826,6 +844,7 @@ export default {
       padding-left: 20px;
       font-size: 18px;
       font-weight: 550;
+
       @media (max-width: 1000px) {
         padding-left: 0.5rem;
       }
@@ -840,6 +859,7 @@ export default {
         .tabs_infos_long {
           width: 50%;
         }
+
         .tabs_infos-pox {
           @media (max-width: 586px) {
             display: flex;
@@ -848,13 +868,15 @@ export default {
             justify-content: space-between;
 
           }
-          span{
+
+          span {
             @media (max-width: 490px) {
               display: block;
               width: 100%;
             }
           }
         }
+
         .border-botton-line {
           border-bottom: 1px solid #E9E9F8;
         }
@@ -881,8 +903,9 @@ export default {
           }
         }
       }
-      .tabs_infos-move{
-        p{
+
+      .tabs_infos-move {
+        p {
           @media (max-width: 1000px) {
             border-bottom: 1px solid #DFE4EF;
           }
@@ -900,111 +923,140 @@ export default {
       }
     }
   }
-  .merge{
+
+  .merge {
     display: flex;
     border-radius: 12px;
     border: 1px solid #EBEBF4;
     overflow: hidden;
-    @media(max-width: 1000px){
+
+    @media(max-width: 1000px) {
       flex-direction: column;
-      .el-table_2_column_6{
+
+      .el-table_2_column_6 {
         display: none;
       }
     }
-    .el-table{
+
+    .el-table {
       border-radius: 0;
       overflow: auto;
-      .el-table__header-wrapper{
+
+      .el-table__header-wrapper {
         overflow: initial;
       }
-      
-      td{
+
+      td {
         border: none;
       }
-      tr{
-        th{
+
+      tr {
+        th {
           background-color: #FFFFFF !important;
         }
       }
+
       tbody tr {
-      &:hover {
-        td {
-          background-color: #FFFFFF;
+        &:hover {
+          td {
+            background-color: #FFFFFF;
+          }
+        }
+
+        .leixin-let {
+          width: fit-content;
+          padding: 2px 5px;
+          background: #F2F7FF;
+          font-size: 12px;
+          color: #000000;
+          border-radius: 8px;
         }
       }
-      .leixin-let{
-        width: fit-content;
-        padding: 2px 5px;
-        background: #F2F7FF;
-        font-size: 12px;
-        color: #000000;
-        border-radius: 8px;
-      }
-    }
     }
   }
-  .t_basics, .token_list {
-      margin: 30px auto 100px;
-      min-height: 275px;
-      border: @BD1;
-      @media screen and (max-width: 1000px) {
-        // display: none;
-      }
-      .el-table{
-        tr{
-          th{
-            background: initial !important;
-          }
+
+  .t_basics,
+  .token_list {
+    margin: 30px auto 100px;
+    min-height: 275px;
+    border: @BD1;
+
+    @media screen and (max-width: 1000px) {
+      // display: none;
+    }
+
+    .el-table {
+      tr {
+        th {
+          background: initial !important;
         }
       }
-      .el-table--scrollable-x{
-        .el-table__body-wrapper{
-          overflow: initial;
-        }
-      } 
-      .sending-address{
-        display: flex;
-        align-items: center;
-        .el-tooltip{
-          margin-left: 4px;
-        }
-        .Icontits:hover{
-          transform: rotate(180deg);
-        }
-      }
-      h3 {
-        padding: 0 0 0 30px;
-        border-bottom: @BD1;
-        span {
-          width: 58%;
-          display: block;
-          float: left;
-        }
-      }
-      .inputs, .outputs {
-        width: 550px;
-        max-height: 120px;
-        margin: 10px 0 0 0;
-        overflow-x: auto;
-        li {
-          margin: 0 20px 0;
-          line-height: 30px;
-          label {
-            width: 160px;
-            text-align: right;
-            .el-icon-goods {
-              display: initial !important;
-            }
-          }
-        }
-      }
-      .arrow {
-        width: 50px;
-        text-align: center;
-        color: @Ncolour;
-        line-height: 40px;
+      .el-icon-lock{
+        color: #000000;
+        font-weight: 550;
+        font-size: 16px;
       }
     }
+
+    .el-table--scrollable-x {
+      .el-table__body-wrapper {
+        overflow: initial;
+      }
+    }
+
+    .sending-address {
+      display: flex;
+      align-items: center;
+
+      .el-tooltip {
+        margin-left: 4px;
+      }
+
+      .Icontits:hover {
+        transform: rotate(180deg);
+      }
+    }
+
+    h3 {
+      padding: 0 0 0 30px;
+      border-bottom: @BD1;
+
+      span {
+        width: 58%;
+        display: block;
+        float: left;
+      }
+    }
+
+    .inputs,
+    .outputs {
+      width: 550px;
+      max-height: 120px;
+      margin: 10px 0 0 0;
+      overflow-x: auto;
+
+      li {
+        margin: 0 20px 0;
+        line-height: 30px;
+
+        label {
+          width: 160px;
+          text-align: right;
+
+          .el-icon-goods {
+            display: initial !important;
+          }
+        }
+      }
+    }
+
+    .arrow {
+      width: 50px;
+      text-align: center;
+      color: @Ncolour;
+      line-height: 40px;
+    }
+  }
 
   .redcal {
     height: 40px;
@@ -1052,8 +1104,8 @@ export default {
           color: @Mcolour;
           border-bottom: @BD1;
         }
-t_info
-        .dialog-info {
+
+        t_info .dialog-info {
           background-color: @Bcolour1;
           margin: 30px 30px 0 30px;
           font-size: 14px;
@@ -1103,10 +1155,12 @@ t_info
         }
       }
     }
-    .info_tabs .ul .tabs_infos:nth-last-child(2) p{
+
+    .info_tabs .ul .tabs_infos:nth-last-child(2) p {
       border-bottom: none;
     }
-    .add-class{
+
+    .add-class {
       border-bottom: 1px solid #DFE4EF !important;
     }
   }
@@ -1120,5 +1174,4 @@ t_info
       }
     }
   }
-}
-</style>
+}</style>

@@ -12,8 +12,8 @@
                 <p class="a_title">{{ $t("assets.Overview") }}</p>
                 <div class="a_content">
                     <div class="row-center">
-                        <p>{{ $t("assets.maximum") }}</p>
-                        <p>
+                        <p class="nowrap">{{ $t("assets.maximum") }}</p>
+                        <p class="nowrap">
                             {{ toThousands(assetInfo.totalSupply) }} {{ assetInfo.symbol }}
                         </p>
                     </div>
@@ -63,9 +63,10 @@
                     </div>
                     <div class="row-center">
                         <p>{{ $t("bottom.website") }}</p>
-                        <p class="cur" @click="openUrl(assetInfo.website)">
+                        <p class="cur" @click="openUrl(assetInfo.website)" v-if="assetInfo.website">
                             <span>{{ assetInfo.website }}</span>
                         </p>
+                        <span>--</span>
                     </div>
                     <div class="row-center">
                         <p>{{ $t("bottom.community") }}</p>
@@ -99,12 +100,15 @@
             </div>
             <div class="box">
                 <p class="title">{{ $t('public.balance') }}</p>
-                <p class="syst">{{ toThousands(personalInformation.balance) }} {{ assetInfo.symbol }}</p>
+                <p class="syst">{{ toThousands(timesDecimals(personalInformation.balance, assetInfo.decimals) ) }} {{ assetInfo.symbol }}</p>
             </div>
             <div class="box">
                 <p class="title">{{ $t('assetInfo.assetInfo27') }}</p>
-                <p class="syst">${{ toThousands(personalInformation.value) }}(≈{{ toThousands(personalInformation.rate) }}
-                    NULS)</p>
+                <p class="syst" v-if="personalInformation.value">
+                    ${{ toThousands(personalInformation.value) }}
+                    <span v-if="personalInformation.nulsValue">(≈{{ toThousands(personalInformation.nulsValue) }}NULS)</span>
+                </p>
+                <p v-else>--</p>
             </div>
         </div>
 
@@ -210,7 +214,7 @@ export default {
                 [Number(chainId), this.assetId, this.$route.query.address],
                 true
             );
-            console.log(result, '111111111111')
+            console.log(result, '中间部分请求接口')
             if (result?.result) {
                 this.personalInformation = result.result
             }
@@ -222,6 +226,7 @@ export default {
                 [this.assetId],
                 true
             );
+            console.log(result,'$$$$$$$$$$$$')
             if (result.result) {
                 const info = result.result;
                 info.totalSupply = divisionDecimals(info.totalSupply, info.decimals);
@@ -377,7 +382,6 @@ export default {
 
     .assetsdetails_container {
         display: flex;
-        align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
 
@@ -402,6 +406,7 @@ export default {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    flex-wrap: wrap;
                     font-size: 14px;
                     color: #000000;
                     line-height: 50px;

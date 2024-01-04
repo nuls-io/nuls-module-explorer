@@ -122,7 +122,7 @@ export default {
      **/
     activedMenu(val) {
       // if (!val) return '';
-      console.log(val, 'consensus')
+      // console.log(val, 'consensus')
       if(val === "transactionInfo"){
         return "transaction"
       }else if(val === "Assetsdetails" || (val && val.indexOf('token') > -1) || val === 'holderAddress' || (val && val.indexOf('oldTokenInfo') > -1)){
