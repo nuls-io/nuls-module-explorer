@@ -430,6 +430,7 @@ export default {
               list.map(v => {
                 v.originChain = getOriginChain(v.sourceChainId)
               })
+              console.log(list, '=========list===========')
               this.assetsList = list
               this.openSearchBar = true
             } else {
@@ -617,7 +618,9 @@ export default {
       width: 518px;
       margin: 24px auto 0;
       position: relative;
-
+      .search-container{
+        width: 100%;
+      }
       .el-input__inner {
         height: 44px;
         line-height: 44px;

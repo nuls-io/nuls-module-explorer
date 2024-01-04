@@ -36,7 +36,6 @@
 <script>
 import PagingBar from '@/components/pagingBar';
 import contractMixin from './contractMixin';
-import { watch } from 'vue';
 
 export default {
   data() {

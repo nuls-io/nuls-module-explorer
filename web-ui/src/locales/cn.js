@@ -454,6 +454,7 @@ const cn = {
     "copy":"已复制到剪切板"
   },
   "assets": {
+    "Unlock_time": "解锁时间：",
     "arrive": '到',
     "from": '从',
     "model": '模式',

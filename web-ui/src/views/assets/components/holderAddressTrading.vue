@@ -86,7 +86,7 @@
 </template>
     
 <script>
-import { superLong, copys, divisionDecimals } from "../../../api/util";
+import { superLong, copys, divisionDecimals , toThousands} from "../../../api/util";
 import FilterWrap from "./FilterWrap.vue";
 import moment from "moment";
 export default {
@@ -178,6 +178,7 @@ export default {
         ];
         return {
             illustrate: true,
+            toThousands,
             loading: true,
             txList: [],
             pager: {
@@ -226,9 +227,10 @@ export default {
             const result = await this.$post(
                 "/",
                 "getTxsByAssetKey",
-                [this.assetKey, page, rows, this.$route.query.address, this.$route.query.address],
+                [this.assetKey, page, rows, "", this.$route.query.address, this.$route.query.address],
                 true
             );
+            console.log(result, '交易信息')
             if (result.result) {
                 const { list, totalCount } = result.result;
                 list.map((v) => {
@@ -239,8 +241,8 @@ export default {
                 });
                 this.txList = list;
                 this.pager.total = totalCount;
-                this.loading = false;
             }
+            this.loading = false;
         },
         filterTxType(type) {
             this.typeFilter = type;

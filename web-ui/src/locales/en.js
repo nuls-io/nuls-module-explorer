@@ -455,6 +455,7 @@ const en = {
     "copy":"Copied to clipboard"
   },
   "assets":{
+    "Unlock_time": 'Unlock time：',
     "arrive": "Arrive",
     "from": 'From',
     "model": 'Model',

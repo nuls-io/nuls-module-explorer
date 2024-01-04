@@ -1,13 +1,15 @@
 <template>
   <div class="search-container" v-if="true">
     <div class="search-scroll">
-      <div class="search-centent cur" v-for="(item,index) in assetsList" :key="index" @click="toAssetInfo(item.id)">
+      <div class="search-centent cur" v-for="(item,index) in assetsList" :key="index" @click="toAssetInfo(item)">
         <p class="style1" v-if="index === 0">Tokens</p>
         <div class="style2">
-          <img :src="symbolLogo(item.name)" alt="" />
+          <div class="imgstyle">
+            <img :src="symbolLogo(item.symbol)" alt="" />
+          </div>
           <div class="dispay">
             <div class="flex">
-              <p class="sysmol font14">{{item.name}}</p>
+              <p class="sysmol font14">{{item.symbol}}</p>
               <p class="monys font12" v-if="item.price">${{item.price}}</p>
             </div>
             <p class="style3">{{item.contract}}</p>
@@ -28,16 +30,23 @@ export default {
     return {};
   },
   methods:{
-    symbolLogo(name) {
-      if (name) {
-        return 'https://nuls-cf.oss-us-west-1.aliyuncs.com/icon/' + name + '.png';
+    symbolLogo(symbol) {
+      if (symbol) {
+        return 'https://nuls-cf.oss-us-west-1.aliyuncs.com/icon/' + symbol + '.png';
       }else{
         return "../assets/img/destroyed.svg"
       }
     },
-    toAssetInfo(assetKey) {
+    toAssetInfo(item) {
       this.$emit('clearModel')
-      this.$router.push('/Assets/details/'+assetKey)
+      if(item.id){
+        this.$router.push('/Assets/details/'+item.id)
+      }else{
+        this.$router.push({
+          name: 'contractsInfo',
+          query: {contractAddress: item.contract, tabName: 'first'}
+        })
+      }
     }
   }
 };
@@ -45,7 +54,7 @@ export default {
 
 <style lang="less">
 .search-container {
-  width: 100%;
+  width: fit-content;
   height: fit-content;
   padding: 14px 0;
   position: absolute;
@@ -95,12 +104,16 @@ export default {
       display: flex;
       align-items: center;
       margin-bottom: 12px;
-      img {
+      .imgstyle{
         width: 28px;
         height: 28px;
-        border-radius: 50%;
         margin-right: 8px;
-        border: 1px solid #D5DBE2;
+        img {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          border: 1px solid #D5DBE2;
+        }
       }
       .sysmol {
         color: #000000;
