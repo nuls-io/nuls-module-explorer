@@ -32,7 +32,7 @@
         </el-table-column>
         <el-table-column :label="$t('assetInfo.assetInfo24')" min-width="130">
           <template slot-scope="scope">{{
-            scope.row.balance | toThousands
+            toThousands(scope.row.balance)
           }}</template>
         </el-table-column>
 
@@ -43,7 +43,8 @@
         </el-table-column>
         <el-table-column :label="$t('assetInfo.assetInfo27')" min-width="100">
           <template slot-scope="scope">
-            <span>${{ scope.row.value | toThousands }}</span>
+            <span v-if="scope.row.value">${{ toThousands(scope.row.value) }}</span>
+            <span v-else>--</span>
           </template>
         </el-table-column>
       </el-table>
