@@ -108,8 +108,8 @@ export default {
         });
         this.holders = list;
         this.pager.total = totalCount;
-        this.loading = false;
       }
+      this.loading = false;
     },
     sliceHash(str) {
       return str.slice(0, 20) + "...";
