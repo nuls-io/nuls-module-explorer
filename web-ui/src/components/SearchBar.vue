@@ -43,8 +43,8 @@ export default {
         this.$router.push('/Assets/details/'+item.id)
       }else{
         this.$router.push({
-          name: 'contractsInfo',
-          query: {contractAddress: item.contract, tabName: 'first'}
+          name: 'oldTokenInfo',
+          query: {contractAddress: item.contract, state: true}
         })
       }
     }
