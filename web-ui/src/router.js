@@ -130,6 +130,21 @@ export default new Router({
       component: resolve => require(['@/views/assets/index'], resolve)
     },
     {
+      path: '/Assets/nrc20',
+      name: 'AssetsNrc20',
+      component: resolve => require(['@/views/assets/index'], resolve)
+    },
+    {
+      path: '/Assets/nrc721',
+      name: 'AssetsNrc721',
+      component: resolve => require(['@/views/assets/index'], resolve)
+    },
+    {
+      path: '/Assets/nrc1155',
+      name: 'AssetsNrc1155',
+      component: resolve => require(['@/views/assets/index'], resolve)
+    },
+    {
       path: '/Assets/details/:assetId',
       name: 'Assetsdetails',
       component: resolve => require(['@/views/assets/assetsdetails'], resolve)
