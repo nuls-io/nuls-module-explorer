@@ -111,6 +111,16 @@ export default {
     };
   },
   created() {
+    console.log(location.pathname)
+    if(location.pathname == '/Assets'){
+      this.activeName = 'Chain_assets'
+    }else if(location.pathname == '/Assets/nrc20'){
+      this.activeName = 'second'
+    }else if(location.pathname === '/Assets/nrc721'){
+      this.activeName = 'third'
+    }else{
+      this.activeName = 'fourth'
+    }
     this.getYearRateData();
   },
   methods: {
@@ -132,7 +142,6 @@ export default {
       this.$post("/", "getTopAssets", [page,rows]).then((response) => {
         if (response.hasOwnProperty("result")) {
           this.pager.total = response.result?.totalCount || 0;
-          console.log(response.result?.list, 'sssssssssssssss')
           this.tableData = response.result?.list;
         }
       });
@@ -142,14 +151,26 @@ export default {
       const { page, rows } = this.pager;
       let params;
       if (tab.name === "Chain_assets") {
+        this.$router.push({
+          name: 'Assets'
+        })
         this.getYearRateData();
       } else if (tab.name === "second") {
+        this.$router.push({
+          name: 'AssetsNrc20'
+        })
         params = [page, rows, 1, false];
         this.getContractList("getContractList", params);
       } else if (tab.name === "third") {
+        this.$router.push({
+          name: 'AssetsNrc721'
+        })
         params = [page, rows];
         this.getContractList("getNrc721List", params);
       } else {
+        this.$router.push({
+          name: 'AssetsNrc1155'
+        })
         // fourth
         params = [page, rows];
         this.getContractList("getNrc1155List", params);
