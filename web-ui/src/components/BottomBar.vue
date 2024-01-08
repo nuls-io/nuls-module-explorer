@@ -24,7 +24,7 @@
       <li class="b_li font14 fl capitalize click" @click="toUrl('protocolUpdate')" v-show="symbol ==='NULS'">
         {{$t('protocolUpdate.upgradeProgress')}}
       </li>
-      <li class="b_li font14 fr">Copyright 2017-2023 © All rights Reserved. NULS</li>
+      <li class="b_li font14 fr">Copyright 2017-2024 © All rights Reserved. NULS</li>
     </ul>
   </div>
 </template>
