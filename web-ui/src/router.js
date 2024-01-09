@@ -100,7 +100,7 @@ export default new Router({
       component: resolve => require(['@/views/contracts/TokenInfo'], resolve)
     },
     {
-      path: '/OldToken/info',
+      path: '/AssetsToken/info',
       name: 'oldTokenInfo',
       component: resolve => require(['@/views/contracts/oldTokenInfo'], resolve)
     },
