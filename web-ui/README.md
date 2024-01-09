@@ -1,29 +1,29 @@
-# new-browser
+# New Explorer
 
-## Project setup
+## Project Setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and Hot-reloads for Development
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compiles and Minifies for Production
 ```
 npm run build
 ```
 
-### Run your tests
+### Run Your Tests
 ```
 npm run test
 ```
 
-### Lints and fixes files
+### Lints and Fixes Files
 ```
 npm run lint
 ```
 
-### Customize configuration
+### Customize Configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
