@@ -24,12 +24,12 @@
         </li>
         <li class="tabs_infos fl">
           <p>{{ $t('public.passCard') }}
-            <span class="click" @click="toUrl('oldTokenInfo', contractsAddress)">{{ contractsInfo.tokenName }}</span>
+            <span class="click" @click="toUrl('oldTokenInfo', contractsAddress)">{{ contractsInfo.tokenName || '-' }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
           <p>{{ $t('public.abbreviate') }}
-            <span>{{ contractsInfo.symbol }}</span>
+            <span>{{ contractsInfo.symbol || '-' }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
