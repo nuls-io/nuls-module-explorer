@@ -68,14 +68,19 @@
     padding: 8px 0 !important;
   }
 }
-
-.el-table--border td, .el-table--border th, .el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed {
-  border: 0 !important;
+.el-table td, .el-table th.is-leaf{
+  border-bottom: 1px solid #F4F8FE;
 }
 
-.el-table td, .el-table th.is-leaf {
-  border: 0 !important;
-
+.el-table {
+  &::before{
+    height: 0;
+  }
+  tr{
+    th{
+      background: #F4F8FE !important;
+    }
+  }
 }
 
 .el-tabs {
@@ -191,13 +196,41 @@
     background-color: @Ncolour !important;
   }
 }
-
+.v-charts-component-loading .path{
+  stroke: #00DB82;
+}
+.el-loading-spinner .path{
+  stroke: #00DB82;
+}
 .paging {
   .pages {
-    margin: 10px 0 10px 0;
+    padding-bottom: 12px;
+    padding-top: 10px;
     text-align: right;
     height: 50px;
+    .btn-prev,.btn-next{
+      border: 1px solid #EBEBF4;
+      border-radius: 4px;
+      background-color: #FFFFFF;
+      .el-icon-arrow-left:before{
+        color: #8B8BB0;
+      }
+    }
+    .el-pagination__total,.el-pagination__jump{
+      color: #8B8BB0;
+    }
     .el-pager {
+      li{
+        width: fit-content !important;
+        padding: 0 10px !important;
+        border: 1px solid #EBEBF4;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+        color: #8B8BB0;
+      }
+      .el-icon{
+        border: none;
+      }
       .active {
         background-color: @Ncolour !important;
       }

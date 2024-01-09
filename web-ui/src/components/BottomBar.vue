@@ -1,17 +1,19 @@
 ﻿<template>
-  <div class="bottom bg-gray">
+  <div class="bottom bg-gray black-background">
     <ul class="b_ul w1200">
       <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
         <a href="https://nuls.io/home" target="_blank">{{$t('bottom.website')}}</a>
       </li>
       <li class="b_li font14 fl" v-show="symbol ==='NULS'">
-        <a href="https://github.com/nuls-io" target="_blank">Github</a>
+        <a href="https://github.com/nuls-io" target="_blank">GitHub</a>
       </li>
       <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
-        <a href="https://wallet.nuls.io/" arget="_blank">{{$t('bottom.webWallet')}}</a>
+        <!-- <a href="https://wallet.nuls.io/" arget="_blank">{{$t('bottom.webWallet')}}</a> -->
+        <a href=" https://nuls.io/wallets/" arget="_blank">{{$t('bottom.webWallet')}}</a>
       </li>
       <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
-        <a href="https://bbs.nuls.io/" target="_blank">{{$t('bottom.community')}}</a>
+        <!-- <a href="https://bbs.nuls.io/" target="_blank">{{$t('bottom.community')}}</a> -->
+        <a href=" https://forum.nuls.io/" target="_blank">{{$t('bottom.community')}}</a>
       </li>
       <li class="b_li font14 fl capitalize click" @click="toBugReport" v-show="symbol ==='NULS'">
         {{$t('bottom.about')}}
@@ -22,7 +24,7 @@
       <li class="b_li font14 fl capitalize click" @click="toUrl('protocolUpdate')" v-show="symbol ==='NULS'">
         {{$t('protocolUpdate.upgradeProgress')}}
       </li>
-      <li class="b_li font14 fr">Copyright 2022 © All rights Reserved. NULS</li>
+      <li class="b_li font14 fr">Copyright 2017-2024 © All rights Reserved. NULS</li>
     </ul>
   </div>
 </template>
@@ -103,7 +105,6 @@
       getNULSNumber() {
         this.$post('/', 'getCoinInfo', [])
           .then((response) => {
-            //console.log(response);
             if (response.hasOwnProperty("result")) {
               this.$store.commit('SET_NULSNUMBER', response.result);
             }
@@ -145,7 +146,6 @@
 
 <style lang="less">
   @import "./../assets/css/style";
-
   .bottom {
     border-top: @BD1;
     position: fixed;
@@ -154,14 +154,17 @@
     z-index: 9898;
     .b_ul {
       .b_li {
-        color: #2C3856;
+        color: #FFFFFF;
         line-height: 60px;
         width: auto;
-        margin: 0 12px;
+        margin: 0 20px;
         text-align: center;
         @media screen and (max-width: 1000px) {
           line-height: 45px;
           margin: 0 6px;
+        }
+        @media (min-width: 1000px) and (max-width: 1100px) {
+          margin: 0 10px;
         }
         &:first-child {
           margin-left: 0;
@@ -172,7 +175,7 @@
         &:last-child {
           //width: 190px;
           text-align: right;
-          color: @Acolor3;
+          color: #FFFFFF;
           margin-right: 0;
           @media screen and (max-width: 1000px) {
             display: none;
@@ -183,11 +186,23 @@
         }
         a {
           cursor: pointer;
-
+          color: #FFFFFF;
         }
       }
     }
 
   }
+  .black-background{
+    background-color: #000000 !important;
+  }
 
+  @media (max-width: 1220px){
+    .black-background{
+      .w1200{
+        width: initial;
+      }
+      padding-left: .5rem;
+      padding-right: .5rem;
+    }
+  }
 </style>

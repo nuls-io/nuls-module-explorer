@@ -1,14 +1,14 @@
 <template>
   <div class="contract-nrc721">
     <div class="hide-div"></div>
-    <el-table :data="list" border stripe style="width: 100%" v-loading="listLoading">
+    <el-table :data="list" style="width: 100%" v-loading="listLoading">
       <el-table-column :label="$t('public.serial')" width="80" align="left">
         <template slot-scope="scope">{{scope.$index+(pager.page - 1) * pager.rows + 1}}</template>
       </el-table-column>
 
       <el-table-column :label="$t('public.abbreviate')" min-width="160" align="left">
         <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress)">
                   {{ scope.row.symbol }}
                   <!--                  <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>-->
                 </span>
@@ -16,7 +16,7 @@
       </el-table-column>
       <el-table-column :label="$t('public.contractAddress')" min-width="220" align="left">
         <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
                 </span>
         </template>
@@ -51,6 +51,11 @@ export default {
 </script>
 
 <style lang="less">
-
+.paging .pages .el-pager .active{
+    background-color: #00DB82 !important;
+  }
+.click{
+  color: #00DB82;
+}
 
 </style>

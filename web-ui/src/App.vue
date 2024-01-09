@@ -66,7 +66,4 @@ export default {
 
 <style lang="less">
 @import "assets/css/base.less";
-  .app{
-    background-color: #ffffff;
-  }
 </style>

@@ -1,5 +1,10 @@
-import {BigNumber} from 'bignumber.js'
+import { BigNumber } from 'bignumber.js'
 import copy from 'copy-to-clipboard'
+import { RUN_DEV, IS_BETA } from '../config'
+import axios from 'axios';
+import { _networkInfo } from '@/api/heterogeneousChainConfig';
+import i18n from '../i18n'
+import { Message } from 'element-ui';
 
 /**
  * 10的N 次方
@@ -63,19 +68,33 @@ export function Division(nu, arg) {
 /**
  * 数字除以精度系数
  */
-export function timesDecimals(nu, decimals = 8) {
-  let newDecimals = decimals ? decimals : Number(sessionStorage.getItem('decimals'));
+export function timesDecimals(nu, decimals = 8, reserve) {
+  // let newDecimals = decimals ? decimals : Number(sessionStorage.getItem('decimals'));
+  let newDecimals = decimals;
   let newNu = new BigNumber(Division(nu, Power(newDecimals)).toString());
-  return newNu.toFormat().replace(/[,]/g, '');
+  if (reserve) {
+    return newNu.toFormat(reserve, 1).replace(/[,]/g, '');
+  } else {
+    return newNu.toFormat().replace(/[,]/g, '');
+  }
 }
 
 /**
+ * 旧
  * 数字除以精度系数
  */
 export function divisionDecimals(nu, decimals = 8) {
   let newNu = new BigNumber(Division(nu, Power(decimals)).toString());
   return newNu.toFormat().replace(/[,]/g, '');
 }
+/**
+ * 新
+ * 数字除以精度系数
+ */
+//  export function divisionDecimals(nu, decimals = 8) {
+//   // let newNu = new BigNumber(Division(nu, Power(decimals)).toString());
+//   return new BigNumber(Division(nu, Power(decimals))).toFormat().replace(/[,]/g, '');
+// }
 
 /**
  * 数字乘以精度系数
@@ -83,6 +102,15 @@ export function divisionDecimals(nu, decimals = 8) {
 export function timesDecimals0(nu, decimals = 8) {
   let newNu = new BigNumber(Times(nu, Power(decimals)).toString());
   return Number(newNu);
+}
+//转千分位
+export function toThousands(num = 0) {
+  if(Number(num) > 0){
+    const N = num.toString().split('.')
+    const int = N[0]
+    const float = N[1] ? '.' + N[1] : ''
+    return int.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,') + float;
+  }
 }
 
 /**
@@ -114,7 +142,10 @@ export function superLong(string, leng) {
  * 复制 copy
  * @param value
  */
-export const copys = (value) => copy(value);
+// export const copys = (value) => copy(value);
+export function copys (value) {
+  Copy(value)
+};
 
 /**
  * 计数时间差
@@ -131,7 +162,7 @@ export function timeDifference(dateBegin) {
   let minutes = Math.floor(leave2 / (60 * 1000));
   let leave3 = leave2 % (60 * 1000);      //计算分钟数后剩余的毫秒数
   let seconds = Math.round(leave3 / 1000);
-  return {days: days, hours: hours, minutes: minutes, seconds: seconds};
+  return { days: days, hours: hours, minutes: minutes, seconds: seconds };
 }
 
 /**
@@ -154,6 +185,33 @@ export function getLocalTime(time) {
   return new Date(localTime);
 }
 
+export function getChainId() {
+  let chainId = null
+  if (sessionStorage.getItem('chainId')) {
+    chainId = sessionStorage.getItem('chainId')
+  } else {
+    chainId = RUN_DEV ? 1 : 2;
+  }
+
+  return chainId
+}
+
+/**
+ * 数字乘以精度系数(超长数字)
+ *
+ */
+export function timesDecimalsBig(nu, decimals) {
+  let newInfo = sessionStorage.hasOwnProperty('info') ? JSON.parse(sessionStorage.getItem('info')) : '';
+  let newDecimals = decimals ? decimals : newInfo.defaultAsset.decimals;
+  if (decimals === 0) {
+    return nu
+  }
+  let fmt = { groupSeparator: '', };
+  BigNumber.config({ FORMAT: fmt });
+  let newNu = new BigNumber(Times(nu, Power(newDecimals)));
+  return newNu.toFormat();
+}
+
 export function fixNumber(str, fix = 8) {
   str = '' + str;
   const int = str.split('.')[0];
@@ -161,4 +219,152 @@ export function fixNumber(str, fix = 8) {
   if (!float || !Number(float)) return int;
   float = float.slice(0, fix).replace(/(0+)$/g, '');
   return Number(float) ? int + '.' + float : int;
+}
+
+/**
+ * 获取账户的余额及nonce
+ * @param assetChainId
+ * @param assetId
+ * @param address
+ * @returns {Promise<any>}
+ */
+export async function getNulsBalance(assetChainId = 2, assetId = 1, address) {
+  const params = { "jsonrpc": "2.0", "method": 'getAccountBalance', "params": [Number(getChainId()), assetChainId, assetId, address], "id": Math.floor(Math.random() * 1000) };
+  return await axios.post('/', params)
+    .then((response) => {
+      if (response.data.hasOwnProperty("result")) {
+        return { success: true, data: { balance: response.data.result.balance, nonce: response.data.result.nonce } }
+      } else {
+        return { success: false, data: response.data }
+      }
+    })
+    .catch((error) => {
+      return { success: false, data: error };
+    });
+}
+
+/**
+ * 获取主网最新高度和本地高度
+ */
+export async function getHeaderInfo() {
+  const params = {
+    "jsonrpc": "2.0", "method": "getInfo", "params": [Number(getChainId())], "id": Math.floor(Math.random() * 1000)
+  };
+  await axios.post('/', params)
+    .then((response) => {
+      if (response.data.hasOwnProperty("result")) {
+        sessionStorage.setItem("info", JSON.stringify(response.data.result));
+      } else {
+        sessionStorage.removeItem("info")
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+      sessionStorage.removeItem("info");
+    })
+}
+
+/**
+ * 获取参数的必填值
+ * @param parameterList
+ * @returns {{allParameter: boolean, args: Array}}
+ */
+export function getArgs(parameterList) {
+  //console.log(parameterList);
+  let newArgs = [];
+  let allParameter = false;
+  if (parameterList.length !== 0) {
+    //循环获取必填参数
+    for (let itme of parameterList) {
+      if (itme.required) {
+        if (itme.value) {
+          allParameter = true;
+          newArgs.push(itme.value)
+        } else {
+          return { allParameter: false, args: newArgs };
+        }
+      } else {
+        allParameter = true;
+        if (!itme.value) {
+          newArgs.push('')
+        } else {
+          newArgs.push(itme.value)
+        }
+      }
+    }
+    return { allParameter: allParameter, args: newArgs };
+  } else {
+    return { allParameter: true, args: newArgs };
+  }
+}
+
+export const isBeta = IS_BETA
+/**
+ * @desc 通过异构链id/注册id(nerve、nuls)，获取链名称
+ * @param heterogeneousChainId 异构链id
+ * @param assetChainId 资产id
+ */
+export function getOriginChain(heterogeneousChainId, assetChainId) {
+  const chainsInfo = Object.values(_networkInfo);
+  let chainName = '';
+  if (heterogeneousChainId !== 0) {
+    chainName = chainsInfo.find(v => v.chainId === heterogeneousChainId)?.name;
+  } else {
+    if (!assetChainId) return 'NULS';
+    const NerveChainId = isBeta ? 5 : 9;
+    chainName = NerveChainId === assetChainId ? 'NERVE' : 'NULS';
+  }
+  return chainName;
+}
+
+// 首字母大写
+export function titleCase(str) {
+  if(str){
+    var newarr, newarr1 = [];
+    newarr = str.toLowerCase().split(" ");
+    for (var i = 0; i < newarr.length; i++) {
+      newarr1.push(newarr[i][0].toUpperCase() + newarr[i].substring(1));
+    }
+    return newarr1.join(' ');
+  }
+}
+
+export async function Copy(val) {
+  const locale = i18n._vm.locale
+  let target = document.createElement('input') //创建input节点
+  target.value = val // 给input的value赋值
+  target.style.position = 'absolute'
+  target.style.top = '-99999px'
+  document.body.appendChild(target) // 向页面插入input节点
+  target.select() // 选中input
+  try {
+    await document.execCommand('Copy') // 执行浏览器复制命令
+    if (locale === 'cn') {
+      Message({
+        offset: 90,
+        type: 'success',
+        message: '复制成功'
+      })
+    } else {
+      Message({
+        offset: 90,
+        type: 'success',
+        message: 'Copied successfully'
+      })
+    }
+  } catch {
+    if (locale === 'cn') {
+      Message({
+        offset: 90,
+        type: 'error',
+        message: '您的浏览器不支持复制'
+      })
+    } else {
+      Message({
+        offset: 90,
+        type: 'error',
+        message: 'Your browser does not support copying'
+      })
+    }
+  }
 }

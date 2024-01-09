@@ -135,11 +135,18 @@
 
 <style lang="less">
   @import "./../../assets/css/style";
-
   .update {
+    margin-bottom: 100px;
+    background: #F7F8FB;
     .chart_title {
-      margin: 40px auto 0;
+      margin: 24px auto 0;
       width: 50rem;
+      h4{
+        margin-bottom: 12px;
+      }
+      .el-progress.is-success .el-progress-bar__inner{
+        background-color: #00DB82;
+      }
     }
     .chart_info {
       margin: 20px 0 0 0;
@@ -168,5 +175,23 @@
     }
   }
 
+@media(max-width: 1220px){
+  .w1200{
+    width: initial;
+    padding: 0 .5rem;
+  }
+}
 
+@media (max-width:1000px){
+  .update{
+    .chart_info{
+      .el-col-12{
+        width: 100%;
+      }
+    }
+    .chart_title{
+      width: initial;
+    }
+  }
+}
 </style>

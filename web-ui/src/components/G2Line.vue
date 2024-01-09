@@ -29,7 +29,6 @@
     },
     watch: {
       charData: function (val, oldVal) {    // 监听charData，当放生变化时，触发这个回调函数绘制图表
-        console.log('new: %s, old: %s', val, oldVal);
         this.drawChart(val);
       }
     },

@@ -59,7 +59,7 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('public.txList')" name="addressFirst">
           <SelectBar v-model="typeRegion" @change="changeType"></SelectBar>
-          <el-table :data="txList" stripe border style="width: 100%;" class="mt_20" v-loading="txListLoading">
+          <el-table :data="txList" style="width: 100%;" class="mt_20" v-loading="txListLoading">
             <el-table-column :label="$t('public.height')" width="90" align="left">
               <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
               </template>
@@ -92,14 +92,14 @@
             <el-option v-for="item in tokenOptions" :key="item[0]" :label="item[1]" :value="item[0]">
             </el-option>
           </el-select>
-          <el-table :data="tokenList" stripe border style="width: 100%" class="mt_20" v-loading="tokenListLoading">
+          <el-table :data="tokenList" style="width: 100%" class="mt_20" v-loading="tokenListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="height" :label="$t('public.height')" width="80" align="left">
               <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="TXID" min-width="80" align="left">
+            <el-table-column label="TXID" width="200" align="left">
               <template slot-scope="scope">
                 <span class="cursor-p click"
                       @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
@@ -115,7 +115,7 @@
                 <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.toAddress)">{{ scope.row.toAddresss }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="createTime" :label="$t('public.time')" width="200" align="left"></el-table-column>
+            <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
             <el-table-column :label="$t('public.amount')" width="180" align="left">
               <template slot-scope="scope">
                 <span v-show="scope.row.showValue" class="fCN">+{{ scope.row.value }} </span>
@@ -128,18 +128,16 @@
                 scope.row.toBalance}}{{scope.row.symbol }}
               </template>
             </el-table-column>
-            -
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList3')" name="addressThree">
-          <el-table :data="nrc20List" stripe border style="width: 100%" class="mt_20" v-loading="nrc20ListLoading">
-            <el-table-column label="" width="30">
-            </el-table-column>
+          <el-table :data="nrc20List" style="width: 100%" class="mt_20" v-loading="nrc20ListLoading">
+            <el-table-column label="" width="30"></el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="120"
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="120" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress, scope.row.address)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
                 </span>
@@ -147,7 +145,9 @@
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="180" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">{{ scope.row.contractAddress }}</span>
+                <div class="cursor-p click flex-center" @click="toUrl('contractsInfo',scope.row.contractAddress)">
+                  {{ scope.row.contractAddress }}
+                </div>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" width="180" align="left">
@@ -162,14 +162,14 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList4')" name="addressFour">
-          <el-table :data="nrc721List" stripe border style="width: 100%" class="mt_20" v-loading="nrc721ListLoading">
+          <el-table :data="nrc721List" style="width: 100%" class="mt_20" v-loading="nrc721ListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="160"
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
                 </span>
@@ -177,23 +177,25 @@
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">{{ scope.row.contractAddress }}</span>
+                <div class="cursor-p click flex-center" @click="toUrl('contractsInfo',scope.row.contractAddress)">
+                  {{ scope.row.contractAddress }}
+                </div>
               </template>
             </el-table-column>
             <el-table-column label="Token ID" width="120" align="left">
-              <template slot-scope="scope">{{ scope.row.tokenID }}</template>
+              <template slot-scope="scope">#{{ scope.row.tokenID }}</template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList5')" name="addressFive">
-          <el-table :data="nrc1155List" stripe border style="width: 100%" class="mt_20" v-loading="nrc1155ListLoading">
+          <el-table :data="nrc1155List" style="width: 100%" class="mt_20" v-loading="nrc1155ListLoading">
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="tokenName" :label="$t('public.passCard')" width="160"
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
                 </span>
@@ -201,27 +203,32 @@
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">{{ scope.row.contractAddress }}</span>
+                <div class="cursor-p click flex-center" @click="toUrl('contractsInfo',scope.row.contractAddress)">
+                  {{ scope.row.contractAddress }}
+                </div>
               </template>
             </el-table-column>
             <el-table-column label="Token ID" width="120" align="left">
-              <template slot-scope="scope">{{ scope.row.tokenId }}</template>
+              <template slot-scope="scope">
+                <p>#{{ scope.row.tokenId }}</p>
+              </template>
             </el-table-column>
             <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')" width="120" align="left" />
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('network.network12')" name="addressSix">
-          <el-table :data="holdData" border v-loading="holdDataLoading">
-            <el-table-column prop="chainId" :label="$t('network.network0')" min-width="300" align="center">
+          <el-table :data="holdData" v-loading="holdDataLoading">
+            <el-table-column prop="chainId" :label="$t('network.network0')" min-width="100" align="center">
             </el-table-column>
-            <el-table-column prop="assetId" :label="$t('network.network13')" width="290" align="center">
+            <el-table-column prop="assetId" :label="$t('network.network13')" min-width="100" align="center">
             </el-table-column>
-            <el-table-column :label="$t('network.network2')" width="290" align="center">
+            <el-table-column :label="$t('network.network2')" min-width="120" align="center">
               <template slot-scope="scope">
-                <span class="click" @click="toUrl('networkInfo',scope.row.chainId)">{{ scope.row.symbol }}</span>
+                <!-- <span class="click" @click="toUrl('ParachainsInfo',scope.row.chainId)">{{ scope.row.symbol }}</span> -->
+                <span class="click" @click="toUrl('holderAddress',scope.row)">{{ scope.row.symbol }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="balance" :label="$t('network.network14')" width="290" align="center">
+            <el-table-column prop="balance" :label="$t('network.network14')" min-width="160" align="center">
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -230,6 +237,7 @@
         <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
                        v-show="pageTotal > pageRows"
                        :total="pageTotal"
+                       :pager-count=5
                        :current-page.sync="pageIndex"
                        :page-size="pageRows"
                        @current-change="pagingMethod">
@@ -325,6 +333,7 @@
     components: {
       SelectBar
     },
+  
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
       this.getAddressInfo(this.address);
@@ -358,7 +367,6 @@
        **/
       copy(sting) {
         copys(sting);
-        this.$message({message: this.$t('public.copysuccess'), type: 'success', duration: 1000});
       },
 
       /**
@@ -518,6 +526,7 @@
                 item.balance = timesDecimals(item.balance, item.decimals);
                 item.lock = timesDecimals(item.lockedBalance, item.decimals);
               }
+              // console.log(response.result.list, 'NRC-20列表')
               this.nrc20List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc20ListLoading = false;
@@ -549,6 +558,7 @@
                   })
                 })
               }
+              // console.log(list, 'NRC-721列表')
               this.nrc721List = list;
               this.pageTotal = response.result.totalCount;
               this.nrc721ListLoading = false;
@@ -564,6 +574,7 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
+              // console.log(response.result.list, 'NRC-1155列表')
               this.nrc1155List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc1155ListLoading = false;
@@ -584,6 +595,7 @@
               for (let item of response.result) {
                 item.balance = timesDecimals(item.totalBalance, item.decimals);
               }
+              // console.log(response.result, '持有跨链资产列表')
               this.holdData = response.result;
               this.pageTotal = response.result.totalCount;
               this.holdDataLoading = false;
@@ -607,10 +619,14 @@
           newParmes = {height: parmes}
         } else if (name === 'contractsInfo') {
           newParmes = {contractAddress: parmes, tabName: 'first'}
-        } else if (name === 'tokenInfo') {
-          newParmes = {contractAddress: parmes}
-        } else if (name === 'networkInfo') {
-          newParmes = {chainId: parmes}
+        } else if (name === 'oldTokenInfo') {
+          newParmes = {contractAddress: parmes, address: this.$route.query.address}
+        } else if (name === 'holderAddress') {
+          this.$router.push({
+            path: '/Assets/holderAddress/'+parmes.assetKey,
+            query: { address: parmes.address },
+          })
+          return false
         } else {
           newParmes = {hash: parmes}
         }
@@ -640,7 +656,6 @@
         this.activeName = 'addressFirst';
         this.addressNumber = [];
         this.txListLoading = true;
-        this.getAddressInfo(this.address);
         this.tabNameList();
 
         //延迟加载饼状图
@@ -650,7 +665,14 @@
             rows: this.addressNumber
           };
         }, 500);
-      }
+      },
+      "$i18n.locale":{
+        handler(newval){
+          this.getAddressInfo(this.address)
+        },
+        deep: true,
+        immediate: true
+      },
     }
   }
 </script>
@@ -662,9 +684,13 @@
     //min-height: 800px;
     margin-bottom: 100px;
     .bg-white {
+      background: initial;
       .title {
-        padding-bottom: 60px;
-        margin: 40px auto 0;
+        padding: 24px 0;
+        margin: 0 auto 0;
+        font-size: 20px;
+        color: #000000;
+        font-weight: bold;
         .click {
           margin-left: 20px;
         }
@@ -679,7 +705,7 @@
       }
     }
     .top {
-      margin: -24px auto 0;
+      margin: 0 auto 0;
       height: 255px;
       @media screen and (max-width: 1000px) {
         height: auto;
@@ -781,6 +807,49 @@
         margin: 10px 0 0 0;
         @media screen and (max-width: 1000px) {
           margin: 0.5rem 0.5rem 0 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1220px){
+    .address-info{
+      padding: 0 .5rem;
+      .top{
+        display: flex;
+        justify-content: space-between;
+        .top-left,.top-right{
+          width: 49%;
+          margin:  0;
+        }
+      }
+      .w1200{
+        width: initial;
+      }
+    }
+  }
+  @media(max-width: 1000px){
+    .address-info{
+      .top{
+        .top-right{
+          width: 100%;
+        }
+      }
+      .bg-white{
+        .title{
+          padding: 24px 0;
+          font-size: 16px;
+          color: #000000;
+        }
+      }
+    }
+  }
+  @media(max-width: 686px){
+    .address-info{
+      .bg-white{
+        .title{
+          padding: 24px 0;
+          font-size: 14px;
         }
       }
     }

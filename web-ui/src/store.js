@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate"
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     //当前高度
-    height:0,
+    height: 0,
     //节点信息
     nodeNumber: [],
     //nuls 信息
@@ -43,5 +44,9 @@ export default new Vuex.Store({
       return state.NULSNumber
     }
   },
-  actions: {}
+  actions: {},
+  plugins: [createPersistedState({
+    key: 'NULSNumber',
+    storage: window.sessionStorage,
+  })]
 })

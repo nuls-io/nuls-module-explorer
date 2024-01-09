@@ -56,11 +56,25 @@
   @import "./../assets/css/style";
 
   .paging {
+    background: #fff;
     .pages {
-      margin: 10px 0 10px 0;
+      padding-right: 24px;
+      padding-top: 10px;
       text-align: right;
-      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .btn-prev,.btn-next{
+        width: 28px;
+          height: 28px;
+          line-height: 28px;
+      }
       .el-pager {
+        li{
+          width: 28px;
+          height: 28px;
+          line-height: 28px;
+        }
         .active {
           background-color: @Ncolour !important;
         }
@@ -72,6 +86,21 @@
       .pages {
         .el-pagination__jump {
           display: none;
+        }
+      }
+    }
+  }
+  @media (max-width: 568px){
+    .paging{
+      .pages{
+        padding-right: initial;
+        display: flex;
+        flex-wrap: wrap;
+        white-space: wrap;
+        height: initial;
+        .el-pager {
+          display: flex;
+          align-items: center;
         }
       }
     }

@@ -22,6 +22,7 @@ body, div, dl, dt, dd, ul, ol, li, p, h1, h2, h3, h4, h5, h6, pre, form, fieldse
   font-weight: 400
 }
 
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -197,7 +198,9 @@ a:focus {
 .gray {
   color: #A4AEC4;
 }
-
+.el-table{
+  border-radius: 12px;
+}
 .bg-white {
   background-color: @Bcolour1;
 }
@@ -266,6 +269,10 @@ a:focus {
 /**可点击的手指样式**/
 .click {
   color: @Ccolour;
+  cursor: pointer;
+}
+
+.cur{
   cursor: pointer;
 }
 
@@ -353,6 +360,10 @@ a:focus {
   }
 }
 
+.nowrap{
+  white-space: nowrap;
+}
+
 .b-info, .info_tabs {
   @media screen and (max-width: 1000px) {
     width: 95%;
@@ -376,7 +387,7 @@ a:focus {
       padding: 0.5rem 0 0;
     }
     .tabs_infos {
-      width: 599px;
+      width: 597px;
       border-right: @BD1;
       padding: 0 20px 0;
       font-size: 14px;
@@ -440,6 +451,7 @@ a:focus {
 
     }
   }
+  
 
   h4 {
     margin: 30px 0 0 0;
@@ -489,6 +501,22 @@ a:focus {
     border-radius: 10px;
     background-image: -webkit-gradient(linear, 20% 0%, 20% 0%, from(#d1dbe5), to(#d1dbe5), color-stop(.2, #ffffff))
   }
+}
+.flex-center{
+  display: flex;
+  align-items: center;
+}
+
+.tags {
+  margin-left: 6px;
+  width: fit-content;
+  padding: 2px 4px;
+  line-height: initial;
+  border-radius: 4px;
+  background: #00DB82;
+  color: #ffffff;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 

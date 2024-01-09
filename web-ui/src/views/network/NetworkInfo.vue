@@ -18,7 +18,7 @@
     <div class="tx_list" v-loading="txDataLoading">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('network.network8')" name="first">
-          <el-table :data="txData" border stripe>
+          <el-table :data="txData">
             <el-table-column label="TXID" min-width="330" align="center">
               <template slot-scope="scope">
                 <span class="click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.hashs }}</span>
@@ -26,7 +26,7 @@
             </el-table-column>
             <!-- <el-table-column label="TXID(Nerve)" width="330" align="center">
                <template slot-scope="scope">
-                 <span class="click" @click="toUrl('networkInfo',scope.row.hash0)">{{ scope.row.hash0 }}</span>
+                 <span class="click" @click="toUrl('ParachainsInfo',scope.row.hash0)">{{ scope.row.hash0 }}</span>
                </template>
              </el-table-column>-->
             <el-table-column prop="time" :label="$t('public.time')" width="180" align="center">
@@ -44,11 +44,11 @@
       </el-tabs>
       <div class="paging">
         <el-pagination class="pages" background layout="total,prev, pager, next, jumper"
-                       v-show="pageTotal > pageSize"
-                       :total="pageTotal"
-                       :current-page.sync="pageIndex"
-                       :page-size="pageSize"
-                       @current-change="pageChange">
+          v-show="pageTotal > pageSize"
+          :total="pageTotal"
+          :current-page.sync="pageIndex"
+          :page-size="pageSize"
+          @current-change="pageChange">
         </el-pagination>
       </div>
     </div>
@@ -192,6 +192,13 @@
     }
     .tx_list {
       margin: 20px 0 100px 0;
+    }
+  }
+
+  @media (max-width: 1200px){
+    .w1200{
+      width: 100%;
+      padding: 0 .5rem;
     }
   }
 </style>

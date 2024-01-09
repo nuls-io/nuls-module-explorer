@@ -2,34 +2,33 @@
   <div class="block bg-gray">
     <div class="bg-white">
       <div class="w1200">
-        <h2 class="title font24 fl capitalize">{{$t('block.block0')}}</h2>
+        <h2 class="font20 fl capitalize block-title">{{$t('block.block0')}}</h2>
         <el-switch class="hide-switch fr" v-model="hideSwitch" :width="32" :inactive-text="$t('block.block2')"
-                   @change="hideOneList"></el-switch>
+        @change="hideOneList"></el-switch>
       </div>
     </div>
     <div class="tabs w1200">
-      <el-table :data="blockList" stripe border style="width: 100%" v-loading="blockLoading">
-        <el-table-column label="" width="30">
-        </el-table-column>
-        <el-table-column :label="$t('public.height')" width="130">
+      <el-table :data="blockList" style="width: 100%" v-loading="blockLoading">
+        <el-table-column width="40"></el-table-column>
+        <el-table-column :label="$t('public.height')" min-width="100">
           <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" :label="$t('public.time')" width="230"></el-table-column>
-        <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="160"></el-table-column>
-        <el-table-column :label="$t('public.outNode')" min-width="185">
+        <el-table-column prop="createTime" :label="$t('public.time')" min-width="160"></el-table-column>
+        <el-table-column prop="txCount" :label="$t('public.transactionNo')" min-width="140"></el-table-column>
+        <el-table-column :label="$t('public.outNode')" min-width="140">
           <template slot-scope="scope">
             <label class="cursor-p" v-show="!scope.row.agentHash">
               {{$t('public.seedNode')}}
             </label>
             <span class="cursor-p click" :class="scope.row.agentAlias ? '' : 'uppercase'"
-                  @click="toUrl('consensusInfo',scope.row.agentHash)" v-show="scope.row.agentHash">
+                  @click="toUrl('ConsensusInfo',scope.row.agentHash)" v-show="scope.row.agentHash">
               {{scope.row.agentAlias ? scope.row.agentAlias : scope.row.agentId}}
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="size" :label="$t('public.size')+'(byte)'" width="100"></el-table-column>
-        <el-table-column :label="$t('public.blockReward')" width="180" align="center">
+        <el-table-column prop="size" :label="$t('public.size')+'(byte)'" min-width="140"></el-table-column>
+        <el-table-column :label="$t('public.blockReward')" align="center" min-width="140">
           <template slot-scope="scope">{{ scope.row.reward}}</template>
         </el-table-column>
       </el-table>
@@ -120,7 +119,7 @@
       toUrl(name, parmes) {
         let newQuery = {};
         console.log(name);
-        if (name === 'consensusInfo') {
+        if (name === 'ConsensusInfo') {
           newQuery = {hash: parmes};
           console.log(newQuery)
         } else {
@@ -142,17 +141,72 @@
   .block {
     //height: 1000px;
     @media screen and (max-width: 1000px) {
-      width: 95%;
       margin: 0 auto 0;
     }
+    .block-title{
+      padding: 24px 0;
+      color: #000;
+      font-weight: bold;
+    }
+    .hide-switch{
+      margin-top: 0;
+      padding: 24px 0;
+    }
     .bg-white {
-      height: 126px;
+      height: 80px;
+      background: initial;
       @media screen and (max-width: 1000px) {
         height: 5rem;
       }
     }
     .tabs {
+      margin-top: 0;
       margin-bottom: 100px;
+      .el-table{
+        border-radius: 0;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        .el-table__header-wrapper{
+          background: #F4F8FE;
+        }
+        .el-table__body-wrapper{
+          .el-table__body{
+            tr{
+              td{
+                padding: 0 !important;
+                .cell{
+                  line-height: 48px;
+                }
+              }
+            }
+          }
+        }
+        tr{
+          th{
+            background: #F4F8FE;
+            .cell{
+              color: #4A4F55;
+            }
+          }
+        }
+      }
     }
+  }
+
+  @media (max-width: 1220px){
+    .w1200{
+      width: initial;
+      padding: 0 .5rem;
+    }
+  }
+  @media (max-width: 1000px){
+    .block{
+      .bg-white{
+        height: 3.5rem;
+      }
+      .tabs{
+        margin-top: 1px;
+      }
+    } 
   }
 </style>

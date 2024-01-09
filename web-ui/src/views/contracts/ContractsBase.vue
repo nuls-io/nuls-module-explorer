@@ -1,20 +1,14 @@
 <template>
   <div class="contracts bg-gray">
+    <div class="assets-container w1200">
+      <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane :label="$t('contracts.contracts0')" name="/contracts/"></el-tab-pane>
+        <el-tab-pane label="NRC20" name="/contracts/nrc20"></el-tab-pane>
+        <el-tab-pane label="NRC721" name="/contracts/nrc721"></el-tab-pane>
+        <el-tab-pane label="NRC1155" name="/contracts/nrc1155"></el-tab-pane>
+      </el-tabs> -->
+    </div>
     <div class="bg-white">
-      <ul class="contract-link w1200 tables">
-        <li :class="{active: activeName === 'contracts'}">
-          <router-link to="/contracts">{{ $t('contracts.contracts0') }}</router-link>
-        </li>
-        <li :class="{active: activeName === 'nrc20'}">
-          <router-link to="/contracts/nrc20">NRC20</router-link>
-        </li>
-        <li :class="{active: activeName === 'nrc721'}">
-          <router-link to="/contracts/nrc721">NRC721</router-link>
-        </li>
-        <li :class="{active: activeName === 'nrc1155'}">
-          <router-link to="/contracts/nrc1155">NRC1155</router-link>
-        </li>
-      </ul>
       <div class="content">
         <div class="w1200">
           <router-view></router-view>
@@ -29,66 +23,89 @@
 export default {
   data() {
     return {
-      // activeName: 'allContract',
+      activeName: "/contracts"
     };
+  },
+  
+  watch:{
+    $route:{
+      handler(newval){
+        // console.log(newval.path)
+        this.activeName = newval.path
+      },
+      immediate: true
+    }
   },
   computed: {
     activeName() {
-      return this.$route.name;
-    }
+      return this.$route.path
+    },
+  },
+  methods:{
+    handleClick(tab, event) {
+      this.$router.push(tab.name)
+      // console.log(tab.name)
+    },
   }
 }
 </script>
 
 <style lang="less">
-
 .contracts {
-  width: 95%;
   margin: 0 auto;
+  background-color: #F9FAFD;
+  .bg-white{
+    background: initial;
+  }
   .tables {
     margin-top: 24px;
   }
+
   .el-tabs__item {
     a {
       color: #303133;
     }
+
     &.is-active a {
-      color: #7db46d;
+      color: #00DB82;
     }
   }
-  .contract-link {
-    display: flex;
-    position: relative;
-    margin-bottom: 20px;
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 1px;
-      background-color: #E4E7ED;
-      z-index: 1;
-    }
-    li {
-      margin-right: 40px;
-      a {
-        display: inline-block;
-        line-height: 40px;
-        font-size: 14px;
-        color: #303133;
-      }
-      &.active a {
-        color: #7db46d;
-      }
-      &:hover a {
-        color: #7db46d;
+
+  .assets-container {
+    padding-top: 24px;
+
+    .el-tabs {
+      .el-tabs__header {
+        .el-tabs__nav-wrap {
+          .el-tabs__item {
+            color: #000000;
+            font-size: 18px;
+          }
+
+          .el-tabs__active-bar {
+            background: #00DB82;
+          }
+
+          .is-active {
+            color: #00DB82;
+            font-weight: 550;
+          }
+        }
       }
     }
   }
+
   .content {
     padding-bottom: 60px;
   }
 }
 
+@media (max-width: 1220px){
+  .contracts{
+    padding: 0 .5rem;
+    .w1200{
+      width: initial;
+    }
+  }
+}
 </style>

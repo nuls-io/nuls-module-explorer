@@ -24,11 +24,11 @@
                    :width="32"
                    :inactive-text="$t('rotationInfo.rotationInfo1')">
         </el-switch>
-        <el-table :data="rotationList" stripe border style="width: 100%; margin:45px 0 100px 0;"
+        <el-table :data="rotationList" style="width: 100%; margin:45px 0 100px 0;"
                   v-loading="rotationInfoLoading">
-          <el-table-column label="" width="30">
+          <el-table-column label="" width="10">
           </el-table-column>
-          <el-table-column :label="$t('public.height')" width="120" align="left">
+          <el-table-column :label="$t('public.height')" align="left" min-width="100">
             <template slot-scope="scope">
               <span v-if="rotation === '1' " class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">{{ scope.row.blockHeight }}</span>
               <span v-else>
@@ -42,25 +42,25 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column prop="time" :label="$t('public.time')" width="160" align="left"></el-table-column>
-          <el-table-column prop="txCount" :label="$t('public.transactionNo')" width="120"
+          <el-table-column prop="time" :label="$t('public.time')" align="left" min-width="130"></el-table-column>
+          <el-table-column prop="txCount" :label="$t('public.transactionNo')" min-width="160"
                            align="left"></el-table-column>
-          <el-table-column prop="txid" :label="$t('public.outNode')" min-width="180" align="left">
+          <el-table-column prop="txid" :label="$t('public.outNode')" align="left" min-width="130">
             <template slot-scope="scope">
               <label class="cursor-p" v-show="scope.row.seedPacked ">
                 {{$t('public.seedNode')}}
               </label>
-              <span class="cursor-p click" @click="toUrl('consensusInfo',scope.row.agentHash)"
+              <span class="cursor-p click" @click="toUrl('ConsensusInfo',scope.row.agentHash)"
                     v-show="!scope.row.seedPacked">
                 {{ scope.row.agentName}}
               </span>
             </template>
           </el-table-column>
-          <el-table-column prop="order" :label="$t('rotationInfo.rotationInfo2')" width="120"
+          <el-table-column prop="order" :label="$t('rotationInfo.rotationInfo2')" min-width="100"
                            align="left"></el-table-column>
           <!-- <el-table-column prop="strua" label="状态" width="120" align="center">
            </el-table-column>-->
-          <el-table-column prop="fee" :label="$t('public.blockReward')+'(NULS)'" width="120" align="left">
+          <el-table-column prop="fee" :label="$t('public.blockReward')+'(NULS)'" align="left" min-width="160">
             <template slot-scope="scope">
               {{ scope.row.reward}}
             </template>
@@ -167,16 +167,21 @@
 
 <style lang="less">
   @import "./../../assets/css/style";
-
   .rotation-info {
     .bg-white {
-      height: 70px;
-      .title {
-        margin: 20px auto;
+      background: initial;
+      .title{
+        margin: 0 auto;
+        padding: 24px 0;
+        font-size: 20px;
+        color: #000000;
       }
     }
     .info_tabs {
       margin: 0 auto 20px;
+      h3{
+        margin: 0;
+      }
       .ul {
         min-height: 130px;
         li {
@@ -192,9 +197,6 @@
     }
 
     .r_tab {
-      @media screen and (max-width: 1000px) {
-        width: 95%;
-      }
       .titles {
         margin: 20px auto 0;
         padding-bottom: 5px;
@@ -205,10 +207,31 @@
         line-height: 40px;
       }
       .hide-switch {
-        margin: 20px 0 0 0;
+        margin: 10px 0 0 0;
         padding-bottom: 10px;
       }
     }
+  }
 
+  @media (max-width: 1220px){
+    .rotation-info{
+      .info_tabs{
+        padding: 0 .5rem;
+        .ul{
+          .tabs_infos{
+            width: 50%;
+          }
+        }
+      }
+    }
+    .r_tab{
+      padding: 0 .5rem;
+    }
+    .bg-white{
+      padding: 0 .5rem;
+    }
+    .w1200{
+      width: initial;
+    }
   }
 </style>

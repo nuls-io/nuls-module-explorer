@@ -2,8 +2,8 @@
   <defs>
     
     <linearGradient id="linear-gradient" x1="77.785" y1="76.188" x2="93.215" y2="121" gradientUnits="userSpaceOnUse">
-      <stop offset="NaN" stop-color="#8fe400"/>
-      <stop offset="Infinity" stop-color="#56c400"/>
+      <stop offset="NaN" stop-color="#65F18C"/>
+      <stop offset="Infinity" stop-color="#65F18C"/>
     </linearGradient>
     <filter id="filter" x="71" y="76.188" width="29" height="44.813" filterUnits="userSpaceOnUse">
       <feImage preserveAspectRatio="none" x="71" y="76.1875" width="29" height="44.813" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjkiIGhlaWdodD0iNDQuODEzIiB2aWV3Qm94PSIwIDAgMjkgNDQuODEzIj4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiB1cmwoI2xpbmVhci1ncmFkaWVudCk7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImxpbmVhci1ncmFkaWVudCIgeDE9IjYuNzg1IiB4Mj0iMjIuMjE1IiB5Mj0iNDQuODEzIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIG9mZnNldD0iLTAuMjMiIHN0b3AtY29sb3I9IiNjYmQxZGYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxLjIzIiBzdG9wLWNvbG9yPSIjYzNjYWRiIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCBjbGFzcz0iY2xzLTEiIHdpZHRoPSIyOSIgaGVpZ2h0PSI0NC44MTMiLz4KPC9zdmc+Cg=="/>
@@ -11,8 +11,8 @@
       <feBlend result="blend" in2="SourceGraphic"/>
     </filter>
     <linearGradient id="linear-gradient-2" x1="129" y1="113.094" x2="100" y2="84.094" gradientUnits="userSpaceOnUse">
-      <stop offset="0.25" stop-color="#72be00"/>
-      <stop offset="0.75" stop-color="#3e8900"/>
+      <stop offset="0.25" stop-color="#46E071"/>
+      <stop offset="0.75" stop-color="#46E071"/>
     </linearGradient>
     <filter id="filter-2" x="100" y="76.188" width="29" height="44.813" filterUnits="userSpaceOnUse">
       <feImage preserveAspectRatio="none" x="100" y="76.1875" width="29" height="44.813" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjkiIGhlaWdodD0iNDQuODEzIiB2aWV3Qm94PSIwIDAgMjkgNDQuODEzIj4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiB1cmwoI2xpbmVhci1ncmFkaWVudCk7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImxpbmVhci1ncmFkaWVudCIgeDE9IjYuNzg1IiB4Mj0iMjIuMjE1IiB5Mj0iNDQuODEzIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIG9mZnNldD0iLTAuMjMiIHN0b3AtY29sb3I9IiNjMWM4ZDgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxLjIzIiBzdG9wLWNvbG9yPSIjYjFiOGNiIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCBjbGFzcz0iY2xzLTEiIHdpZHRoPSIyOSIgaGVpZ2h0PSI0NC44MTMiLz4KPC9zdmc+Cg=="/>
@@ -20,8 +20,8 @@
       <feBlend result="blend" in2="SourceGraphic"/>
     </filter>
     <linearGradient id="linear-gradient-3" x1="95.524" y1="63" x2="104.476" y2="89" gradientUnits="userSpaceOnUse">
-      <stop offset="0.25" stop-color="#d3f902"/>
-      <stop offset="0.75" stop-color="#a8f001"/>
+      <stop offset="0.25" stop-color="#6FFF8F"/>
+      <stop offset="0.75" stop-color="#6FFF8F"/>
     </linearGradient>
     <filter id="filter-3" x="71" y="63" width="58" height="26" filterUnits="userSpaceOnUse">
       <feImage preserveAspectRatio="none" x="71" y="63" width="58" height="26" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTgiIGhlaWdodD0iMjYiIHZpZXdCb3g9IjAgMCA1OCAyNiI+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5jbHMtMSB7CiAgICAgICAgZmlsbDogdXJsKCNsaW5lYXItZ3JhZGllbnQpOwogICAgICB9CiAgICA8L3N0eWxlPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJsaW5lYXItZ3JhZGllbnQiIHgxPSIyNC41MjQiIHgyPSIzMy40NzYiIHkyPSIyNiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9Ii0wLjIzIiBzdG9wLWNvbG9yPSIjZDJkN2UyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMS4yMyIgc3RvcC1jb2xvcj0iI2QxZDhlOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNTgiIGhlaWdodD0iMjYiLz4KPC9zdmc+Cg=="/>
