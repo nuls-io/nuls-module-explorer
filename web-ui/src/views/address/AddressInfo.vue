@@ -137,7 +137,7 @@
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="120" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress, scope.row.address)">
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress, scope.row.address)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
                 </span>
@@ -169,7 +169,7 @@
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
                 </span>
@@ -195,7 +195,7 @@
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
                 </span>
@@ -619,11 +619,11 @@
           newParmes = {height: parmes}
         } else if (name === 'contractsInfo') {
           newParmes = {contractAddress: parmes, tabName: 'first'}
-        } else if (name === 'oldTokenInfo') {
+        } else if (name === 'tokenInfo') {
           newParmes = {contractAddress: parmes, address: this.$route.query.address}
         } else if (name === 'holderAddress') {
           this.$router.push({
-            path: '/Assets/holderAddress/'+parmes.assetKey,
+            path: '/assets/holderAddress/'+parmes.assetKey,
             query: { address: parmes.address },
           })
           return false

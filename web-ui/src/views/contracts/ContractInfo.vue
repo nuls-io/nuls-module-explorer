@@ -24,7 +24,7 @@
         </li>
         <li class="tabs_infos fl">
           <p>{{ $t('public.passCard') }}
-            <span class="click" @click="toUrl('oldTokenInfo', contractsAddress)">{{ contractsInfo.tokenName || '-' }}</span>
+            <span class="click" @click="toUrl('tokenInfo', contractsAddress)">{{ contractsInfo.tokenName || '-' }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -334,7 +334,7 @@ export default {
         newQuery = { address: parmes }
       } else if (name === 'transactionInfo') {
         newQuery = { hash: parmes }
-      } else if (name === 'oldTokenInfo') {
+      } else if (name === 'tokenInfo') {
         newQuery = { contractAddress: parmes ,state: true}
       } else {
         newQuery = { height: parmes }

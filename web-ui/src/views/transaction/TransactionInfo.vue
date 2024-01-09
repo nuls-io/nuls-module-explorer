@@ -519,7 +519,7 @@ export default {
     },
     jionOpen(txInfo) {
       const parmse = txInfo.fee.chainId + '-1'
-      this.$router.push("/Assets/details/" + parmse)
+      this.$router.push("/asset/details/" + parmse)
     },
 
     /**

@@ -13,7 +13,7 @@
       <h2 class="title fl capitalize font18">{{ $t("address.address0") }}</h2>
       <el-table :data="addressList" style="width: 100%" @sort-change="sortChange" v-loading="addressLoading">
         <el-table-column label="" width="30"> </el-table-column>
-        <el-table-column :label="$t('public.serial')" width="100">
+        <el-table-column :label="$t('public.serial')" width="70">
           <template slot-scope="scope">{{
             scope.$index + (pager.page - 1) * pager.rows + 1
           }}</template>
@@ -34,7 +34,7 @@
         <el-table-column :label="$t('public.total')" width="200" align="left">
           <template slot-scope="scope">{{ toThousands(scope.row.totalBalance) }}</template>
         </el-table-column>
-        <el-table-column :label="$t('public.accountedFor')" width="200" align="left">
+        <el-table-column :label="$t('public.accountedFor')" width="120" align="left">
           <template slot-scope="scope">{{ scope.row.proportion }}</template>
         </el-table-column>
       </el-table>
