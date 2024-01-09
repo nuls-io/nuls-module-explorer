@@ -2,7 +2,7 @@
   <div class="assets">
     <div class="assets-container w1200">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane :label="$t('assets.chain_assets')" name="Chain_assets">
+        <el-tab-pane :label="$t('assets.chain_assets')" name="Assets">
           <div class="assets-table w1200">
             <!-- <p class="table-titile">
               {{ $t("assets.Contracts", { number: pager.total }) }}
@@ -70,13 +70,13 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="NRC20" name="second">
+        <el-tab-pane label="NRC20" name="AssetsNrc20">
           <Nrc20></Nrc20>
         </el-tab-pane>
-        <el-tab-pane label="NRC721" name="third">
+        <el-tab-pane label="NRC721" name="AssetsNrc721">
             <Nrc721 />
         </el-tab-pane>
-        <el-tab-pane label="NRC1155" name="fourth">
+        <el-tab-pane label="NRC1155" name="AssetsNrc1155">
             <Nrc1155 />
         </el-tab-pane>
       </el-tabs>
@@ -106,13 +106,13 @@ export default {
         total: 0,
         page: 1,
         rows: 15,
-      },
-      tabName: "Chain_assets",
+      }
     };
   },
   created() {
-    console.log(location.pathname)
-    if(location.pathname == '/Assets'){
+    // console.log(this.$route, 22)
+    this.activeName = this.$route.name || 'Assets'
+    /* if(location.pathname == '/assets'){
       this.activeName = 'Chain_assets'
     }else if(location.pathname == '/Assets/nrc20'){
       this.activeName = 'second'
@@ -120,7 +120,7 @@ export default {
       this.activeName = 'third'
     }else{
       this.activeName = 'fourth'
-    }
+    } */
     this.getYearRateData();
   },
   methods: {
@@ -133,10 +133,6 @@ export default {
         return "../assets/img/destroyed.svg";
       }
     },
-    // changePagerRows(val) {
-    //   this.pager.rows = Number(val);
-    //   this.handleClick(this.tabName);
-    // },
     getYearRateData() {
       const { page, rows } = this.pager;
       this.$post("/", "getTopAssets", [page,rows]).then((response) => {
@@ -146,22 +142,21 @@ export default {
         }
       });
     },
-    handleClick(tab) {
-      this.tabName = tab;
+    handleClick() {
       const { page, rows } = this.pager;
       let params;
-      if (tab.name === "Chain_assets") {
+      if (this.activeName === "Assets") {
         this.$router.push({
           name: 'Assets'
         })
         this.getYearRateData();
-      } else if (tab.name === "second") {
+      } else if (this.activeName === "AssetsNrc20") {
         this.$router.push({
           name: 'AssetsNrc20'
         })
         params = [page, rows, 1, false];
         this.getContractList("getContractList", params);
-      } else if (tab.name === "third") {
+      } else if (this.activeName === "AssetsNrc721") {
         this.$router.push({
           name: 'AssetsNrc721'
         })
@@ -185,14 +180,14 @@ export default {
       });
     },
     routLink(id) {
-      this.$router.push('/Assets/details/'+id)
+      this.$router.push('/asset/details/'+id)
     },
     /**
      * 分页功能
      **/
     pagesList(e) {
       this.pager.page = e;
-      this.handleClick(this.tabName);
+      this.handleClick();
     },
   },
 };

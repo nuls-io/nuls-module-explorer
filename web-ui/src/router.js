@@ -12,7 +12,7 @@ export default new Router({
       component: resolve => require(['@/views/Home.vue'], resolve)
     },
     {
-      path: '/Blocks',
+      path: '/blocks',
       name: 'block',
       component: resolve => require(['@/views/block/Block'], resolve),
       meta: {
@@ -20,22 +20,22 @@ export default new Router({
       }
     },
     {
-      path: '/Blocks/info',
+      path: '/block/info',
       name: 'blockInfo',
       component: resolve => require(['@/views/block/BlockInfo'], resolve)
     },
     {
-      path: '/Accounts/info',
+      path: '/address/info',
       name: 'addressInfo',
       component: resolve => require(['@/views/address/AddressInfo'], resolve)
     },
-    {
+    /* {
       path: '/AccountsInfo',
       name: 'accountInfo',
       component: resolve => require(['@/views/address/AddressInfo'], resolve)
-    },
+    }, */
     {
-      path: '/Accounts',
+      path: '/accounts',
       name: 'address',
       component: resolve => require(['@/views/address/Address'], resolve),
       meta: {
@@ -43,7 +43,7 @@ export default new Router({
       }
     },
     {
-      path: '/Transactions',
+      path: '/transactions',
       name: 'transaction',
       component: resolve => require(['@/views/transaction/Transaction'], resolve),
       meta: {
@@ -51,17 +51,17 @@ export default new Router({
       }
     },
     {
-      path: '/Transactions/info',
+      path: '/transaction/info',
       name: 'transactionInfo',
       component: resolve => require(['@/views/transaction/TransactionInfo'], resolve)
     },
-    {
+    /* {
       path: '/TransactionHash',
       name: 'transactionHash',
       component: resolve => require(['@/views/transaction/TransactionInfo'], resolve)
-    },
+    }, */
     {
-      path: '/Consensus',
+      path: '/consensus',
       name: 'Consensus',
       component: resolve => require(['@/views/consensus/Consensus'], resolve),
       meta: {
@@ -69,17 +69,17 @@ export default new Router({
       }
     },
     {
-      path: '/Consensus/info',
+      path: '/consensus/info',
       name: 'ConsensusInfo',
       component: resolve => require(['@/views/consensus/ConsensusInfo'], resolve)
     },
     {
-      path: '/Rotation/info',
+      path: '/rotation/info',
       name: 'rotationInfo',
       component: resolve => require(['@/views/consensus/RotationInfo'], resolve)
     },
     {
-      path: '/Contracts',
+      path: '/contracts',
       name: 'contractsBase',
       component: resolve => require(['@/views/contracts/ContractsBase'], resolve),
       children: [
@@ -90,67 +90,68 @@ export default new Router({
       ]
     },
     {
-      path: '/Contracts/info',
+      path: '/contracts/info',
       name: 'contractsInfo',
       component: resolve => require(['@/views/contracts/ContractInfo'], resolve)
     },
+    // ???
+    // {
+    //   path: '/token/info',
+    //   name: 'tokenInfo',
+    //   component: resolve => require(['@/views/contracts/TokenInfo'], resolve)
+    // },
     {
-      path: '/Token/info',
+      path: '/token/info',
       name: 'tokenInfo',
-      component: resolve => require(['@/views/contracts/TokenInfo'], resolve)
-    },
-    {
-      path: '/AssetsToken/info',
-      name: 'oldTokenInfo',
       component: resolve => require(['@/views/contracts/oldTokenInfo'], resolve)
     },
     {
-      path: '/Parachains',
+      path: '/parachains',
       name: 'Parachains',
       component: resolve => require(['@/views/network/Network'], resolve)
     },
     {
-      path: '/Parachains/info',
+      path: '/parachains/info',
       name: 'ParachainsInfo',
       component: resolve => require(['@/views/network/NetworkInfo'], resolve)
     },
     {
-      path: '/Protocol_update',
+      path: '/protocol_update',
       name: 'protocolUpdate',
       component: resolve => require(['@/views/protocol_update/Index'], resolve)
     },
     {
-      path: '/Destroy/list',
+      path: '/burned-list',
       name: 'destroyList',
       component: resolve => require(['@/views/destroyList/index'], resolve)
     },
     {
-      path: '/Assets',
+      path: '/assets',
       name: 'Assets',
       component: resolve => require(['@/views/assets/index'], resolve)
     },
     {
-      path: '/Assets/nrc20',
+      path: '/assets/nrc20',
       name: 'AssetsNrc20',
       component: resolve => require(['@/views/assets/index'], resolve)
     },
     {
-      path: '/Assets/nrc721',
+      path: '/assets/nrc721',
       name: 'AssetsNrc721',
       component: resolve => require(['@/views/assets/index'], resolve)
     },
     {
-      path: '/Assets/nrc1155',
+      path: '/assets/nrc1155',
       name: 'AssetsNrc1155',
       component: resolve => require(['@/views/assets/index'], resolve)
     },
     {
-      path: '/Assets/details/:assetId',
+      path: '/asset/details/:assetId',
       name: 'Assetsdetails',
       component: resolve => require(['@/views/assets/assetsdetails'], resolve)
     },
     {
-      path: '/Assets/holderAddress/:assetId',
+      path: '/assets/holderAddress/:assetId',
       name: 'holderAddress',
       component: resolve => require(['@/views/assets/holderAddress'], resolve)
     },
