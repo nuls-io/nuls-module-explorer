@@ -8,20 +8,20 @@
     </div>
     <div v-loading="loading">
       <el-table :data="holders">
-        <el-table-column width="30" align="left"></el-table-column>
+        <el-table-column width="20" align="left"></el-table-column>
         <el-table-column label="#" width="60" align="left">
           <template slot-scope="scope">{{
             scope.$index + 1 + (pager.page - 1) * pager.rows
           }}</template>
         </el-table-column>
-        <el-table-column :label="$t('public.address')" width="260" align="left">
+        <el-table-column :label="$t('public.address')" min-width="260" align="left">
           <template slot-scope="scope">
             <div class="flex-start">
               <router-link tag="a" :to="{
-                path: '/Assets/holderAddress/'+assetKey,
+                path: '/assets/holderAddress/'+assetKey,
                 query: { address: scope.row.address },
               }" class="click">
-                {{ superLong(scope.row.address) }}
+                {{ superLong(scope.row.address, 10) }}
               </router-link>
               <div class="tags" v-if="scope.row.tag">
                 {{ scope.row.tag }}
@@ -114,8 +114,8 @@ export default {
     sliceHash(str) {
       return str.slice(0, 20) + "...";
     },
-    superLong(str) {
-      return superLong(str, 8);
+    superLong(str, len = 8) {
+      return superLong(str, len);
     },
     copy(sting) {
       copys(sting);

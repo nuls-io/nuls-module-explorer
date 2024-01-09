@@ -8,7 +8,7 @@
 
       <el-table-column :label="$t('public.abbreviate')" min-width="160" align="left">
         <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('oldTokenInfo',scope.row.contractAddress)">
+                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
                   {{ scope.row.symbol }}
                   <!--                  <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>-->
                 </span>

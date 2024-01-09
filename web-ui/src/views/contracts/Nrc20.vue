@@ -21,7 +21,7 @@
         <template slot-scope="scope">
           <span
             class="cursor-p click"
-            @click="toUrl('oldTokenInfo', scope.row.contractAddress)"
+            @click="toUrl('tokenInfo', scope.row.contractAddress)"
           >
             {{ scope.row.symbol }}
             <span v-if="scope.row.status === 3" class="gray">{{
@@ -45,7 +45,7 @@
         <template slot-scope="scope">
           <span
             class="cursor-p click"
-            @click="toUrl('oldTokenInfo', scope.row.contractAddress)"
+            @click="toUrl('tokenInfo', scope.row.contractAddress)"
           >
             {{ scope.row.contractAddress }}
           </span>

@@ -125,7 +125,7 @@ export default {
       console.log(val, '-------nav---------')
       if(val === "transactionInfo"){
         return "transaction"
-      }else if(val === "Assetsdetails" || (val && val.indexOf('token') > -1) || val === 'holderAddress' || (val && val.indexOf('oldTokenInfo') > -1) || (val && val.indexOf('Assets') > -1)){
+      }else if(val === "Assetsdetails" || (val && val.indexOf('token') > -1) || val === 'holderAddress' || (val && val.indexOf('tokenInfo') > -1) || (val && val.indexOf('Assets') > -1)){
         return "Assets"
       }else if(val === 'nrc20' || val === 'nrc721' || val === 'nrc1155'){
         return "contracts"
