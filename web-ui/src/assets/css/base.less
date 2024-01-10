@@ -520,6 +520,29 @@ a:focus {
   white-space: nowrap;
 }
 
+.line-tooltip {
+  .tooltip-label, .tooltip-value {
+    color: #000;
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .tooltip-value {
+    // font-size: 13px;
+    font-weight: 550;
+    display: flex;
+    align-items: center;
+    &::before {
+      display: inline-block;
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #00E789;
+      margin-right: 6px;
+    }
+  }
+}
+
 
 
 

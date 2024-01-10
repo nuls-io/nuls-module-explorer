@@ -98,6 +98,13 @@ export default {
         trigger: 'axis',
         textStyle: {
           color: '#000000'
+        },
+        formatter: params => {
+          params = params[0];
+          return `<div class="line-tooltip">
+            <p class="tooltip-label">${params.data[0]}</p>
+            <p class="tooltip-value">TXS: ${this.$toThousands(params.data[1])}</p>
+          </div>`
         }
       },
       xAxis: {
