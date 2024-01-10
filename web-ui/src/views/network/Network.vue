@@ -57,7 +57,7 @@
           <span class="container-label font14">@{{ $t('assets.HeterogeneousChain') }}</span>
         </div>
         <p class="network-text">
-          {{ $t('assets.NerveNetwork') }}
+          {{ $t('assets.ENULS') }}
         </p>
         <el-divider></el-divider>
         <div class="network-label">
@@ -105,7 +105,8 @@ import { _networkInfo } from "@/api/heterogeneousChainConfig";
 import {
   divisionDecimals,
   timesDecimals,
-  toThousands
+  toThousands,
+  isBeta
 } from "../../api/util";
 export default {
   data() {
@@ -119,15 +120,15 @@ export default {
   },
   created() {
     // this.getHoldData()
-    this.getInfo()
-    if(this.chainId != 2){
+    // this.getInfo()
+    if(!isBeta){
       this.getAssetInfo('9-1', 'NerveNetwork')
       this.getAssetInfo('1-1', 'ENULS')
     }else{
       this.getAssetInfo('5-1', 'NerveNetwork')
       this.getAssetInfo('2-1', 'ENULS')
     }
-    this.getAssetInfo()
+    // this.getAssetInfo()
   },
   mounted() {
 

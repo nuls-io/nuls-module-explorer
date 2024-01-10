@@ -18,10 +18,10 @@
           </ve-pie>
           <div class="a_total">
             <div class="font14 capitalize">{{$t('public.balance')}}</div>
-            <div class="font18">{{addressInfo.totalBalance}} {{symbol}}</div>
+            <div class="font18">{{$toThousands(addressInfo.totalBalance)}} {{symbol}}</div>
             <ul class="chart_title">
-              <li><span></span>{{$t('public.consensusLocking')}} {{addressInfo.totalLocks}}</li>
-              <li><span></span>{{$t('public.usablebalance')}} {{addressInfo.balances}}</li>
+              <li><span></span>{{$t('public.consensusLocking')}} {{$toThousands(addressInfo.totalLocks)}}</li>
+              <li><span></span>{{$t('public.usablebalance')}} {{$toThousands(addressInfo.balances)}}</li>
               <!--<li><span></span>{{$t('public.timeLocking')}}</li>-->
             </ul>
           </div>
@@ -31,25 +31,25 @@
         <h3 class="tabs_title tabs_header capitalize">{{$t('public.basicInfo')}}</h3>
         <ul class="total_ul">
           <li class="tabs_infos capitalize" v-if="isMobile">{{$t('public.balance')}}
-            <span class="fr">{{addressInfo.totalBalance}}</span>
+            <span class="fr">{{$toThousands(addressInfo.totalBalance)}}</span>
           </li>
           <li class="tabs_infos capitalize" v-if="isMobile">{{$t('public.usablebalance')}}
-            <span class="fr">{{addressInfo.balances}}</span>
+            <span class="fr">{{$toThousands(addressInfo.balances)}}</span>
           </li>
           <li class="tabs_infos capitalize" v-if="isMobile">{{$t('public.consensusLocking')}}
-            <span class="fr">{{addressInfo.totalLocks}}</span>
+            <span class="fr">{{$toThousands(addressInfo.totalLocks)}}</span>
           </li>
 
           <li class="tabs_infos capitalize">{{$t('public.alias')}}
             <span class="fr">{{addressInfo.alias  ? addressInfo.alias : '-' }}</span>
           </li>
           <li class="tabs_infos capitalize">{{$t('public.transactionNo')}}<span
-                  class="fr">{{addressInfo.txCount}}</span></li>
+                  class="fr">{{$toThousands(addressInfo.txCount)}}</span></li>
           <li class="tabs_infos capitalize">{{$t('public.address')+$t('public.type')}}<span class="fr">{{$t('addressType.'+addressInfo.type)}}</span>
           </li>
-          <li class="tabs_infos capitalize">{{$t('addressList.addressList1')}}<span class="fr">{{addressInfo.totalIn}} {{symbol}}</span>
+          <li class="tabs_infos capitalize">{{$t('addressList.addressList1')}}<span class="fr">{{$toThousands(addressInfo.totalIn)}} {{symbol}}</span>
           </li>
-          <li class="tabs_infos capitalize">{{$t('addressList.addressList2')}}<span class="fr">{{addressInfo.totalOut}} {{symbol}}</span>
+          <li class="tabs_infos capitalize">{{$t('addressList.addressList2')}}<span class="fr">{{$toThousands(addressInfo.totalOut)}} {{symbol}}</span>
           </li>
         </ul>
       </div>
@@ -77,10 +77,10 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.amount')" width="180" align="left">
-              <template slot-scope="scope">{{ scope.row.values }}{{scope.row.symbol}}</template>
+              <template slot-scope="scope">{{ $toThousands(scope.row.values) }}{{scope.row.symbol}}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.balance')" width="180" align="left">
-              <template slot-scope="scope">{{ scope.row.balance }}{{scope.row.symbol}}</template>
+            <el-table-column :label="$t('public.balance')" min-width="180" align="left">
+              <template slot-scope="scope">{{ $toThousands(scope.row.balance) }}{{scope.row.symbol}}</template>
             </el-table-column>
             <el-table-column :label="$t('public.fee')" width="150" align="left">
               <template slot-scope="scope">{{ scope.row.fees }}{{symbol}}</template>
@@ -118,14 +118,14 @@
             <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
             <el-table-column :label="$t('public.amount')" width="180" align="left">
               <template slot-scope="scope">
-                <span v-show="scope.row.showValue" class="fCN">+{{ scope.row.value }} </span>
-                <span v-show="!scope.row.showValue" class="fred">-{{ scope.row.value}} </span>
+                <span v-show="scope.row.showValue" class="fCN">+{{ $toThousands(scope.row.value) }} </span>
+                <span v-show="!scope.row.showValue" class="fred">-{{ $toThousands(scope.row.value)}} </span>
                 {{ scope.row.symbol }}
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" width="200" align="left">
-              <template slot-scope="scope">{{address === scope.row.fromAddress ? scope.row.fromBalance :
-                scope.row.toBalance}}{{scope.row.symbol }}
+              <template slot-scope="scope">{{address === scope.row.fromAddress ? $toThousands(scope.row.fromBalance) :
+                $toThousands(scope.row.toBalance)}} {{scope.row.symbol }}
               </template>
             </el-table-column>
           </el-table>
@@ -151,13 +151,13 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" width="180" align="left">
-              <template slot-scope="scope">{{ scope.row.balance }}{{ scope.row.tokenSymbol }}</template>
+              <template slot-scope="scope">{{ $toThousands(scope.row.balance) }}{{ scope.row.tokenSymbol }}</template>
             </el-table-column>
             <el-table-column :label="$t('public.usablebalance')" width="180" align="left">
-              <template slot-scope="scope">{{ scope.row.available }}{{ scope.row.tokenSymbol }}</template>
+              <template slot-scope="scope">{{ $toThousands(scope.row.available) }}{{ scope.row.tokenSymbol }}</template>
             </el-table-column>
             <el-table-column :label="$t('public.consensusLocking')" width="180" align="left">
-              <template slot-scope="scope">{{ scope.row.lock }}{{ scope.row.tokenSymbol }}</template>
+              <template slot-scope="scope">{{ $toThousands(scope.row.lock) }}{{ scope.row.tokenSymbol }}</template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -254,7 +254,7 @@
 
   export default {
     data() {
-      this.colors = ['#769fff', '#9cd05b'];
+      this.colors = ['#45E3A4', '#FFBC58'];
       this.chartSettings = {
         radius: 78,
         offsetY: 100,
@@ -279,14 +279,15 @@
       };
       return {
         isMobile: true,
-        chartData: {},
+        chartData: {
+          columns: ['location', 'value'],
+          rows: []
+        },
         //饼图
         cakeChart: null,
         activeName: 'addressFirst',
         //交易类型
         typeRegion: 0,
-        //地址
-        address: this.$route.query.address,
         //地址详情
         addressInfo: [],
         addressNumber: [],
@@ -333,25 +334,51 @@
     components: {
       SelectBar
     },
+    computed: {
+      address() {
+        return this.$route.query.address
+      }
+    },
+    
+    watch: {
+      address: {
+        handler(val) {
+          if (!val) return;
+          console.log(123456, val)
+          // address，当放生变化时，重新获取数据
+          this.activeName = 'addressFirst';
+          this.addressNumber = [];
+          this.txListLoading = true;
+          this.tabNameList();
+          this.getAddressInfo()
+        },
+        immediate: true
+      },
+      "$i18n.locale"(){
+        const data = [...this.chartData.rows]
+        data.map(v=>{
+          if (v.keySting==='usable') {
+            v.key = this.$t('public.usablebalance')
+          } else if (v.keySting==='locking') {
+            v.key = this.$t('public.consensusLocking')
+          }
+        })
+        this.chartData.rows = data
+      },
+    },
   
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
-      this.getAddressInfo(this.address);
-      this.tabNameList();
+      // this.getAddressInfo(this.address);
+      // this.tabNameList();
     },
     mounted() {
-      //延迟加载饼状图
       setTimeout(() => {
         this.chartData = {
-          columns: ['location', 'value'],
+          columns: ['key', 'value'],
           rows: this.addressNumber
         };
       }, 500);
-
-      //定时获取地址
-      this.addressInterval = setInterval(() => {
-        this.address = this.$route.query.address;
-      }, 500)
     },
     beforeDestroy() {
       //离开界面清除定时器
@@ -372,8 +399,8 @@
       /**
        * 获地址详细信息
        */
-      getAddressInfo(address) {
-        this.$post('/', 'getAccount', [address])
+      getAddressInfo() {
+        this.$post('/', 'getAccount', [this.address])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
@@ -388,13 +415,15 @@
 
               if (parseInt(response.result.balance) > 0) {
                 this.addressNumber.push({
-                  location: this.$t('public.usablebalance'),
+                  keySting: 'usable',
+                  key: this.$t('public.usablebalance'),
                   value: parseInt(timesDecimals(response.result.balance))
                 });
               }
               if (parseInt(response.result.totalLock) > 0) {
                 this.addressNumber.push({
-                  location: this.$t('public.consensusLocking'),
+                  keySting: 'locking',
+                  key: this.$t('public.consensusLocking'),
                   value: parseInt(timesDecimals(response.result.totalLock))
                 });
               }
@@ -405,6 +434,11 @@
               }
               this.tokenOptions.unshift(["", this.$t('type.0')]);
               this.addressInfo = response.result;
+
+              this.chartData = {
+                columns: ['key', 'value'],
+                rows: this.addressNumber
+              };
             }
           })
       },
@@ -453,7 +487,7 @@
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-                item.txHashs = superLong(item.txHash, 15);
+                item.txHashs = superLong(item.txHash, 12);
                 item.values = timesDecimals(item.values, item.decimals);
                 item.balance = timesDecimals(item.balance, item.decimals);
                 item.fees = timesDecimals(item.fee.value);
@@ -613,8 +647,13 @@
       toUrl(name, parmes) {
         let newParmes = {};
         if (name === 'addressInfo') {
-          this.address = parmes;
-          newParmes = {address: parmes}
+          // this.address = parmes;
+          // newParmes = {address: parmes}
+          this.$router.push({
+            name: name,
+            query: {address: parmes}
+          })
+          return;
         } else if (name === 'blockInfo') {
           newParmes = {height: parmes}
         } else if (name === 'contractsInfo') {
@@ -648,31 +687,6 @@
         this.getTxListByAddress();
       },
 
-    },
-
-    watch: {
-      address: function () {
-        // address，当放生变化时，重新获取数据
-        this.activeName = 'addressFirst';
-        this.addressNumber = [];
-        this.txListLoading = true;
-        this.tabNameList();
-
-        //延迟加载饼状图
-        setTimeout(() => {
-          this.chartData = {
-            columns: ['location', 'value'],
-            rows: this.addressNumber
-          };
-        }, 500);
-      },
-      "$i18n.locale":{
-        handler(newval){
-          this.getAddressInfo(this.address)
-        },
-        deep: true,
-        immediate: true
-      },
     }
   }
 </script>
@@ -754,12 +768,12 @@
                 }
                 &:first-child {
                   span {
-                    background-color: #9cd05b;
+                    background-color: #FFBC58;
                   }
                 }
                 &:last-child {
                   span {
-                    background-color: @Ccolour;
+                    background-color: #45E3A4;
                   }
                 }
               }
