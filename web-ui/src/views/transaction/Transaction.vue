@@ -61,7 +61,7 @@
           <el-table-column :label="$t('public.amount')" min-width="160" align="left">
             <template slot-scope="scope">
               <p class="addmoy">
-                {{ scope.row.value }} {{ scope.row.symbol }}
+                {{ $toThousands(scope.row.value) }} {{ scope.row.symbol }}
               </p>
             </template>
           </el-table-column>

@@ -33,7 +33,7 @@
           <li>
             <p class="font16 clicks node-title" @click="toUrl('destroyList')">{{ $t('home.home9') }}<i
                 class="el-icon-arrow-right"></i></p>
-            <h5 class="font24 click-number">{{ destroyedAddressAmount }}</h5>
+            <h5 class="font24 click-number">{{ $toThousands(destroyedAddressAmount) }}</h5>
           </li>
           <li>
             <div class="font16 node-title text-align">
@@ -124,7 +124,7 @@ import axios from 'axios'
 import { API_ROOT } from '@/config'
 import { BigNumber } from 'bignumber.js'
 import CalcBar from '@/components/CalcBar'
-import { superLong, timesDecimals, getOriginChain } from '@/api/util.js'
+import { superLong, timesDecimals, getOriginChain, fixNumber } from '@/api/util.js'
 import SearchBar from '../components/SearchBar.vue'
 import moment from 'moment'
 import { mapState } from 'vuex'

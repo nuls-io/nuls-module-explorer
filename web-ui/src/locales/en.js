@@ -467,6 +467,7 @@ const en = {
     "Parachain": 'Parachains',
     "HeterogeneousChain": 'Heterogeneous chain',
     "NerveNetwork": 'NerveNetwork aims to connect all isolated blockchains and establish a cross-chain asset exchange network, providing all necessary underlying support for the DeFi ecosystem. Let every digital asset holder experience a truly safe, free and transparent DeFi service.',
+    "ENULS": 'ENULS, initiated by the NULS community, is a blockchain that is fully compatible with EVM and Web3 API interfaces.',
     "asset_symbol": 'Main Chain Asset Symbol',
     "traffic": 'Supply on NULS',
     "cross-chain": 'Number Of Cross-Chain Transactions',

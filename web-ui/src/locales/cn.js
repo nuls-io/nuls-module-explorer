@@ -466,6 +466,7 @@ const cn = {
     "Parachain": '平行链',
     "HeterogeneousChain": '异构链',
     "NerveNetwork": 'NerveNetwork旨在连接所有孤立的区块链，建立跨链资产交换网络，为DeFi生态提供一切必要的底层支持。让每一位数字资产持有者体验真正安全、自由、透明的DeFi服务。',
+    "ENULS": 'ENULS是NULS社区发起的完全兼容EVM和Web3 API的区块链。',
     "asset_symbol": '主链资产符号',
     "traffic": 'NULS网络流通量',
     "cross-chain": '跨链交易次数',
