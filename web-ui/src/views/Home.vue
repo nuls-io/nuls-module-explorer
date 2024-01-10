@@ -150,6 +150,14 @@ export default {
         trigger: 'axis',
         textStyle: {
           color: '#000000'
+        },
+        formatter: params => {
+          params = params[0];
+          const value = params.seriesName === 'APR' ? params.data[1] * 100 + '%' : Number((params.data[1] / 1000).toFixed(2)) + 'k'
+          return `<div class="line-tooltip">
+            <p class="tooltip-label">${params.data[0]}</p>
+            <p class="tooltip-value">${params.seriesName}: ${value}</p>
+          </div>`
         }
       },
       xAxis: {
@@ -459,7 +467,7 @@ export default {
               this.rotationIndex = response.result.index;
               this.pagekerId = response.result.packerOrder;
               const itemList = response.result.itemList
-              if(itemList.length > 0){
+              if(itemList && itemList.length > 0){
                 for (let item of response.result.itemList) {
                   item.agentName = item.agentName ? item.agentName : superLong(item.seedAddress, 6);
                 }

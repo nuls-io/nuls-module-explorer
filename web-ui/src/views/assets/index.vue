@@ -145,7 +145,10 @@ export default {
     handleClick() {
       const { page, rows } = this.pager;
       let params;
-      if (this.activeName === "Assets") {
+      this.$router.push({
+        name: this.activeName
+      })
+      /* if (this.activeName === "Assets") {
         this.$router.push({
           name: 'Assets'
         })
@@ -169,7 +172,7 @@ export default {
         // fourth
         params = [page, rows];
         this.getContractList("getNrc1155List", params);
-      }
+      } */
     },
     getContractList(method, params) {
       this.$post("/", method, params).then((response) => {
@@ -187,7 +190,7 @@ export default {
      **/
     pagesList(e) {
       this.pager.page = e;
-      this.handleClick();
+      this.getYearRateData();
     },
   },
 };

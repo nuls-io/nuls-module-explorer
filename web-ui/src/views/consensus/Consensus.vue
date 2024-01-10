@@ -110,6 +110,15 @@ export default {
           trigger: 'axis',
           textStyle:{
             color: '#000000'
+          },
+          formatter: params => {
+            params = params[0];
+            console.log(params, 333)
+            const value = Number(params.data[1].toFixed(2))
+            return `<div class="line-tooltip">
+              <p class="tooltip-label">${params.data[0]}</p>
+              <p class="tooltip-value">${this.$t('public.stake')}: ${this.$toThousands(value)}</p>
+            </div>`
           }
         },
         xAxis:{
@@ -131,9 +140,6 @@ export default {
       '#546570', '#c4ccd3'];
     this.chartSettings = {
       yAxisType: ['normal'],
-      labelMap: {
-        'value': this.$t('public.stake')
-      },
       lineStyle: {
         width: 1,
         color: '#00E789'
@@ -274,14 +280,16 @@ export default {
           if (response.hasOwnProperty("result")) {
             response.result.startTime = moment(getLocalTime(response.result.startTime * 1000)).format('HH:mm:ss');
             response.result.endTime = moment(getLocalTime(response.result.endTime * 1000)).format('HH:mm:ss');
-            response.result.names = response.result.startBlockHeader.agentAlias ? response.result.startBlockHeader.agentAlias : superLong(response.result.startBlockHeader.agentId, 8);
+            const startBlockHeader = response.result.startBlockHeader
+            if (startBlockHeader) {
+              response.result.names = startBlockHeader.agentAlias ? startBlockHeader.agentAlias : superLong(startBlockHeader.agentId, 8);
+            } 
             this.roundInfo = response.result;
-          } else {
-            console.log(response);
-            this.getRoundInfo();
           }
         }).catch((error) => {
-          this.getRoundInfo();
+          setTimeout(() => {
+            this.getRoundInfo();
+          }, 5000)
           console.log(error)
         })
     },

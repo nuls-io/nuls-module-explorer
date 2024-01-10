@@ -69,8 +69,11 @@ export default {
         },
         formatter: params => {
           params = params[0];
-          return `${params.data[0]}<br/><span class="naboxs">${this.$t('address.address2')}</span>  &emsp;</span><span class="naboxs">${params.data[1]}</span>`
-          // return params.data[0] + '<br/>' + '<span class="naboxs">活跃地址</span>  ' + '<span>&emsp;</span>' + '<span class="naboxs">' + params.data[1] + '</span>' 
+           return `<div class="line-tooltip">
+            <p class="tooltip-label">${params.data[0]}</p>
+            <p class="tooltip-value">${this.$t('address.address2')}: ${this.$toThousands(params.data[1])}</p>
+          </div>`
+          // return `${params.data[0]}<br/><span class="naboxs">${this.$t('address.address2')}</span>  &emsp;</span><span class="naboxs">${params.data[1]}</span>`
         }
       },
       xAxis: {

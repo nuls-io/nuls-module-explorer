@@ -294,7 +294,7 @@ export default {
           position: relative;
           z-index: 99;
           input {
-            width: 260px;
+            width: 250px;
             transition: width 400ms ease, background 400ms ease, border-radius 400ms ease;
             height: 36px;
             line-height: 36px;
@@ -304,7 +304,7 @@ export default {
             font-size: 13px;
 
             &:focus {
-              width: 250px;
+              width: 260px;
               border-color: @Ncolour;
             }
           }
