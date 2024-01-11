@@ -45,13 +45,13 @@
   export default {
     data() {
       return {
-        //数据加载动画
+        //Data loading animation
         blockLoading: true,
-        //隐藏单笔交易滑块
+        //Hide single transaction slider
         hideSwitch: false,
-        //块列表数据
+        //Block List Data
         blockList: [],
-        //分页信息
+        //Paging Information
         pager: {
           total: 0,
           page: 1,
@@ -77,7 +77,7 @@
     methods: {
 
       /**
-       * 获取块列表
+       * Get block list
        */
       getBlockList(pager, rows, isShow, packAddress) {
         this.$post('/', 'getBlockHeaderList', [pager, rows, isShow, packAddress])
@@ -96,7 +96,7 @@
       },
 
       /**
-       * 分页功能
+       * Paging function
        **/
       pagesList() {
         this.blockLoading = true;
@@ -104,7 +104,7 @@
       },
 
       /**
-       * 隐藏单笔交易滑块
+       * Hide single transaction slider
        **/
       hideOneList() {
         this.blockLoading = true;
@@ -112,7 +112,7 @@
       },
 
       /**
-       * url 连接跳转
+       * url Connection jump
        * @param name
        * @param parmes
        */

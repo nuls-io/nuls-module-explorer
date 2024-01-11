@@ -17,21 +17,21 @@ public class TxProcessorImpl implements TransactionProcessor {
     @Override
     public boolean validate(int chainId, Transaction tx, BlockHeader blockHeader) {
         Log.debug("validate tx", tx.getTxData());
-        //todo 验证交易业务数据
+        //todo Verify transaction business data
         return true;
     }
 
     @Override
     public boolean commit(int chainId, Transaction tx, BlockHeader blockHeader) {
         Log.info("commit tx");
-        //todo 保存交易业务数据
+        //todo Save transaction business data
         return true;
     }
 
     @Override
     public boolean rollback(int chainId, Transaction tx, BlockHeader blockHeader) {
         Log.info("rollback tx");
-        //todo 回滚交易业务数据
+        //todo Rollback transaction business data
         return true;
     }
 }

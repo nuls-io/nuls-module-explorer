@@ -260,15 +260,15 @@
         offsetY: 100,
         itemStyle: {
           normal: {
-            label: {        //此处为指示线文字
+            label: {        //This is the indicator line text
               show: true,
-              position: 'inside', //标签的位置
+              position: 'inside', //Position of labels
               textStyle: {
                 fontWeight: 100,
-                fontSize: 10    //文字的字体大小
+                fontSize: 10    //Font size of text
               },
             },
-            labelLine: {    //指示线状态
+            labelLine: {    //Indicator line status
               show: true,
               smooth: 0.2,
               length: 10,
@@ -283,47 +283,47 @@
           columns: ['location', 'value'],
           rows: []
         },
-        //饼图
+        //Pie chart
         cakeChart: null,
         activeName: 'addressFirst',
-        //交易类型
+        //Transaction type
         typeRegion: 0,
-        //地址详情
+        //Address Details
         addressInfo: [],
         addressNumber: [],
-        //交易列表
+        //Transaction List
         txList: [],
-        pageTotal: 0, //总条数
-        pageIndex: 1,//当前页
-        pageRows: 5, //显示条数
-        //交易列表加载动画
+        pageTotal: 0, //Total number of entries
+        pageIndex: 1,//Current page
+        pageRows: 5, //Display number of items
+        //Transaction list loading animation
         txListLoading: true,
-        //token类型
+        //tokentype
         tokenOptions: [],
         tokenValue: '',
-        //token 交易列表
+        //token Transaction List
         tokenList: [],
-        //token 交易列表分页信息
+        //token Transaction list pagination information
         tokenListPager: {
           total: 0,
           page: 1,
           rows: 4,
         },
-        //token 交易列表加载动画
+        //token Transaction list loading animation
         tokenListLoading: true,
-        //代币列表
+        //Token List
         nrc20List: [],
-        //代币列表分页信息
+        //Token List Paging Information
         nrc20ListPager: {
           total: 0,
           page: 1,
           rows: 5,
         },
         nrc20ListLoading: false,
-        //地址定时器
+        //Address Timer
         addressInterval: null,
-        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
-        holdData: [],//持有跨链资产列表
+        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//defaultsymbol
+        holdData: [],//Holding cross chain asset list
         holdDataLoading: false,
         nrc721List: [],
         nrc721ListLoading: false,
@@ -345,7 +345,7 @@
         handler(val) {
           if (!val) return;
           console.log(123456, val)
-          // address，当放生变化时，重新获取数据
+          // addressWhen releasing changes, retrieve data again
           this.activeName = 'addressFirst';
           this.addressNumber = [];
           this.txListLoading = true;
@@ -381,7 +381,7 @@
       }, 500);
     },
     beforeDestroy() {
-      //离开界面清除定时器
+      //Leave the interface to clear the timer
       if (this.addressInterval) {
         clearInterval(this.addressInterval);
       }
@@ -389,7 +389,7 @@
     methods: {
 
       /**
-       * 复制方法
+       * Copy Method
        * @param sting
        **/
       copy(sting) {
@@ -397,7 +397,7 @@
       },
 
       /**
-       * 获地址详细信息
+       * Obtain detailed address information
        */
       getAddressInfo() {
         this.$post('/', 'getAccount', [this.address])
@@ -428,7 +428,7 @@
                 });
               }
 
-              //循环代币
+              //Circular token
               for (let item in response.result.tokens) {
                 this.tokenOptions[item] = response.result.tokens[item].split(',');
               }
@@ -444,7 +444,7 @@
       },
 
       /**
-       * tab 选项
+       * tab option
        **/
       handleClick(tab) {
         this.activeName = tab.name;
@@ -454,7 +454,7 @@
       },
 
       /**
-       * @disc: 根据tab名称加载数据
+       * @disc: according totabName loading data
        * @params:
        * @date: 2020-07-01 10:54
        * @author: Wave
@@ -478,7 +478,7 @@
       },
 
       /**
-       * 根据地址获取交易列表
+       * Obtain transaction list based on address
        */
       getTxListByAddress() {
         this.$post('/', 'getAccountTxs', [this.pageIndex, this.pageRows, this.address, this.typeRegion, -1, -1, 0, 0])
@@ -502,7 +502,7 @@
       },
 
       /**
-       * 根据地址获取交易列表 分页
+       * Obtain transaction list based on address paging
        */
       pagingMethod(e) {
         this.pageIndex = e;
@@ -510,7 +510,7 @@
       },
 
       /**
-       * 根据地址获取Token交易列表
+       * Obtain based on addressTokenTransaction List
        */
       getTokenListByAddress() {
         this.$post('/', 'getTokenTransfers', [this.pageIndex, this.pageRows, this.address, this.tokenValue])
@@ -537,7 +537,7 @@
       },
 
       /**
-       * 选择代币类型
+       * Select token type
        **/
       changeToken() {
         this.pageTotal = 0;
@@ -546,7 +546,7 @@
       },
 
       /**
-       * 根据地址获取NRC-20列表
+       * Obtain based on addressNRC-20list
        */
       getNrc20ListByAddress() {
         this.nrc20ListLoading = true;
@@ -560,7 +560,7 @@
                 item.balance = timesDecimals(item.balance, item.decimals);
                 item.lock = timesDecimals(item.lockedBalance, item.decimals);
               }
-              // console.log(response.result.list, 'NRC-20列表')
+              // console.log(response.result.list, 'NRC-20list')
               this.nrc20List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc20ListLoading = false;
@@ -571,7 +571,7 @@
       },
 
       /**
-       * 根据地址获取NRC-721列表
+       * Obtain based on addressNRC-721list
        */
       getNrc721ListByAddress() {
         this.nrc721ListLoading = true;
@@ -592,7 +592,7 @@
                   })
                 })
               }
-              // console.log(list, 'NRC-721列表')
+              // console.log(list, 'NRC-721list')
               this.nrc721List = list;
               this.pageTotal = response.result.totalCount;
               this.nrc721ListLoading = false;
@@ -608,7 +608,7 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              // console.log(response.result.list, 'NRC-1155列表')
+              // console.log(response.result.list, 'NRC-1155list')
               this.nrc1155List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc1155ListLoading = false;
@@ -618,7 +618,7 @@
         })
       },
       /**
-       * 持有跨链资产列表
+       * Holding cross chain asset list
        */
       getAccountCrossLedgerList(address) {
         this.holdDataLoading = true;
@@ -629,7 +629,7 @@
               for (let item of response.result) {
                 item.balance = timesDecimals(item.totalBalance, item.decimals);
               }
-              // console.log(response.result, '持有跨链资产列表')
+              // console.log(response.result, 'Holding cross chain asset list')
               this.holdData = response.result;
               this.pageTotal = response.result.totalCount;
               this.holdDataLoading = false;
@@ -640,7 +640,7 @@
       },
 
       /**
-       * url 连接跳转
+       * url Connection jump
        * @param name
        * @param parmes
        */
@@ -677,7 +677,7 @@
       },
 
       /**
-       * 获取交易类型
+       * Obtain transaction type
        **/
       changeType(type) {
         this.pageTotal = 0;

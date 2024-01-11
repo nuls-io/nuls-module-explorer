@@ -5,7 +5,7 @@ import io.nuls.core.core.annotation.Configuration;
 /**
  * @Author: zhoulijun
  * @Time: 2019-06-26 11:43
- * @Description: 功能描述
+ * @Description: Function Description
  */
 @Configuration(domain = "nuls-module-explorer")
 public class Config {

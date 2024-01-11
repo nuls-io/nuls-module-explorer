@@ -9,7 +9,7 @@
     <el-row class="chart_info">
       <el-col :span="12">
         <div class="titles">
-          <div class="font16">{{$t('protocolUpdate.upgraded')}}:</div>
+          <div class="font16">{{$t('protocolUpdate.upgraded')}}:<span class="fr">{{$t('protocolUpdate.nulsVersion')}}: {{NULSVersion}}</span></div>
           <div class="font12">{{$t('public.address')}}<span class="fr">{{$t('public.alias')}}</span></div>
         </div>
         <div class="list scroll">
@@ -44,10 +44,18 @@
         oldList: [],
         updateInterval: null,
         updateLoading: true,
-        latestVersion: 1,//最新版本号
+        latestVersion: 1,//Latest version number
       }
     },
     components: {},
+    computed: {
+      NULSVersion() {
+        if (!this.newList.length) {
+          return ''
+        }
+        return this.newList[0].version
+      }
+    },
     created() {
       this.getInfo();
       this.protocolUpdate = "0/0";
@@ -64,7 +72,7 @@
     methods: {
 
       /**
-       * @disc: 获取升级信息
+       * @disc: Get upgrade information
        * @date: 2019-09-10 14:02
        * @author: Wave
        */
@@ -88,7 +96,7 @@
       },
 
       /**
-       * @disc: 获取最新共识节点更新总数
+       * @disc: Get the latest consensus node update total number
        * @date: 2019-09-10 14:02
        * @author: Wave
        */
@@ -119,7 +127,7 @@
       },
 
       /**
-       * url 连接跳转
+       * url Connection jump
        * @param name
        * @param parmes
        */

@@ -183,10 +183,10 @@ export default {
       });
     },
     routLink(id) {
-      this.$router.push('/asset/details/'+id)
+      this.$router.push('/asset/'+id)
     },
     /**
-     * 分页功能
+     * Paging function
      **/
     pagesList(e) {
       this.pager.page = e;

@@ -8,7 +8,7 @@
 
 <script>
 // import { getIconSrc } from '@/utils/util';
-import defaultIcon from '../assets/img/commonIcon.png'
+import defaultIcon from '../assets/img/NULS.png'
 export default {
   name: 'symbol-icon',
   props: {

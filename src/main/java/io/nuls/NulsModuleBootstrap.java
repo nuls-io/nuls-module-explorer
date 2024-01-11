@@ -12,7 +12,7 @@ import io.nuls.core.rpc.modulebootstrap.RpcModuleState;
 /**
  * @Author: zhoulijun
  * @Time: 2019-06-10 19:27
- * @Description: 模块启动类
+ * @Description: Module startup class
  */
 @Service
 public abstract class NulsModuleBootstrap extends RpcModule {

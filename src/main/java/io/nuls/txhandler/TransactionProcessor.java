@@ -6,43 +6,43 @@ import io.nuls.base.data.Transaction;
 /**
  * @Author: zhoulijun
  * @Time: 2019-06-11 20:04
- * @Description: 功能描述
+ * @Description: Function Description
  */
 public interface TransactionProcessor {
 
     /**
-     * 返回交易类型
+     * Return transaction type
      * @return
      */
     int getType();
 
     /**
-     * 验证接口
+     * Verify Interface
      *
-     * @param chainId       链Id
-     * @param tx           类型为{@link #getType()}的所有交易
-     * @param blockHeader   区块头
-     * @return 未通过验证的交易,需要丢弃
+     * @param chainId       chainId
+     * @param tx           Type is{@link #getType()}All transactions of
+     * @param blockHeader   Block head
+     * @return Unverified transactions,Need to discard
      */
     boolean validate(int chainId, Transaction tx, BlockHeader blockHeader);
 
     /**
-     * 提交接口
+     * Submit Interface
      *
-     * @param chainId       链Id
-     * @param tx           类型为{@link #getType()}的所有交易集合
-     * @param blockHeader   区块头
-     * @return 是否提交成功
+     * @param chainId       chainId
+     * @param tx           Type is{@link #getType()}All transaction sets for
+     * @param blockHeader   Block head
+     * @return Whether the submission was successful
      */
     boolean commit(int chainId, Transaction tx, BlockHeader blockHeader);
 
     /**
-     * 回滚接口
+     * Rollback interface
      *
-     * @param chainId       链Id
-     * @param tx          类型为{@link #getType()}的所有交易集合
-     * @param blockHeader   区块头
-     * @return 是否回滚成功
+     * @param chainId       chainId
+     * @param tx          Type is{@link #getType()}All transaction sets for
+     * @param blockHeader   Block head
+     * @return Is the rollback successful
      */
     boolean rollback(int chainId, Transaction tx, BlockHeader blockHeader);
 

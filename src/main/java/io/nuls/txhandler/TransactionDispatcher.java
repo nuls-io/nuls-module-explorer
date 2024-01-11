@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 交易回调函数转发器
+ * Transaction callback function forwarder
  */
 @Component
 public final class TransactionDispatcher extends BaseCmd {
@@ -36,7 +36,7 @@ public final class TransactionDispatcher extends BaseCmd {
     TransactionProcessor transactionProcessor;
 
     /**
-     * 交易验证回调函数
+     * Transaction verification callback function
      * @param params
      * @return
      */
@@ -59,7 +59,7 @@ public final class TransactionDispatcher extends BaseCmd {
 
 
     /**
-     * 保存交易数据回调函数
+     * Save transaction data callback function
      * @param params
      * @return
      */
@@ -72,7 +72,7 @@ public final class TransactionDispatcher extends BaseCmd {
     }
 
     /**
-     * 回滚交易数据回调函数
+     * Rollback transaction data callback function
      *
      * @param params
      * @return

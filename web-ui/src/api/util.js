@@ -110,15 +110,7 @@ export function superLong(string, leng) {
 
 // export const copys = (value) => copy(value);
 export function copys (value) {
-  // Copy(value)
   copy(value)
-  Message({
-    offset: 70,
-    type: 'success',
-    message: i18n.t('public.copysuccess'),
-    duration: 1000,
-    customClass: 'success-tip'
-  })
 }
 
 /**
@@ -288,19 +280,19 @@ export function titleCase(str) {
 
 export async function Copy(val) {
   const locale = i18n._vm.locale
-  let target = document.createElement('input') //创建input节点
-  target.value = val // 给input的value赋值
+  let target = document.createElement('input') //establishinputnode
+  target.value = val // toinputofvalueassignment
   target.style.position = 'absolute'
   target.style.top = '-99999px'
-  document.body.appendChild(target) // 向页面插入input节点
-  target.select() // 选中input
+  document.body.appendChild(target) // Insert into pageinputnode
+  target.select() // Selectinput
   try {
-    await document.execCommand('Copy') // 执行浏览器复制命令
+    await document.execCommand('Copy') // Execute browser copy command
     if (locale === 'cn') {
       Message({
         offset: 90,
         type: 'success',
-        message: '复制成功'
+        message: 'Copy successful'
       })
     } else {
       Message({
@@ -314,7 +306,7 @@ export async function Copy(val) {
       Message({
         offset: 90,
         type: 'error',
-        message: '您的浏览器不支持复制'
+        message: 'Your browser does not support copying'
       })
     } else {
       Message({

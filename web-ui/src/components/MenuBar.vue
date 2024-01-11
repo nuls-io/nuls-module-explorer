@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       mode: 'horizontal',
-      //语言
+      //language
       lang: 'en',
     };
   },
@@ -46,7 +46,7 @@ export default {
     //numberGrow,
   },
   created() {
-    let lang = navigator.language || navigator.userLanguage;//常规浏览器语言和IE浏览器
+    let lang = navigator.language || navigator.userLanguage;//Regular browser language andIEbrowser
     if (sessionStorage.hasOwnProperty('lang')) {
       this.lang = sessionStorage.getItem('lang')
     } else {
@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     /**
-     * 语言切换
+     * Language switching
      * @param e
      * @param Boolean
      */
@@ -97,7 +97,7 @@ export default {
       this.$i18n.locale = this.lang;
     },
     /**
-     * 导航跳转
+     * Navigation jump
      * @param key
      **/
     handleSelect(key, path) {
@@ -118,7 +118,7 @@ export default {
     },
 
     /**
-     * 导航栏的选中
+     * Selection of navigation bar
      **/
     activedMenu(val) {
       // if (!val) return '';

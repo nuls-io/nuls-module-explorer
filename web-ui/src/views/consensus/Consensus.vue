@@ -104,7 +104,7 @@ export default {
   data() {
     this.chartExtend = {
         series: {
-          showSymbol: false,//取消折线图上的小圆点
+          showSymbol: false,//Cancel small dots on the line chart
         },
         tooltip:{
           trigger: 'axis',
@@ -144,8 +144,8 @@ export default {
         width: 1,
         color: '#00E789'
       },
-      area: true, //是否展示为面积图
-      itemStyle: { //面积图颜色设置
+      area: true, //Is it displayed as an area chart
+      itemStyle: { //Area chart color settings
         color: {
           type: 'linear',
           x: 0,
@@ -155,39 +155,39 @@ export default {
           colorStops: [
             {
               offset: 0,
-              color: 'rgba(0, 231, 137, 0.5)', // 0% 处的颜色
+              color: 'rgba(0, 231, 137, 0.5)', // 0% Color at
             },
             {
               offset: 1,
-              color: 'rgba(255, 255, 255, 0)' // 100% 处的颜色
+              color: 'rgba(255, 255, 255, 0)' // 100% Color at
             }
           ],
-          globalCoord: false // 缺省为 false
+          globalCoord: false // Default to false
         }
       }
     };
     return {
-      //流通量
+      //Circulation volume
       circulation: 0,
-      //总委托
+      //general entrustment
       consensusTotal: 0,
-      //共识中节点
+      //Nodes in consensus
       nodeing: 0,
-      //共识节点
+      //Consensus node
       node: 0,
 
-      //统计图数据
+      //Statistical chart data
       chartData: {
         columns: [],
         rows: []
       },
       timeRateDataLoading: true,
-      //选择统计报表时间
+      //Select statistical report time
       timeRate: 2,
       activeName: 'first',
-      //当前轮次信息
+      //Current round information
       roundInfo: [],
-      //轮次列表
+      //Round List
       roundList: [],
       roundListLoading: false,
       pager: {
@@ -209,15 +209,15 @@ export default {
   },
   mounted() {
     setInterval(() => {
-      //流通量
+      //Circulation volume
       let newCirculateNumber = new BigNumber(timesDecimals(this.$store.state.NULSNumber.circulation, 11));
       this.circulation = newCirculateNumber.toFormat(2);
-      //总委托
+      //general entrustment
       let newConsensusTotal = new BigNumber(timesDecimals(this.$store.state.NULSNumber.consensusTotal, 11));
       this.consensusTotal = newConsensusTotal.toFormat(2);
-      //共识中节点
+      //Nodes in consensus
       this.nodeing = this.$store.state.nodeNumber.consensusCount;
-      //共识节点
+      //Consensus node
       this.node = this.$store.state.nodeNumber.agentCount;
     }, 100);
   },
@@ -233,7 +233,7 @@ export default {
   methods: {
 
     /**
-     * 获取交易历史数据统计
+     * Obtain transaction history data statistics
      */
     getYearRateData(time) {
       this.$post('/', 'getConsensusStatistical', [time])
@@ -252,7 +252,7 @@ export default {
     },
 
     /**
-     * 选择统计数据的周、月、年
+     * Select the week of statistical data、month、year
      **/
     changeDate(type) {
       this.timeRateDataLoading = true;
@@ -263,7 +263,7 @@ export default {
     },
 
     /**
-     * tab 切换
+     * tab switch
      **/
     handleClick() {
       // this.pager.total = 0;
@@ -271,7 +271,7 @@ export default {
     },
 
     /**
-     *  获取当前轮次信息
+     *  Obtain current round information
      **/
     async getRoundInfo() {
       this.$post('/', 'getBestRoundInfo', [])
@@ -295,7 +295,7 @@ export default {
     },
 
     /**
-     * 获取轮次列表
+     * Get a list of rounds
      */
     async getRoundList(page, rows) {
       this.roundListLoading = true;
@@ -318,7 +318,7 @@ export default {
     },
 
     /**
-     * 分页功能
+     * Paging function
      **/
     pagesList() {
       this.getRoundList(this.pager.page, this.pager.rows)

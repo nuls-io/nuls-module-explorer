@@ -226,7 +226,7 @@ export const _networkInfo = {
   },
   Ethereum: {
     name: 'Ethereum',
-    chainName: isBeta ? 'Ethereum_Beta' : 'Ethereum', // 用于metamask添加链时显示链名称 区分正式、测试网
+    chainName: isBeta ? 'Ethereum_Beta' : 'Ethereum', // Used formetamaskDisplay chain name when adding chain Distinguish between formal and formal、Test Network
     chainId: 101,
     assetKey: isBeta ? '5-2' : '9-2',
     origin: ETHOrigin,
@@ -443,7 +443,7 @@ export const _networkInfo = {
     rpcUrl: RPC_URL.smartBCH
   },
   Goerli: {
-    // eth 测试网
+    // eth Test Network
     name: 'Goerli',
     chainName: 'Goerli',
     chainId: 118,
@@ -481,7 +481,7 @@ export const _networkInfo = {
     rpcUrl: RPC_URL.KAVA
   },
   ETHW: {
-    // 只有主网
+    // Only the main network
     name: 'ETHW',
     chainName: isBeta ? '' : 'ETHW',
     chainId: 121,

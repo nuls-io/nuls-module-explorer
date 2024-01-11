@@ -409,7 +409,8 @@ const cn = {
     "name": "协议升级进度",
     "upgraded": "已升级节点",
     "notUpgraded": "未升级节点",
-    "upgradeProgress":"升级进展"
+    "upgradeProgress":"升级进展",
+    "nulsVersion": "最新版本"
   },
 
   "network":{
@@ -485,7 +486,7 @@ const cn = {
     "network": '网络',
     "source_chain": "源链",
     "other_information": '其它信息',
-    "Token_Contract": '代币合约',
+    "assetId": '资产ID',
     "holder_address": "持有人地址",
     "Trading_Information": '交易信息',
     "information": '信息',

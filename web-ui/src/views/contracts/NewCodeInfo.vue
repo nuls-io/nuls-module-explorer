@@ -30,8 +30,8 @@ export default {
     },
     data() {
         return {
-            infoActive: 1, //1读合约，2写合约，3方法
-            //合约详情
+            infoActive: 1, //1Read the contract,2Write a contract,3method
+            //Contract details
             contractsInfo: {},
         }
     },
@@ -54,14 +54,14 @@ export default {
     },
     methods: {
         /**
-     * 获取子组件的状态值
+     * Get the status values of sub components
      * @param contractStatus
      **/
         contractStatus(contractStatus) {
             this.contractsInfo.status = contractStatus
         },
         /**
-         * 根据合约地址获取合约详情
+         * Obtain contract details based on the contract address
          * @param address
         */
         getContractsInfoByContractsAddress(address) {
@@ -80,7 +80,7 @@ export default {
                 })
         },
         /**
-       * 调用认证方法
+       * Calling authentication methods
        * @param contractsAddress
        **/
         async getContractAddressInfo(contractsAddress) {

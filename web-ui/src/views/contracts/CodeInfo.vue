@@ -58,24 +58,24 @@
     props: {status: Number, certificationTime: String},
     data() {
       return {
-        //是否已认证
+        //Has it been certified
         ifCertified: false,
-        //认证时间
+        //Certification time
         certificationTimes: '',
-        //合约地址
+        //Contract address
         contractsAddress: this.$route.query.contractAddress,
 
-        //上传源代码动画
+        //Upload source code animation
         uploadLoading: false,
 
-        //代码目录
+        //Code directory
         codeTress: [],
         defaultProps: {
           children: 'children',
           label: 'name'
         },
 
-        //代码内容
+        //Code content
         codeInfo: '',
       };
     },
@@ -93,7 +93,7 @@
     
     methods: {
       /**
-       * 获取zip文件转换为文件流
+       * obtainzipConvert files to file streams
        **/
       uploadFile() {
         let _this = this;
@@ -102,7 +102,7 @@
         obj.onchange = function () {
           if (this.value !== '') {
             let file = obj.files[0];
-            //获取文件流
+            //Get file stream
             let reader = new FileReader();
             let total = file.size;
             if (total > 1024 * 1024 * 0.5) {
@@ -121,7 +121,7 @@
       },
 
       /**
-       * 调用认证方法
+       * Calling authentication methods
        **/
       async uploadFiles(contractsAddress, jobSpecFile) {
         const params = {
@@ -156,14 +156,14 @@
       },
 
       /**
-       * 认证完成传参给父组件
+       * After authentication is completed, pass the parameters to the parent component
        **/
       contractStatus() {
         this.$emit('contractStatus', 2)
       },
 
       /**
-       * 获取合约代码目录
+       * Obtain contract code directory
        **/
       async getContractCodeTree(contractsAddress) {
         const params = {
@@ -184,7 +184,7 @@
       },
 
       /**
-       * 获取合约代码
+       * Obtain contract code
        **/
       async getContractCode(contractsAddress, path) {
         const params = {
@@ -207,7 +207,7 @@
       },
 
       /**
-       * 点击目录获取代码
+       * Click on the directory to obtain the code
        * @param data
        */
       handleNodeClick(data) {
@@ -219,7 +219,7 @@
       },
 
       /**
-       * 复制方法
+       * Copy Method
        * @param sting
        **/
       copy(sting) {
