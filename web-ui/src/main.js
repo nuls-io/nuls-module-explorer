@@ -17,9 +17,11 @@ Vue.prototype.$toThousands = toThousands
 Vue.prototype.$copy = function(str) {
   copys(str)
   Message({
+    offset: 70,
     message: this.$t("public.copysuccess"),
     type: "success",
     duration: 1000,
+    customClass: 'success-tip'
   })
 }
 

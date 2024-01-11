@@ -205,7 +205,7 @@ export default {
             window.open(url);
         },
         RouteJump(address){
-            this.$router.push('/Accounts/info?address='+address)
+            this.$router.push('/address/info?address='+address)
         },
         async getByAssetKey() {
             const chainId = sessionStorage.getItem('chainId')

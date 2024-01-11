@@ -150,7 +150,7 @@
 </template>
 
 <script>
-import Holder from "./components/Holder.vue";
+import Holder from "./components/Holders.vue";
 import Trading from "./components/Trading";
 import Thecode from "./components/Thecode";
 import SymbolIcon from "@/components/SymbolIcon.vue";

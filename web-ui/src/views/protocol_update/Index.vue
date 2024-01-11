@@ -9,7 +9,7 @@
     <el-row class="chart_info">
       <el-col :span="12">
         <div class="titles">
-          <div class="font16">{{$t('protocolUpdate.upgraded')}}:</div>
+          <div class="font16">{{$t('protocolUpdate.upgraded')}}:<span class="fr">{{$t('protocolUpdate.nulsVersion')}}: {{NULSVersion}}</span></div>
           <div class="font12">{{$t('public.address')}}<span class="fr">{{$t('public.alias')}}</span></div>
         </div>
         <div class="list scroll">
@@ -48,6 +48,14 @@
       }
     },
     components: {},
+    computed: {
+      NULSVersion() {
+        if (!this.newList.length) {
+          return ''
+        }
+        return this.newList[0].version
+      }
+    },
     created() {
       this.getInfo();
       this.protocolUpdate = "0/0";

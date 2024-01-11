@@ -116,9 +116,9 @@
        **/
       toBugReport() {
         if (RUN_DEV) {
-          window.open('https://github.com/nuls-io/nuls-v2/issues', '_blank');
+          window.open('https://github.com/nuls-io/nuls-module-explorer/issues');
         } else {
-          window.open('https://github.com/nuls-io/nuls-v2/issues', '_blank');
+          window.open('https://github.com/nuls-io/nuls-module-explorer/issues');
         }
       },
 

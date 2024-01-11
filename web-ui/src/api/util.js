@@ -110,15 +110,7 @@ export function superLong(string, leng) {
 
 // export const copys = (value) => copy(value);
 export function copys (value) {
-  // Copy(value)
   copy(value)
-  Message({
-    offset: 70,
-    type: 'success',
-    message: i18n.t('public.copysuccess'),
-    duration: 1000,
-    customClass: 'success-tip'
-  })
 }
 
 /**

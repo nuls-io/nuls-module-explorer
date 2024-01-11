@@ -47,7 +47,7 @@
           </el-table-column>
           <el-table-column label="TXID" min-width="280" align="left">
             <template slot-scope="scope">
-              <router-link tag="a" :to="{ path: '/Transactions/info', query: { hash: scope.row.hash }}" class="click">
+              <router-link tag="a" :to="{ path: '/transaction/info', query: { hash: scope.row.hash }}" class="click">
                   {{ scope.row.hashs }}
                 </router-link>
             </template>

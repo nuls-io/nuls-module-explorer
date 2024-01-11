@@ -183,7 +183,7 @@ export default {
       });
     },
     routLink(id) {
-      this.$router.push('/asset/details/'+id)
+      this.$router.push('/asset/'+id)
     },
     /**
      * Paging function

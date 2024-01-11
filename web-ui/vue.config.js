@@ -66,6 +66,13 @@ module.exports = {
         pathRewrite: {
           '^/api': '/'
         }
+      },
+      '/mApi': {
+        target: 'https://04.nulscan.io/api', 
+        changeOrigin: true,
+        pathRewrite: {
+          '^/mApi': '/'
+        }
       }
     }
   },
