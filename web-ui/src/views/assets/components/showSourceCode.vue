@@ -2,31 +2,31 @@
     <div class="showSourceCode">
         <!-- <div class="row-center font24px code-title">
             <img src="../img/title-inco.png" alt="">
-            合约源代码已验证（完全匹配）
+            The contract source code has been verified（perfect match）
         </div> -->
 
         <!-- <div class="code-container-list">
             <div class="code-list">
                 <div>
-                    合同名称
+                    Contract Name
                     <span>CroToken</span>
                 </div>
                 <p class="feigei"></p>
                 <div>
-                    编译器版本
+                    Compiler Version
                     <span>v0.6.6+commit.6c089d02</span>
                 </div>
             </div>
 
             <div class="code-list">
                 <div>
-                    启用优化
-                    <span>是，运行200次</span>
+                    Enable optimization
+                    <span>Yes, run200second</span>
                 </div>
                 <p class="feigei"></p>
                 <div>
-                    其他设置
-                    <span>默认evm版本</span>
+                    Other settings
+                    <span>defaultevmversion</span>
                 </div>
             </div>
         </div> -->
@@ -34,21 +34,21 @@
         <!-- <div class="code-box">
             <div class="muli">
                 <img src="../img/heyue-yuana.png" alt="">
-                <p class="yuanma">合约源代码<span>（Solidity）</span></p>
+                <p class="yuanma">Contract source code<span>（Solidity）</span></p>
             </div>
 
             <div class="code-select">
                 <el-select v-model="region1" class="zi-select">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option label="Region One" value="shanghai"></el-option>
+                    <el-option label="Region 2" value="beijing"></el-option>
                 </el-select>
                 <el-select v-model="region2" class="zi-select">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option label="Region One" value="shanghai"></el-option>
+                    <el-option label="Region 2" value="beijing"></el-option>
                 </el-select>
                 <el-select v-model="region3">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                    <el-option label="Region One" value="shanghai"></el-option>
+                    <el-option label="Region 2" value="beijing"></el-option>
                 </el-select>
             </div>
         </div> -->
@@ -81,9 +81,9 @@ export default {
     },
     data() {
         return {
-            region1: '打开',
-            region2: '大纲',
-            region3: '更多选择',
+            region1: 'open',
+            region2: 'outline',
+            region3: 'More choices',
             contractsInfo: {}
         }
     },
@@ -92,14 +92,14 @@ export default {
     },
     methods: {
         /**
-     * 获取子组件的状态值
+     * Get the status values of sub components
      * @param contractStatus
      **/
         contractStatus(contractStatus) {
             this.contractsInfo.status = contractStatus
         },
         /**
-         * 根据合约地址获取合约详情
+         * Obtain contract details based on the contract address
          * @param address
         */
         getContractsInfoByContractsAddress(address) {
@@ -122,7 +122,7 @@ export default {
                 })
         },
         /**
-       * 调用认证方法
+       * Calling authentication methods
        * @param contractsAddress
        **/
         async getContractAddressInfo(contractsAddress) {

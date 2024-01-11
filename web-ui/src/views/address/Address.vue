@@ -60,7 +60,7 @@ export default {
         containLabel: true
       },
       series: {
-        showSymbol: false,//取消折线图上的小圆点
+        showSymbol: false,//Cancel small dots on the line chart
       },
       tooltip: {
         trigger: 'axis',
@@ -120,8 +120,8 @@ export default {
           width: 1,
           color: '#00E789'
         },
-        area: true, //是否展示为面积图
-        itemStyle: { //面积图颜色设置
+        area: true, //Is it displayed as an area chart
+        itemStyle: { //Area chart color settings
           color: {
             type: 'linear',
             x: 0,
@@ -131,14 +131,14 @@ export default {
             colorStops: [
               {
                 offset: 0,
-                color: 'rgba(0, 231, 137, 0.5)', // 0% 处的颜色
+                color: 'rgba(0, 231, 137, 0.5)', // 0% Color at
               },
               {
                 offset: 1,
-                color: 'rgba(255, 255, 255, 0)' // 100% 处的颜色
+                color: 'rgba(255, 255, 255, 0)' // 100% Color at
               }
             ],
-            globalCoord: false // 缺省为 false
+            globalCoord: false // Default to false
           }
         }
       };
@@ -168,7 +168,7 @@ export default {
     },
 
     /**
-     * @disc: 获地址列表
+     * @disc: Obtain address list
      * @params: page, rows
      * @date: 2019-09-09 17:32
      * @author: Wave
@@ -179,7 +179,7 @@ export default {
         : 1;
       this.$post("/", "getAssetRanking", [chainId, 1, page, rows]).then(
         (response) => {
-          // console.log(response, '获地址列表');
+          // console.log(response, 'Obtain address list');
           if (response.hasOwnProperty("result")) {
             for (let item of response.result.list) {
               item.totalBalance = timesDecimals(item.totalBalance, 8);
@@ -194,7 +194,7 @@ export default {
     },
 
     /**
-     * 总计排序功能
+     * Total sorting function
      **/
     sortChange(column) {
       //console.log(column);
@@ -208,7 +208,7 @@ export default {
     },
 
     /**
-     * 分页功能
+     * Paging function
      **/
     pagesList() {
       this.addressLoading = true;
@@ -216,13 +216,13 @@ export default {
     },
 
     /**
-     * url 连接跳转
+     * url Connection jump
      * @param name
      * @param parmes
      * @param type
      */
     toUrl(name, parmes, type) {
-      // type 1普通 2合约 3多签
+      // type 1ordinary 2contract 3Multiple signatures
       if (type !== 2) {
         this.$router.push({
           name: name,

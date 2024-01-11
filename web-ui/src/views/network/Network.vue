@@ -180,7 +180,7 @@ export default {
       window.open(url)
     },
     /**
-     * @disc: 查询平行链信息
+     * @disc: Query parallel chain information
      * @params:
      * @date: 2020-06-30 19:36
      * @author: Wave
@@ -202,7 +202,7 @@ export default {
     // },
 
     /**
-     * url 连接跳转
+     * url Connection jump
      * @param name
      * @param parmes
      */

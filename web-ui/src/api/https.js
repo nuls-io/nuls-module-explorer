@@ -6,7 +6,7 @@ axios.defaults.baseURL = config.API_ROOT;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 /**
- * 封装post请求
+ * encapsulationpostrequest
  * Encapsulation post method
  * @param url
  * @param methodName

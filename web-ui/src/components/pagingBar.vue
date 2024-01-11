@@ -1,5 +1,5 @@
 <template>
-  <!-- 分页 -->
+  <!-- paging -->
   <div class="paging">
     <el-pagination
             class="pages"
@@ -23,14 +23,14 @@
       total() {
         return this.pager.total;
       },
-      // 检测是否获取到无数据
+      // Check if no data has been obtained
       initBack() {
         return this.pager.total / this.pager.rows < this.pager.page;
       },
     },
     watch: {
       total() {
-        // 存在记录但未获取到数据时, 重新请求
+        // When there are records but no data has been obtained, Re request
         /*if (this.initBack) {
           this.pager.page -= 1;
           this.$emit('change');
@@ -38,12 +38,12 @@
       },
     },
     methods: {
-      // 每页条数
+      // Number of entries per page
       onChangeSize(rows) {
         this.pager.rows = rows;
         this.$emit('change');
       },
-      // 翻页
+      // Flipping pages
       onChangePage(page) {
         this.pager.page = page;
         this.$emit('change');

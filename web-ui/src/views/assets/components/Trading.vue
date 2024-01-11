@@ -190,7 +190,7 @@ export default {
       { value: "40", label: "40" },
       { value: "41", label: "41" },
       { value: "42", label: "42" },
-      { value: "43", label: "43" }, //归于跨链交易tab
+      { value: "43", label: "43" }, //Attributed to cross chain transactionstab
       { value: "44", label: "44" },
       { value: "45", label: "45" },
       { value: "46", label: "46" },

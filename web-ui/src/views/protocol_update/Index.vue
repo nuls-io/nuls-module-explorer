@@ -44,7 +44,7 @@
         oldList: [],
         updateInterval: null,
         updateLoading: true,
-        latestVersion: 1,//最新版本号
+        latestVersion: 1,//Latest version number
       }
     },
     components: {},
@@ -64,7 +64,7 @@
     methods: {
 
       /**
-       * @disc: 获取升级信息
+       * @disc: Get upgrade information
        * @date: 2019-09-10 14:02
        * @author: Wave
        */
@@ -88,7 +88,7 @@
       },
 
       /**
-       * @disc: 获取最新共识节点更新总数
+       * @disc: Get the latest consensus node update total number
        * @date: 2019-09-10 14:02
        * @author: Wave
        */
@@ -119,7 +119,7 @@
       },
 
       /**
-       * url 连接跳转
+       * url Connection jump
        * @param name
        * @param parmes
        */

@@ -11,7 +11,7 @@ import io.nuls.rpctools.TransactionTools;
 /**
  * @Author: zhoulijun
  * @Time: 2019-06-10 20:54
- * @Description: 模块业务实现类
+ * @Description: Module Business Implementation Class
  */
 @Component
 public class MyModule {
@@ -20,8 +20,8 @@ public class MyModule {
     Config config;
 
     /**
-     * 启动模块
-     * 模块启动后，当申明的依赖模块都已经准备就绪将调用此函数
+     * Start module
+     * After the module is started, this function will be called when all declared dependent modules are ready
      * @param moduleName
      * @return
      */
@@ -31,7 +31,7 @@ public class MyModule {
     }
 
     /**
-     * 申明需要依赖的其他模块
+     * Declare other modules that need to be dependent on
      * @return
      */
     public Module[] declareDependent() {

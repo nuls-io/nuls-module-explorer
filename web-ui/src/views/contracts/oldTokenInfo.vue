@@ -133,16 +133,16 @@ export default {
     return {
       isMobile: false,
       activeName: 'tokenFirst',
-      //合约地址
+      //Contract address
       contractAddress: '',
-      tokenType: 0, // 0 - 非token, 1 - NRC20, 2 - NRC721, 3 - NRC1155
-      //合约详情
+      tokenType: 0, // 0 - wrongtoken, 1 - NRC20, 2 - NRC721, 3 - NRC1155
+      //Contract details
       contractsInfo: [],
-      //通证交易列表
+      //Token transaction list
       accountTxList: [],
-      //持币账户列表
+      //List of Coin Holding Accounts
       accountTokensList: [],
-      //分页数据
+      //Paging data
       pager: {
         total: 0,
         page: 1,
@@ -163,7 +163,7 @@ export default {
   methods: {
 
     /**
-     * 根据合约地址获取合约详情
+     * Obtain contract details based on the contract address
      */
     getContractsInfoByContractsAddress(contractAddress) {
       this.$post('/', 'getContract', [contractAddress])
@@ -186,7 +186,7 @@ export default {
     },
 
     /**
-     * 调用认证方法, 查询是否已认证
+     * Calling authentication methods, Check if it has been authenticated
      * @param contractAddress
      **/
     async getContractAddressInfo(contractAddress) {
@@ -208,7 +208,7 @@ export default {
     },
 
     /**
-     * 获取通证交易列表
+     * Obtain a list of token transactions
      */
     async getAccountTxList() {
       const method = this.tokenType === 1 ? 'getTokenTransfers' : this.tokenType === 2 ? 'getToken721Transfers' : 'getToken1155Transfers'
@@ -251,7 +251,7 @@ export default {
 
 
     /**
-     * 获取持币账户列表
+     * Obtain a list of coin holding accounts
      */
     async getAccountTokensList() {
       const { page, rows } = this.pager;
@@ -280,7 +280,7 @@ export default {
     },
 
     /**
-     * tab 切换
+     * tab switch
      * @param tab
      */
     handleClick(tab) {
@@ -290,7 +290,7 @@ export default {
     },
 
     /**
-     * url 连接跳转
+     * url Connection jump
      * @param name
      * @param parmes
      * @param tabName

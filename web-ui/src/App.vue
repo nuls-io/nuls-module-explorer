@@ -34,7 +34,7 @@ export default {
   methods: {
 
     /**
-     *  获取链ID
+     *  Get ChainID
      **/
     getChains() {
       const params = {"jsonrpc": "2.0", "method": "getChainInfo", "params": [], "id": Math.floor(Math.random()*1000)};

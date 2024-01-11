@@ -35,7 +35,7 @@
                             @change="ChongInput(domain)" @input="ReadandWrite($event, item)"></el-input>
                     </div>
 
-                    <!-- 写 -->
+                    <!-- write -->
                     <div class="div-senior" v-if="!item.view">
                         <div class="row-center margintop">
                             <p style="margin-right:8px;">{{ $t('call.call3') }}</p>
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 显示合约调用结果 -->
+                    <!-- Display contract call results -->
                     <p class="blace-name" v-if="item.callResult">{{ item.callResult }}</p>
                     <div v-if="item.params.length > 0 || newinfoActive === 2" class="tijiao font14 cur"
                         @click="changeParameter(item)">{{$t('assets.transfer')}}</div>
@@ -96,15 +96,15 @@ export default {
     props: ['infoActive'],
     data() {
         return {
-            // 测试用合约地址NULSd6HgrEtRT9r151GxBMG6hAVvdahgnSw7w
-            searchContract: '', //合约地址
-            walletaddress: '', //钱包地址
-            modelData: [], //合约方法列表
-            //选中的方法
+            // Contract address for testingNULSd6HgrEtRT9r151GxBMG6hAVvdahgnSw7w
+            searchContract: '', //Contract address
+            walletaddress: '', //Wallet address
+            modelData: [], //List of Contract Methods
+            //Selected method
             selectionData: {
                 view: true,
-                payable: false, // 是否可向该合约转nuls
-                payableMultyAsset: false // 是否可向该合约转其他资产
+                payable: false, // Can I transfer to this contractnuls
+                payableMultyAsset: false // Can other assets be transferred to this contract
             },
             callForm: {
                 senior: false,
@@ -114,22 +114,22 @@ export default {
                 assetInfo: "",
                 otherValue: ""
             },
-            resMethods: [], //没处理的数据
+            resMethods: [], //Unprocessed data
             newinfoActive: 0,
             vLoading: false,
-            newArgs: [],//合约参数
-            decimals: 0, //精度
-            openName: null, //根据参数默认暂开读取列表某一项
-            multipleAsset: [], // 可转入合约的平行链资产列表
-            assetInfo: null, // 往合约转的其他资产资产信息
-            contractCallData: {},//调用合约data
+            newArgs: [],//Contract parameters
+            decimals: 0, //accuracy
+            openName: null, //According to the default parameters, temporarily open the reading list for a certain item
+            multipleAsset: [], // List of parallel chain assets that can be transferred to contracts
+            assetInfo: null, // Other asset information transferred to the contract
+            contractCallData: {},//Call Contractdata
         }
     },
     watch: {
         infoActive: {
             handler(newval) {
                 this.newinfoActive = Number(newval)
-                this.modelData = [] //初始化
+                this.modelData = [] //initialization
                 this.modelList(this.resMethods)
             },
             immediate: true
@@ -141,20 +141,20 @@ export default {
         this.openName = this.$route.query.name || null
         
         const accounts = await window['NaboxWallet'].request({ method: 'eth_accounts' })
-        // console.log(accounts, '获取钱包地址')
+        // console.log(accounts, 'Get wallet address')
         if (accounts[0]) {
             this.walletaddress = accounts[0]
-            this.getAccountCrossLedgerList(accounts[0]) //传钱包地址
+            this.getAccountCrossLedgerList(accounts[0]) //Send wallet address
         } else {
             this.walletaddress = ''
         }
     },
     mounted() {
-        // 监听钱包地址切换
+        // Monitor wallet address switching
         window.NaboxWallet.on("accountsChanged", (accounts) => {
             if (accounts[0]) {
                 this.walletaddress = accounts[0]
-                this.getAccountCrossLedgerList(accounts[0]) //传钱包地址
+                this.getAccountCrossLedgerList(accounts[0]) //Send wallet address
             } else {
                 this.walletaddress = ''
             }
@@ -171,7 +171,7 @@ export default {
             this.$forceUpdate()
         },
         async getAccountCrossLedgerList(address) {
-            // address 接收钱包地址
+            // address Receive wallet address
             if (address) {
                 const params = { "jsonrpc": "2.0", "method": 'getAccountCrossLedgerList', "params": [Number(getChainId()), address], "id": Math.floor(Math.random() * 1000) };
                 const res = await axios.post('/', params)
@@ -185,7 +185,7 @@ export default {
             const res = await axios.post('/', params)
             try {
                 this.decimals = res.data.result.decimals;
-                this.modelData = [] //初始化
+                this.modelData = [] //initialization
                 this.resMethods = res.data.result.methods
                 this.modelList(res.data.result.methods)
             } catch (error) {
@@ -197,22 +197,22 @@ export default {
             newData = newData.filter(obj => obj.name !== '<init>');
 
             newData.forEach(element => {
-                // view 为true是读合约
-                element['expand'] = false //初始化关闭展开
+                // view bytrueIt's reading a contract
+                element['expand'] = false //Initialize Close Expand
                 const valParams = element.params
                 valParams.forEach(valbox => {
                     if (valbox.required) {
                         valbox['customize'] = false
                     }
                 });
-                // 读合约
+                // Reading contracts
                 if (this.newinfoActive === 1 && element.view) {
                     this.modelData.push(element)
                 } else if (this.newinfoActive === 2) {
-                    // 写
+                    // write
                     if (!element.view) {
                         element['senior'] = false
-                        element['gasTips'] = false //gas 太小提示信息
+                        element['gasTips'] = false //gas Too small prompt information
                         element['gas'] = 1
                         element['price'] = 25
                         element['values'] = 0
@@ -251,7 +251,7 @@ export default {
         },
         async changeParameter(item) {
             if (this.newinfoActive === 2) {
-                // 写合约
+                // Writing a contract
                 let condition = true
                 if (item.payableMultyAsset) {
                     if (Number(item.otherValue) > 0) {
@@ -285,7 +285,7 @@ export default {
                     }
 
                     if (item.params.length !== 0) {
-                        // 有参数的
+                        // Parameterized
                         if (newArgs.allParameter) {
                             this.imputedContractCallGas(this.walletaddress, Number(Times(item.values, 100000000)), this.searchContract, item.name, item.desc, newArgs.args, [], item)
                         }
@@ -300,7 +300,7 @@ export default {
                         assetId = agentAsset.agentAsset.assetId
                     }
                     const data = {
-                        from: this.walletaddress, //钱包地址
+                        from: this.walletaddress, //Wallet address
                         value: item.values * Math.pow(10, 8),
                         contractAddress: this.searchContract,
                         methodName: item.name,
@@ -313,11 +313,11 @@ export default {
                     }else{
                         data.multyAssetValues = []
                     }
-                    item.callResult = "transaction hash: " + await window.nabox.contractCall(data) // 返回交易hash
+                    item.callResult = "transaction hash: " + await window.nabox.contractCall(data) // Return transactionhash
                     this.$forceUpdate()
                 }
             } else {
-                // 读合约点击调用按钮
+                // Read the contract and click the call button
                 let newArgs = [];
                 newArgs = getArgs(item.params);
                 const array = item.params
@@ -342,7 +342,7 @@ export default {
             }
         },
         /**
-       * 获取账户余额
+       * Obtain account balance
        * @param assetChainId
        * @param assetId
        * @param address
@@ -364,17 +364,17 @@ export default {
             this.selectionData = item
             if (item.expand) {
                 if (this.newinfoActive === 1) {
-                    // 读
+                    // read
                     if (item.params.length == 0) {
                         let newArgs = [];
                         this.methodCall(this.searchContract, item, newArgs)
                     }
                 } else {
-                    // 写
+                    // write
                 }
 
             } else {
-                // 关闭展开时，初始化必填状态
+                // When closing the expansion, initialize the required state
                 const array = item.params
                 array.forEach(element => {
                     element.value = ''
@@ -391,7 +391,7 @@ export default {
             this.$forceUpdate()
         },
         /**
-       * 不上链方法调用
+       * Non chain method call
        * @param contractAddress
        * @param methodName
        * @param methodDesc
@@ -481,7 +481,7 @@ export default {
             }
         },
         /**
-       * gas改变提示
+       * gasChange prompt
        * */
         changeGas(item) {
             let gasNumber = Number(item.gas)
@@ -505,7 +505,7 @@ export default {
             this.imputedContractCallGas(this.walletaddress, 0, this.searchContract, item.name, item.desc, newArgs, multyAssets, item);
         },
         /**
-       * 预估调用合约交易的gas
+       * Estimated call to contract transactiongas
        * @param sender
        * @param value
        * @param contractAddress
@@ -560,7 +560,7 @@ export default {
                 });
         },
         /**
-       * 获取合约指定函数的参数类型
+       * Obtain the parameter type of the contract specified function
        * @param contractAddress
        * @param  methodName
        * @param  methodDesc
@@ -587,21 +587,21 @@ export default {
                 const accounts = await window.NaboxWallet.request({ method: 'eth_requestAccounts' })
                 if(accounts[0]){
                     this.walletaddress = accounts[0]
-                    this.getAccountCrossLedgerList(accounts[0]) //传钱包地址
+                    this.getAccountCrossLedgerList(accounts[0]) //Send wallet address
                 }else{
                     this.walletaddress = ''
                 }
             }
         },
         async copy(item) {
-            let target = document.createElement('input') //创建input节点
+            let target = document.createElement('input') //establishinputnode
             target.value = location.origin + location.pathname + '?contractAddress=' + this.searchContract + '&name=' + item.name + '&tabName=second'+"&infoActive="+this.newinfoActive
             target.style.position = 'absolute'
             target.style.top = '-99999px'
-            document.body.appendChild(target) // 向页面插入input节点
-            target.select() // 选中input
+            document.body.appendChild(target) // Insert into pageinputnode
+            target.select() // Selectinput
             try {
-                await document.execCommand('Copy') // 执行浏览器复制命令
+                await document.execCommand('Copy') // Execute browser copy command
                 this.$message.success(this.$t('messages.copy'));
             } catch {
                 this.$message.error(this.$t('messages.Paste'));

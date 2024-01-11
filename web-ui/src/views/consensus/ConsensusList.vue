@@ -81,9 +81,9 @@
   export default {
     data() {
       return {
-        //是否显示列表
+        //Is the list displayed
         viewList: true,
-        //排序下拉框选择列表
+        //Sort dropdown menu selection list
         nodeTypeOptions: [
           {value: 0, label: '0'},
           {value: 1, label: '1'},
@@ -91,9 +91,9 @@
           {value: 3, label: '3'},
           {value: 4, label: '4'},
         ],
-        //排序选中值
+        //Sort Selected Values
         nodeTypeRegion: 0,
-        //节点类型排序
+        //Node Type Sorting
         nodeStatusOptions: [
           {value: 0, label: '0'},
           {value: 1, label: '1'},
@@ -101,18 +101,18 @@
           {value: 3, label: '3'},
         ],
         nodeStatusRegion: 0,
-        //节点列表
+        //Node List
         nodeList: [],
         nodeListLoading: true,
-        //搜索框内容
+        //Search box content
         searchValue: '',
-        //分页数据
+        //Paging data
         pager: {
           total: 0,
           page: 1,
           rows: 200,
         },
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//defaultsymbol
       }
     },
     components: {
@@ -122,7 +122,7 @@
       this.getConsensusNodes(this.pager.page, this.pager.rows, this.nodeStatusRegion)
     },
     computed: {
-      //数据筛选
+      //Data filtering
       searchData: function () {
         let search = this.searchValue;
         //console.log(this.nodeList);
@@ -140,7 +140,7 @@
     methods: {
 
       /**
-       * 获取共识列表
+       * Obtain consensus list
        */
       async getConsensusNodes(page, rows, type) {
         this.$post('/', 'getConsensusNodes', [page, rows, type])
@@ -164,7 +164,7 @@
       },
 
       /**
-       * 路径跳转
+       * Path jump
        * @param name
        * @param hash
        * @param tabName
@@ -177,7 +177,7 @@
       },
 
       /**
-       *  根据数据类型排序
+       *  Sort by data type
        **/
       changeNodeType(type) {
         this.nodeTypeRegion = parseInt(type);
@@ -200,7 +200,7 @@
       },
 
       /**
-       *  根据节点状态排序
+       *  Sort by node status
        **/
       changeNodeStatus(type) {
         this.nodeStatusRegion = type;
@@ -208,7 +208,7 @@
       },
 
       /**
-       * 数组排序
+       * Array sorting
        */
       nodeTypeSort(arr, name) {
         //console.log(name);

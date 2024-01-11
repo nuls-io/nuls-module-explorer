@@ -186,7 +186,7 @@ export default {
       this.$router.push('/asset/details/'+id)
     },
     /**
-     * 分页功能
+     * Paging function
      **/
     pagesList(e) {
       this.pager.page = e;

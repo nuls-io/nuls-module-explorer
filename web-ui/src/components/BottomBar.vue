@@ -36,8 +36,8 @@
   export default {
     data() {
       return {
-        height: 0,//当前高度
-        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
+        height: 0,//Current height
+        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//defaultsymbol
       }
     },
     created() {
@@ -45,7 +45,7 @@
       this.getNodeNumber();
       this.getNULSNumber();
       document.title = this.symbol + " Explorer";
-      //10秒循环一次数据
+      //10Cycle data every second
       setInterval(() => {
         this.getBestBlockHeader();
         this.getNodeNumber();
@@ -68,7 +68,7 @@
     methods: {
 
       /**
-       * 获取最新高度
+       * Get the latest altitude
        */
       getBestBlockHeader() {
         this.$post('/', 'getBestBlockHeader', [])
@@ -87,7 +87,7 @@
       },
 
       /**
-       * 获取节点数量
+       * Obtain the number of nodes
        */
       getNodeNumber() {
         this.$post('/', 'getConsensusNodeCount', [])
@@ -100,7 +100,7 @@
       },
 
       /**
-       * 获取NULS数量信息
+       * obtainNULSQuantity information
        */
       getNULSNumber() {
         this.$post('/', 'getCoinInfo', [])
@@ -112,7 +112,7 @@
       },
 
       /**
-       *  问题反馈 跳转
+       *  Problem feedback Jump
        **/
       toBugReport() {
         if (RUN_DEV) {
@@ -123,14 +123,14 @@
       },
 
       /**
-       *  1.0 浏览器跳转
+       *  1.0 Browser redirection
        **/
       toExplorer() {
         window.open('https://v1.nulscan.io/', '_blank');
       },
 
       /**
-       * url 连接跳转
+       * url Connection jump
        * @param name
        * @param parmes
        */

@@ -3,6 +3,6 @@ module.exports = {
     '@vue/app'
   ],
   plugins: [
-    '@babel/plugin-proposal-optional-chaining',  //可选链 ?.
+    '@babel/plugin-proposal-optional-chaining',  //Optional Chain ?.
   ]
 };

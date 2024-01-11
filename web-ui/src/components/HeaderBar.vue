@@ -56,22 +56,22 @@ export default {
       openSearchBar: false,
       assetsList: [],
       logoSvg: logo,
-      //默认选择菜单
+      //Default selection menu
       navActive: sessionStorage.hasOwnProperty('navActive') ? sessionStorage.getItem('navActive') : 'home',
-      //统计信息
+      //statistical information
       count: {
-        height: this.$store.state.height,//当前高度
+        height: this.$store.state.height,//Current height
       },
-      //搜索框内容
+      //Search box content
       searchValue: '',
-      //顶部搜索框加长
+      //Top search box lengthened
       topLong: false,
-      //语言
+      //language
       lang: 'en',
-      //移动端显示
+      //Mobile display
       showMobile: false,
-      RUN_DEV: RUN_DEV,//运行模式
-      destroyedAddressAmount: 0,//销毁地址金额
+      RUN_DEV: RUN_DEV,//Operation mode
+      destroyedAddressAmount: 0,//Destruction address amount
     };
   },
   components: {
@@ -79,7 +79,7 @@ export default {
     SearchBar
   },
   created() {
-    let lang = navigator.language || navigator.userLanguage;//常规浏览器语言和IE浏览器
+    let lang = navigator.language || navigator.userLanguage;//Regular browser language andIEbrowser
     if (sessionStorage.hasOwnProperty('lang')) {
       this.lang = sessionStorage.getItem('lang')
     } else {
@@ -92,7 +92,7 @@ export default {
   },
   mounted() {
     this.selectLanguage(this.lang, false);
-    //秒循环一次数据
+    //Cycle data every second
     setInterval(() => {
       this.count.height = this.$store.state.height;
       this.navActive = this.$route.path;
@@ -107,7 +107,7 @@ export default {
       }
     },
     /**
-     * @disc: 获销毁数量
+     * @disc: Quantity of destruction obtained
      * @date: 2019-11-15 16:37
      * @author: Wave
      */
@@ -123,14 +123,14 @@ export default {
     },
 
     /**
-     * 顶部搜索框获取焦点事件
+     * Top Search Box Get Focus Event
      **/
     focusSearch() {
       this.topLong = true;
     },
 
     /**
-     * 顶部搜索框失却焦点事件
+     * Top search box lost focus event
      **/
     blurSearch() {
       this.topLong = false;
@@ -140,7 +140,7 @@ export default {
       this.openSearchBar = false
     },
     /**
-     *  顶部搜索框
+     *  Top search box
      **/
     clickSearch() {
       this.$post('/', 'search', [this.searchValue])
@@ -186,7 +186,7 @@ export default {
     },
 
     /**
-     * @disc: 隐藏导航
+     * @disc: Hide Navigation
      * @params:
      * @date: 2020-07-22 10:38
      * @author: Wave
@@ -196,7 +196,7 @@ export default {
     },
 
     /**
-     * 语言切换
+     * Language switching
      * @param e
      * @param Boolean
      */
@@ -210,7 +210,7 @@ export default {
     },
 
     /**
-     * logo 跳转首页
+     * logo Jump to homepage
      */
     toHome() {
       this.navActive = 'home';
