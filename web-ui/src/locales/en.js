@@ -411,7 +411,7 @@ const en = {
     "upgraded": "Upgraded Node",
     "notUpgraded": "Node Not Upgraded",
     "upgradeProgress": "Upgrade Progress",
-    "nulsVersion": "NULS Node Version"
+    "nulsVersion": "Latest Version"
   },
 
   "network": {

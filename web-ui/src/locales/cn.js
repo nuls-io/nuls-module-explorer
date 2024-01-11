@@ -410,7 +410,7 @@ const cn = {
     "upgraded": "已升级节点",
     "notUpgraded": "未升级节点",
     "upgradeProgress":"升级进展",
-    "nulsVersion": "NULS节点版本"
+    "nulsVersion": "最新版本"
   },
 
   "network":{
