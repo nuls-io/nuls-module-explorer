@@ -461,7 +461,7 @@ const en = {
     "arrive": "To Address",
     "from": 'From Address',
     "model": 'Model',
-    "chain_assets": 'Chain Tssets',
+    "chain_assets": 'Chain Assets',
     "Contracts": "A total of  {number} Token Contracts found",
     "Circulation": 'Circulation',
     "Holder": 'Holders',
