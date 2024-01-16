@@ -2,7 +2,7 @@
   <div class="assetsdetails">
     <div class="w1200">
       <div class="assetsdetails_title">
-        <SymbolIcon :icon="assetInfo && assetInfo.symbol" />
+        <SymbolIcon :icon="assetInfo && assetInfo.iconUrl || assetInfosymbol" />
         Token {{ assetInfo.name }}({{ assetInfo.symbol }})
       </div>
     </div>
@@ -141,7 +141,7 @@ export default {
         info.inAmount = divisionDecimals(info.inAmount, info.decimals);
         info.outAmount = divisionDecimals(info.outAmount, info.decimals);
         const origin = Object.values(_networkInfo).find(
-          (v) => v.chainId === info.sourceChainId
+          (v) => v.sourceChainId === info.sourceChainId
         );
         if (origin) {
           info.originNetwork = origin.name;
@@ -159,7 +159,7 @@ export default {
       if (!contract) {
         return ''
       }
-      if (sourceChainId === 1 || sourceChainId === 2) {
+      if (sourceChainId === -1 || sourceChainId === -2) {
          // NULS
         return  `${origin}/token/info?contractAddress=${contract}`
       } else {

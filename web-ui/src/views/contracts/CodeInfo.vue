@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="code-source fl">
-          <div class="tr code-bottom"><i class="iconfont icon-copy_icon click" @click="copy(codeInfo)"></i></div>
+          <div class="tr code-bottom"><i class="iconfont icon-copy_icon click" @click="$copy(codeInfo)"></i></div>
           <div class="code-source-info bg-gray">
             <pre>{{codeInfo}}</pre>
           </div>
@@ -51,7 +51,7 @@
 <script>
   import axios from 'axios'
   import moment from 'moment'
-  import {copys, getLocalTime} from '@/api/util.js'
+  import {getLocalTime} from '@/api/util.js'
   import {CODE_URL} from './../../config'
 
   export default {
@@ -216,16 +216,7 @@
           //console.log(data.path);
           this.getContractCode(this.contractsAddress, data.path);
         }
-      },
-
-      /**
-       * Copy Method
-       * @param sting
-       **/
-      copy(sting) {
-        copys(sting);
-      },
-
+      }
     }
   };
 </script>

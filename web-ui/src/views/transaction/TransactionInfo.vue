@@ -5,7 +5,7 @@
       <h4 class="font20 w1200 bg-address">
         <span class="pc">{{ txhash }}</span>
         <span class="mobile fl">{{ txhashs }}</span>
-        <img class="cur" src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(txhash)" />
+        <img class="cur" src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="$copy(txhash)" />
       </h4>
     </div>
     <div class="w1200 info_tabs">
@@ -20,7 +20,7 @@
         <li class="tabs_infos fl capitalize">
           <p>
             {{ $t('public.fee') }}
-            <span @click="jionOpen(txInfo)">{{ txInfo.fees }}<span class="fCN click">&nbsp;{{ symbol }}</span></span>
+            <span @click="toAsset(txInfo)">{{ txInfo.fees }}<span class="fCN click">&nbsp;{{ symbol }}</span></span>
             <!--<span v-if="contractInfo.length !== 0">
             {{txInfo.fees}}
              <el-tooltip :content="contractInfo.totalFee+'('+$t('transactionInfo.transactionInfo0')+')'+'='
@@ -427,7 +427,7 @@
     </div>
 
     <el-dialog title="" :visible.sync="viewDialog" class="dialog_tran">
-      <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="copy(txInfo.txDataHex)"
+      <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="$copy(txInfo.txDataHex)"
           v-show="!isContracts"></i>
       </div>
       <div class="dialog-info scroll">
@@ -443,7 +443,7 @@
 
 <script>
 import moment from 'moment'
-import { getLocalTime, copys, timesDecimals, superLong, toThousands } from '@/api/util.js'
+import { getLocalTime, timesDecimals, superLong, toThousands } from '@/api/util.js'
 
 
 export default {
@@ -517,9 +517,9 @@ export default {
         return ''
       }
     },
-    jionOpen(txInfo) {
+    toAsset(txInfo) {
       const parmse = txInfo.fee.chainId + '-1'
-      this.$router.push("/asset/details/" + parmse)
+      this.$router.push("/asset/" + parmse)
     },
 
     /**
@@ -648,13 +648,6 @@ export default {
       let capitalizedFirst = locked.toString();
       capitalizedFirst = capitalizedFirst.slice(0, 1).toUpperCase() + capitalizedFirst.slice(1).toLowerCase();
       return capitalizedFirst;
-    },
-    /**
-     * Copy Method
-     * @param sting
-     **/
-    copy(sting) {
-      copys(sting);
     },
 
     /**

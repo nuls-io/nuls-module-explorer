@@ -257,7 +257,7 @@ export function getOriginChain(heterogeneousChainId, assetChainId) {
   const chainsInfo = Object.values(_networkInfo);
   let chainName = '';
   if (heterogeneousChainId !== 0) {
-    chainName = chainsInfo.find(v => v.chainId === heterogeneousChainId)?.name;
+    chainName = chainsInfo.find(v => v.sourceChainId === heterogeneousChainId)?.name;
   } else {
     if (!assetChainId) return 'NULS';
     const NerveChainId = isBeta ? 5 : 9;

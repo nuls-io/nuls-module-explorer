@@ -12,7 +12,7 @@
         <li class="tabs_infos fl capitalize">
           <p>{{$t('public.block')}} hash
             <span>{{nodeInfo.hashs}}
-              <img src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(nodeInfo.hash)">
+              <img src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="$copy(nodeInfo.hash)">
             </span>
           </p>
         </li>
@@ -81,7 +81,7 @@
   import moment from 'moment'
   import paging from '@/components/pagingBar';
   import SelectBar from '@/components/SelectBar';
-  import {getLocalTime, superLong, copys,timesDecimals, titleCase } from '@/api/util.js'
+  import {getLocalTime, superLong,timesDecimals, titleCase } from '@/api/util.js'
 
   export default {
     data() {
@@ -143,13 +143,6 @@
         }
         this.$router.push({path: pathname, query:{height}})
         this.height = height
-      },
-      /**
-       * Copy Method
-       * @param sting
-       **/
-      copy(sting) {
-        copys(sting);
       },
 
       /**

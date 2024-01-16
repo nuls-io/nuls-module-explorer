@@ -31,7 +31,7 @@
           <p>{{$t('public.createAddress')}}
             <span>{{nodeInfo.agentAddress}}
               <i class="iconfont icon-copy_icon click" :title="$t('public.copy')"
-                 @click="copy(nodeInfo.agentAddress)"></i>
+                 @click="$copy(nodeInfo.agentAddress)"></i>
             </span>
           </p>
         </li>
@@ -232,7 +232,7 @@
 
 <script>
   import moment from 'moment'
-  import {getLocalTime, superLong, copys, timeDifference, divisionDecimals} from '@/api/util.js'
+  import {getLocalTime, superLong, timeDifference, divisionDecimals} from '@/api/util.js'
 
   export default {
     data() {
@@ -313,13 +313,6 @@
         })
       },
 
-      /**
-       * Copy Method
-       * @param sting
-       **/
-      copy(sting) {
-        copys(sting);
-      },
 
       /**
        * Get block list

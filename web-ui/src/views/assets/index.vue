@@ -12,16 +12,15 @@
               style="width: 100%"
               :cell-class-name="cellClassName"
             >
-              <el-table-column label="ID" min-width="130">
+              <el-table-column label="ID" min-width="110">
                 <template slot-scope="scope">
                   <div>#{{ scope.row.id }}</div>
                 </template>
               </el-table-column>
-              <el-table-column label="Token" min-width="200">
+              <el-table-column :label="$t('assets.symbol')" min-width="200">
                 <template slot-scope="scope">
                   <div class="Token-box" @click="routLink(scope.row.id)">
-                    <img :src="scope.row.iconUrl" alt="" v-if="scope.row.iconUrl"/>
-                    <img src="./img/errorimg.png" alt="" v-else/>
+                    <SymbolIcon :icon="scope.row.iconUrl || scope.row.symbol" />
                     <span class="cur color-derl">{{ scope.row.symbol }}</span>
                   </div>
                 </template>
@@ -86,11 +85,13 @@
 
 <script>
 import { toThousands , timesDecimals} from "../../api/util";
+import SymbolIcon from "@/components/SymbolIcon.vue";
 import Nrc20 from "../contracts/Nrc20.vue";
 import Nrc721 from '../contracts/Nrc721.vue'
 import Nrc1155 from '../contracts/Nrc1155.vue'
 export default {
   components: {
+    SymbolIcon,
     Nrc20,
     Nrc721,
     Nrc1155

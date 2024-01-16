@@ -4,7 +4,7 @@
       <h4 class="font20 w1200">
         {{ contractsAddress }}
         <img class="cur" src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')"
-          @click="copy(contractsAddress)">
+          @click="$copy(contractsAddress)">
       </h4>
     </div>
     <div class="w1200 b-info">
@@ -101,7 +101,7 @@
           <el-tab-pane v-if="!isMobile" name="second"
             :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
             <span slot="label">
-              {{ $t('nav.contracts') }}
+              {{ $t('public.contract') }}
               <img v-if="contractsInfo.status == 2" src="./img/Certification.svg" class="authenticate" alt="" srcset="">
             </span>
             <div v-if="activeName === 'second'">
@@ -133,7 +133,7 @@ import moment from 'moment'
 import paging from '@/components/pagingBar';
 import SelectBar from '@/components/SelectBar';
 import CodeInfo from '@/views/contracts/CodeInfo';
-import { getLocalTime, superLong, copys, divisionDecimals, timesDecimals ,titleCase } from '@/api/util.js'
+import { getLocalTime, superLong, divisionDecimals, timesDecimals ,titleCase } from '@/api/util.js'
 import axios from 'axios'
 import { CODE_URL } from '@/config'
 import NewCodeInfo from './NewCodeInfo'
@@ -216,14 +216,6 @@ export default {
      **/
     contractStatus(contractStatus) {
       this.contractsInfo.status = contractStatus
-    },
-
-    /**
-     * Copy Method
-     * @param sting
-     **/
-    copy(sting) {
-      copys(sting);
     },
 
     /**

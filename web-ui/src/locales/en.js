@@ -26,9 +26,9 @@ const en = {
     "copySuccess": "Copied to clipboard",
     "copyError": "Failed to copy to clipboard",
     "developedTips": "More features are being developed...",
-    "txList": "Transaction history",
+    "txList": "Transactions",
     "transactionList": "Transactions",
-    "tokenTrading": "Token Transaction",
+    "tokenTrading": "Token Transactions",
     "address": "Account",
     "locking": "locking",
     "timeLocking": "Time Locking",
@@ -90,6 +90,7 @@ const en = {
     "consensusLockings": "Consensus Locking",
     "unavailable": "(Unavailable)",
     "accountedFor": "Accounted",
+    "contract": "Contract",
 
     "err": "Verify and broadcast transaction failure:",
     "err0": "Verify and broadcast transaction exceptions:",
@@ -189,7 +190,7 @@ const en = {
     "undefined": "",
     "1": "General Account",
     "2": "Contract Account",
-    "3": "Multi Account",
+    "3": "Multi-Sign",
     "9": "Black Hole Address"
   },
 
@@ -320,12 +321,12 @@ const en = {
     "consensus3": "Rounds Info",
     "consensus4": "Current Round",
     "consensus5": "Current Packing Node",
-    "consensus6": "Packing Nodes Of This Round ",
+    "consensus6": "Packing Nodes of This Round ",
     "consensus7": "Current Time Interval",
     "consensus8": "Round List",
     "consensus9": "Time Interval",
-    "consensus10": "Packing Nodes Amount",
-    "consensus11": "Normally Packing Nodes",
+    "consensus10": "Packing Nodes",
+    "consensus11": "Packed Nodes",
     "search": "Please enter an alias/address/ID"
   },
 
@@ -428,7 +429,7 @@ const en = {
     "network9": "Direction ",
     "network10": "Across Out",
     "network11": "Across Into",
-    "network12": "Hold cross-chain assets",
+    "network12": "Cross-Chain Assets",
     "network13": "Asset ID",
     "network14": "Hold Number",
     "network15": "Chain Trading",
@@ -456,6 +457,7 @@ const en = {
     "copy":"Copied to clipboard"
   },
   "assets":{
+    "symbol": "Symbol",
     "Business_lock": 'Business Lock',
     "Unlock_time": 'Unlock Time：',
     "arrive": "To Address",

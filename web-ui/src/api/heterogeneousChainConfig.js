@@ -206,6 +206,7 @@ export const _networkInfo = {
     name: 'NULS',
     chainName: 'NULS',
     chainId: isBeta ? 2 : 1,
+    sourceChainId: -1,
     assetKey: isBeta ? '2-1' : '1-1',
     origin: NULSOrigin,
     mainAsset: 'NULS',
@@ -217,6 +218,7 @@ export const _networkInfo = {
     name: 'NERVE',
     chainName: 'NERVE',
     chainId: isBeta ? 5 : 9,
+    sourceChainId: -2,
     assetKey: isBeta ? '5-1' : '9-1',
     origin: NERVEOrigin,
     mainAsset: 'NVT',
@@ -632,6 +634,12 @@ if (!isBeta) {
 } else {
   delete _networkInfo.ETHW;
 }
+
+Object.values(_networkInfo).map(v => {
+  if (!v.sourceChainId) {
+    v.sourceChainId = v.chainId
+  }
+})
 
 export const crossTransactionTab = Object.keys(_networkInfo).filter(
   (v) => v !== "NERVE"

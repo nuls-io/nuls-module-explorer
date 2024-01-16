@@ -64,7 +64,7 @@
               }" class="click">
                 {{ superLong(scope.row.to) }}
               </router-link>
-              <img @click="copy(scope.row.to)" src="../img/fuzhi.png" alt="" />
+              <img @click="$copy(scope.row.to)" src="../img/fuzhi.png" alt="" />
             </div>
             <span v-else>--</span>
           </template>
@@ -99,7 +99,7 @@
               }" class="click">
                 {{ superLong(scope.row.from) }}
               </router-link>
-              <img @click="copy(scope.row.from)" src="../img/fuzhi.png" alt="" />
+              <img @click="$copy(scope.row.from)" src="../img/fuzhi.png" alt="" />
             </div>
             <span v-else>--</span>
           </template>
@@ -131,7 +131,7 @@
 </template>
   
 <script>
-import { superLong, copys, divisionDecimals } from "../../../api/util";
+import { superLong, divisionDecimals } from "../../../api/util";
 import FilterWrap from "./FilterWrap.vue";
 import moment from "moment";
 export default {
@@ -326,16 +326,7 @@ export default {
     },
     superLong(str) {
       return superLong(str, 8);
-    },
-    copy(sting) {
-      const a = {
-        twitter: "",
-        telegram: "",
-        medium: "",
-        discord: "",
-      };
-      copys(sting);
-    },
+    }
   },
 };
 </script>

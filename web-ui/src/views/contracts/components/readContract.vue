@@ -594,7 +594,9 @@ export default {
             }
         },
         async copy(item) {
-            let target = document.createElement('input') //establishinputnode
+            const copyStr = location.origin + location.pathname + '?contractAddress=' + this.searchContract + '&name=' + item.name + '&tabName=second'+"&infoActive="+this.newinfoActive
+            this.$copy(copyStr)
+            /* let target = document.createElement('input') //establishinputnode
             target.value = location.origin + location.pathname + '?contractAddress=' + this.searchContract + '&name=' + item.name + '&tabName=second'+"&infoActive="+this.newinfoActive
             target.style.position = 'absolute'
             target.style.top = '-99999px'
@@ -605,7 +607,7 @@ export default {
                 this.$message.success(this.$t('messages.copy'));
             } catch {
                 this.$message.error(this.$t('messages.Paste'));
-            }
+            } */
         }
     }
 }
