@@ -31,7 +31,7 @@
     <el-collapse-transition>
       <div class="mobile_header fr" v-show="showMobile">
         <div class="mobile_menu">
-          <MenuBar></MenuBar>
+          <MenuBar @hideMobile="showMobile=false"></MenuBar>
           <div class="cb"></div>
           <!-- <div class="language font14 fr" @click="selectLanguage(lang, true)">{{ lang === 'en' ? 'Zh' : 'En' }}</div> -->
         </div>
@@ -256,11 +256,11 @@ export default {
 
     .menu {
       height: 68px;
-      width: 670px;
+      width: 690px;
     }
 
     .header_language {
-      width: 406px;
+      width: 386px;
       height: 68px;
       display: flex;
       align-items: center;

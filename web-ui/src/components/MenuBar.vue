@@ -6,12 +6,10 @@
 
       <el-submenu index="blockChain">
         <template slot="title">{{ $t('nav.blockChain') }}</template>
-        <el-menu-item-group>
-          <el-menu-item index="contracts" class="font14 capitalize">{{ $t('nav.contracts') }}</el-menu-item>
-          <el-menu-item index="block" class="font14 capitalize">{{ $t('nav.block') }}</el-menu-item>
-          <el-menu-item index="address" class="font14 capitalize">{{ $t('nav.address') }}</el-menu-item>
-          <el-menu-item index="transaction" class="font14 capitalize">{{ $t('nav.transaction') }}</el-menu-item>
-        </el-menu-item-group>
+        <el-menu-item index="contracts" class="font14 capitalize">{{ $t('nav.contracts') }}</el-menu-item>
+        <el-menu-item index="block" class="font14 capitalize">{{ $t('nav.block') }}</el-menu-item>
+        <el-menu-item index="address" class="font14 capitalize">{{ $t('nav.address') }}</el-menu-item>
+        <el-menu-item index="transaction" class="font14 capitalize">{{ $t('nav.transaction') }}</el-menu-item>
       </el-submenu>
 
 
@@ -58,14 +56,11 @@ export default {
     }
   },
   mounted() {
+    this.changeNavMode()
     window.onresize = () => {
       return (() => {
         this.$nextTick(() => {
-          if (document.documentElement.clientWidth <= 1000) {
-            this.mode = "vertical"
-          } else {
-            this.mode = "horizontal"
-          }
+          this.changeNavMode()
         })
       })()
     }
@@ -83,6 +78,14 @@ export default {
     // }, 500)
   },
   methods: {
+    changeNavMode() {
+      if (document.documentElement.clientWidth <= 1000) {
+        this.mode = "vertical"
+      } else {
+        this.$emit('hideMobile')
+        this.mode = "horizontal"
+      }
+    },
     /**
      * Language switching
      * @param e
@@ -166,24 +169,13 @@ export default {
 
   .el-menu {
     .el-menu-item {
-      padding: 0 20px;
+      padding: 0 18px;
       color: #000000;
       font-size: 14px;
       line-height: 68px;
       font-weight: normal;
-    }
-
-    .el-submenu {
-      @media screen and (max-width: 1000px) {
-        &:focus {
-          border-color: transparent !important;
-        }
-
-        .el-submenu__title {
-          font-size: 14px;
-          line-height: 60px;
-          color: #000000;
-        }
+      &:hover {
+        color: #00DB82;
       }
     }
   }
@@ -215,6 +207,27 @@ export default {
     width: 100%;
     float: none;
 
+
+    .el-menu {
+      .el-menu-item {
+        height: 56px;
+        line-height: 56px;
+      }
+
+      .el-submenu {
+        @media screen and (max-width: 1000px) {
+          &:focus {
+            border-color: transparent !important;
+          }
+
+          .el-submenu__title {
+            font-size: 14px;
+            line-height: 60px;
+            color: #000000;
+          }
+        }
+      }
+    }
     .el-menu--horizontal {
       float: none;
       width: 160px;
@@ -235,4 +248,17 @@ export default {
   .languagess {
     display: none;
   }
-}</style>
+}
+.el-menu--horizontal {
+  .el-menu {
+    .el-menu-item {
+      &:hover {
+        color: #00DB82;
+      }
+    }
+  }
+}
+.el-menu-item-group__title {
+  padding-top: 0
+}
+</style>
