@@ -25,7 +25,7 @@
               <div class="tags" v-if="scope.row.tag">
                 {{ scope.row.tag }}
               </div>
-              <img @click="copy(scope.row.address)" src="../img/fuzhi.png" alt="" />
+              <img @click="$copy(scope.row.address)" src="../img/fuzhi.png" alt="" />
             </div>
           </template>
         </el-table-column>
@@ -55,7 +55,6 @@
 <script>
 import {
   superLong,
-  copys,
   divisionDecimals,
   fixNumber,
   toThousands,
@@ -120,10 +119,7 @@ export default {
     },
     superLong(str, len = 8) {
       return superLong(str, len);
-    },
-    copy(sting) {
-      copys(sting);
-    },
+    }
   },
 };
 </script>

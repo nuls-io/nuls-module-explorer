@@ -2,7 +2,7 @@
   <div class="address-info bg-gray">
     <div class="bg-white">
       <div class="title font24 w1200">{{address}}
-        <i class="iconfont icon-copy_icon click" :title="$t('public.copy')" @click="copy(address)"></i>
+        <i class="iconfont icon-copy_icon click" :title="$t('public.copy')" @click="$copy(address)"></i>
       </div>
     </div>
     <div class="top w1200">
@@ -45,7 +45,7 @@
           </li>
           <li class="tabs_infos capitalize">{{$t('public.transactionNo')}}<span
                   class="fr">{{$toThousands(addressInfo.txCount)}}</span></li>
-          <li class="tabs_infos capitalize">{{$t('public.address')+$t('public.type')}}<span class="fr">{{$t('addressType.'+addressInfo.type)}}</span>
+          <li class="tabs_infos capitalize">{{$t('public.addressType')}}<span class="fr">{{$t('addressType.'+addressInfo.type)}}</span>
           </li>
           <li class="tabs_infos capitalize">{{$t('addressList.addressList1')}}<span class="fr">{{$toThousands(addressInfo.totalIn)}} {{symbol}}</span>
           </li>
@@ -225,7 +225,7 @@
             <el-table-column :label="$t('network.network2')" min-width="120" align="center">
               <template slot-scope="scope">
                 <!-- <span class="click" @click="toUrl('ParachainsInfo',scope.row.chainId)">{{ scope.row.symbol }}</span> -->
-                <span class="click" @click="toUrl('holderAddress',scope.row)">{{ scope.row.symbol }}</span>
+                <span class="click" @click="toUrl('assetHolder',scope.row)">{{ scope.row.symbol }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="balance" :label="$t('network.network14')" min-width="160" align="center">
@@ -250,7 +250,7 @@
 <script>
   import moment from 'moment'
   import SelectBar from '@/components/SelectBar';
-  import {getLocalTime, superLong, copys, timesDecimals, Plus,Minus} from '@/api/util.js'
+  import {getLocalTime, superLong, timesDecimals, Plus,Minus} from '@/api/util.js'
 
   export default {
     data() {
@@ -387,14 +387,6 @@
       }
     },
     methods: {
-
-      /**
-       * Copy Method
-       * @param sting
-       **/
-      copy(sting) {
-        copys(sting);
-      },
 
       /**
        * Obtain detailed address information
@@ -660,10 +652,9 @@
           newParmes = {contractAddress: parmes, tabName: 'first'}
         } else if (name === 'tokenInfo') {
           newParmes = {contractAddress: parmes, address: this.$route.query.address}
-        } else if (name === 'holderAddress') {
+        } else if (name === 'assetHolder') {
           this.$router.push({
-            path: '/assets/holderAddress/'+parmes.assetKey,
-            query: { address: parmes.address },
+            path: `/asset/${parmes.assetKey}/${parmes.address}`
           })
           return false
         } else {

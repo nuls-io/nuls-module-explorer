@@ -40,7 +40,7 @@ export default {
     toAssetInfo(item) {
       this.$emit('clearModel')
       if(item.id){
-        this.$router.push('/asset/details/'+item.id)
+        this.$router.push('/asset/'+item.id)
       }else{
         this.$router.push({
           name: 'tokenInfo',

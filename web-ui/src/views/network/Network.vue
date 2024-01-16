@@ -161,7 +161,7 @@ export default {
         info.inAmount = divisionDecimals(info.inAmount, info.decimals);
         info.outAmount = divisionDecimals(info.outAmount, info.decimals);
         const origin = Object.values(_networkInfo).find(
-          (v) => v.chainId === info.sourceChainId
+          (v) => v.sourceChainId === info.sourceChainId
         );
         if (origin) {
           info.originNetwork = origin.name;

@@ -80,7 +80,7 @@ const cn = {
     "status": "状态",
     "input": "发送者",
     "output": "接收者",
-    "searchTip": "按地址/高度/Txhash/token搜索",
+    "searchTip": "按地址/高度/Txhash/Token搜索",
     "copy": "点击复制",
     "copysuccess": "复制成功",
     "success": "成功",
@@ -90,6 +90,7 @@ const cn = {
     "consensusLockings": "共识锁定",
     "unavailable": "(已失效)",
     "accountedFor": "占比",
+    "contract": "合约",
 
     "err": "验证并广播交易失败:",
     "err0": "验证并广播交易异常:",
@@ -455,6 +456,7 @@ const cn = {
     "copy":"已复制到剪切板"
   },
   "assets": {
+    "symbol": "资产",
     "Business_lock": '业务锁定',
     "Unlock_time": "解锁时间：",
     "arrive": '到',
