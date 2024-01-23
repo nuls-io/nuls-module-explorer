@@ -475,14 +475,7 @@ export default {
         width: 170px;
         .el-input {
           .el-input__inner {
-            height: 30px !important;
-            line-height: 30px !important;
-            border-radius: 6px;
             width: 100%;
-          }
-    
-          .el-input__icon {
-            line-height: 30px;
           }
         }
       }

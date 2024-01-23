@@ -173,7 +173,13 @@
           </p>
           <p v-else class="row-betw">
             {{ $t('public.remarks') }}
-            <i class="scroll overflow">{{ txInfo.remark || '-' }}</i>
+            <i class="scroll overflow">
+              <template v-if="txInfo.remark">
+                {{ txInfo.remark }} 
+                <img src="../../assets/img/copy.png" alt="" class="click" @click="$copy(txInfo.remark)">
+              </template>
+              <template v-else>-</template>
+            </i>
           </p>
         </li>
         <p class="cb"></p>

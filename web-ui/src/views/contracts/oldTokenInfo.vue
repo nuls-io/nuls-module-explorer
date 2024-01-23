@@ -71,7 +71,7 @@
                     superLong(scope.row.txHash) }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('public.sender')" min-width="180" align="left">
+              <el-table-column :label="$t('public.sender')" min-width="150" align="left">
                 <template slot-scope="scope">
                   <span class="cursor-p click" v-if="scope.row.fromAddress"
                     @click="toUrl('addressInfo', scope.row.fromAddress)">{{ superLong(scope.row.fromAddress) }}</span>
@@ -81,17 +81,22 @@
               <!--<el-table-column prop="" label="" width="50" align="center">
                     <template>》88</template>
                   </el-table-column>-->
-              <el-table-column :label="$t('public.recipient')" min-width="180" align="left">
+              <el-table-column :label="$t('public.recipient')" min-width="150" align="left">
                 <template slot-scope="scope"><span class="cursor-p click"
                     @click="toUrl('addressInfo', scope.row.toAddress)">{{ superLong(scope.row.toAddress) }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="time" :label="$t('public.time')" min-width="170" align="left"></el-table-column>
-              <el-table-column prop="tokenId" label="Token ID" min-width="100" align="left"
+              <el-table-column prop="time" :label="$t('public.time')" min-width="140" align="left"></el-table-column>
+              <el-table-column prop="tokenId" label="Token ID" min-width="120" align="left"
                 v-if="tokenType === 3"></el-table-column>
               <el-table-column prop="value" :label="$t('public.amount')" min-width="100" align="left"
                 v-if="tokenType !== 2"></el-table-column>
-              <el-table-column prop="tokenId" label="Token ID" min-width="100" align="left" v-else></el-table-column>
+              <el-table-column prop="tokenId" label="Token ID" min-width="120" align="left" v-else>
+                <template slot-scope="scope">
+                  #{{ sliceId(scope.row.tokenId) }} 
+                  <img class="click" @click="$copy(scope.row.tokenId)" src="../../assets/img/copy.png" alt="">
+                </template>
+              </el-table-column>
             </el-table>
             <!--<paging :pager="pager" @change="getItemList" v-show="pager.total > pager.rows"></paging>-->
           </el-tab-pane>
@@ -313,6 +318,13 @@ export default {
         name: name,
         query: newQuery
       })
+    },
+    sliceId(id) {
+      id = id + ''
+      if (id.length > 15) {
+        return id.slice(0, 15) + '...'
+      }
+      return id;
     }
   },
 }

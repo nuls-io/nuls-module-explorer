@@ -182,9 +182,13 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="Token ID" width="120" align="left">
-              <template slot-scope="scope">#{{ scope.row.tokenID }}</template>
+            <el-table-column label="Token ID" min-width="120" align="right">
+              <template slot-scope="scope">
+                #{{ sliceId(scope.row.tokenID) }} 
+                <img class="click" @click="$copy(scope.row.tokenID)" src="../../assets/img/copy.png" alt="">
+              </template>
             </el-table-column>
+            <el-table-column label="" width="30" />
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList5')" name="addressFive">
@@ -228,7 +232,10 @@
                 <span class="click" @click="toUrl('assetHolder',scope.row)">{{ scope.row.symbol }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="balance" :label="$t('network.network14')" min-width="160" align="center">
+            <el-table-column :label="$t('network.network14')" min-width="160" align="center">
+              <template v-slot="scope">
+                <span>{{$toThousands(scope.row.balance)}}</span>
+              </template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -677,6 +684,14 @@
         this.typeRegion = parseInt(type);
         this.getTxListByAddress();
       },
+
+      sliceId(id) {
+        id = id + ''
+        if (id.length > 15) {
+          return id.slice(0, 15) + '...'
+        }
+        return id;
+      }
 
     }
   }

@@ -45,7 +45,7 @@
               scope.row.height }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="TXID" min-width="280" align="left">
+          <el-table-column label="TXID" min-width="220" align="left">
             <template slot-scope="scope">
               <router-link tag="a" :to="{ path: '/transaction/info', query: { hash: scope.row.hash }}" class="click">
                   {{ scope.row.hashs }}
@@ -54,7 +54,7 @@
           </el-table-column>
           <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
           </el-table-column>
-          <el-table-column :label="$t('public.type')" min-width="90" align="left">
+          <el-table-column :label="$t('public.type')" min-width="120" align="left">
             <template slot-scope="scope"><span class="capitalize">{{ $t('type.' + scope.row.type) }}</span>
             </template>
           </el-table-column>
@@ -309,7 +309,7 @@ export default {
           if (response.hasOwnProperty("result")) {
             for (let item of response.result.list) {
               item.time = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-              item.hashs = superLong(item.hash, 20);
+              item.hashs = superLong(item.hash, 15);
               item.value = timesDecimals(item.value, item.decimal);
               item.fees = timesDecimals(item.fee.value, this.decimals);
             }
