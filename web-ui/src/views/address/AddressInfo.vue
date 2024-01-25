@@ -2,7 +2,7 @@
   <div class="address-info bg-gray">
     <div class="bg-white">
       <div class="title font24 w1200">{{address}}
-        <i class="iconfont icon-copy_icon click" :title="$t('public.copy')" @click="copy(address)"></i>
+        <i class="iconfont icon-copy_icon click" :title="$t('public.copy')" @click="$copy(address)"></i>
       </div>
     </div>
     <div class="top w1200">
@@ -18,10 +18,10 @@
           </ve-pie>
           <div class="a_total">
             <div class="font14 capitalize">{{$t('public.balance')}}</div>
-            <div class="font18">{{addressInfo.totalBalance}} {{symbol}}</div>
+            <div class="font18">{{$toThousands(addressInfo.totalBalance)}} {{symbol}}</div>
             <ul class="chart_title">
-              <li><span></span>{{$t('public.consensusLocking')}} {{addressInfo.totalLocks}}</li>
-              <li><span></span>{{$t('public.usablebalance')}} {{addressInfo.balances}}</li>
+              <li><span></span>{{$t('public.consensusLocking')}} {{$toThousands(addressInfo.totalLocks)}}</li>
+              <li><span></span>{{$t('public.usablebalance')}} {{$toThousands(addressInfo.balances)}}</li>
               <!--<li><span></span>{{$t('public.timeLocking')}}</li>-->
             </ul>
           </div>
@@ -31,25 +31,25 @@
         <h3 class="tabs_title tabs_header capitalize">{{$t('public.basicInfo')}}</h3>
         <ul class="total_ul">
           <li class="tabs_infos capitalize" v-if="isMobile">{{$t('public.balance')}}
-            <span class="fr">{{addressInfo.totalBalance}}</span>
+            <span class="fr">{{$toThousands(addressInfo.totalBalance)}}</span>
           </li>
           <li class="tabs_infos capitalize" v-if="isMobile">{{$t('public.usablebalance')}}
-            <span class="fr">{{addressInfo.balances}}</span>
+            <span class="fr">{{$toThousands(addressInfo.balances)}}</span>
           </li>
           <li class="tabs_infos capitalize" v-if="isMobile">{{$t('public.consensusLocking')}}
-            <span class="fr">{{addressInfo.totalLocks}}</span>
+            <span class="fr">{{$toThousands(addressInfo.totalLocks)}}</span>
           </li>
 
           <li class="tabs_infos capitalize">{{$t('public.alias')}}
             <span class="fr">{{addressInfo.alias  ? addressInfo.alias : '-' }}</span>
           </li>
           <li class="tabs_infos capitalize">{{$t('public.transactionNo')}}<span
-                  class="fr">{{addressInfo.txCount}}</span></li>
-          <li class="tabs_infos capitalize">{{$t('public.address')+$t('public.type')}}<span class="fr">{{$t('addressType.'+addressInfo.type)}}</span>
+                  class="fr">{{$toThousands(addressInfo.txCount)}}</span></li>
+          <li class="tabs_infos capitalize">{{$t('public.addressType')}}<span class="fr">{{$t('addressType.'+addressInfo.type)}}</span>
           </li>
-          <li class="tabs_infos capitalize">{{$t('addressList.addressList1')}}<span class="fr">{{addressInfo.totalIn}} {{symbol}}</span>
+          <li class="tabs_infos capitalize">{{$t('addressList.addressList1')}}<span class="fr">{{$toThousands(addressInfo.totalIn)}} {{symbol}}</span>
           </li>
-          <li class="tabs_infos capitalize">{{$t('addressList.addressList2')}}<span class="fr">{{addressInfo.totalOut}} {{symbol}}</span>
+          <li class="tabs_infos capitalize">{{$t('addressList.addressList2')}}<span class="fr">{{$toThousands(addressInfo.totalOut)}} {{symbol}}</span>
           </li>
         </ul>
       </div>
@@ -77,10 +77,10 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.amount')" width="180" align="left">
-              <template slot-scope="scope">{{ scope.row.values }}{{scope.row.symbol}}</template>
+              <template slot-scope="scope">{{ $toThousands(scope.row.values) }}{{scope.row.symbol}}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.balance')" width="180" align="left">
-              <template slot-scope="scope">{{ scope.row.balance }}{{scope.row.symbol}}</template>
+            <el-table-column :label="$t('public.balance')" min-width="180" align="left">
+              <template slot-scope="scope">{{ $toThousands(scope.row.balance) }}{{scope.row.symbol}}</template>
             </el-table-column>
             <el-table-column :label="$t('public.fee')" width="150" align="left">
               <template slot-scope="scope">{{ scope.row.fees }}{{symbol}}</template>
@@ -118,14 +118,14 @@
             <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
             <el-table-column :label="$t('public.amount')" width="180" align="left">
               <template slot-scope="scope">
-                <span v-show="scope.row.showValue" class="fCN">+{{ scope.row.value }} </span>
-                <span v-show="!scope.row.showValue" class="fred">-{{ scope.row.value}} </span>
+                <span v-show="scope.row.showValue" class="fCN">+{{ $toThousands(scope.row.value) }} </span>
+                <span v-show="!scope.row.showValue" class="fred">-{{ $toThousands(scope.row.value)}} </span>
                 {{ scope.row.symbol }}
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" width="200" align="left">
-              <template slot-scope="scope">{{address === scope.row.fromAddress ? scope.row.fromBalance :
-                scope.row.toBalance}}{{scope.row.symbol }}
+              <template slot-scope="scope">{{address === scope.row.fromAddress ? $toThousands(scope.row.fromBalance) :
+                $toThousands(scope.row.toBalance)}} {{scope.row.symbol }}
               </template>
             </el-table-column>
           </el-table>
@@ -151,13 +151,13 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" width="180" align="left">
-              <template slot-scope="scope">{{ scope.row.balance }}{{ scope.row.tokenSymbol }}</template>
+              <template slot-scope="scope">{{ $toThousands(scope.row.balance) }}{{ scope.row.tokenSymbol }}</template>
             </el-table-column>
             <el-table-column :label="$t('public.usablebalance')" width="180" align="left">
-              <template slot-scope="scope">{{ scope.row.available }}{{ scope.row.tokenSymbol }}</template>
+              <template slot-scope="scope">{{ $toThousands(scope.row.available) }}{{ scope.row.tokenSymbol }}</template>
             </el-table-column>
             <el-table-column :label="$t('public.consensusLocking')" width="180" align="left">
-              <template slot-scope="scope">{{ scope.row.lock }}{{ scope.row.tokenSymbol }}</template>
+              <template slot-scope="scope">{{ $toThousands(scope.row.lock) }}{{ scope.row.tokenSymbol }}</template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -182,9 +182,13 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="Token ID" width="120" align="left">
-              <template slot-scope="scope">#{{ scope.row.tokenID }}</template>
+            <el-table-column label="Token ID" min-width="120" align="right">
+              <template slot-scope="scope">
+                #{{ sliceId(scope.row.tokenID) }} 
+                <img class="click" @click="$copy(scope.row.tokenID)" src="../../assets/img/copy.png" alt="">
+              </template>
             </el-table-column>
+            <el-table-column label="" width="30" />
           </el-table>
         </el-tab-pane>
         <el-tab-pane :label="$t('addressList.addressList5')" name="addressFive">
@@ -225,10 +229,13 @@
             <el-table-column :label="$t('network.network2')" min-width="120" align="center">
               <template slot-scope="scope">
                 <!-- <span class="click" @click="toUrl('ParachainsInfo',scope.row.chainId)">{{ scope.row.symbol }}</span> -->
-                <span class="click" @click="toUrl('holderAddress',scope.row)">{{ scope.row.symbol }}</span>
+                <span class="click" @click="toUrl('assetHolder',scope.row)">{{ scope.row.symbol }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="balance" :label="$t('network.network14')" min-width="160" align="center">
+            <el-table-column :label="$t('network.network14')" min-width="160" align="center">
+              <template v-slot="scope">
+                <span>{{$toThousands(scope.row.balance)}}</span>
+              </template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -250,25 +257,25 @@
 <script>
   import moment from 'moment'
   import SelectBar from '@/components/SelectBar';
-  import {getLocalTime, superLong, copys, timesDecimals, Plus,Minus} from '@/api/util.js'
+  import {getLocalTime, superLong, timesDecimals, Plus,Minus} from '@/api/util.js'
 
   export default {
     data() {
-      this.colors = ['#769fff', '#9cd05b'];
+      this.colors = ['#45E3A4', '#FFBC58'];
       this.chartSettings = {
         radius: 78,
         offsetY: 100,
         itemStyle: {
           normal: {
-            label: {        //此处为指示线文字
+            label: {        //This is the indicator line text
               show: true,
-              position: 'inside', //标签的位置
+              position: 'inside', //Position of labels
               textStyle: {
                 fontWeight: 100,
-                fontSize: 10    //文字的字体大小
+                fontSize: 10    //Font size of text
               },
             },
-            labelLine: {    //指示线状态
+            labelLine: {    //Indicator line status
               show: true,
               smooth: 0.2,
               length: 10,
@@ -279,50 +286,51 @@
       };
       return {
         isMobile: true,
-        chartData: {},
-        //饼图
+        chartData: {
+          columns: ['location', 'value'],
+          rows: []
+        },
+        //Pie chart
         cakeChart: null,
         activeName: 'addressFirst',
-        //交易类型
+        //Transaction type
         typeRegion: 0,
-        //地址
-        address: this.$route.query.address,
-        //地址详情
+        //Address Details
         addressInfo: [],
         addressNumber: [],
-        //交易列表
+        //Transaction List
         txList: [],
-        pageTotal: 0, //总条数
-        pageIndex: 1,//当前页
-        pageRows: 5, //显示条数
-        //交易列表加载动画
+        pageTotal: 0, //Total number of entries
+        pageIndex: 1,//Current page
+        pageRows: 5, //Display number of items
+        //Transaction list loading animation
         txListLoading: true,
-        //token类型
+        //tokentype
         tokenOptions: [],
         tokenValue: '',
-        //token 交易列表
+        //token Transaction List
         tokenList: [],
-        //token 交易列表分页信息
+        //token Transaction list pagination information
         tokenListPager: {
           total: 0,
           page: 1,
           rows: 4,
         },
-        //token 交易列表加载动画
+        //token Transaction list loading animation
         tokenListLoading: true,
-        //代币列表
+        //Token List
         nrc20List: [],
-        //代币列表分页信息
+        //Token List Paging Information
         nrc20ListPager: {
           total: 0,
           page: 1,
           rows: 5,
         },
         nrc20ListLoading: false,
-        //地址定时器
+        //Address Timer
         addressInterval: null,
-        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
-        holdData: [],//持有跨链资产列表
+        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//defaultsymbol
+        holdData: [],//Holding cross chain asset list
         holdDataLoading: false,
         nrc721List: [],
         nrc721ListLoading: false,
@@ -333,28 +341,54 @@
     components: {
       SelectBar
     },
+    computed: {
+      address() {
+        return this.$route.query.address
+      }
+    },
+    
+    watch: {
+      address: {
+        handler(val) {
+          if (!val) return;
+          console.log(123456, val)
+          // addressWhen releasing changes, retrieve data again
+          this.activeName = 'addressFirst';
+          this.addressNumber = [];
+          this.txListLoading = true;
+          this.tabNameList();
+          this.getAddressInfo()
+        },
+        immediate: true
+      },
+      "$i18n.locale"(){
+        const data = [...this.chartData.rows]
+        data.map(v=>{
+          if (v.keySting==='usable') {
+            v.key = this.$t('public.usablebalance')
+          } else if (v.keySting==='locking') {
+            v.key = this.$t('public.consensusLocking')
+          }
+        })
+        this.chartData.rows = data
+      },
+    },
   
     created() {
       this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
-      this.getAddressInfo(this.address);
-      this.tabNameList();
+      // this.getAddressInfo(this.address);
+      // this.tabNameList();
     },
     mounted() {
-      //延迟加载饼状图
       setTimeout(() => {
         this.chartData = {
-          columns: ['location', 'value'],
+          columns: ['key', 'value'],
           rows: this.addressNumber
         };
       }, 500);
-
-      //定时获取地址
-      this.addressInterval = setInterval(() => {
-        this.address = this.$route.query.address;
-      }, 500)
     },
     beforeDestroy() {
-      //离开界面清除定时器
+      //Leave the interface to clear the timer
       if (this.addressInterval) {
         clearInterval(this.addressInterval);
       }
@@ -362,18 +396,10 @@
     methods: {
 
       /**
-       * 复制方法
-       * @param sting
-       **/
-      copy(sting) {
-        copys(sting);
-      },
-
-      /**
-       * 获地址详细信息
+       * Obtain detailed address information
        */
-      getAddressInfo(address) {
-        this.$post('/', 'getAccount', [address])
+      getAddressInfo() {
+        this.$post('/', 'getAccount', [this.address])
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
@@ -388,29 +414,36 @@
 
               if (parseInt(response.result.balance) > 0) {
                 this.addressNumber.push({
-                  location: this.$t('public.usablebalance'),
+                  keySting: 'usable',
+                  key: this.$t('public.usablebalance'),
                   value: parseInt(timesDecimals(response.result.balance))
                 });
               }
               if (parseInt(response.result.totalLock) > 0) {
                 this.addressNumber.push({
-                  location: this.$t('public.consensusLocking'),
+                  keySting: 'locking',
+                  key: this.$t('public.consensusLocking'),
                   value: parseInt(timesDecimals(response.result.totalLock))
                 });
               }
 
-              //循环代币
+              //Circular token
               for (let item in response.result.tokens) {
                 this.tokenOptions[item] = response.result.tokens[item].split(',');
               }
               this.tokenOptions.unshift(["", this.$t('type.0')]);
               this.addressInfo = response.result;
+
+              this.chartData = {
+                columns: ['key', 'value'],
+                rows: this.addressNumber
+              };
             }
           })
       },
 
       /**
-       * tab 选项
+       * tab option
        **/
       handleClick(tab) {
         this.activeName = tab.name;
@@ -420,7 +453,7 @@
       },
 
       /**
-       * @disc: 根据tab名称加载数据
+       * @disc: according totabName loading data
        * @params:
        * @date: 2020-07-01 10:54
        * @author: Wave
@@ -444,7 +477,7 @@
       },
 
       /**
-       * 根据地址获取交易列表
+       * Obtain transaction list based on address
        */
       getTxListByAddress() {
         this.$post('/', 'getAccountTxs', [this.pageIndex, this.pageRows, this.address, this.typeRegion, -1, -1, 0, 0])
@@ -453,7 +486,7 @@
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-                item.txHashs = superLong(item.txHash, 15);
+                item.txHashs = superLong(item.txHash, 12);
                 item.values = timesDecimals(item.values, item.decimals);
                 item.balance = timesDecimals(item.balance, item.decimals);
                 item.fees = timesDecimals(item.fee.value);
@@ -468,7 +501,7 @@
       },
 
       /**
-       * 根据地址获取交易列表 分页
+       * Obtain transaction list based on address paging
        */
       pagingMethod(e) {
         this.pageIndex = e;
@@ -476,7 +509,7 @@
       },
 
       /**
-       * 根据地址获取Token交易列表
+       * Obtain based on addressTokenTransaction List
        */
       getTokenListByAddress() {
         this.$post('/', 'getTokenTransfers', [this.pageIndex, this.pageRows, this.address, this.tokenValue])
@@ -503,7 +536,7 @@
       },
 
       /**
-       * 选择代币类型
+       * Select token type
        **/
       changeToken() {
         this.pageTotal = 0;
@@ -512,7 +545,7 @@
       },
 
       /**
-       * 根据地址获取NRC-20列表
+       * Obtain based on addressNRC-20list
        */
       getNrc20ListByAddress() {
         this.nrc20ListLoading = true;
@@ -526,7 +559,7 @@
                 item.balance = timesDecimals(item.balance, item.decimals);
                 item.lock = timesDecimals(item.lockedBalance, item.decimals);
               }
-              // console.log(response.result.list, 'NRC-20列表')
+              // console.log(response.result.list, 'NRC-20list')
               this.nrc20List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc20ListLoading = false;
@@ -537,7 +570,7 @@
       },
 
       /**
-       * 根据地址获取NRC-721列表
+       * Obtain based on addressNRC-721list
        */
       getNrc721ListByAddress() {
         this.nrc721ListLoading = true;
@@ -558,7 +591,7 @@
                   })
                 })
               }
-              // console.log(list, 'NRC-721列表')
+              // console.log(list, 'NRC-721list')
               this.nrc721List = list;
               this.pageTotal = response.result.totalCount;
               this.nrc721ListLoading = false;
@@ -574,7 +607,7 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              // console.log(response.result.list, 'NRC-1155列表')
+              // console.log(response.result.list, 'NRC-1155list')
               this.nrc1155List = response.result.list;
               this.pageTotal = response.result.totalCount;
               this.nrc1155ListLoading = false;
@@ -584,7 +617,7 @@
         })
       },
       /**
-       * 持有跨链资产列表
+       * Holding cross chain asset list
        */
       getAccountCrossLedgerList(address) {
         this.holdDataLoading = true;
@@ -595,7 +628,7 @@
               for (let item of response.result) {
                 item.balance = timesDecimals(item.totalBalance, item.decimals);
               }
-              // console.log(response.result, '持有跨链资产列表')
+              // console.log(response.result, 'Holding cross chain asset list')
               this.holdData = response.result;
               this.pageTotal = response.result.totalCount;
               this.holdDataLoading = false;
@@ -606,25 +639,29 @@
       },
 
       /**
-       * url 连接跳转
+       * url Connection jump
        * @param name
        * @param parmes
        */
       toUrl(name, parmes) {
         let newParmes = {};
         if (name === 'addressInfo') {
-          this.address = parmes;
-          newParmes = {address: parmes}
+          // this.address = parmes;
+          // newParmes = {address: parmes}
+          this.$router.push({
+            name: name,
+            query: {address: parmes}
+          })
+          return;
         } else if (name === 'blockInfo') {
           newParmes = {height: parmes}
         } else if (name === 'contractsInfo') {
           newParmes = {contractAddress: parmes, tabName: 'first'}
         } else if (name === 'tokenInfo') {
           newParmes = {contractAddress: parmes, address: this.$route.query.address}
-        } else if (name === 'holderAddress') {
+        } else if (name === 'assetHolder') {
           this.$router.push({
-            path: '/assets/holderAddress/'+parmes.assetKey,
-            query: { address: parmes.address },
+            path: `/asset/${parmes.assetKey}/${parmes.address}`
           })
           return false
         } else {
@@ -638,7 +675,7 @@
       },
 
       /**
-       * 获取交易类型
+       * Obtain transaction type
        **/
       changeType(type) {
         this.pageTotal = 0;
@@ -648,31 +685,14 @@
         this.getTxListByAddress();
       },
 
-    },
+      sliceId(id) {
+        id = id + ''
+        if (id.length > 15) {
+          return id.slice(0, 15) + '...'
+        }
+        return id;
+      }
 
-    watch: {
-      address: function () {
-        // address，当放生变化时，重新获取数据
-        this.activeName = 'addressFirst';
-        this.addressNumber = [];
-        this.txListLoading = true;
-        this.tabNameList();
-
-        //延迟加载饼状图
-        setTimeout(() => {
-          this.chartData = {
-            columns: ['location', 'value'],
-            rows: this.addressNumber
-          };
-        }, 500);
-      },
-      "$i18n.locale":{
-        handler(newval){
-          this.getAddressInfo(this.address)
-        },
-        deep: true,
-        immediate: true
-      },
     }
   }
 </script>
@@ -754,12 +774,12 @@
                 }
                 &:first-child {
                   span {
-                    background-color: #9cd05b;
+                    background-color: #FFBC58;
                   }
                 }
                 &:last-child {
                   span {
-                    background-color: @Ccolour;
+                    background-color: #45E3A4;
                   }
                 }
               }

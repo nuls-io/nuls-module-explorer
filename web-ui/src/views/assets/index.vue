@@ -12,16 +12,15 @@
               style="width: 100%"
               :cell-class-name="cellClassName"
             >
-              <el-table-column label="ID" min-width="130">
+              <el-table-column label="ID" min-width="110">
                 <template slot-scope="scope">
                   <div>#{{ scope.row.id }}</div>
                 </template>
               </el-table-column>
-              <el-table-column label="Token" min-width="200">
+              <el-table-column :label="$t('assets.symbol')" min-width="200">
                 <template slot-scope="scope">
                   <div class="Token-box" @click="routLink(scope.row.id)">
-                    <img :src="scope.row.iconUrl" alt="" v-if="scope.row.iconUrl"/>
-                    <img src="./img/errorimg.png" alt="" v-else/>
+                    <SymbolIcon :icon="scope.row.iconUrl || scope.row.symbol" />
                     <span class="cur color-derl">{{ scope.row.symbol }}</span>
                   </div>
                 </template>
@@ -86,11 +85,13 @@
 
 <script>
 import { toThousands , timesDecimals} from "../../api/util";
+import SymbolIcon from "@/components/SymbolIcon.vue";
 import Nrc20 from "../contracts/Nrc20.vue";
 import Nrc721 from '../contracts/Nrc721.vue'
 import Nrc1155 from '../contracts/Nrc1155.vue'
 export default {
   components: {
+    SymbolIcon,
     Nrc20,
     Nrc721,
     Nrc1155
@@ -145,7 +146,10 @@ export default {
     handleClick() {
       const { page, rows } = this.pager;
       let params;
-      if (this.activeName === "Assets") {
+      this.$router.push({
+        name: this.activeName
+      })
+      /* if (this.activeName === "Assets") {
         this.$router.push({
           name: 'Assets'
         })
@@ -169,7 +173,7 @@ export default {
         // fourth
         params = [page, rows];
         this.getContractList("getNrc1155List", params);
-      }
+      } */
     },
     getContractList(method, params) {
       this.$post("/", method, params).then((response) => {
@@ -180,14 +184,14 @@ export default {
       });
     },
     routLink(id) {
-      this.$router.push('/asset/details/'+id)
+      this.$router.push('/asset/'+id)
     },
     /**
-     * 分页功能
+     * Paging function
      **/
     pagesList(e) {
       this.pager.page = e;
-      this.handleClick();
+      this.getYearRateData();
     },
   },
 };

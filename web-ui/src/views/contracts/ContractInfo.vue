@@ -4,7 +4,7 @@
       <h4 class="font20 w1200">
         {{ contractsAddress }}
         <img class="cur" src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')"
-          @click="copy(contractsAddress)">
+          @click="$copy(contractsAddress)">
       </h4>
     </div>
     <div class="w1200 b-info">
@@ -101,7 +101,7 @@
           <el-tab-pane v-if="!isMobile" name="second"
             :disabled="contractsInfo.status === -1 || contractsInfo.status === 3">
             <span slot="label">
-              {{ $t('nav.contracts') }}
+              {{ $t('public.contract') }}
               <img v-if="contractsInfo.status == 2" src="./img/Certification.svg" class="authenticate" alt="" srcset="">
             </span>
             <div v-if="activeName === 'second'">
@@ -133,7 +133,7 @@ import moment from 'moment'
 import paging from '@/components/pagingBar';
 import SelectBar from '@/components/SelectBar';
 import CodeInfo from '@/views/contracts/CodeInfo';
-import { getLocalTime, superLong, copys, divisionDecimals, timesDecimals ,titleCase } from '@/api/util.js'
+import { getLocalTime, superLong, divisionDecimals, timesDecimals ,titleCase } from '@/api/util.js'
 import axios from 'axios'
 import { CODE_URL } from '@/config'
 import NewCodeInfo from './NewCodeInfo'
@@ -147,11 +147,11 @@ export default {
       decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
       isMobile: false,
       activeName: this.$route.query.tabName,
-      //合约地址
+      //Contract address
       contractsAddress: this.$route.query.contractAddress,
-      //合约详情
+      //Contract details
       contractsInfo: [],
-      //合约交易类型
+      //Contract transaction type
       contractsStatusOptions: [
         { value: 0, label: '0' },
         { value: 15, label: '15' },
@@ -160,18 +160,18 @@ export default {
         { value: 18, label: '18' },
       ],
       contractsTypeRegion: 0,
-      //合约交易列表
+      //Contract Transaction List
       contractsTxList: [],
-      //方法列表
+      //Method List
       modeList: [],
-      //分页数据
+      //Paging data
       pager: {
         total: 0,
         page: 1,
         rows: 15,
       },
       certificationTime: "null",
-      //地址定时器
+      //Address Timer
       contractAddressInterval: null,
     }
   },
@@ -183,7 +183,7 @@ export default {
   },
   watch: {
     contractsAddress: function () {
-      // contractsAddress，当放生变化时，重新获取数据
+      // contractsAddressWhen releasing changes, retrieve data again
       //console.log('new: %s, old: %s', val, oldVal);
       this.activeName = 'first';
       this.getContractsInfoByContractsAddress(this.contractsAddress);
@@ -198,20 +198,20 @@ export default {
     this.getConsensusTxList(this.pager.page, this.pager.rows, this.contractsTypeRegion, this.contractsAddress);
   },
   mounted() {
-    //定时获取地址
+    //Timed address acquisition
     this.contractAddressInterval = setInterval(() => {
       this.contractsAddress = this.$route.query.contractAddress;
     }, 500)
   },
   beforeDestroy() {
-    //离开界面清除定时器
+    //Leave the interface to clear the timer
     if (this.contractAddressInterval) {
       clearInterval(this.contractAddressInterval);
     }
   },
   methods: {
     /**
-     * 获取子组件的状态值
+     * Get the status values of sub components
      * @param contractStatus
      **/
     contractStatus(contractStatus) {
@@ -219,15 +219,7 @@ export default {
     },
 
     /**
-     * 复制方法
-     * @param sting
-     **/
-    copy(sting) {
-      copys(sting);
-    },
-
-    /**
-     * 根据合约地址获取合约详情
+     * Obtain contract details based on the contract address
      * @param address
      */
     getContractsInfoByContractsAddress(address) {
@@ -252,7 +244,7 @@ export default {
     },
 
     /**
-     * 调用认证方法
+     * Calling authentication methods
      * @param contractsAddress
      **/
     async getContractAddressInfo(contractsAddress) {
@@ -266,7 +258,7 @@ export default {
         axios.post(CODE_URL, params)
           .then((response) => {
             if (response.data.hasOwnProperty("result")) {
-              // console.log(response.data.result.certificationTime, '调用认证方法')
+              // console.log(response.data.result.certificationTime, 'Calling authentication methods')
               this.certificationTime = response.data.result.certificationTime;
               this.contractsInfo.status = response.data.result.status;
             }
@@ -279,7 +271,7 @@ export default {
     },
 
     /**
-     *  根据数据类型排序
+     *  Sort by data type
      *  @param type
      **/
     changeType(type) {
@@ -288,7 +280,7 @@ export default {
     },
 
     /**
-     * 获取合约交易记录
+     * Obtain contract transaction records
      * @param page
      * @param rows
      * @param type
@@ -313,7 +305,7 @@ export default {
     },
 
     /**
-     * 分页功能
+     * Paging function
      **/
     pagesList() {
       this.getConsensusTxList(this.pager.page, this.pager.rows, this.contractsTypeRegion, this.contractsAddress);
@@ -324,7 +316,7 @@ export default {
     },
 
     /**
-     * url 连接跳转
+     * url Connection jump
      * @param name
      * @param parmes
      */

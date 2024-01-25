@@ -58,7 +58,7 @@
           </el-table-column>
           <el-table-column prop="order" :label="$t('rotationInfo.rotationInfo2')" min-width="100"
                            align="left"></el-table-column>
-          <!-- <el-table-column prop="strua" label="状态" width="120" align="center">
+          <!-- <el-table-column prop="strua" label="state" width="120" align="center">
            </el-table-column>-->
           <el-table-column prop="fee" :label="$t('public.blockReward')+'(NULS)'" align="left" min-width="160">
             <template slot-scope="scope">
@@ -78,15 +78,15 @@
   export default {
     data() {
       return {
-        //轮次编号
+        //Round number
         rotation: this.$route.query.rotation,
-        //轮次详情
+        //Round details
         rotationInfo: [],
-        //轮次详情加载动画
+        //Load animation for round details
         rotationInfoLoading: true,
-        //隐藏开关
+        //Hidden switch
         hideSwitch: false,
-        //列表信息
+        //List information
         rotationList: [],
         rotationListOld: [],
       }
@@ -99,7 +99,7 @@
     methods: {
 
       /**
-       * 获轮次详细信息根据轮次编号
+       * Obtain detailed information about the round based on the round number
        */
       getRotationInfo(rotation) {
         this.$post('/', 'getRoundInfo', [rotation])
@@ -129,7 +129,7 @@
       },
 
       /**
-       * @disc: 红牌显示
+       * @disc: Red card display
        * @params:
        * @date: 2019-09-19 16:49
        * @author: Wave
@@ -150,7 +150,7 @@
       },
 
       /**
-       * url 连接跳转
+       * url Connection jump
        * @param name
        * @param parmes
        */

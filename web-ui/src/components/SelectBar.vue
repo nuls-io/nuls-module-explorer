@@ -8,11 +8,11 @@
 <script>
   export default {
     props: {
-      //默认选中内容
+      //Default Selection Content
       value: {
         default: 0
       },
-      //下框列表
+      //List of Lower Boxes
       typeOptions: {
         type:Array,
         default:()=> [
@@ -45,7 +45,7 @@
           {value: '26', label: '26'},
         ]
       },
-      //循环字段名
+      //Loop Field Name
       typeName:{
         type:String,
         default:"type"

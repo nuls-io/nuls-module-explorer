@@ -1,5 +1,5 @@
 <template>
-  <!--此处的id用变量，方便同一页面引用多次相同的组件-->
+  <!--HereidUsing variables to facilitate referencing the same component multiple times on the same page-->
   <div :id="id"></div>
 </template>
 
@@ -20,7 +20,7 @@
     mounted () {
       setTimeout(() => {
         console.log(this.charData);
-        this.drawChart(this.charData);       // 第一步想到的是创建的时候更新图表，但是这个不适用于异步请求接口获取相关数据，所以采用下面的监听的方式
+        this.drawChart(this.charData);       // The first step that comes to mind is to update the chart when creating it, but this is not suitable for asynchronous request interfaces to obtain relevant data, so the following listening method is adopted
       },500);
 
     },
@@ -28,7 +28,7 @@
 //      this.drawChart();
     },
     watch: {
-      charData: function (val, oldVal) {    // 监听charData，当放生变化时，触发这个回调函数绘制图表
+      charData: function (val, oldVal) {    // monitoringcharDataWhen releasing changes, trigger this callback function to draw a chart
         this.drawChart(val);
       }
     },
@@ -51,7 +51,7 @@
             }
           }
         });
-        chart.line().position('year*value').color('#7db46d'); // 绘制曲线图
+        chart.line().position('year*value').color('#7db46d'); // Draw a curve chart
         chart.point().position('year*value').color('#7db46d').size(3).shape('circle').style({lineWidth: 1});
         chart.render();
       }

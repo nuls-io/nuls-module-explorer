@@ -112,9 +112,9 @@
 .el-select {
   .el-input {
     .el-input__inner {
-      height: 30px !important;
-      line-height: 30px !important;
-      border-radius: 1px;
+      height: 36px !important;
+      line-height: 36px !important;
+      border-radius: 8px;
       width: 174px;
       text-transform: Capitalize;
       &:focus {
@@ -122,7 +122,7 @@
       }
     }
     .el-input__icon {
-      line-height: 30px;
+      line-height: 36px;
 
     }
     .el-select__caret {
@@ -248,5 +248,14 @@
   background-color: #d1dbe5;
   .info{
     color: #dfe4ed !important;
+  }
+}
+
+.el-message--success.success-tip {
+  background: #e4f7f1;
+  border-color: transparent;
+  border-radius: 10px;
+  .el-icon-success, .el-message__content {
+    color: @Ncolour;
   }
 }

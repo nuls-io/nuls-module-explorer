@@ -21,8 +21,8 @@ export default {
   },
   methods: {
     /**
-     * 获取所有合约列表
-     * @param type 所有合约：-1、nrc20：1、nrc721：
+     * Get a list of all contracts
+     * @param type All contracts：-1、nrc20：1、nrc721：
      * @param hideNrc20 {boolean}
      */
     getContractList(type, hideNrc20) {
@@ -70,7 +70,7 @@ export default {
     },
 
     /**
-     * 隐藏NRC-20合约
+     * hideNRC-20contract
      */
     hideNrc20List() {
       this.listLoading = true;
@@ -78,7 +78,7 @@ export default {
     },
 
     /**
-     * url 连接跳转
+     * url Connection jump
      * @param name
      * @param contractAddress
      */

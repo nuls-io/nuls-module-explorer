@@ -146,6 +146,11 @@ export default new Router({
       component: resolve => require(['@/views/assets/index'], resolve)
     },
     {
+      path: '/asset/:assetId/:address?',
+      name: 'Asset',
+      component: resolve => require(['@/views/assets/AssetInfo'], resolve)
+    },
+    /* {
       path: '/asset/details/:assetId',
       name: 'Assetsdetails',
       component: resolve => require(['@/views/assets/assetsdetails'], resolve)
@@ -154,6 +159,6 @@ export default new Router({
       path: '/assets/holderAddress/:assetId',
       name: 'holderAddress',
       component: resolve => require(['@/views/assets/holderAddress'], resolve)
-    },
+    }, */
   ]
 })

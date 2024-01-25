@@ -6,11 +6,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    //当前高度
+    //Current height
     height: 0,
-    //节点信息
+    //Node information
     nodeNumber: [],
-    //nuls 信息
+    //nuls information
     NULSNumber: [],
   },
   mutations: {

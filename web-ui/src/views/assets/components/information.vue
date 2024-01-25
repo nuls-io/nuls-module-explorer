@@ -3,7 +3,7 @@
         <p class="in-gaishu">{{$t('assets.Overview')}}</p>
 
         <p class="in-neirong">
-            随时随地以加密货币支付和接受支付，使用任何加密货币，都是免费的。
+            Pay and receive payments in cryptocurrency anytime, anywhere, and use any cryptocurrency for free.
         </p>
 
         <p class="in-gaishu">{{$t('assets.market')}}</p>

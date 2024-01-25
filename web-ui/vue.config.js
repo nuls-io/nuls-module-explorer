@@ -24,6 +24,7 @@ module.exports = {
         threshold: 10240,
         minRatio: 0.8
       }));
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true;
     }
 
     config.externals = {
@@ -54,16 +55,23 @@ module.exports = {
     port: 8080,
     host: '0.0.0.0',
     https: false, // https:{type:Boolean}
-    open: true, //配置自动启动浏览器
-    proxy: {// 配置跨域处理
+    open: true,
+    proxy: {
       '/api': {
         // target: 'http://127.0.0.1:8080/',
         // target: "https://beta.public1.nuls.io/jsonrpc",
         // target: 'http://beta.wallet.nuls.io/api',
-        target: 'http://beta.nulscan.io/api', //测试地址
-        changeOrigin: true,  // 是否跨域
+        target: 'http://beta.nulscan.io/api',
+        changeOrigin: true,
         pathRewrite: {
           '^/api': '/'
+        }
+      },
+      '/mApi': {
+        target: 'https://04.nulscan.io/api', 
+        changeOrigin: true,
+        pathRewrite: {
+          '^/mApi': '/'
         }
       }
     }

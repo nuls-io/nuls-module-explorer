@@ -62,12 +62,13 @@
           <li class="font12 fl">{{$t('public.alias')}}<span
                   class="fr">{{ item.agentAlias ? item.agentAlias : '-' }}</span></li>
           <li class="font12 fl">{{$t('public.proportion')}}<span class="fr">{{ item.commissionRate }}%</span></li>
-          <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ item.deposit }}<label
-                  class="fCN"> {{symbol}}</label></span></li>
-          <li class="font12 fl">{{$t('public.participants')}}<span class="fr">{{ item.depositCount }}</span></li>
-          <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{item.totalDeposit }}<label
+          <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ $toThousands(item.deposit) }}<label
                   class="fCN"> {{symbol}}</label></span></li>
           <li class="font12 fl">{{$t('public.creditValue')}}<span class="fr">{{item.creditValue}}</span></li>
+          
+          <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{$toThousands(item.totalDeposit) }}<label
+                  class="fCN"> {{symbol}}</label></span></li>
+          <li class="font12 fl">{{$t('public.participants')}}<span class="fr">{{ item.depositCount }}</span></li>
         </ul>
       </div>
     </div>
@@ -81,9 +82,9 @@
   export default {
     data() {
       return {
-        //是否显示列表
+        //Is the list displayed
         viewList: true,
-        //排序下拉框选择列表
+        //Sort dropdown menu selection list
         nodeTypeOptions: [
           {value: 0, label: '0'},
           {value: 1, label: '1'},
@@ -91,9 +92,9 @@
           {value: 3, label: '3'},
           {value: 4, label: '4'},
         ],
-        //排序选中值
+        //Sort Selected Values
         nodeTypeRegion: 0,
-        //节点类型排序
+        //Node Type Sorting
         nodeStatusOptions: [
           {value: 0, label: '0'},
           {value: 1, label: '1'},
@@ -101,18 +102,18 @@
           {value: 3, label: '3'},
         ],
         nodeStatusRegion: 0,
-        //节点列表
+        //Node List
         nodeList: [],
         nodeListLoading: true,
-        //搜索框内容
+        //Search box content
         searchValue: '',
-        //分页数据
+        //Paging data
         pager: {
           total: 0,
           page: 1,
           rows: 200,
         },
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//defaultsymbol
       }
     },
     components: {
@@ -122,7 +123,7 @@
       this.getConsensusNodes(this.pager.page, this.pager.rows, this.nodeStatusRegion)
     },
     computed: {
-      //数据筛选
+      //Data filtering
       searchData: function () {
         let search = this.searchValue;
         //console.log(this.nodeList);
@@ -140,7 +141,7 @@
     methods: {
 
       /**
-       * 获取共识列表
+       * Obtain consensus list
        */
       async getConsensusNodes(page, rows, type) {
         this.$post('/', 'getConsensusNodes', [page, rows, type])
@@ -164,7 +165,7 @@
       },
 
       /**
-       * 路径跳转
+       * Path jump
        * @param name
        * @param hash
        * @param tabName
@@ -177,7 +178,7 @@
       },
 
       /**
-       *  根据数据类型排序
+       *  Sort by data type
        **/
       changeNodeType(type) {
         this.nodeTypeRegion = parseInt(type);
@@ -200,7 +201,7 @@
       },
 
       /**
-       *  根据节点状态排序
+       *  Sort by node status
        **/
       changeNodeStatus(type) {
         this.nodeStatusRegion = type;
@@ -208,7 +209,7 @@
       },
 
       /**
-       * 数组排序
+       * Array sorting
        */
       nodeTypeSort(arr, name) {
         //console.log(name);
@@ -276,14 +277,15 @@
             margin: 0.5rem 0 0 0;
           }
           .el-input__inner {
-            height: 30px;
-            line-height: 30px;
+            height: 36px;
+            line-height: 36px;
+            border-radius: 8px;
             &:focus {
               border-color: @Ncolour;
             }
           }
           .el-input__icon {
-            line-height: 30px !important;
+            line-height: 36px !important;
           }
         }
         .iconfont {

@@ -4,7 +4,7 @@ The NULS blockchain explorer module can provide all parachains created by NULS C
 
 *Notice: Must rely on public service api-module*
 
-## Contribute to this module
+## Contribute to This Module
 Click Star and Fork to start contributing improvements to this module.
 Hope more contributors can submit improvement suggestions and bug reports here.
 Issues: https://github.com/nuls-io/nuls-module-explorer/issues
@@ -20,6 +20,7 @@ You are welcome to contribute to NULS! We sincerely invite developers with rich 
 https://nuls.io/community
 
 Documentation：https://docs.nuls.io
+
 NULS Brand Assets: https://nuls.io/brand-assets
 
 
@@ -34,7 +35,7 @@ Modules added in the future may be release under different license, will specifi
 - Website: https://nuls.io
 - Twitter: https://twitter.com/nuls
 - Discord:https://discord.gg/aRCwbj47WN
-- Telegram: https://t.me/Nulsio)
+- Telegram: https://t.me/Nulsio
 - Medium: https://nuls.medium.com
 - Forum: https://forum.nuls.io
 - GitHub: https://github.com/nuls-io

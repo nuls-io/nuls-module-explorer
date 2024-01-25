@@ -5,7 +5,7 @@ import java.math.BigInteger;
 /**
  * @Author: zhoulijun
  * @Time: 2019-06-12 17:33
- * @Description: 账户余额和nonce
+ * @Description: Account balance andnonce
  */
 public class AccountBalance {
 
@@ -15,7 +15,7 @@ public class AccountBalance {
     int nonceType;
 
     /**
-     * 可用余额
+     * Available balance
      */
     BigInteger available;
 

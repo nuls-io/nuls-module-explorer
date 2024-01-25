@@ -57,7 +57,7 @@
           <span class="container-label font14">@{{ $t('assets.HeterogeneousChain') }}</span>
         </div>
         <p class="network-text">
-          {{ $t('assets.NerveNetwork') }}
+          {{ $t('assets.ENULS') }}
         </p>
         <el-divider></el-divider>
         <div class="network-label">
@@ -101,11 +101,11 @@
 </template>
 
 <script>
-import { _networkInfo } from "@/api/heterogeneousChainConfig";
 import {
   divisionDecimals,
   timesDecimals,
-  toThousands
+  toThousands,
+  isBeta
 } from "../../api/util";
 export default {
   data() {
@@ -119,15 +119,15 @@ export default {
   },
   created() {
     // this.getHoldData()
-    this.getInfo()
-    if(this.chainId != 2){
+    // this.getInfo()
+    if(!isBeta){
       this.getAssetInfo('9-1', 'NerveNetwork')
       this.getAssetInfo('1-1', 'ENULS')
     }else{
       this.getAssetInfo('5-1', 'NerveNetwork')
       this.getAssetInfo('2-1', 'ENULS')
     }
-    this.getAssetInfo()
+    // this.getAssetInfo()
   },
   mounted() {
 
@@ -159,13 +159,6 @@ export default {
         info.totalSupply = divisionDecimals(info.totalSupply, info.decimals);
         info.inAmount = divisionDecimals(info.inAmount, info.decimals);
         info.outAmount = divisionDecimals(info.outAmount, info.decimals);
-        const origin = Object.values(_networkInfo).find(
-          (v) => v.chainId === info.sourceChainId
-        );
-        if (origin) {
-          info.originNetwork = origin.name;
-          info.originNetworkLogo = origin.logo;
-        }
         info.community = info.community ? JSON.parse(info.community) || {} : "";
         if(type === 'NerveNetwork'){
           this.DataNerveNetwork = info
@@ -179,7 +172,7 @@ export default {
       window.open(url)
     },
     /**
-     * @disc: 查询平行链信息
+     * @disc: Query parallel chain information
      * @params:
      * @date: 2020-06-30 19:36
      * @author: Wave
@@ -201,7 +194,7 @@ export default {
     // },
 
     /**
-     * url 连接跳转
+     * url Connection jump
      * @param name
      * @param parmes
      */

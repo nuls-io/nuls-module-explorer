@@ -12,7 +12,7 @@
         <li class="tabs_infos fl capitalize">
           <p>{{$t('public.block')}} hash
             <span>{{nodeInfo.hashs}}
-              <img src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(nodeInfo.hash)">
+              <img src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="$copy(nodeInfo.hash)">
             </span>
           </p>
         </li>
@@ -81,30 +81,30 @@
   import moment from 'moment'
   import paging from '@/components/pagingBar';
   import SelectBar from '@/components/SelectBar';
-  import {getLocalTime, superLong, copys,timesDecimals, titleCase } from '@/api/util.js'
+  import {getLocalTime, superLong,timesDecimals, titleCase } from '@/api/util.js'
 
   export default {
     data() {
       return {
         titleCase,
-        //高度
+        //height
         height:this.$route.query.height,
-        //块信息
+        //Block information
         packingAddress: '',
         nodeInfo: {},
-        //交易类型
+        //Transaction type
         typeRegion: 0,
-        //交易列表
+        //Transaction List
         txList: [],
-        //分页数据
+        //Paging data
         pager: {
           total: 0,
           page: 1,
           rows: 5,
         },
-        //定时器
+        //timer
         heightInterval:null,
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//defaultsymbol
 
       }
     },
@@ -117,43 +117,36 @@
       this.getTxListByHeight(this.pager.page, this.pager.rows, this.height, this.typeRegion);
     },
     mounted(){
-      //定时获取高度
+      //Timed acquisition of height
       this.heightInterval = setInterval(()=>{
         this.height = this.$route.query.height;
       },500)
     },
     beforeDestroy() {
-      //离开界面清除定时器
+      //Leave the interface to clear the timer
       if(this.heightInterval) {
         clearInterval(this.heightInterval);
       }
     },
     methods: {
-      // 切换高度
+      // Switch height
       addition(val){
         const pathname = location?.pathname
         let height = this.$route.query.height
         height = parseInt(height)
         if(val){
-          // 增加高度
+          // Increase height
           height += 1
         }else{
-          // 减少高度
+          // Reduce height
           height -= 1
         }
         this.$router.push({path: pathname, query:{height}})
         this.height = height
       },
-      /**
-       * 复制方法
-       * @param sting
-       **/
-      copy(sting) {
-        copys(sting);
-      },
 
       /**
-       * 根据高度获取块信息
+       * Obtain block information based on height
        */
       async getHeaderByHeight(height) {
         this.$post('/', 'getHeaderByHeight', [height])
@@ -177,7 +170,7 @@
       },
 
       /**
-       * 根据高度获取交易列表
+       * Obtain transaction list based on height
        */
       async getTxListByHeight(page, rows, height, type) {
         this.$post('/', 'getBlockTxList', [height, type,])
@@ -199,14 +192,14 @@
       },
 
       /**
-       * 分页功能
+       * Paging function
        **/
       pagesList() {
         this.getTxListByHeight(this.pager.page, this.pager.rows, this.height, parseInt(this.typeRegion));
       },
 
       /**
-       * 获取交易类型
+       * Obtain transaction type
        **/
       changeType(type) {
         this.typeRegion = type;
@@ -214,7 +207,7 @@
       },
 
       /**
-       * url 连接跳转
+       * url Connection jump
        * @param name
        * @param parmes
        */
@@ -235,7 +228,7 @@
     },
     watch: {
       height: function () {
-        // 监听height，当放生变化时重新加载数据
+        // monitoringheightReload data when releasing changes
         //console.log('new: %s, old: %s', val, oldVal);
         this.getHeaderByHeight(this.height);
         this.typeRegion= 0;

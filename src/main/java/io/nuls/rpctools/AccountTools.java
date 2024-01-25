@@ -15,13 +15,13 @@ import java.util.function.Function;
 /**
  * @Author: zhoulijun
  * @Time: 2019-06-12 14:06
- * @Description: 账户模块工具类
+ * @Description: Account module tool class
  */
 @Component
 public class AccountTools implements CallRpc {
 
     /**
-     * 获取账户信息
+     * Obtain account information
      * @param chainId
      * @param address
      * @return
@@ -41,7 +41,7 @@ public class AccountTools implements CallRpc {
 
 
     /**
-     * 账户验证
+     * Account verification
      * account validate
      *
      * @param chainId
@@ -55,7 +55,7 @@ public class AccountTools implements CallRpc {
 
 
     /**
-     * 获取账户私钥
+     * Obtain account private key
      * account validate
      *
      * @param chainId

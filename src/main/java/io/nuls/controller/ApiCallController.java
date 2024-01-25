@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * @Author: zhoulijun
  * @Time: 2019-06-25 11:21
- * @Description: 功能描述
+ * @Description: Function Description
  */
 @Path("/api/")
 @Component

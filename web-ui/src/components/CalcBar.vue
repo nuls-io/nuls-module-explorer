@@ -198,7 +198,7 @@
       };
       return {
         radio: 1,
-        //委托节点计算器
+        //Delegate Node Calculator
         partakeForm: {
           entrust: 2000,
           ratio: 10,
@@ -211,7 +211,7 @@
           credit: [{validator: checkCredit, trigger: 'change'}],
           allEntrust: [{validator: checkAllEntrust, trigger: 'change'}],
         },
-        //创建节点计算器
+        //Create Node Calculator
         newNodeFrom: {
           newEnsure: 20000,
           newRadio: 10,
@@ -226,7 +226,7 @@
           newAllEntrust: [{validator: checkNewAllEntrust, trigger: 'change'}],
           newEntrust: [{validator: checkNewEntrust, trigger: 'change'}],
         },
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//默认symbol,
+        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//defaultsymbol,
         rewardPerYear: ''
       };
     },

@@ -5,14 +5,14 @@
       <h4 class="font20 w1200 bg-address">
         <span class="pc">{{ txhash }}</span>
         <span class="mobile fl">{{ txhashs }}</span>
-        <img class="cur" src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="copy(txhash)" />
+        <img class="cur" src="../../assets/img/Icon.png" alt="" :title="$t('public.copy')" @click="$copy(txhash)" />
       </h4>
     </div>
     <div class="w1200 info_tabs">
       <h3 class="tabs_title tabs_header capitalize">{{ $t('public.basicInfo') }}</h3>
       <ul class="ul" ref="menu">
         <li class="tabs_infos fl capitalize">
-          <p>{{ $t('public.amount') }}<span>{{ txInfo.value }}</span></p>
+          <p>{{ $t('public.amount') }}<span>{{ toThousands(txInfo.value) }}</span></p>
         </li>
         <li class="tabs_infos fl capitalize">
           <p>{{ $t('public.type') }}<span>{{ $t('type.' + txInfo.type) }}</span></p>
@@ -20,7 +20,7 @@
         <li class="tabs_infos fl capitalize">
           <p>
             {{ $t('public.fee') }}
-            <span @click="jionOpen(txInfo)">{{ txInfo.fees }}<span class="fCN click">&nbsp;{{ symbol }}</span></span>
+            <span @click="toAsset(txInfo)">{{ txInfo.fees }}<span class="fCN click">&nbsp;{{ symbol }}</span></span>
             <!--<span v-if="contractInfo.length !== 0">
             {{txInfo.fees}}
              <el-tooltip :content="contractInfo.totalFee+'('+$t('transactionInfo.transactionInfo0')+')'+'='
@@ -60,7 +60,7 @@
           <p>{{ $t('public.alias') }}<span>{{ txInfo.txData.alias }}</span></p>
         </li>
 
-        <!--加入、退出节点-->
+        <!--join、Exit node-->
         <li class="tabs_infos fl capitalize" v-if="txInfo.type === 5 || txInfo.type === 6">
           <p>{{ $t('transactionInfo.transactionInfo4') }}
             <span class="click uppercase" @click="toUrl('consensusInfo', txInfo.txData.txHash)">
@@ -76,7 +76,7 @@
           <p class="add-class">{{ $t('public.creditValue') }}<span>{{ txInfo.txData.creditValue }}</span></p>
         </li>
 
-        <!--创建、注销节点-->
+        <!--establish、Unregister node-->
         <li class="tabs_infos fl capitalize" v-if="txInfo.type === 4 || txInfo.type === 9">
           <p>{{ $t('public.createAddress') }}
             <span class="click" @click="toUrl('addressInfo', txInfo.txData.agentAddress)">{{ txInfo.txData.agentAddress
@@ -96,7 +96,7 @@
           </p>
         </li>
 
-        <!--红黄牌-->
+        <!--bookings-->
         <li class="tabs_infos fl" v-if="txInfo.type === 7 || txInfo.type === 8">
           <p class="redcal">{{ $t('transactionInfo.transactionInfo5') }}
             <span class="click" v-show="txInfo.type === 7" v-for="item in txInfo.txDataList" :key="item.address"
@@ -118,7 +118,7 @@
           <p>{{ $t('public.reason') }}<span>{{ txInfo.reason }}</span></p>
         </li>
 
-        <!--创建、调用合约-->
+        <!--establish、Call Contract-->
         <li class="tabs_infos fl"
           v-if="txInfo.type === 15 || txInfo.type === 16 || txInfo.type === 17 || txInfo.type === 18">
           <p class="tabs_infos-pox">
@@ -154,7 +154,7 @@
             <font v-show="!contractInfo.success">({{ contractInfo.errorMessage }})</font>
           </p>
         </li>
-        <!--调用合约-->
+        <!--Call Contract-->
         <li class="tabs_infos fl tabs_infos-move" v-if="txInfo.type === 16">
           <p>{{ $t('transactionInfo.transactionInfo9') }}
             <span>
@@ -173,14 +173,20 @@
           </p>
           <p v-else class="row-betw">
             {{ $t('public.remarks') }}
-            <i class="scroll overflow">{{ txInfo.remark || '-' }}</i>
+            <i class="scroll overflow">
+              <template v-if="txInfo.remark">
+                {{ txInfo.remark }} 
+                <img src="../../assets/img/copy.png" alt="" class="click" @click="$copy(txInfo.remark)">
+              </template>
+              <template v-else>-</template>
+            </i>
           </p>
         </li>
         <p class="cb"></p>
       </ul>
     </div>
 
-    <!-- nuls 转账 -->
+    <!-- nuls Transfer -->
     <div class="w1200 token_list bg-white merge" v-if="nulsTransfers.length > 0">
       <el-table :data="nulsTransfers" style="width: 100%" :cell-class-name="cellClassName"
         :empty-text="$t('assets.nodata')">
@@ -248,7 +254,7 @@
       </el-table>
     </div>
 
-    <!-- 代币转账 -->
+    <!-- Token transfer -->
     <div class="w1200 token_list bg-white merge" v-if="tokenTransfers.length > 0">
       <el-table :data="tokenTransfers" style="width: 100%" :empty-text="$t('assets.nodata')">
         <el-table-column min-width="15"></el-table-column>
@@ -310,10 +316,10 @@
       </el-table>
     </div>
 
-    <!-- 发送者，接受者 -->
+    <!-- Sender and receiver -->
     <div class="w1200 token_list bg-white merge">
       <el-table :empty-text="$t('assets.nodata')" :data="fromList" style="width: 100%">
-        <el-table-column min-width="15"></el-table-column>
+        <el-table-column width="30"></el-table-column>
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address" v-if="scope.row.address">
@@ -339,13 +345,12 @@
         <el-table-column prop="symbol" :label="$t('public.symbol')" min-width="100"></el-table-column>
 
       </el-table>
-      <el-table :empty-text="$t('assets.nodata')" :data="toList" style="width: 100%">
-        <el-table-column>
-          <template slot="header" slot-scope="scope">
-            <img src="./img/ssdr145.png" alt="">
-          </template>
-        </el-table-column>
-        <el-table-column prop="address" :label="$t('public.output')" min-width="160">
+      <div class="direction-icon">
+        <img src="./img/ssdr145.png" alt="">
+      </div>
+      <el-table :empty-text="$t('assets.nodata')" :data="toList">
+        <el-table-column width="30"></el-table-column>
+        <el-table-column class-name="output-address" :label="$t('public.output')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
               <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address)
@@ -427,7 +432,7 @@
     </div>
 
     <el-dialog title="" :visible.sync="viewDialog" class="dialog_tran">
-      <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="copy(txInfo.txDataHex)"
+      <div class="dialog-title">Data<i class="iconfont icon-copy_icon click fr" @click="$copy(txInfo.txDataHex)"
           v-show="!isContracts"></i>
       </div>
       <div class="dialog-info scroll">
@@ -443,7 +448,7 @@
 
 <script>
 import moment from 'moment'
-import { getLocalTime, copys, timesDecimals, superLong, toThousands } from '@/api/util.js'
+import { getLocalTime, timesDecimals, superLong, toThousands } from '@/api/util.js'
 
 
 export default {
@@ -460,20 +465,20 @@ export default {
       showTokenId: false,
       showAssetType: false,
       showLocked: false,
-      //交易详情加载动画
+      //Transaction details loading animation
       txInfoLoading: true,
       activeName: 'second',
       inputNumber: 0,
       outNumber: 0,
-      viewDialog: false, //业务数据显示
-      liShow: false,//显示空白li
-      contractInfo: [],//合约信息
-      tokenTransfers: [],//token转账信息
-      //txhash定时器
+      viewDialog: false, //Business data display
+      liShow: false,//Display Blankli
+      contractInfo: [],//Contract information
+      tokenTransfers: [],//tokenTransfer information
+      //txhashtimer
       txhashInterval: null,
-      isContracts: false,//是否为合约交易
-      nulsTransfers: [],//合约转出NULS
-      symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
+      isContracts: false,//Whether it is a contract transaction
+      nulsTransfers: [],//Contract transfer outNULS
+      symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//defaultsymbol
     };
   },
   created() {
@@ -484,13 +489,13 @@ export default {
       this.liShow = (this.$refs.menu.children.length - 2) % 2 === 1
     }, 100);
 
-    //定时获取地址
+    //Timed address acquisition
     this.txhashInterval = setInterval(() => {
       this.txhash = this.$route.query.hash;
     }, 500)
   },
   beforeDestroy() {
-    //离开界面清除定时器
+    //Leave the interface to clear the timer
     if (this.txhashInterval) {
       clearInterval(this.txhashInterval);
     }
@@ -517,13 +522,13 @@ export default {
         return ''
       }
     },
-    jionOpen(txInfo) {
+    toAsset(txInfo) {
       const parmse = txInfo.fee.chainId + '-1'
-      this.$router.push("/asset/details/" + parmse)
+      this.$router.push("/asset/" + parmse)
     },
 
     /**
-     * 根据hash获取交易详情
+     * according tohashGet transaction details
      */
     async getTxInfoByHash(hash) {
       this.nulsTransfers = [];
@@ -536,14 +541,14 @@ export default {
             response.result.tx.fees = timesDecimals(response.result.tx.fee.value, 8);
             response.result.tx.value = timesDecimals(response.result.tx.value, response.result.tx.decimal);
 
-            //黄牌
+            //Yellow card
             if (response.result.tx.type === 7) {
               response.result.tx.roundIndex = response.result.tx.txDataList[0].roundIndex;
               response.result.tx.index = response.result.tx.txDataList[0].index;
               response.result.tx.reason = response.result.tx.txDataList[0].reason;
               response.result.tx.txData = { address: '' };
             }
-            //红牌
+            //Red card
             if (response.result.tx.type === 8) {
               response.result.tx.roundIndex = response.result.tx.txData.roundIndex;
               response.result.tx.index = response.result.tx.txData.index;
@@ -551,7 +556,7 @@ export default {
               //response.result.tx.txDataList ={};
             }
 
-            //创建、调用合约
+            //establish、Call Contract
             if (response.result.tx.type === 15 || response.result.tx.type === 16 || response.result.tx.type === 17 || response.result.tx.type === 18) {
               this.isContracts = true;
               if (response.result.tx.txData.hasOwnProperty('resultInfo')) {
@@ -599,7 +604,7 @@ export default {
               for (let item of response.result.toList) {
                 item.value = timesDecimals(item.amount, item.decimal);
                 item.addresss = superLong(item.address, 10);
-                //根据lockTime字段长度判断是高度锁定还时间锁定
+                //according tolockTimeThe determination of field length is whether it is height locked or time locked
                 if (item.lockTime === 0) {
                   item.isShowInfo = ''
                 } else if (item.lockTime > 1000000000) {
@@ -649,16 +654,9 @@ export default {
       capitalizedFirst = capitalizedFirst.slice(0, 1).toUpperCase() + capitalizedFirst.slice(1).toLowerCase();
       return capitalizedFirst;
     },
-    /**
-     * 复制方法
-     * @param sting
-     **/
-    copy(sting) {
-      copys(sting);
-    },
 
     /**
-     * url 连接跳转
+     * url Connection jump
      * @param name
      * @param params
      */
@@ -687,7 +685,7 @@ export default {
   },
   watch: {
     txhash: function () {
-      // txhash，当放生变化时，重新获取数据
+      // txhashWhen releasing changes, retrieve data again
       //console.log('new: %s, old: %s', val, oldVal);
       this.getTxInfoByHash(this.txhash);
     }
@@ -761,7 +759,7 @@ export default {
       border-collapse: collapse;
       text-align: center;
       margin: auto;
-      width: 100%; //固定表的宽度
+      width: 100%; //Fixed Table Width
       background: #FFFFFF;
     }
 
@@ -931,11 +929,18 @@ export default {
     border-radius: 12px;
     border: 1px solid #EBEBF4;
     overflow: hidden;
+    .direction-icon {
+      padding: 15px 20px 0 0;
+      img {
+        width: 26px;
+        height: 16px;
+      }
+    }
 
     @media(max-width: 1000px) {
       flex-direction: column;
 
-      .el-table_2_column_6 {
+      .direction-icon {
         display: none;
       }
     }

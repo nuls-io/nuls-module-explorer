@@ -6,12 +6,10 @@
 
       <el-submenu index="blockChain">
         <template slot="title">{{ $t('nav.blockChain') }}</template>
-        <el-menu-item-group>
-          <el-menu-item index="contracts" class="font14 capitalize">{{ $t('nav.contracts') }}</el-menu-item>
-          <el-menu-item index="block" class="font14 capitalize">{{ $t('nav.block') }}</el-menu-item>
-          <el-menu-item index="address" class="font14 capitalize">{{ $t('nav.address') }}</el-menu-item>
-          <el-menu-item index="transaction" class="font14 capitalize">{{ $t('nav.transaction') }}</el-menu-item>
-        </el-menu-item-group>
+        <el-menu-item index="contracts" class="font14 capitalize">{{ $t('nav.contracts') }}</el-menu-item>
+        <el-menu-item index="block" class="font14 capitalize">{{ $t('nav.block') }}</el-menu-item>
+        <el-menu-item index="address" class="font14 capitalize">{{ $t('nav.address') }}</el-menu-item>
+        <el-menu-item index="transaction" class="font14 capitalize">{{ $t('nav.transaction') }}</el-menu-item>
       </el-submenu>
 
 
@@ -38,7 +36,7 @@ export default {
   data() {
     return {
       mode: 'horizontal',
-      //语言
+      //language
       lang: 'en',
     };
   },
@@ -46,7 +44,7 @@ export default {
     //numberGrow,
   },
   created() {
-    let lang = navigator.language || navigator.userLanguage;//常规浏览器语言和IE浏览器
+    let lang = navigator.language || navigator.userLanguage;//Regular browser language andIEbrowser
     if (sessionStorage.hasOwnProperty('lang')) {
       this.lang = sessionStorage.getItem('lang')
     } else {
@@ -58,14 +56,11 @@ export default {
     }
   },
   mounted() {
+    this.changeNavMode()
     window.onresize = () => {
       return (() => {
         this.$nextTick(() => {
-          if (document.documentElement.clientWidth <= 1000) {
-            this.mode = "vertical"
-          } else {
-            this.mode = "horizontal"
-          }
+          this.changeNavMode()
         })
       })()
     }
@@ -83,8 +78,16 @@ export default {
     // }, 500)
   },
   methods: {
+    changeNavMode() {
+      if (document.documentElement.clientWidth <= 1000) {
+        this.mode = "vertical"
+      } else {
+        this.$emit('hideMobile')
+        this.mode = "horizontal"
+      }
+    },
     /**
-     * 语言切换
+     * Language switching
      * @param e
      * @param Boolean
      */
@@ -97,7 +100,7 @@ export default {
       this.$i18n.locale = this.lang;
     },
     /**
-     * 导航跳转
+     * Navigation jump
      * @param key
      **/
     handleSelect(key, path) {
@@ -118,14 +121,14 @@ export default {
     },
 
     /**
-     * 导航栏的选中
+     * Selection of navigation bar
      **/
     activedMenu(val) {
       // if (!val) return '';
       console.log(val, '-------nav---------')
       if(val === "transactionInfo"){
         return "transaction"
-      }else if(val === "Assetsdetails" || (val && val.indexOf('token') > -1) || val === 'holderAddress' || (val && val.indexOf('tokenInfo') > -1) || (val && val.indexOf('Assets') > -1)){
+      }else if(val && val.indexOf('token') > -1 || (val && val.indexOf('tokenInfo') > -1) || (val && val.indexOf('Assets') > -1)){
         return "Assets"
       }else if(val === 'nrc20' || val === 'nrc721' || val === 'nrc1155'){
         return "contracts"
@@ -166,24 +169,13 @@ export default {
 
   .el-menu {
     .el-menu-item {
-      padding: 0 20px;
+      padding: 0 18px;
       color: #000000;
       font-size: 14px;
       line-height: 68px;
       font-weight: normal;
-    }
-
-    .el-submenu {
-      @media screen and (max-width: 1000px) {
-        &:focus {
-          border-color: transparent !important;
-        }
-
-        .el-submenu__title {
-          font-size: 14px;
-          line-height: 60px;
-          color: #000000;
-        }
+      &:hover {
+        color: #00DB82;
       }
     }
   }
@@ -215,6 +207,27 @@ export default {
     width: 100%;
     float: none;
 
+
+    .el-menu {
+      .el-menu-item {
+        height: 56px;
+        line-height: 56px;
+      }
+
+      .el-submenu {
+        @media screen and (max-width: 1000px) {
+          &:focus {
+            border-color: transparent !important;
+          }
+
+          .el-submenu__title {
+            font-size: 14px;
+            line-height: 60px;
+            color: #000000;
+          }
+        }
+      }
+    }
     .el-menu--horizontal {
       float: none;
       width: 160px;
@@ -235,4 +248,17 @@ export default {
   .languagess {
     display: none;
   }
-}</style>
+}
+.el-menu--horizontal {
+  .el-menu {
+    .el-menu-item {
+      &:hover {
+        color: #00DB82;
+      }
+    }
+  }
+}
+.el-menu-item-group__title {
+  padding-top: 0
+}
+</style>

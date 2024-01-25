@@ -62,14 +62,14 @@
   export default {
     data() {
       return {
-        chainInfo: {},//链信息
-        defaultAsset: {},//链信息的默认信息
+        chainInfo: {},//Chain information
+        defaultAsset: {},//Default information for chain information
         activeName: 'first',
         txData: [],
-        pageIndex: 1, //页码
-        pageSize: 10, //每页条数
-        pageTotal: 0,//总页数
-        txDataLoading: false,//分页加载
+        pageIndex: 1, //Page number
+        pageSize: 10, //Number of entries per page
+        pageTotal: 0,//PageCount
+        txDataLoading: false,//Page loading
       }
     },
     created() {
@@ -86,7 +86,7 @@
       },
 
       /**
-       * @disc: 查询平行链信息
+       * @disc: Query parallel chain information
        * @params:
        * @date: 2020-06-30 19:36
        * @author: Wave
@@ -107,7 +107,7 @@
       },
 
       /**
-       * @disc: 查询交易列表
+       * @disc: Query transaction list
        * @params:
        * @date: 2020-06-30 19:36
        * @author: Wave
@@ -133,7 +133,7 @@
       },
 
       /**
-       * @disc: 分页功能
+       * @disc: Paging function
        * @params:
        * @date: 2020-07-13 9:52
        * @author: Wave
@@ -144,7 +144,7 @@
       },
 
       /**
-       * url 连接跳转
+       * url Connection jump
        * @param name
        * @param parmes
        */

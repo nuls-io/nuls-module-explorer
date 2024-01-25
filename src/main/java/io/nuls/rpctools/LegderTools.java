@@ -14,13 +14,13 @@ import java.util.function.Function;
 /**
  * @Author: zhoulijun
  * @Time: 2019-06-12 17:31
- * @Description: 账本模块工具类
+ * @Description: Ledger module tool class
  */
 @Component
 public class LegderTools implements CallRpc {
 
     /**
-     * 获取可用余额和nonce
+     * Obtain available balance andnonce
      * Get the available balance and nonce
      */
     public AccountBalance getBalanceAndNonce(int chainId, String address, int assetChainId, int assetId) throws NulsException {

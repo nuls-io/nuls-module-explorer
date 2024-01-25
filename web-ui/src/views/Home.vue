@@ -33,7 +33,7 @@
           <li>
             <p class="font16 clicks node-title" @click="toUrl('destroyList')">{{ $t('home.home9') }}<i
                 class="el-icon-arrow-right"></i></p>
-            <h5 class="font24 click-number">{{ destroyedAddressAmount }}</h5>
+            <h5 class="font24 click-number">{{ $toThousands(destroyedAddressAmount) }}</h5>
           </li>
           <li>
             <div class="font16 node-title text-align">
@@ -124,7 +124,7 @@ import axios from 'axios'
 import { API_ROOT } from '@/config'
 import { BigNumber } from 'bignumber.js'
 import CalcBar from '@/components/CalcBar'
-import { superLong, timesDecimals, getOriginChain } from '@/api/util.js'
+import { superLong, timesDecimals } from '@/api/util.js'
 import SearchBar from '../components/SearchBar.vue'
 import moment from 'moment'
 import { mapState } from 'vuex'
@@ -144,12 +144,20 @@ export default {
         containLabel: true
       },
       series: {
-        showSymbol: false,//取消折线图上的小圆点
+        showSymbol: false,//Cancel small dots on the line chart
       },
       tooltip: {
         trigger: 'axis',
         textStyle: {
           color: '#000000'
+        },
+        formatter: params => {
+          params = params[0];
+          const value = params.seriesName === 'APR' ? params.data[1] * 100 + '%' : Number((params.data[1] / 1000).toFixed(2)) + 'k'
+          return `<div class="line-tooltip">
+            <p class="tooltip-label">${params.data[0]}</p>
+            <p class="tooltip-value">${params.seriesName}: ${value}</p>
+          </div>`
         }
       },
       xAxis: {
@@ -177,7 +185,7 @@ export default {
           width: 1,
           color: '#00E789'
         },
-        itemStyle: { //面积图颜色设置
+        itemStyle: { //Area chart color settings
           color: {
             type: 'linear',
             x: 0,
@@ -187,14 +195,14 @@ export default {
             colorStops: [
               {
                 offset: 0,
-                color: 'rgba(0, 231, 137, .5)', // 0% 处的颜色
+                color: 'rgba(0, 231, 137, .5)', // 0% Color at
               },
               {
                 offset: 1,
-                color: 'rgba(255, 255, 255, 0)' // 100% 处的颜色
+                color: 'rgba(255, 255, 255, 0)' // 100% Color at
               }
             ],
-            globalCoord: false // 缺省为 false
+            globalCoord: false // Default to false
           }
         }
       };
@@ -207,8 +215,8 @@ export default {
         width: 1,
         color: '#00E789'
       },
-      area: true, //是否展示为面积图
-      itemStyle: { //面积图颜色设置
+      area: true, //Is it displayed as an area chart
+      itemStyle: { //Area chart color settings
         color: {
           type: 'linear',
           x: 0,
@@ -218,14 +226,14 @@ export default {
           colorStops: [
             {
               offset: 0,
-              color: 'rgba(0, 231, 137, 0.5)', // 0% 处的颜色
+              color: 'rgba(0, 231, 137, 0.5)', // 0% Color at
             },
             {
               offset: 1,
-              color: 'rgba(255, 255, 255, 0)' // 100% 处的颜色
+              color: 'rgba(255, 255, 255, 0)' // 100% Color at
             }
           ],
-          globalCoord: false // 缺省为 false
+          globalCoord: false // Default to false
         }
       }
     };
@@ -235,15 +243,15 @@ export default {
       openSearchBar: false,
       moment,
       isMobile: false,
-      //搜索的内容
+      //Search content
       homeSearch: '',
-      height: this.$store.state.height,//当前高度
-      //统计信息
+      height: this.$store.state.height,//Current height
+      //statistical information
       count: {
-        nodeNumber: 0,//节点信息
-        entrustNumber: '0',//全网委托总量 consensusTotal
-        circulateNumber: '0',//总发行量
-        tradeNumber: '0',//总流通量
+        nodeNumber: 0,//Node information
+        entrustNumber: '0',//Total number of commissioned services across the entire network consensusTotal
+        circulateNumber: '0',//Total circulation
+        tradeNumber: '0',//Total flux
         blockRewardBeforeDeflation: '0',
         blockRewardAfterDeflation: '0',
         Year: '',
@@ -252,37 +260,37 @@ export default {
         Countdown_to_production_cuts: ''
       },
       countLoading: true,
-      //计算器弹框
+      //Calculator pop-up
       calcDialog: false,
-      //打包列表
+      //Packaging List
       packerList: [],
       packerListLoading: true,
-      //轮次信息
+      //Round information
       rotationIndex: '',
-      //打包节点ID
+      //Packaging nodesID
       pagekerId: 0,
-      //年化奖励率
+      //Annualized reward rate
       yearChartData: {},
       dayChartData: {},
       yearChartLoading: true,
       yearRateData: [],
       dayRateData: [],
       dayChartLoading: true,
-      homeSetInterval: null, //首页定时器
-      heightSetInterval: null, //首页高度获取定时器
+      homeSetInterval: null, //Homepage Timer
+      heightSetInterval: null, //Home page height acquisition timer
       destroyedAddressAmount: 0,
     }
   },
   created() {
     this.isMobile = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent);
     this.getNULSInfo();
-    //统计信息
+    //statistical information
     this.getYearRateData(3);
     this.get14DaysData(0);
     this.getRotationList();
-    // 获取已销毁数量
+    // Obtain the quantity that has been destroyed
     this.getAddressInfo()
-    //10秒循环一次数据
+    //10Cycle data every second
     this.homeSetInterval = setInterval(() => {
       this.getRotationList();
       this.height = this.$store.state.height;
@@ -309,7 +317,7 @@ export default {
   },
   methods: {
     /**
-     * @disc: 获销毁数量
+     * @disc: Quantity of destruction obtained
      * @date: 2023-08-16
      */
     async getAddressInfo() {
@@ -323,7 +331,7 @@ export default {
     },
 
     /**
-     * @disc: 获取节点信息从vuex里面
+     * @disc: Obtain node information fromvuexinside
      * @params:
      * @date: 2019-08-30 11:17
      * @author: Wave
@@ -355,14 +363,14 @@ export default {
     },
     countdown(targetTime) {
       if (!targetTime) return false;
-      // 目标时间
+      // Target time
       let newdate = new Date(targetTime)
       // let setINT = setInterval(() => {
-      // 当前时间
+      // current time
       let olddate = new Date()
-      // 目标时间减去当前时间
+      // Subtract the current time from the target time
       let down = newdate - olddate
-      // 当剩余时间为负数时，清楚计时器
+      // When the remaining time is negative, clear the timer
       if (down < 0) {
         // clearInterval(setINT)
       }
@@ -370,21 +378,21 @@ export default {
       // },3000)
     },
     formatSeconds(value) {
-      var secondTime = 0 //秒
-      var minuteTime = 0; // 分
-      var hourTime = 0; // 小时
-      var today = 0 //天
-      // 全部剩余多少秒
+      var secondTime = 0 //second
+      var minuteTime = 0; // branch
+      var hourTime = 0; // hour
+      var today = 0 //day
+      // How many seconds are left for all
       var seconds = Math.ceil(value / 1000)
 
       hourTime = Math.floor(seconds / 3600)
-      //天数
+      //Days
       today = Math.floor(hourTime / 24)
-      //小时
+      //hour
       hourTime = Math.floor(hourTime % 24) < 10 ? '0' + Math.floor(hourTime % 24) : Math.floor(hourTime % 24)
-      // 分
+      // branch
       minuteTime = Math.floor(seconds / 60 % 60) < 10 ? '0' + Math.floor(seconds / 60 % 60) : Math.floor(seconds / 60 % 60)
-      //秒
+      //second
       secondTime = Math.floor(seconds % 60) < 10 ? '0' + Math.floor(seconds % 60) : Math.floor(seconds % 60)
       this.count.Countdown_to_production_cuts = today + 'd:' + hourTime + 'h:' + minuteTime + 'm'
     },
@@ -395,7 +403,7 @@ export default {
       }
     },
     /**
-     *  首页全局搜索框
+     *  Global search box on homepage
      **/
     clickSearch() {
       this.$post('/', 'search', [this.homeSearch])
@@ -425,9 +433,6 @@ export default {
               // eslint-disable-next-line no-empty
             } else if (response.result.type === 'asset') {
               const list = response.result.data
-              list.map(v => {
-                v.originChain = getOriginChain(v.sourceChainId)
-              })
               this.assetsList = list
               this.openSearchBar = true
             } else {
@@ -442,14 +447,14 @@ export default {
     },
 
     /**
-     * 计算器弹框显示
+     * Calculator pop-up display
      */
     toCalc() {
       this.calcDialog = true
     },
 
     /**
-     * 获取轮次列表
+     * Get a list of rounds
      */
     getRotationList() {
       this.$post('/', 'getBestRoundInfo', [])
@@ -459,7 +464,7 @@ export default {
               this.rotationIndex = response.result.index;
               this.pagekerId = response.result.packerOrder;
               const itemList = response.result.itemList
-              if(itemList.length > 0){
+              if(itemList && itemList.length > 0){
                 for (let item of response.result.itemList) {
                   item.agentName = item.agentName ? item.agentName : superLong(item.seedAddress, 6);
                 }
@@ -476,7 +481,7 @@ export default {
     },
 
     /**
-     * 获取共识年化奖励率
+     * Obtain consensus annualized reward rate
      */
     getYearRateData(time) {
       this.$post('/', 'getAnnulizedRewardStatistical', [time])
@@ -493,7 +498,7 @@ export default {
     },
 
     /**
-     * 获取14天交易历史数据
+     * obtain14Daily trading history data
      */
     get14DaysData(time) {
       this.$post('/', 'getTxStatistical', [time])
@@ -505,7 +510,7 @@ export default {
     },
 
     /**
-     * url 连接跳转
+     * url Connection jump
      * @param name
      * @param parmes
      */
@@ -524,7 +529,7 @@ export default {
   },
   watch: {
     yearRateData: function () {
-      // yearRateData，当放生变化时，触发这个回调函数绘制图表 yearChartLoading
+      // yearRateDataWhen releasing changes, trigger this callback function to draw a chart yearChartLoading
       this.yearChartLoading = false;
       this.yearChartData = {
         columns: ['key', 'value'],
@@ -532,7 +537,7 @@ export default {
       };
     },
     dayRateData: function () {
-      // dayRateData，当放生变化时，触发这个回调函数绘制图表 dayChartLoading
+      // dayRateDataWhen releasing changes, trigger this callback function to draw a chart dayChartLoading
       this.dayChartLoading = false;
       this.dayChartData = {
         columns: ['key', 'value'],

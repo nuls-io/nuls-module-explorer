@@ -31,7 +31,7 @@
           height: 280,
         });
         this.chartName.source(data);
-        this.chartName.line().position('year*value').color('#7db46d'); // 绘制曲线图
+        this.chartName.line().position('year*value').color('#7db46d'); // Draw a curve chart
         this.chartName.point().position('year*value').color('#7db46d').size(3).shape('circle').style({lineWidth: 1});
         this.chartName.render();
       }

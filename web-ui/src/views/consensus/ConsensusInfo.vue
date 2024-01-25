@@ -31,7 +31,7 @@
           <p>{{$t('public.createAddress')}}
             <span>{{nodeInfo.agentAddress}}
               <i class="iconfont icon-copy_icon click" :title="$t('public.copy')"
-                 @click="copy(nodeInfo.agentAddress)"></i>
+                 @click="$copy(nodeInfo.agentAddress)"></i>
             </span>
           </p>
         </li>
@@ -232,7 +232,7 @@
 
 <script>
   import moment from 'moment'
-  import {getLocalTime, superLong, copys, timeDifference, divisionDecimals} from '@/api/util.js'
+  import {getLocalTime, superLong, timeDifference, divisionDecimals} from '@/api/util.js'
 
   export default {
     data() {
@@ -240,22 +240,22 @@
         symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//symbol
         decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
         activeNames: this.$route.query.tabName || 'first',
-        //节点信息
+        //Node information
         nodeInfo: [],
         nodeInfoLoading: true,
         times: {days: 0, hours: 0, minutes: 0},
-        //出块列表
+        //Block List
         blockList: [],
-        //出块列表加载动画
+        //Load animation from block list
         blockListLoading: true,
-        //惩罚列表
+        //Punishment List
         punishList: [],
-        //委托列表
+        //Delegation List
         consensusDeposit: [],
-        //委托历史列表
+        //Entrustment History List
         consensusCancelDeposit: [],
 
-        //历史委托类型
+        //Historical commission type
         depositTypeo: [
           {value: 2, label: '0'},
           {value: 0, label: '1'},
@@ -286,7 +286,7 @@
     methods: {
 
       /**
-       * 获取节点详情
+       * Get node details
        * @param hash
        */
       getNodeInfo(hash) {
@@ -313,16 +313,9 @@
         })
       },
 
-      /**
-       * 复制方法
-       * @param sting
-       **/
-      copy(sting) {
-        copys(sting);
-      },
 
       /**
-       * 获取块列表
+       * Get block list
        */
       getBlockList(pager, rows, boolean, packAddress) {
         this.$post('/', 'getBlockHeaderList', [pager, rows, boolean, packAddress])
@@ -342,7 +335,7 @@
       },
 
       /**
-       * 获取块列表 分页
+       * Get block list paging
        */
       pagesBlockList() {
         this.blockListLoading = true;
@@ -350,7 +343,7 @@
       },
 
       /**
-       * 获取惩罚列表
+       * Get punishment list
        */
       getPunishList(pager, rows, type, agentAddress) {
         this.$post('/', 'getPunishList', [pager, rows, type, agentAddress])
@@ -368,14 +361,14 @@
       },
 
       /**
-       * 获取惩罚列表 分页
+       * Get punishment list paging
        */
       pagesPunishList() {
         this.getPunishList(this.pager.page, this.pager.rows, 0, this.nodeInfo.agentAddress);
       },
 
       /**
-       * 获委托列表
+       * List of Commissions
        */
       getConsensusDepositList(pager, rows, hash) {
         this.$post('/', 'getConsensusDeposit', [pager, rows, hash])
@@ -393,14 +386,14 @@
       },
 
       /**
-       * 获委托列表 分页
+       * List of Commissions paging
        */
       pagesConsensusDepositList() {
         this.getConsensusDepositList(this.pager.page, this.pager.rows, this.nodeInfo.txHash)
       },
 
       /**
-       * 获取委托历史列表
+       * Obtain the delegation history list
        */
       getConsensusCancelDepositList(pager, rows, hash, type) {
         this.$post('/', 'getAllConsensusDeposit', [pager, rows, hash, type])
@@ -421,14 +414,14 @@
       },
 
       /**
-       * 获取委托历史列表 分页
+       * Obtain the delegation history list paging
        */
       pagesConsensusCancelDepositList() {
         this.getConsensusCancelDepositList(this.pager.page, this.pager.rows, this.nodeInfo.txHash, this.depositValue)
       },
 
       /**
-       * 历史委托类型选择
+       * Selection of historical commission types
        **/
       changeDepositTypeo(e) {
         this.depositValue = e;
@@ -436,7 +429,7 @@
       },
 
       /**
-       * 分页功能
+       * Paging function
        **/
       pagesList() {
         //this.pager={total: 0, page: 1, rows: 5,};
@@ -452,7 +445,7 @@
       },
 
       /**
-       * url 连接跳转
+       * url Connection jump
        * @param name
        * @param height
        */
@@ -474,7 +467,7 @@
       },
 
       /**
-       * tab 切换
+       * tab switch
        * @param tab
        */
       handleClicks(tab) {

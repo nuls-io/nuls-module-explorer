@@ -45,23 +45,23 @@
               scope.row.height }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="TXID" min-width="280" align="left">
+          <el-table-column label="TXID" min-width="220" align="left">
             <template slot-scope="scope">
-              <router-link tag="a" :to="{ path: '/Transactions/info', query: { hash: scope.row.hash }}" class="click">
+              <router-link tag="a" :to="{ path: '/transaction/info', query: { hash: scope.row.hash }}" class="click">
                   {{ scope.row.hashs }}
                 </router-link>
             </template>
           </el-table-column>
           <el-table-column prop="time" :label="$t('public.time')" width="180" align="left">
           </el-table-column>
-          <el-table-column :label="$t('public.type')" min-width="90" align="left">
+          <el-table-column :label="$t('public.type')" min-width="120" align="left">
             <template slot-scope="scope"><span class="capitalize">{{ $t('type.' + scope.row.type) }}</span>
             </template>
           </el-table-column>
           <el-table-column :label="$t('public.amount')" min-width="160" align="left">
             <template slot-scope="scope">
               <p class="addmoy">
-                {{ scope.row.value }} {{ scope.row.symbol }}
+                {{ $toThousands(scope.row.value) }} {{ scope.row.symbol }}
               </p>
             </template>
           </el-table-column>
@@ -92,12 +92,19 @@ export default {
     this.colors = ['#7db46d', '#7db46d', '#7db46d', '#546570', '#c4ccd3'];
     this.chartExtend = {
       series: {
-        showSymbol: false,//取消折线图上的小圆点
+        showSymbol: false,//Cancel small dots on the line chart
       },
       tooltip: {
         trigger: 'axis',
         textStyle: {
           color: '#000000'
+        },
+        formatter: params => {
+          params = params[0];
+          return `<div class="line-tooltip">
+            <p class="tooltip-label">${params.data[0]}</p>
+            <p class="tooltip-value">TXS: ${this.$toThousands(params.data[1])}</p>
+          </div>`
         }
       },
       xAxis: {
@@ -122,8 +129,8 @@ export default {
         width: 1,
         color: '#00E789'
       },
-      area: true, //是否展示为面积图
-      itemStyle: { //面积图颜色设置
+      area: true, //Is it displayed as an area chart
+      itemStyle: { //Area chart color settings
         color: {
           type: 'linear',
           x: 0,
@@ -133,44 +140,44 @@ export default {
           colorStops: [
             {
               offset: 0,
-              color: 'rgba(0, 231, 137, 0.5)', // 0% 处的颜色
+              color: 'rgba(0, 231, 137, 0.5)', // 0% Color at
             },
             {
               offset: 1,
-              color: 'rgba(255, 255, 255, 0)' // 100% 处的颜色
+              color: 'rgba(255, 255, 255, 0)' // 100% Color at
             }
           ],
-          globalCoord: false // 缺省为 false
+          globalCoord: false // Default to false
         }
       }
     };
     return {
 
-      //统计图数据
+      //Statistical chart data
       timeChartData: {
         columns: [],
         rows: []
       },
       timeRateDataLoading: true,
       timeRate: 1,
-      //交易类型
+      //Transaction type
       typeRegion: 0,
-      //隐藏滑块
+      //Hide slider
       hideSwitch: true,
-      //交易列表
+      //Transaction List
       txList: [],
-      //交易列表加载动画
+      //Transaction list loading animation
       txListLoading: true,
 
-      nerveTxList: [],//nerve 交易列表
-      //交易列表总数
+      nerveTxList: [],//nerve Transaction List
+      //Total number of transaction lists
       txListTotal: 0,
-      //分页信息
+      //Paging Information
       pagerTotal: 0,
       pagerIndex: 1,
       pagerRows: 20,
       isCtrl: false,
-      symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//默认symbol
+      symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//defaultsymbol
       decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
       activeName: 'first',
     }
@@ -182,7 +189,7 @@ export default {
     this.getYearRateData(this.timeRate);
     this.getTransactionsTotal();
     this.tabNameList();
-    //此次打开，首页的搜索，和导航上的搜索就会出现输入，粘贴，删除失效的问题
+    //When opened this time, the search on the homepage and navigation will encounter invalid input, paste, and delete issues
     // this.keyDown() 
   },
   mounted() {
@@ -198,34 +205,34 @@ export default {
   },
   methods: {
     keyDown() {
-        // 键盘按下事件
+        // Keyboard press event
         document.onkeydown = (e) => {
-          // 取消默认事件
+          // Cancel default events
           e.preventDefault();   
-          //事件对象兼容
+          //Event object compatibility
           let e1 = e || event || window.event || arguments.callee.caller.arguments[0]
           //  ctrl：17  
           switch (e1.keyCode) {
             case 17:
-              this.isCtrl= true;  // 如果ctrl按下就让他按下的标识符变为true
+              this.isCtrl= true;  // IfctrlPress to change the identifier he pressed totrue
               break;
           }
         }
-        // 键盘抬起事件
+        // Keyboard lifting event
         document.onkeyup = (e) => {
-          // 取消默认事件
+          // Cancel default events
           e.preventDefault();
-          //事件对象兼容
+          //Event object compatibility
           let e1 = e || event || window.event || arguments.callee.caller.arguments[0]
           switch (e1.keyCode) {
             case 17: 
-              this.isCtrl = false;  // 如果ctrl抬起下就让他按下的标识符变为false
+              this.isCtrl = false;  // IfctrlLift it up and make the identifier he pressed change tofalse
               break;
           }
         }
       },
     /**
-     * 获取交易历史数据统计
+     * Obtain transaction history data statistics
      */
     getYearRateData(time) {
       this.$post('/', 'getTxStatistical', [time])
@@ -240,7 +247,7 @@ export default {
     },
 
     /**
-     * @disc: 获取最新的交易总量
+     * @disc: Get the latest total transaction volume
      * @date: 2019-09-10 14:02
      * @author: Wave
      */
@@ -255,7 +262,7 @@ export default {
     },
 
     /**
-     * 选择统计数据的周、月、年
+     * Select the week of statistical data、month、year
      **/
     changeDate(type) {
       this.timeRateDataLoading = true;
@@ -266,7 +273,7 @@ export default {
     },
 
     /**
-     * @disc: tab 切换
+     * @disc: tab switch
      * @params:
      * @date: 2020-06-28 15:11
      * @author: Wave
@@ -279,7 +286,7 @@ export default {
     },
 
     /**
-     * @disc: 根据tab名称加载数据
+     * @disc: according totabName loading data
      * @params:
      * @date: 2020-07-01 10:54
      * @author: Wave
@@ -293,7 +300,7 @@ export default {
     },
 
     /**
-     * 获交易列表
+     * Obtain transaction list
      */
     getTxList(page, rows, type, show) {
       this.$post('/', 'getTxList', [page, rows, type, show])
@@ -302,7 +309,7 @@ export default {
           if (response.hasOwnProperty("result")) {
             for (let item of response.result.list) {
               item.time = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-              item.hashs = superLong(item.hash, 20);
+              item.hashs = superLong(item.hash, 15);
               item.value = timesDecimals(item.value, item.decimal);
               item.fees = timesDecimals(item.fee.value, this.decimals);
             }
@@ -317,7 +324,7 @@ export default {
     },
 
     /**
-     * 分页功能
+     * Paging function
      **/
     pagesList(e) {
       this.pageIndex = e;
@@ -326,7 +333,7 @@ export default {
     },
 
     /**
-     * 获取交易类型
+     * Obtain transaction type
      **/
     changeType(type) {
       this.pager = { total: 0, page: 1, rows: 7, };
@@ -335,7 +342,7 @@ export default {
     },
 
     /**
-     * 隐藏共识奖励
+     * Hide consensus rewards
      **/
     hideConsensusList() {
       this.txListLoading = true;
@@ -344,7 +351,7 @@ export default {
     },
 
     /**
-     * 查询跨链交易列表
+     * Query Cross Chain Transaction List
      */
     getCrossTxList(page, rows, type, show) {
       this.$post('/', 'getCrossTxList', [page, rows, type, show])
@@ -364,7 +371,7 @@ export default {
     },
 
     /**
-     * url 连接跳转
+     * url Connection jump
      * @param name
      * @param parmes
      */
