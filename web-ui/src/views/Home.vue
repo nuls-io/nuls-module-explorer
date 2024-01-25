@@ -124,7 +124,7 @@ import axios from 'axios'
 import { API_ROOT } from '@/config'
 import { BigNumber } from 'bignumber.js'
 import CalcBar from '@/components/CalcBar'
-import { superLong, timesDecimals, getOriginChain, fixNumber } from '@/api/util.js'
+import { superLong, timesDecimals } from '@/api/util.js'
 import SearchBar from '../components/SearchBar.vue'
 import moment from 'moment'
 import { mapState } from 'vuex'
@@ -433,9 +433,6 @@ export default {
               // eslint-disable-next-line no-empty
             } else if (response.result.type === 'asset') {
               const list = response.result.data
-              list.map(v => {
-                v.originChain = getOriginChain(v.sourceChainId)
-              })
               this.assetsList = list
               this.openSearchBar = true
             } else {

@@ -47,7 +47,6 @@ import axios from 'axios'
 import logo from '@/assets/img/logo.svg'
 import MenuBar from '@/components/MenuBar';
 import { RUN_DEV, API_ROOT } from '@/config'
-import { getOriginChain } from '@/api/util.js'
 import SearchBar from './SearchBar.vue'
 
 export default {
@@ -169,9 +168,6 @@ export default {
               })
             } else if (response.result.type === 'asset') {
               const list = response.result.data
-              list.map(v => {
-                v.originChain = getOriginChain(v.sourceChainId)
-              })
               this.assetsList = list
               this.openSearchBar = true
             } else {

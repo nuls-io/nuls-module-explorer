@@ -58,7 +58,6 @@ import Holders from "./components/Holders.vue";
 import Trading from "./components/Trading";
 import SymbolIcon from "@/components/SymbolIcon.vue";
 import AddressTxInfo from './components/AddressTxInfo';
-import { _networkInfo } from "@/api/heterogeneousChainConfig";
 import {
   divisionDecimals,
   toThousands,
@@ -140,22 +139,28 @@ export default {
         );
         info.inAmount = divisionDecimals(info.inAmount, info.decimals);
         info.outAmount = divisionDecimals(info.outAmount, info.decimals);
-        const origin = Object.values(_networkInfo).find(
-          (v) => v.sourceChainId === info.sourceChainId
-        );
-        if (origin) {
-          info.originNetwork = origin.name;
-          info.originNetworkLogo = origin.logo;
-          console.log(info, origin, 33)
-          info.contractUrl = this.calContractUrl(info.contract, origin.origin, info.sourceChainId)
-        }
+        info.contractUrl = this.calContractUrl(info)
         info.community = info.community ? JSON.parse(info.community) || {} : "";
         console.log(info, "33");
 
         this.assetInfo = info;
       }
     },
-    calContractUrl(contract, origin, sourceChainId) {
+    calContractUrl(info) {
+      if (!info) return '';
+      const { contract, sourceChainId, sourceChainExplorerUrl } = info;
+      if (!contract || !sourceChainExplorerUrl) {
+        return ''
+      }
+      const origin = sourceChainExplorerUrl.endsWith('/') ? sourceChainExplorerUrl : sourceChainExplorerUrl + '/'
+      if (sourceChainId === -1 || sourceChainId === -2) {
+         // NULS
+        return  `${origin}token/info?contractAddress=${contract}`
+      } else {
+        return `${origin}address/${contract}`
+      }
+    },
+    calContractUrl1(contract, origin, sourceChainId) {
       if (!contract) {
         return ''
       }

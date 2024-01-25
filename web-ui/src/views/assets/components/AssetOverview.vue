@@ -53,9 +53,9 @@
 
               <img
                 class="img1"
-                :src="info.originNetworkLogo"
+                :src="info.sourceChainLogo"
                 alt=""
-                v-if="info.originNetworkLogo"
+                v-if="info.sourceChainLogo"
               />
               <img class="img1" src="../img/errorimg.png" alt="" v-else>
               <a v-if="info.contract" class="click" target="_blank" :href="info.contractUrl">{{ superLong(info.contract, 5) }}</a>

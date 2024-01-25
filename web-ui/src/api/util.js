@@ -2,7 +2,6 @@ import { BigNumber } from 'bignumber.js'
 import copy from 'copy-to-clipboard'
 import { RUN_DEV, IS_BETA } from '../config'
 import axios from 'axios';
-import { _networkInfo } from '@/api/heterogeneousChainConfig';
 import i18n from '../i18n'
 import { Message } from 'element-ui';
 
@@ -249,22 +248,6 @@ export function getArgs(parameterList) {
 }
 
 export const isBeta = IS_BETA
-/**
- * @param heterogeneousChainId
- * @param assetChainId
- */
-export function getOriginChain(heterogeneousChainId, assetChainId) {
-  const chainsInfo = Object.values(_networkInfo);
-  let chainName = '';
-  if (heterogeneousChainId !== 0) {
-    chainName = chainsInfo.find(v => v.sourceChainId === heterogeneousChainId)?.name;
-  } else {
-    if (!assetChainId) return 'NULS';
-    const NerveChainId = isBeta ? 5 : 9;
-    chainName = NerveChainId === assetChainId ? 'NERVE' : 'NULS';
-  }
-  return chainName;
-}
 
 
 export function titleCase(str) {

@@ -101,7 +101,6 @@
 </template>
 
 <script>
-import { _networkInfo } from "@/api/heterogeneousChainConfig";
 import {
   divisionDecimals,
   timesDecimals,
@@ -160,13 +159,6 @@ export default {
         info.totalSupply = divisionDecimals(info.totalSupply, info.decimals);
         info.inAmount = divisionDecimals(info.inAmount, info.decimals);
         info.outAmount = divisionDecimals(info.outAmount, info.decimals);
-        const origin = Object.values(_networkInfo).find(
-          (v) => v.sourceChainId === info.sourceChainId
-        );
-        if (origin) {
-          info.originNetwork = origin.name;
-          info.originNetworkLogo = origin.logo;
-        }
         info.community = info.community ? JSON.parse(info.community) || {} : "";
         if(type === 'NerveNetwork'){
           this.DataNerveNetwork = info

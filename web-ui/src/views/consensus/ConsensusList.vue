@@ -62,12 +62,13 @@
           <li class="font12 fl">{{$t('public.alias')}}<span
                   class="fr">{{ item.agentAlias ? item.agentAlias : '-' }}</span></li>
           <li class="font12 fl">{{$t('public.proportion')}}<span class="fr">{{ item.commissionRate }}%</span></li>
-          <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ item.deposit }}<label
-                  class="fCN"> {{symbol}}</label></span></li>
-          <li class="font12 fl">{{$t('public.participants')}}<span class="fr">{{ item.depositCount }}</span></li>
-          <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{item.totalDeposit }}<label
+          <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ $toThousands(item.deposit) }}<label
                   class="fCN"> {{symbol}}</label></span></li>
           <li class="font12 fl">{{$t('public.creditValue')}}<span class="fr">{{item.creditValue}}</span></li>
+          
+          <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{$toThousands(item.totalDeposit) }}<label
+                  class="fCN"> {{symbol}}</label></span></li>
+          <li class="font12 fl">{{$t('public.participants')}}<span class="fr">{{ item.depositCount }}</span></li>
         </ul>
       </div>
     </div>
@@ -276,14 +277,15 @@
             margin: 0.5rem 0 0 0;
           }
           .el-input__inner {
-            height: 30px;
-            line-height: 30px;
+            height: 36px;
+            line-height: 36px;
+            border-radius: 8px;
             &:focus {
               border-color: @Ncolour;
             }
           }
           .el-input__icon {
-            line-height: 30px !important;
+            line-height: 36px !important;
           }
         }
         .iconfont {
