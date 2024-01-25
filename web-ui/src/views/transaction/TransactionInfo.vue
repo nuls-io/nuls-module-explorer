@@ -12,7 +12,7 @@
       <h3 class="tabs_title tabs_header capitalize">{{ $t('public.basicInfo') }}</h3>
       <ul class="ul" ref="menu">
         <li class="tabs_infos fl capitalize">
-          <p>{{ $t('public.amount') }}<span>{{ txInfo.value }}</span></p>
+          <p>{{ $t('public.amount') }}<span>{{ toThousands(txInfo.value) }}</span></p>
         </li>
         <li class="tabs_infos fl capitalize">
           <p>{{ $t('public.type') }}<span>{{ $t('type.' + txInfo.type) }}</span></p>
@@ -319,7 +319,7 @@
     <!-- Sender and receiver -->
     <div class="w1200 token_list bg-white merge">
       <el-table :empty-text="$t('assets.nodata')" :data="fromList" style="width: 100%">
-        <el-table-column min-width="15"></el-table-column>
+        <el-table-column width="30"></el-table-column>
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address" v-if="scope.row.address">
@@ -345,13 +345,12 @@
         <el-table-column prop="symbol" :label="$t('public.symbol')" min-width="100"></el-table-column>
 
       </el-table>
-      <el-table :empty-text="$t('assets.nodata')" :data="toList" style="width: 100%">
-        <el-table-column>
-          <template slot="header" slot-scope="scope">
-            <img src="./img/ssdr145.png" alt="">
-          </template>
-        </el-table-column>
-        <el-table-column prop="address" :label="$t('public.output')" min-width="160">
+      <div class="direction-icon">
+        <img src="./img/ssdr145.png" alt="">
+      </div>
+      <el-table :empty-text="$t('assets.nodata')" :data="toList">
+        <el-table-column width="30"></el-table-column>
+        <el-table-column class-name="output-address" :label="$t('public.output')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
               <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address)
@@ -930,11 +929,18 @@ export default {
     border-radius: 12px;
     border: 1px solid #EBEBF4;
     overflow: hidden;
+    .direction-icon {
+      padding: 15px 20px 0 0;
+      img {
+        width: 26px;
+        height: 16px;
+      }
+    }
 
     @media(max-width: 1000px) {
       flex-direction: column;
 
-      .el-table_2_column_6 {
+      .direction-icon {
         display: none;
       }
     }
