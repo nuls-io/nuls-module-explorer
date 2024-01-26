@@ -35,10 +35,15 @@
 export default {
   data() {
     return {
-      mode: 'horizontal',
       //language
       lang: 'en',
     };
+  },
+  props: {
+    mode: {
+      type: String,
+      default: 'horizontal'
+    }
   },
   components: {
     //numberGrow,
@@ -58,11 +63,7 @@ export default {
   mounted() {
     this.changeNavMode()
     window.onresize = () => {
-      return (() => {
-        this.$nextTick(() => {
-          this.changeNavMode()
-        })
-      })()
+      this.changeNavMode()
     }
 
     this.selectLanguage(this.lang, false);
@@ -73,17 +74,13 @@ export default {
         query: { address: parmes }
       })
     }
-    // setInterval(() => {
-    //   this.mode = /(iPhone|iOS|Android|Windows Phone)/i.test(navigator.userAgent) ? 'vertical' : 'horizontal';
-    // }, 500)
   },
   methods: {
     changeNavMode() {
       if (document.documentElement.clientWidth <= 1000) {
-        this.mode = "vertical"
+        //
       } else {
         this.$emit('hideMobile')
-        this.mode = "horizontal"
       }
     },
     /**

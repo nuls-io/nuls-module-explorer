@@ -52,7 +52,7 @@
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.bond')}}<span>{{nodeInfo.deposit}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+          <p>{{$t('public.bond')}}<span>{{$toThousands(nodeInfo.deposit)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
           </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('consensusInfo.consensusInfo3')}}<span>{{nodeInfo.version}}</span></p></li>
@@ -67,7 +67,7 @@
               </el-tooltip>
             </label>
             <span>
-              {{nodeInfo.agentReward}}
+              {{$toThousands(nodeInfo.agentReward)}}
               <span class="fCN">&nbsp;{{symbol}}</span>
             </span>
           </p>
@@ -76,14 +76,14 @@
         <li class="tabs_infos fl">
           <p>
             {{$t('consensusInfo.consensusInfo16')}}
-            <span>{{nodeInfo.commissionReward}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+            <span>{{$toThousands(nodeInfo.commissionReward)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
           </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('public.createTime')}}<span>{{nodeInfo.time}}</span></p></li>
         <li class="tabs_infos fl">
           <p>
             {{$t('public.allEntrust')}}
-            <span>{{nodeInfo.totalDeposit}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+            <span>{{$toThousands(nodeInfo.totalDeposit)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
           </p>
         </li>
       </ul>
@@ -160,7 +160,7 @@
               <el-table-column prop="createTime" :label="$t('consensusInfo.consensusInfo12')" width="220"
                                align="left"></el-table-column>
               <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="220" align="left">
-                <template slot-scope="scope">{{ scope.row.amount }}</template>
+                <template slot-scope="scope">{{ $toThousands(scope.row.amount) }}</template>
               </el-table-column>
             </el-table>
             <div class="paging">
@@ -207,7 +207,7 @@
                 <template slot-scope="scope">{{ scope.row.type === 0 ? $t('public.join'):$t('public.quit') }}</template>
               </el-table-column>
               <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="140" align="left">
-                <template slot-scope="scope">{{ scope.row.amount}}</template>
+                <template slot-scope="scope">{{ $toThousands(scope.row.amount)}}</template>
               </el-table-column>
               <el-table-column :label="$t('public.fee')+ '('+symbol+')'" width="110" align="left">
                 <template slot-scope="scope">{{ scope.row.fee}}</template>

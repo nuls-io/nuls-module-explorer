@@ -523,7 +523,7 @@ const en = {
     "assetInfo30": "Prev",
     "assetInfo31": "Next",
     "assetInfo32": "Percentage",
-    "nodata": 'No data',
+    "nodata": 'No Data',
     "BurnedList": "Burned Address List",
     "Address": 'Address',
     "Quantity": "Quantity（NULS）",

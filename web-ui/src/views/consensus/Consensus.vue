@@ -113,7 +113,7 @@ export default {
           },
           formatter: params => {
             params = params[0];
-            console.log(params, 333)
+            // console.log(params, 333)
             const value = Number(params.data[1].toFixed(2))
             return `<div class="line-tooltip">
               <p class="tooltip-label">${params.data[0]}</p>
@@ -309,7 +309,7 @@ export default {
             }
             this.roundList = response.result.list;
             this.pager.total = response.result.totalCount;
-            console.log(this.pager, 333)
+            // console.log(this.pager, 333)
             this.roundListLoading = false;
           }
         }).catch((error) => {

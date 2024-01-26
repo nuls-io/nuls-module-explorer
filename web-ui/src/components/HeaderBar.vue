@@ -5,7 +5,7 @@
         <img class="logo click" :src=logoSvg @click="toHome">
       </div>
       <div class="menu fl">
-        <MenuBar></MenuBar>
+        <MenuBar mode="horizontal"></MenuBar>
       </div>
 
       <div class="header_language fl">
@@ -31,7 +31,7 @@
     <el-collapse-transition>
       <div class="mobile_header fr" v-show="showMobile">
         <div class="mobile_menu">
-          <MenuBar @hideMobile="showMobile=false"></MenuBar>
+          <MenuBar @hideMobile="showMobile=false" mode="vertical"></MenuBar>
           <div class="cb"></div>
           <!-- <div class="language font14 fr" @click="selectLanguage(lang, true)">{{ lang === 'en' ? 'Zh' : 'En' }}</div> -->
         </div>
