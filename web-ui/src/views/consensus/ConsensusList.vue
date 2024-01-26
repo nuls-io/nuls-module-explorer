@@ -51,26 +51,33 @@
     </div>
 
     <div v-show="viewList" class="card-info">
-      <div class="card fl click" @click="toUrl('ConsensusInfo',item.txHash)" v-for="item in searchData"
+      <template v-if="searchData.length">
+        <div class="card fl click" @click="toUrl('ConsensusInfo',item.txHash)" v-for="item in searchData"
            :key="item.agentId">
-        <h3 class="tabs_title tabs_infos" :class="item.agentAlias ? '' : 'uppercase'">
-          {{ item.agentAlias ? item.agentAlias : item.agentId }}
-          <i class="iconfont fr font18"
-             :class="item.status.toString() !=='0'? 'icon-consensus_icon': 'icon-wait_red_icon'"></i>
-        </h3>
-        <ul>
-          <li class="font12 fl">{{$t('public.alias')}}<span
-                  class="fr">{{ item.agentAlias ? item.agentAlias : '-' }}</span></li>
-          <li class="font12 fl">{{$t('public.proportion')}}<span class="fr">{{ item.commissionRate }}%</span></li>
-          <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ $toThousands(item.deposit) }}<label
-                  class="fCN"> {{symbol}}</label></span></li>
-          <li class="font12 fl">{{$t('public.creditValue')}}<span class="fr">{{item.creditValue}}</span></li>
-          
-          <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{$toThousands(item.totalDeposit) }}<label
-                  class="fCN"> {{symbol}}</label></span></li>
-          <li class="font12 fl">{{$t('public.participants')}}<span class="fr">{{ item.depositCount }}</span></li>
-        </ul>
-      </div>
+          <h3 class="tabs_title tabs_infos" :class="item.agentAlias ? '' : 'uppercase'">
+            {{ item.agentAlias ? item.agentAlias : item.agentId }}
+            <i class="iconfont fr font18"
+              :class="item.status.toString() !=='0'? 'icon-consensus_icon': 'icon-wait_red_icon'"></i>
+          </h3>
+          <ul>
+            <li class="font12 fl">{{$t('public.alias')}}<span
+                    class="fr">{{ item.agentAlias ? item.agentAlias : '-' }}</span></li>
+            <li class="font12 fl">{{$t('public.proportion')}}<span class="fr">{{ item.commissionRate }}%</span></li>
+            <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ $toThousands(item.deposit) }}<label
+                    class="fCN"> {{symbol}}</label></span></li>
+            <li class="font12 fl">{{$t('public.creditValue')}}<span class="fr">{{item.creditValue}}</span></li>
+            
+            <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{$toThousands(item.totalDeposit) }}<label
+                    class="fCN"> {{symbol}}</label></span></li>
+            <li class="font12 fl">{{$t('public.participants')}}<span class="fr">{{ item.depositCount }}</span></li>
+          </ul>
+        </div>
+      </template>
+      <template v-else>
+        <div class="no-data">
+          <span>{{$t('assets.nodata')}}</span>
+        </div>
+      </template>
     </div>
   </div>
 </template>
