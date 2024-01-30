@@ -63,7 +63,7 @@
         <!--join、Exit node-->
         <li class="tabs_infos fl capitalize" v-if="txInfo.type === 5 || txInfo.type === 6">
           <p>{{ $t('transactionInfo.transactionInfo4') }}
-            <span class="click uppercase" @click="toUrl('consensusInfo', txInfo.txData.txHash)">
+            <span class="click uppercase" @click="toUrl('ConsensusInfo', txInfo.txData.txHash)">
               {{ txInfo.txData.agentAlias ? txInfo.txData.agentAlias : txInfo.txData.agentId }}
             </span>
           </p>
