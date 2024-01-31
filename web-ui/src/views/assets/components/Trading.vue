@@ -113,20 +113,20 @@
         </el-table-column>
       </el-table>
 
-      <!-- <div class="page-wrap flex-end">
+      <div class="page-wrap flex-end">
         <span v-if="showPrev" @click="prev">{{
           $t("assets.assetInfo30")
         }}</span>
         <span v-if="showNext" @click="next">{{
           $t("assets.assetInfo31")
         }}</span>
-      </div> -->
+      </div>
     </div>
-    <div class="paging">
+    <!-- <div class="paging">
       <el-pagination class="pages" background layout="prev, pager, next, jumper" :total="pager.total"
         :current-page.sync="pager.page" :page-size="pager.rows">
       </el-pagination>
-    </div>
+    </div> -->
   </div>
 </template>
   
@@ -144,82 +144,33 @@ export default {
   },
   data() {
     this.txTypes = [
-      { value: "0", label: "0" },
-      { value: "1", label: "1" },
-      { value: "2", label: "2" },
-      { value: "3", label: "3" },
-      { value: "4", label: "4" },
-      { value: "5", label: "5" },
-      { value: "6", label: "6" },
-      { value: "7", label: "7" },
-      { value: "8", label: "8" },
-      { value: "9", label: "9" },
-      { value: "10", label: "10" },
-      /*
-        {value: '11', label: '11'},
-        {value: '12', label: '12'},
-        {value: '13', label: '13'},
-        {value: '14', label: '14'},
-        {value: '15', label: '15'},
-        {value: '16', label: '16'},
-        {value: '17', label: '17'},
-        {value: '18', label: '18'},
-        {value: '19', label: '19'},
-        {value: '20', label: '20'},
-        {value: '21', label: '21'},
-        {value: '22', label: '22'},
-        {value: '23', label: '23'},
-        */
-
-      { value: "24", label: "24" },
-      { value: "25", label: "25" },
-      { value: "26", label: "26" },
-      { value: "27", label: "27" },
-      { value: "28", label: "28" },
-      { value: "29", label: "29" },
-      { value: "30", label: "30" },
-      { value: "31", label: "31" },
-      { value: "32", label: "32" },
-      { value: "33", label: "33" },
-      { value: "228", label: "228" },
-      { value: "229", label: "229" },
-      { value: "230", label: "230" },
-      { value: "231", label: "231" },
-      { value: "232", label: "232" },
-      { value: "233", label: "233" },
-      { value: "40", label: "40" },
-      { value: "41", label: "41" },
-      { value: "42", label: "42" },
-      { value: "43", label: "43" }, //Attributed to cross chain transactionstab
-      { value: "44", label: "44" },
-      { value: "45", label: "45" },
-      { value: "46", label: "46" },
-      { value: "47", label: "47" },
-      { value: "48", label: "48" },
-      { value: "49", label: "49" },
-      { value: "50", label: "50" },
-      { value: "51", label: "51" },
-      { value: "52", label: "52" },
-      { value: "53", label: "53" },
-      { value: "54", label: "54" },
-      { value: "55", label: "55" },
-      { value: "56", label: "56" },
-      { value: "60", label: "60" },
-      { value: "61", label: "61" },
-      { value: "62", label: "62" },
-      { value: "63", label: "63" },
-      { value: "64", label: "64" },
-      { value: "65", label: "65" },
-      { value: "66", label: "66" },
-      { value: "67", label: "67" },
-      { value: "68", label: "68" },
-      { value: "69", label: "69" },
-      { value: "70", label: "70" },
-      { value: "71", label: "71" },
-      { value: "72", label: "72" },
-      { value: "73", label: "73" },
-      { value: "74", label: "74" },
-      { value: "75", label: "75" },
+      {value: '0', label: '0'},
+      {value: '1', label: '1'},
+      {value: '2', label: '2'},
+      {value: '3', label: '3'},
+      {value: '4', label: '4'},
+      {value: '5', label: '5'},
+      {value: '6', label: '6'},
+      {value: '7', label: '7'},
+      {value: '8', label: '8'},
+      {value: '9', label: '9'},
+      {value: '10', label: '10'},
+      {value: '11', label: '11'},
+      {value: '12', label: '12'},
+      {value: '13', label: '13'},
+      {value: '14', label: '14'},
+      {value: '15', label: '15'},
+      {value: '16', label: '16'},
+      {value: '17', label: '17'},
+      {value: '18', label: '18'},
+      {value: '19', label: '19'},
+      {value: '20', label: '20'},
+      {value: '21', label: '21'},
+      {value: '22', label: '22'},
+      {value: '23', label: '23'},
+      {value: '24', label: '24'},
+      {value: '25', label: '25'},
+      {value: '26', label: '26'}
     ];
     return {
       illustrate: true,
@@ -493,13 +444,14 @@ export default {
 
   .page-wrap {
     margin: 15px 0 10px 0;
-
+    display: flex;
+    justify-content: flex-end;
     span {
       display: inline-block;
       font-size: 14px;
       padding: 3px 15px;
       margin-right: 15px;
-      background: #2688f7;
+      background: #00DB82;
       color: #fff;
       border-radius: 4px;
       cursor: pointer;

@@ -1,5 +1,5 @@
 <template>
-  <div class="asset-tx-info">
+  <div class="address-asset-tx-info">
     <div v-loading="loading" class="assets-container">
       <el-table :data="txList">
         <el-table-column width="20" align="left"></el-table-column>
@@ -86,16 +86,10 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="paging">
-        <el-pagination
-          class="pages"
-          background
-          layout="prev, pager, next, jumper"
-          :total="pager.total"
-          :current-page.sync="pager.page"
-          :page-size="pager.rows"
-        >
-        </el-pagination>
+
+      <div class="page-wrap flex-end">
+        <span v-if="showPrev" @click="prev">{{$t('assetInfo.assetInfo30')}}</span>
+        <span v-if="showNext" @click="next">{{$t('assetInfo.assetInfo31')}}</span>
       </div>
     </div>
   </div>
@@ -127,6 +121,23 @@ export default {
         this.getTxList();
       }
     },
+  },
+  computed: {
+    showPrev() {
+      const pageIndex = this.pager.page
+      if (pageIndex === 1) {
+        return false
+      }
+      return true
+    },
+    showNext() {
+      const length = this.txList.length
+      const pageSize = this.pager.rows
+      if (length && length === pageSize) {
+        return true
+      }
+      return false
+    }
   },
   mounted() {
     if (this.assetKey) {
@@ -172,7 +183,7 @@ export default {
 </script>
 
 <style lang="less">
-.asset-tx-info {
+.address-asset-tx-info {
   .assets-container {
     width: 100%;
 
@@ -211,35 +222,6 @@ export default {
     }
   }
 
-  .paging {
-    display: flex;
-    justify-content: flex-end !important;
-
-    .pages {
-      height: initial;
-    }
-
-    .paging-select {
-      font-size: 12px;
-      color: #000000;
-      display: flex;
-      align-items: center;
-
-      .el-input__inner {
-        width: 100px;
-        margin: 0 8px;
-      }
-    }
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .paging .pages .el-pager .active {
-    background-color: #00e789 !important;
-  }
-
   .flex-start {
     display: flex;
     align-items: center;
@@ -255,77 +237,9 @@ export default {
     }
   }
 
-  .total {
-    display: flex;
-    margin: 0 24px 16px;
-
-    img {
-      margin-right: 6px;
-    }
-
-    span {
-      font-size: 14px;
-
-      &:last-child {
-        color: #8291a4;
-      }
-    }
-  }
-
-  .txType-filter {
-    height: 280px;
-    overflow-y: auto !important;
-
-    p {
-      height: 36px;
-      line-height: 36px;
-      padding: 0 15px;
-      white-space: nowrap;
-      border-bottom: 1px solid #edf1f9;
-      cursor: pointer;
-
-      &:last-child {
-        border: none;
-      }
-
-      &.active,
-      &:hover {
-        color: #608fff;
-      }
-    }
-  }
-
-  .address-filter {
-    padding: 15px !important;
-
-    .el-input {
-      margin: 10px 0;
-      width: 280px;
-
-      input {
-        height: 36px;
-        line-height: 36px;
-      }
-    }
-
-    .flex-between {
-      display: flex !important;
-
-      button {
-        width: 48%;
-        padding: 10px 20px;
-      }
-    }
-  }
-
-  .to-filter {
-    .filter-content {
-      left: auto;
-      right: 20%;
-    }
-  }
-
   .page-wrap {
+    display: flex;
+    justify-content: flex-end;
     margin: 15px 0 10px 0;
 
     span {
@@ -333,7 +247,7 @@ export default {
       font-size: 14px;
       padding: 3px 15px;
       margin-right: 15px;
-      background: #2688f7;
+      background: #00DB82;
       color: #fff;
       border-radius: 4px;
       cursor: pointer;
