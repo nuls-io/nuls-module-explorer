@@ -30,15 +30,22 @@
           </el-table-column>
           <el-table-column :label="$t('public.height')" align="left" min-width="100">
             <template slot-scope="scope">
-              <span v-if="rotation === '1' " class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">{{ scope.row.blockHeight }}</span>
+              <router-link
+                v-if="rotation === '1'"
+                class="cursor-p click"
+                tag="a" :to="computePath('blockInfo', scope.row.blockHeight)">
+                {{ scope.row.blockHeight }}
+              </router-link>
               <span v-else>
                 <span v-show="scope.row.blockHeight === 0 && scope.row.newTime - scope.row.times >= 0">
                   <i class="iconfont font20" :class="scope.row.yellow ? 'icon-huang yellow' : 'icon-huang yellow' "></i>
                 </span>
-                <span v-show="scope.row.blockHeight !== 0" class="cursor-p click"
-                      @click="toUrl('blockInfo',scope.row.blockHeight)">
+                <router-link
+                  v-show="scope.row.blockHeight !== 0"
+                  class="cursor-p click"
+                  tag="a" :to="computePath('blockInfo', scope.row.blockHeight)">
                   {{ scope.row.blockHeight === 0 ? '--': scope.row.blockHeight }}
-                </span>
+                </router-link>
               </span>
             </template>
           </el-table-column>
@@ -50,10 +57,12 @@
               <label class="cursor-p" v-show="scope.row.seedPacked ">
                 {{$t('public.seedNode')}}
               </label>
-              <span class="cursor-p click" @click="toUrl('ConsensusInfo',scope.row.agentHash)"
-                    v-show="!scope.row.seedPacked">
-                {{ scope.row.agentName}}
-              </span>
+              <router-link
+                v-show="!scope.row.seedPacked"
+                class="cursor-p click"
+                tag="a" :to="computePath('ConsensusInfo', scope.row.agentHash)">
+                {{ scope.row.agentName }}
+              </router-link>
             </template>
           </el-table-column>
           <el-table-column prop="order" :label="$t('rotationInfo.rotationInfo2')" min-width="100"
@@ -149,18 +158,9 @@
         }
       },
 
-      /**
-       * url Connection jump
-       * @param name
-       * @param parmes
-       */
-      toUrl(name, parmes) {
-        this.$router.push({
-          name: name,
-          query: name === 'blockInfo' ? {height: parmes} : {hash: parmes}
-        })
-      },
-
+      computePath(name, params) {
+        return { name, query: name === 'blockInfo' ? {height: params} : {hash: params} }
+      }
     },
   }
 </script>

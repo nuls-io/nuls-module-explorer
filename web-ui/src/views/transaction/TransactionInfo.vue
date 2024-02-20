@@ -20,7 +20,14 @@
         <li class="tabs_infos fl capitalize">
           <p>
             {{ $t('public.fee') }}
-            <span @click="toAsset(txInfo)">{{ txInfo.fees }}<span class="fCN click">&nbsp;{{ symbol }}</span></span>
+            <span>
+              {{ txInfo.fees }}
+              <router-link
+                class="click"
+                tag="a" :to="{path: `/asset/${txInfo.fee.chainId}-1`}">
+                {{ symbol }}
+              </router-link>
+            </span>
             <!--<span v-if="contractInfo.length !== 0">
             {{txInfo.fees}}
              <el-tooltip :content="contractInfo.totalFee+'('+$t('transactionInfo.transactionInfo0')+')'+'='
@@ -52,7 +59,11 @@
         <li class="tabs_infos fl capitalize">
           <p class="border-botton-line">
             {{ $t('public.height') }}
-            <span class="click" @click="toUrl('blockInfo', txInfo.height)">{{ txInfo.height }}</span>
+            <router-link
+              class="fr click"
+              tag="a" :to="computePath('blockInfo', txInfo.height)">
+              {{ txInfo.height }}
+            </router-link>
           </p>
         </li>
 
@@ -62,10 +73,13 @@
 
         <!--join、Exit node-->
         <li class="tabs_infos fl capitalize" v-if="txInfo.type === 5 || txInfo.type === 6">
-          <p>{{ $t('transactionInfo.transactionInfo4') }}
-            <span class="click uppercase" @click="toUrl('consensusInfo', txInfo.txData.txHash)">
+          <p>
+            {{ $t('transactionInfo.transactionInfo4') }}
+            <router-link
+              class="fr click uppercase"
+              tag="a" :to="computePath('ConsensusInfo', txInfo.txData.txHash)">
               {{ txInfo.txData.agentAlias ? txInfo.txData.agentAlias : txInfo.txData.agentId }}
-            </span>
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl capitalize"
@@ -78,38 +92,66 @@
 
         <!--establish、Unregister node-->
         <li class="tabs_infos fl capitalize" v-if="txInfo.type === 4 || txInfo.type === 9">
-          <p>{{ $t('public.createAddress') }}
-            <span class="click" @click="toUrl('addressInfo', txInfo.txData.agentAddress)">{{ txInfo.txData.agentAddress
-            }}</span>
+          <p>
+            {{ $t('public.createAddress') }}
+            <router-link
+              class="fr click"
+              tag="a" :to="computePath('addressInfo', txInfo.txData.agentAddress)">
+              {{ txInfo.txData.agentAddress }}
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl" v-if="txInfo.type === 4 || txInfo.type === 9">
-          <p>{{ $t('public.outAddress') }}
-            <span class="click" @click="toUrl('addressInfo', txInfo.txData.rewardAddress)">{{ txInfo.txData.rewardAddress
-            }}</span>
+          <p>
+            {{ $t('public.outAddress') }}
+            <router-link
+              class="fr click"
+              tag="a" :to="computePath('addressInfo', txInfo.txData.rewardAddress)">
+              {{ txInfo.txData.rewardAddress }}
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl xizeng" v-if="txInfo.type === 4 || txInfo.type === 9">
-          <p>{{ $t('public.packAddress') }}
-            <span class="click" @click="toUrl('addressInfo', txInfo.txData.packingAddress)">{{
-              txInfo.txData.packingAddress }}</span>
+          <p>
+            {{ $t('public.packAddress') }}
+            <router-link
+              class="fr click"
+              tag="a" :to="computePath('addressInfo', txInfo.txData.packingAddress)">
+              {{ txInfo.txData.packingAddress }}
+            </router-link>
           </p>
         </li>
 
         <!--bookings-->
         <li class="tabs_infos fl" v-if="txInfo.type === 7 || txInfo.type === 8">
           <p class="redcal">{{ $t('transactionInfo.transactionInfo5') }}
-            <span class="click" v-show="txInfo.type === 7" v-for="item in txInfo.txDataList" :key="item.address"
-              @click="toUrl('addressInfo', item.address)">{{ item.address }}</span>
-            <span class="click" v-show="txInfo.type === 8" @click="toUrl('addressInfo', txInfo.txData.address)">{{
-              txInfo.txData.address }}</span>
+            <template v-show="txInfo.type === 7">
+              <router-link
+                v-for="item in txInfo.txDataList"
+                :key="item.address"
+                class="fr click"
+                tag="a" :to="computePath('addressInfo', item.address)">
+                {{ item.address }}
+              </router-link>
+            </template>
+            <template v-show="txInfo.type === 8">
+              <router-link
+                class="fr click"
+                tag="a" :to="computePath('addressInfo', txInfo.txData.address)">
+                {{ txInfo.txData.address }}
+              </router-link>
+            </template>
           </p>
         </li>
         <li class="tabs_infos fl capitalize" v-if="txInfo.type === 7 || txInfo.type === 8">
           <p>{{ $t('consensus.consensus3') }}
             <span>
               {{ $t('transactionInfo.transactionInfo6') }}
-              <label class="click" @click="toUrl('rotationInfo', txInfo.roundIndex)">{{ txInfo.roundIndex }}</label>
+              <router-link
+                class="click"
+                tag="a" :to="computePath('rotationInfo', txInfo.roundIndex)">
+                {{ txInfo.roundIndex }}
+              </router-link>
               {{ $t('transactionInfo.transactionInfo7') }} {{ $t('public.number') }} {{ txInfo.index }}
             </span>
           </p>
@@ -123,9 +165,11 @@
           v-if="txInfo.type === 15 || txInfo.type === 16 || txInfo.type === 17 || txInfo.type === 18">
           <p class="tabs_infos-pox">
             {{ $t('public.contractAddress') }}
-            <span class="click" @click="toUrl('contractsInfo', contractInfo.contractAddress)">
+            <router-link
+              class="fr click"
+              tag="a" :to="computePath('contractsInfo', contractInfo.contractAddress)">
               {{ contractInfo.contractAddress }}
-            </span>
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl capitalize"
@@ -194,8 +238,11 @@
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
-              <p class="address-box click" @click="toUrl('addressInfo', scope.row.from)">{{ UnpAredd(scope.row.from) }}
-              </p>
+              <router-link
+                class="address-box click"
+                tag="a" :to="computePath('addressInfo', scope.row.from)">
+                {{ UnpAredd(scope.row.from) }}
+              </router-link>
               <el-tooltip :content="scope.row.from" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -223,7 +270,11 @@
         <el-table-column prop="address" :label="$t('public.output')" width="180">
           <template slot-scope="scope">
             <div class="sending-address" v-for="(item, index) in scope.row.outputs" :key="index">
-              <p class="address-box click" @click="toUrl('addressInfo', item.to)">{{ UnpAredd(item.to) }}</p>
+              <router-link
+                class="address-box click"
+                tag="a" :to="computePath('addressInfo', item.to)">
+                {{ UnpAredd(item.to) }}
+              </router-link>
               <el-tooltip :content="item.to" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -261,8 +312,11 @@
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
-              <p class="address-box click" @click="toUrl('addressInfo', scope.row.fromAddress)">{{
-                UnpAredd(scope.row.fromAddress) }}</p>
+              <router-link
+                class="address-box click"
+                tag="a" :to="computePath('addressInfo', scope.row.fromAddress)">
+                {{ UnpAredd(scope.row.fromAddress) }}
+              </router-link>
               <el-tooltip v-if="scope.row.fromAddress" :content="scope.row.fromAddress" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -284,8 +338,11 @@
         <el-table-column prop="address" :label="$t('public.output')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
-              <p class="address-box click" @click="toUrl('addressInfo', scope.row.toAddress)">{{
-                UnpAredd(scope.row.toAddress) }}</p>
+              <router-link
+                class="address-box click"
+                tag="a" :to="computePath('addressInfo', scope.row.toAddress)">
+                {{ UnpAredd(scope.row.toAddress) }}
+              </router-link>
               <el-tooltip :content="scope.row.toAddress" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -323,8 +380,11 @@
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address" v-if="scope.row.address">
-              <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address)
-              }}</p>
+              <router-link
+                class="address-box click"
+                tag="a" :to="computePath('addressInfo', scope.row.address)">
+                {{ UnpAredd(scope.row.address) }}
+              </router-link>
               <el-tooltip :content="scope.row.address" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -353,8 +413,11 @@
         <el-table-column class-name="output-address" :label="$t('public.output')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
-              <p class="address-box click" @click="toUrl('addressInfo', scope.row.address)">{{ UnpAredd(scope.row.address)
-              }}</p>
+              <router-link
+                class="address-box click"
+                tag="a" :to="computePath('addressInfo', scope.row.address)">
+                {{ UnpAredd(scope.row.address) }}
+              </router-link>
               <el-tooltip :content="scope.row.address" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -408,7 +471,11 @@
           <div>
             <ul class="inputs scroll">
               <li class="font14" v-for="item in txInfo.fromList" :key="item.key">
-                <span class="click" @click="toUrl('addressInfo', item.address)">{{ item.addresss }}</span>
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('addressInfo', item.address)">
+                  {{ item.addresss }}
+                </router-link>
                 <label class="fr">{{ item.value }}<span class="fCN"> {{ item.symbol }}</span></label>
               </li>
             </ul>
@@ -418,7 +485,11 @@
           <div>
             <ul class="outputs scroll">
               <li class="font14" v-for="item in txInfo.toList" :key="item.key">
-                <span class="click" @click="toUrl('addressInfo', item.address)">{{ item.addresss }}</span>
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('addressInfo', item.address)">
+                  {{ item.addresss }}
+                </router-link>
                 <label class="fr">
                   {{ item.value }}
                   <span class="fCN"> {{ item.symbol }}<i class="iconfont yellow font12" :title="item.isShowInfo"
@@ -521,10 +592,6 @@ export default {
       } else {
         return ''
       }
-    },
-    toAsset(txInfo) {
-      const parmse = txInfo.fee.chainId + '-1'
-      this.$router.push("/asset/" + parmse)
     },
 
     /**
@@ -655,32 +722,24 @@ export default {
       return capitalizedFirst;
     },
 
-    /**
-     * url Connection jump
-     * @param name
-     * @param params
-     */
-    toUrl(name, params) {
-      let newQuery = {};
+    computePath(name, params) {
+      let query = {};
       if (name === "ConsensusInfo") {
-        newQuery = { hash: params };
+        query = { hash: params };
       } else if (name === "rotationInfo") {
-        newQuery = { rotation: params };
+        query = { rotation: params };
       } else if (name === 'blockInfo') {
-        newQuery = { height: params }
+        query = { height: params }
       } else if (name === 'contractsInfo') {
-        newQuery = { contractAddress: params, tabName: 'first' }
+        query = { contractAddress: params, tabName: 'first' }
       } else if (name === 'transactionInfo') {
-        newQuery = { hash: params }
+        query = { hash: params }
       } else if (name === 'contractsInfo') {
-        newQuery = { contractAddress: params }
+        query = { contractAddress: params }
       } else {
-        newQuery = { address: params };
+        query = { address: params };
       }
-      this.$router.push({
-        name: name,
-        query: newQuery
-      })
+      return { name, query }
     }
   },
   watch: {

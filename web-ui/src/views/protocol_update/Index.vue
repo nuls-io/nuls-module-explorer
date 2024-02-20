@@ -124,18 +124,6 @@
               }
             })
           })
-      },
-
-      /**
-       * url Connection jump
-       * @param name
-       * @param parmes
-       */
-      toUrl(name, parmes) {
-        this.$router.push({
-          name: name,
-          query: name === 'transactionInfo' ? {hash: parmes} : {height: parmes}
-        })
       }
     },
   }

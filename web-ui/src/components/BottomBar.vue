@@ -15,14 +15,16 @@
         <!-- <a href="https://bbs.nuls.io/" target="_blank">{{$t('bottom.community')}}</a> -->
         <a href=" https://forum.nuls.io/" target="_blank">{{$t('bottom.community')}}</a>
       </li>
-      <li class="b_li font14 fl capitalize click" @click="toBugReport" v-show="symbol ==='NULS'">
-        {{$t('bottom.about')}}
+      <li class="b_li font14 fl capitalize click" v-show="symbol ==='NULS'">
+        <a href="https://github.com/nuls-io/nuls-module-explorer/issues" target="_blank">{{$t('bottom.about')}}</a>
       </li>
 <!--      <li class="b_li font14 fl capitalize click" @click="toExplorer" v-show="symbol ==='NULS'">
         {{$t('bottom.explorer1')}}
       </li>-->
-      <li class="b_li font14 fl capitalize click" @click="toUrl('protocolUpdate')" v-show="symbol ==='NULS'">
-        {{$t('protocolUpdate.upgradeProgress')}}
+      <li class="b_li font14 fl capitalize click" v-show="symbol ==='NULS'">
+        <router-link tag="a" :to="{ name: 'protocolUpdate'}">
+          {{$t('protocolUpdate.upgradeProgress')}}
+        </router-link>
       </li>
       <li class="b_li font14 fr">Copyright 2017-2024 © All rights Reserved. NULS</li>
     </ul>
@@ -109,17 +111,6 @@
               this.$store.commit('SET_NULSNUMBER', response.result);
             }
           })
-      },
-
-      /**
-       *  Problem feedback Jump
-       **/
-      toBugReport() {
-        if (RUN_DEV) {
-          window.open('https://github.com/nuls-io/nuls-module-explorer/issues');
-        } else {
-          window.open('https://github.com/nuls-io/nuls-module-explorer/issues');
-        }
       },
 
       /**

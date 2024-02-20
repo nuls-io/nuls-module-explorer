@@ -7,10 +7,13 @@
       <h3 class="tabs_title tabs_header capitalize">{{ $t('public.basicInfo') }}</h3>
       <ul class="ul">
         <li class="tabs_infos fl">
-          <p>{{ $t('public.contractAddress') }}
-            <span class="click mobile_s" @click="toUrl('contractsInfo', contractsInfo.contractAddress, 'first')">
+          <p>
+            {{ $t('public.contractAddress') }}
+            <router-link
+              class="fr click"
+              :to="computePath('contractsInfo', contractsInfo.contractAddress, 'first')">
               {{ contractsInfo.contractAddress }}
-            </span>
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -19,8 +22,12 @@
               <span>{{ $t('contractStatus.' + contractsInfo.status) }}</span>
             </label>
             <label v-else>
-              <span class="cursor-p click" v-if="contractsInfo.status === 0"
-                @click="toUrl('contractsInfo', contractsInfo.contractAddress, 'second')">{{ $t('contractStatus.' + contractsInfo.status) }}</span>
+              <router-link
+                v-if="contractsInfo.status === 0"
+                class="fr click"
+                :to="computePath('contractsInfo', contractsInfo.contractAddress, 'second')">
+                {{ $t('contractStatus.' + contractsInfo.status) }}
+              </router-link>
               <span v-if="contractsInfo.status !== 0">{{ $t('contractStatus.' + contractsInfo.status) }}</span>
             </label>
           </p>
@@ -46,8 +53,11 @@
         <li class="tabs_infos fl">
           <p class="addvorder">
             {{ $t('public.createAddress') }}
-            <span class="mobile_s click"
-              @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.creater }}</span>
+            <router-link
+              class="fr click"
+              :to="computePath('addressInfo', contractsInfo.creater)">
+              {{ contractsInfo.creater }}
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -62,19 +72,30 @@
             <el-table :data="accountTxList" style="width: 100%" class="mt_20">
               <el-table-column :label="$t('public.height')" width="100" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" @click="toUrl('blockInfo', scope.row.height)">{{ scope.row.height }}</span>
+                  <router-link
+                    class="click"
+                    :to="computePath('blockInfo', scope.row.height)">
+                    {{ scope.row.height }}
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column label="TXID" min-width="120" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" @click="toUrl('transactionInfo', scope.row.txHash)">{{
-                    superLong(scope.row.txHash) }}</span>
+                  <router-link
+                    class="click"
+                    :to="computePath('transactionInfo', scope.row.txHash)">
+                    {{ superLong(scope.row.txHash) }}
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('public.sender')" min-width="150" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" v-if="scope.row.fromAddress"
-                    @click="toUrl('addressInfo', scope.row.fromAddress)">{{ superLong(scope.row.fromAddress) }}</span>
+                  <router-link
+                    v-if="scope.row.fromAddress"
+                    class="click"
+                    :to="computePath('addressInfo', scope.row.fromAddress)">
+                    {{ superLong(scope.row.fromAddress) }}
+                  </router-link>
                   <span class="cursor-p click" v-else>--</span>
                 </template>
               </el-table-column>
@@ -82,8 +103,12 @@
                     <template>》88</template>
                   </el-table-column>-->
               <el-table-column :label="$t('public.recipient')" min-width="150" align="left">
-                <template slot-scope="scope"><span class="cursor-p click"
-                    @click="toUrl('addressInfo', scope.row.toAddress)">{{ superLong(scope.row.toAddress) }}</span>
+                <template slot-scope="scope">
+                  <router-link
+                    class="click"
+                    :to="computePath('addressInfo', scope.row.toAddress)">
+                    {{ superLong(scope.row.toAddress) }}
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column prop="time" :label="$t('public.time')" min-width="140" align="left"></el-table-column>
@@ -107,8 +132,12 @@
                 <template slot-scope="scope">{{ scope.$index + (pager.page - 1) * pager.rows + 1 }}</template>
               </el-table-column>
               <el-table-column :label="$t('public.address')" min-width="280" align="left">
-                <template slot-scope="scope"><span class="cursor-p click"
-                    @click="toUrl('addressInfo', scope.row.address)">{{ scope.row.address }}</span>
+                <template slot-scope="scope">
+                  <router-link
+                    class="click"
+                    :to="computePath('addressInfo', scope.row.address)">
+                    {{ scope.row.address }}
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column :prop="tokenType === 3 ? 'value' : 'balance'" :label="$t('tokenInfo.tokenInfo5')"
@@ -294,30 +323,21 @@ export default {
       this.changeList();
     },
 
-    /**
-     * url Connection jump
-     * @param name
-     * @param parmes
-     * @param tabName
-     */
-    toUrl(name, parmes, tabName) {
-      let newQuery = {};
+    computePath(name, params, tabName) {
+      let query = {};
       if (name === 'tokenInfo') {
-        this.contractAddress = parmes;
-        newQuery = { address: parmes }
+        this.contractAddress = params;
+        query = { address: params }
       } else if (name === 'addressInfo') {
-        newQuery = { address: parmes }
+        query = { address: params }
       } else if (name === 'contractsInfo') {
-        newQuery = { contractAddress: parmes, tabName: tabName }
+        query = { contractAddress: params, tabName: tabName }
       } else if (name === 'blockInfo') {
-        newQuery = { height: parmes }
+        query = { height: params }
       } else {
-        newQuery = { hash: parmes }
+        query = { hash: params }
       }
-      this.$router.push({
-        name: name,
-        query: newQuery
-      })
+      return { name, query }
     },
     sliceId(id) {
       id = id + ''

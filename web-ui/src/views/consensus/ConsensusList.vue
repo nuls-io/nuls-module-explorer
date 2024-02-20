@@ -23,8 +23,10 @@
         <el-table-column label="" width="30">
         </el-table-column>
         <el-table-column label="ID" min-width="150" align="left">
-          <template slot-scope="scope"><span class="cursor-p click uppercase"
-                                             @click="toUrl('ConsensusInfo',scope.row.txHash)">{{ scope.row.agentId }}</span>
+          <template slot-scope="scope">
+            <router-link class="cursor-p click uppercase" tag="a" :to="{ name: 'ConsensusInfo', query: { hash: scope.row.txHash }}">
+              {{ scope.row.agentId }}
+            </router-link>
           </template>
           <!--<template slot-scope="scope"><span class="uppercase">{{ scope.row.agentId }}</span></template>-->
         </el-table-column>
@@ -40,8 +42,10 @@
           <template slot-scope="scope">{{ scope.row.deposit }}</template>
         </el-table-column>
         <el-table-column :label="$t('public.entrust')+'('+symbol+')'" width="150" align="left">
-          <template slot-scope="scope"><span class="cursor-p click uppercase"
-                                             @click="toUrl('ConsensusInfo',scope.row.txHash,'three')">{{ scope.row.totalDeposit}}</span>
+          <template slot-scope="scope">
+            <router-link class="cursor-p click uppercase" tag="a" :to="{ name: 'ConsensusInfo', query: { hash: scope.row.txHash, tabName: 'three' }}">
+              {{ scope.row.totalDeposit }}
+            </router-link>
           </template>
           <!-- <template slot-scope="scope">{{ scope.row.totalDeposit/100000000 }}</template>-->
         </el-table-column>
@@ -51,26 +55,37 @@
     </div>
 
     <div v-show="viewList" class="card-info">
-      <div class="card fl click" @click="toUrl('ConsensusInfo',item.txHash)" v-for="item in searchData"
-           :key="item.agentId">
-        <h3 class="tabs_title tabs_infos" :class="item.agentAlias ? '' : 'uppercase'">
-          {{ item.agentAlias ? item.agentAlias : item.agentId }}
-          <i class="iconfont fr font18"
-             :class="item.status.toString() !=='0'? 'icon-consensus_icon': 'icon-wait_red_icon'"></i>
-        </h3>
-        <ul>
-          <li class="font12 fl">{{$t('public.alias')}}<span
-                  class="fr">{{ item.agentAlias ? item.agentAlias : '-' }}</span></li>
-          <li class="font12 fl">{{$t('public.proportion')}}<span class="fr">{{ item.commissionRate }}%</span></li>
-          <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ $toThousands(item.deposit) }}<label
-                  class="fCN"> {{symbol}}</label></span></li>
-          <li class="font12 fl">{{$t('public.creditValue')}}<span class="fr">{{item.creditValue}}</span></li>
-          
-          <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{$toThousands(item.totalDeposit) }}<label
-                  class="fCN"> {{symbol}}</label></span></li>
-          <li class="font12 fl">{{$t('public.participants')}}<span class="fr">{{ item.depositCount }}</span></li>
-        </ul>
-      </div>
+      <template v-if="searchData.length">
+        <router-link
+          class="card fl click"
+          tag="a"
+          :to="{ name: 'ConsensusInfo', query: { hash: item.txHash }}"
+          v-for="item in searchData"
+          :key="item.agentId">
+          <h3 class="tabs_title tabs_infos" :class="item.agentAlias ? '' : 'uppercase'">
+            {{ item.agentAlias ? item.agentAlias : item.agentId }}
+            <i class="iconfont fr font18"
+              :class="item.status.toString() !=='0'? 'icon-consensus_icon': 'icon-wait_red_icon'"></i>
+          </h3>
+          <ul>
+            <li class="font12 fl">{{$t('public.alias')}}<span
+                    class="fr">{{ item.agentAlias ? item.agentAlias : '-' }}</span></li>
+            <li class="font12 fl">{{$t('public.proportion')}}<span class="fr">{{ item.commissionRate }}%</span></li>
+            <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ $toThousands(item.deposit) }}<label
+                    class="fCN"> {{symbol}}</label></span></li>
+            <li class="font12 fl">{{$t('public.creditValue')}}<span class="fr">{{item.creditValue}}</span></li>
+            
+            <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{$toThousands(item.totalDeposit) }}<label
+                    class="fCN"> {{symbol}}</label></span></li>
+            <li class="font12 fl">{{$t('public.participants')}}<span class="fr">{{ item.depositCount }}</span></li>
+          </ul>
+        </router-link>
+      </template>
+      <template v-else>
+        <div class="no-data">
+          <span>{{$t('assets.nodata')}}</span>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -161,19 +176,6 @@
           }).catch((error) => {
             this.getConsensusNodes(page, rows, type);
           console.log(error);
-        })
-      },
-
-      /**
-       * Path jump
-       * @param name
-       * @param hash
-       * @param tabName
-       */
-      toUrl(name, hash, tabName = 'first') {
-        this.$router.push({
-          name: name,
-          query: {hash: hash, tabName: tabName}
         })
       },
 

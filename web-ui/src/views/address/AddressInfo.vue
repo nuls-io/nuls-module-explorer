@@ -61,13 +61,21 @@
           <SelectBar v-model="typeRegion" @change="changeType"></SelectBar>
           <el-table :data="txList" style="width: 100%;" class="mt_20" v-loading="txListLoading">
             <el-table-column :label="$t('public.height')" width="90" align="left">
-              <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
+              <template slot-scope="scope">
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('blockInfo', scope.row.height)">
+                  {{ scope.row.height }}
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column label="TXID" min-width="250" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('transactionInfo', scope.row.txHash)">
+                  {{ scope.row.txHashs }}
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
@@ -96,23 +104,39 @@
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column prop="height" :label="$t('public.height')" width="80" align="left">
-              <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
+              <template slot-scope="scope">
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('blockInfo', scope.row.height)">
+                  {{ scope.row.height }}
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column label="TXID" width="200" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click"
-                      @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('transactionInfo', scope.row.txHash)">
+                  {{ scope.row.txHashs }}
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.sender')" width="150" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.fromAddress)">{{ scope.row.fromAddresss }}</span>
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('addressInfo', scope.row.fromAddress)">
+                  {{ scope.row.fromAddresss }}
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.recipient')" width="150" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.toAddress)">{{ scope.row.toAddresss }}</span>
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('addressInfo', scope.row.toAddress)">
+                  {{ scope.row.toAddresss }}
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
@@ -137,17 +161,21 @@
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="120" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress, scope.row.address)">
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('tokenInfo', scope.row.contractAddress)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
-                </span>
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="180" align="left">
               <template slot-scope="scope">
-                <div class="cursor-p click flex-center" @click="toUrl('contractsInfo',scope.row.contractAddress)">
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('contractsInfo', scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
-                </div>
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" width="180" align="left">
@@ -169,17 +197,21 @@
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('tokenInfo', scope.row.contractAddress)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
-                </span>
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="160" align="left">
               <template slot-scope="scope">
-                <div class="cursor-p click flex-center" @click="toUrl('contractsInfo',scope.row.contractAddress)">
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('contractsInfo', scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
-                </div>
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column label="Token ID" min-width="120" align="right">
@@ -199,17 +231,21 @@
                              align="left"></el-table-column>
             <el-table-column :label="$t('public.abbreviate')" width="160" align="left">
               <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('tokenInfo',scope.row.contractAddress)">
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('tokenInfo', scope.row.contractAddress)">
                   {{ scope.row.tokenSymbol }}
                   <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
-                </span>
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.contractAddress')" min-width="160" align="left">
               <template slot-scope="scope">
-                <div class="cursor-p click flex-center" @click="toUrl('contractsInfo',scope.row.contractAddress)">
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('contractsInfo', scope.row.contractAddress)">
                   {{ scope.row.contractAddress }}
-                </div>
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column label="Token ID" width="120" align="left">
@@ -228,8 +264,11 @@
             </el-table-column>
             <el-table-column :label="$t('network.network2')" min-width="120" align="center">
               <template slot-scope="scope">
-                <!-- <span class="click" @click="toUrl('ParachainsInfo',scope.row.chainId)">{{ scope.row.symbol }}</span> -->
-                <span class="click" @click="toUrl('assetHolder',scope.row)">{{ scope.row.symbol }}</span>
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('assetHolder', scope.row)">
+                  {{ scope.row.symbol }}
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column :label="$t('network.network14')" min-width="160" align="center">
@@ -638,42 +677,23 @@
         })
       },
 
-      /**
-       * url Connection jump
-       * @param name
-       * @param parmes
-       */
-      toUrl(name, parmes) {
-        let newParmes = {};
+      computePath(name, params) {
+        let query = {};
         if (name === 'addressInfo') {
-          // this.address = parmes;
-          // newParmes = {address: parmes}
-          this.$router.push({
-            name: name,
-            query: {address: parmes}
-          })
-          return;
+          query = { address: params }
         } else if (name === 'blockInfo') {
-          newParmes = {height: parmes}
+          query = {height: params}
         } else if (name === 'contractsInfo') {
-          newParmes = {contractAddress: parmes, tabName: 'first'}
+          query = {contractAddress: params, tabName: 'first'}
         } else if (name === 'tokenInfo') {
-          newParmes = {contractAddress: parmes, address: this.$route.query.address}
+          query = {contractAddress: params, address: this.$route.query.address}
         } else if (name === 'assetHolder') {
-          this.$router.push({
-            path: `/asset/${parmes.assetKey}/${parmes.address}`
-          })
-          return false
+          return { path:  `/asset/${params.assetKey}/${params.address}`}
         } else {
-          newParmes = {hash: parmes}
+          query = {hash: params}
         }
-        this.$router.push({
-          name: name,
-          query: newParmes
-        })
-
+        return { name, query }
       },
-
       /**
        * Obtain transaction type
        **/

@@ -77,22 +77,14 @@ export default {
       this.getContractList(-1, this.hideSwitch);
     },
 
-    /**
-     * url Connection jump
-     * @param name
-     * @param contractAddress
-     */
-    toUrl(name, contractAddress) {
-      let newQuery = {};
+    computePath(name, params) {
+      let query = {};
       if (name === 'contractsInfo') {
-        newQuery = {contractAddress: contractAddress, tabName: 'first'}
+        query = {contractAddress: params, tabName: 'first'}
       }else {
-        newQuery = {contractAddress: contractAddress}
+        query = {contractAddress: params}
       }
-      this.$router.push({
-        name: name,
-        query: newQuery
-      })
+      return { name, query }
     }
   }
 }

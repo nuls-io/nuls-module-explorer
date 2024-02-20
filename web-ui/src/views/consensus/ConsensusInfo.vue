@@ -36,23 +36,33 @@
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>Hash<span class="click" @click="toUrl('transactionInfo',nodeInfo.txHash)">{{nodeInfo.txHashs}} </span></p>
+          <p>Hash
+            <router-link class="fr click" tag="a" :to="computePath('transactionInfo', nodeInfo.txHash)">
+              {{nodeInfo.txHashs}} 
+            </router-link>
+          </p>
         </li>
         <li class="tabs_infos fl"><p>
           {{$t('public.alias')}}<span>{{ nodeInfo.agentAlias ? nodeInfo.agentAlias : '-' }}</span></p></li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.packAddress')}}
-            <span class="click" @click="toUrl('addressInfo',nodeInfo.packingAddress)">{{nodeInfo.packingAddress}}</span>
+          <p>
+            {{$t('public.packAddress')}}
+            <router-link class="fr click" tag="a" :to="computePath('addressInfo', nodeInfo.packingAddress)">
+              {{nodeInfo.packingAddress}} 
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('public.creditValue')}}<span>{{nodeInfo.creditValue}}</span></p></li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.outAddress')}}
-            <span class="click" @click="toUrl('addressInfo',nodeInfo.rewardAddress)">{{nodeInfo.rewardAddress}}</span>
+          <p>
+            {{$t('public.outAddress')}}
+            <router-link class="fr click" tag="a" :to="computePath('addressInfo', nodeInfo.rewardAddress)">
+              {{nodeInfo.rewardAddress}} 
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.bond')}}<span>{{nodeInfo.deposit}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+          <p>{{$t('public.bond')}}<span>{{$toThousands(nodeInfo.deposit)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
           </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('consensusInfo.consensusInfo3')}}<span>{{nodeInfo.version}}</span></p></li>
@@ -67,7 +77,7 @@
               </el-tooltip>
             </label>
             <span>
-              {{nodeInfo.agentReward}}
+              {{$toThousands(nodeInfo.agentReward)}}
               <span class="fCN">&nbsp;{{symbol}}</span>
             </span>
           </p>
@@ -76,14 +86,14 @@
         <li class="tabs_infos fl">
           <p>
             {{$t('consensusInfo.consensusInfo16')}}
-            <span>{{nodeInfo.commissionReward}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+            <span>{{$toThousands(nodeInfo.commissionReward)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
           </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('public.createTime')}}<span>{{nodeInfo.time}}</span></p></li>
         <li class="tabs_infos fl">
           <p>
             {{$t('public.allEntrust')}}
-            <span>{{nodeInfo.totalDeposit}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+            <span>{{$toThousands(nodeInfo.totalDeposit)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
           </p>
         </li>
       </ul>
@@ -96,7 +106,10 @@
               <el-table-column label="" width="30">
               </el-table-column>
               <el-table-column :label="$t('public.height')" width="100" align="left">
-                <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
+                <template slot-scope="scope">
+                  <router-link class="click" tag="a" :to="computePath('blockInfo', scope.row.height)">
+                    {{scope.row.height}} 
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column prop="createTime" :label="$t('public.time')" min-width="180"
@@ -125,8 +138,10 @@
               <el-table-column prop="blockHeight" :label="$t('public.height')" width="180"
                                align="left"></el-table-column>
               <el-table-column prop="txid" label="TXID" min-width="250" align="left">txHash
-                <template slot-scope="scope"><span class="cursor-p click"
-                                                   @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.txHashs }}</span>
+                <template slot-scope="scope">
+                  <router-link class="click" tag="a" :to="computePath('transactionInfo', scope.row.txHash)">
+                    {{scope.row.txHashs}} 
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column prop="createTime" :label="$t('public.time')" width="180" align="left"></el-table-column>
@@ -153,14 +168,16 @@
             <el-table :data="consensusDeposit" style="width: 100%">
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column :label="$t('consensusInfo.consensusInfo11')" min-width="250" align="left">
-                <template slot-scope="scope"><span class="cursor-p click"
-                                                   @click="toUrl('addressInfo',scope.row.address)">{{ scope.row.address }}</span>
+                <template slot-scope="scope">
+                  <router-link class="click" tag="a" :to="computePath('addressInfo', scope.row.address)">
+                    {{scope.row.address}} 
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column prop="createTime" :label="$t('consensusInfo.consensusInfo12')" width="220"
                                align="left"></el-table-column>
               <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="220" align="left">
-                <template slot-scope="scope">{{ scope.row.amount }}</template>
+                <template slot-scope="scope">{{ $toThousands(scope.row.amount) }}</template>
               </el-table-column>
             </el-table>
             <div class="paging">
@@ -183,23 +200,23 @@
               <el-table-column label="" width="30"></el-table-column>
               <el-table-column label="TXID" width="200" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" @click="toUrl('transactionInfo',scope.row.txHash)">
-                    {{ scope.row.agentHashs }}
-                  </span>
+                  <router-link class="click" tag="a" :to="computePath('transactionInfo', scope.row.txHash)">
+                    {{scope.row.agentHashs}} 
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('public.height')" width="100" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" @click="toUrl('blockInfo',scope.row.blockHeight)">
-                    {{ scope.row.blockHeight }}
-                  </span>
+                  <router-link class="click" tag="a" :to="computePath('blockInfo', scope.row.blockHeight)">
+                    {{scope.row.blockHeight}} 
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('public.address')" min-width="300" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" @click="toUrl('addressInfo',scope.row.address)">
-                    {{ scope.row.address }}
-                  </span>
+                  <router-link class="click" tag="a" :to="computePath('addressInfo', scope.row.address)">
+                    {{scope.row.address}} 
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column prop="createTime" :label="$t('public.time')" width="160" align="left"></el-table-column>
@@ -207,7 +224,7 @@
                 <template slot-scope="scope">{{ scope.row.type === 0 ? $t('public.join'):$t('public.quit') }}</template>
               </el-table-column>
               <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="140" align="left">
-                <template slot-scope="scope">{{ scope.row.amount}}</template>
+                <template slot-scope="scope">{{ $toThousands(scope.row.amount)}}</template>
               </el-table-column>
               <el-table-column :label="$t('public.fee')+ '('+symbol+')'" width="110" align="left">
                 <template slot-scope="scope">{{ scope.row.fee}}</template>
@@ -444,26 +461,18 @@
         }
       },
 
-      /**
-       * url Connection jump
-       * @param name
-       * @param height
-       */
-      toUrl(name, parmes) {
-        let newQuery = {};
+      computePath(name, parmes) {
+        let query = {};
         if (name === 'addressInfo') {
-          newQuery = {address: parmes}
+          query = {address: parmes}
         } else if (name === 'transactionInfo') {
-          newQuery = {hash: parmes}
+          query = {hash: parmes}
         } else if (name === 'tokenInfo') {
-          newQuery = {contractAddress: parmes}
+          query = {contractAddress: parmes}
         } else {
-          newQuery = {height: parmes}
+          query = {height: parmes}
         }
-        this.$router.push({
-          name: name,
-          query: newQuery
-        })
+        return { name, query }
       },
 
       /**
