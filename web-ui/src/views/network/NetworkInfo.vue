@@ -21,14 +21,11 @@
           <el-table :data="txData">
             <el-table-column label="TXID" min-width="330" align="center">
               <template slot-scope="scope">
-                <span class="click" @click="toUrl('transactionInfo',scope.row.txHash)">{{ scope.row.hashs }}</span>
+                <router-link class="click" :to="{ name: 'transactionInfo', query: { hash:  scope.row.txHash}}">
+                  {{ scope.row.hashs }}
+                </router-link>
               </template>
             </el-table-column>
-            <!-- <el-table-column label="TXID(Nerve)" width="330" align="center">
-               <template slot-scope="scope">
-                 <span class="click" @click="toUrl('ParachainsInfo',scope.row.hash0)">{{ scope.row.hash0 }}</span>
-               </template>
-             </el-table-column>-->
             <el-table-column prop="time" :label="$t('public.time')" width="180" align="center">
             </el-table-column>
             <el-table-column :label="$t('network.network9')" width="290" align="center">
@@ -141,18 +138,6 @@
       pageChange(e) {
         this.pageIndex = e;
         this.getCrossTxList(Number(this.$route.query.chainId), this.pageIndex, this.pageSize, 0, 0)
-      },
-
-      /**
-       * url Connection jump
-       * @param name
-       * @param parmes
-       */
-      toUrl(name, parmes) {
-        this.$router.push({
-          name: name,
-          query: name === 'transactionInfo' ? {hash: parmes} : {height: parmes}
-        })
       }
     }
   }

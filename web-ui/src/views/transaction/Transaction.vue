@@ -41,13 +41,15 @@
         <el-table :data="txList" style="width: 100%;" v-loading="txListLoading">
           <el-table-column width="10" align="left"></el-table-column>
           <el-table-column :label="$t('public.height')" width="90" align="left">
-            <template slot-scope="scope"><span class="click" @click="toUrl('blockInfo', scope.row.height)">{{
-              scope.row.height }}</span>
+            <template slot-scope="scope">
+              <router-link tag="a" :to="{ name: 'blockInfo', query: { height: scope.row.height }}" class="click">
+                {{ scope.row.height }}
+              </router-link>
             </template>
           </el-table-column>
           <el-table-column label="TXID" min-width="220" align="left">
             <template slot-scope="scope">
-              <router-link tag="a" :to="{ path: '/transaction/info', query: { hash: scope.row.hash }}" class="click">
+              <router-link tag="a" :to="{ name: 'transactionInfo', query: { hash: scope.row.hash }}" class="click">
                   {{ scope.row.hashs }}
                 </router-link>
             </template>
@@ -368,18 +370,6 @@ export default {
             this.txListLoading = false;
           }
         })
-    },
-
-    /**
-     * url Connection jump
-     * @param name
-     * @param parmes
-     */
-    toUrl(name, parmes) {
-      this.$router.push({
-        name: name,
-        query: name === 'transactionInfo' ? { hash: parmes } : { height: parmes }
-      })
     }
   },
 }

@@ -19,15 +19,14 @@
         align="left"
       >
         <template slot-scope="scope">
-          <span
-            class="cursor-p click"
-            @click="toUrl('tokenInfo', scope.row.contractAddress)"
-          >
+          <router-link
+            class="click"
+            :to="computePath('tokenInfo', scope.row.contractAddress)">
             {{ scope.row.symbol }}
-            <span v-if="scope.row.status === 3" class="gray">{{
-              $t("public.unavailable")
-            }}</span>
-          </span>
+            <span v-if="scope.row.status === 3" class="gray">
+              {{ $t("public.unavailable") }}
+            </span>
+          </router-link>
         </template>
       </el-table-column>
       <el-table-column
@@ -43,12 +42,11 @@
         align="left"
       >
         <template slot-scope="scope">
-          <span
-            class="cursor-p click"
-            @click="toUrl('tokenInfo', scope.row.contractAddress)"
-          >
+          <router-link
+            class="click"
+            :to="computePath('tokenInfo', scope.row.contractAddress)">
             {{ scope.row.contractAddress }}
-          </span>
+          </router-link>
         </template>
       </el-table-column>
       <el-table-column

@@ -20,8 +20,13 @@
         </el-table-column>
         <el-table-column :label="$t('public.address')" min-width="280">
           <template slot-scope="scope">
-            <div class="cursor-p click flex-center" @click="toUrl('addressInfo', scope.row.address, scope.row.type)">
-              {{ scope.row.address }}
+            <div class="cursor-p flex-center">
+              <router-link class="click" v-if="scope.row.type !== 2" tag="a" :to="{ name: 'addressInfo', query: { address:  scope.row.address}}">
+                {{ scope.row.address }}
+              </router-link>
+              <router-link class="click" v-else tag="a" :to="{ name: 'contractsInfo', query: { contractAddress:  scope.row.address}}">
+                {{ scope.row.address }}
+              </router-link>
               <div class="tags" v-if="scope.row.tag">
                 {{ scope.row.tag }}
               </div>
@@ -213,28 +218,7 @@ export default {
     pagesList() {
       this.addressLoading = true;
       this.getAddressList(this.pager.page, this.pager.rows);
-    },
-
-    /**
-     * url Connection jump
-     * @param name
-     * @param parmes
-     * @param type
-     */
-    toUrl(name, parmes, type) {
-      // type 1ordinary 2contract 3Multiple signatures
-      if (type !== 2) {
-        this.$router.push({
-          name: name,
-          query: { address: parmes },
-        });
-      } else {
-        this.$router.push({
-          name: "contractsInfo",
-          query: { contractAddress: parmes },
-        });
-      }
-    },
+    }
   },
 };
 </script>

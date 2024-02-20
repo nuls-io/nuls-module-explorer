@@ -17,15 +17,26 @@
           </p>
         </li>
         <li class="tabs_infos fl capitalize">
-          <p>{{$t('public.outNode')}}
-          <span class="click" @click="toUrl('ConsensusInfo',nodeInfo.agentHash)" v-show="!nodeInfo.seedPacked">
-          {{nodeInfo.agentAlias ? nodeInfo.agentAlias: nodeInfo.agentId }}
-          </span>
-          <span v-show="nodeInfo.seedPacked">{{$t('public.seedNode')}}</span>
+          <p>
+            {{$t('public.outNode')}}
+            <router-link
+              v-show="!nodeInfo.seedPacked"
+              class="fr click"
+              tag="a" :to="computePath('ConsensusInfo', nodeInfo.agentHash)">
+              {{nodeInfo.agentAlias ? nodeInfo.agentAlias: nodeInfo.agentId }}
+            </router-link>
+            <span v-show="nodeInfo.seedPacked">{{$t('public.seedNode')}}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.packAddress')}}<span class="click" @click="toUrl('addressInfo',packingAddress)">{{packingAddress}}</span></p>
+          <p>
+            {{$t('public.packAddress')}}
+            <router-link
+              class="fr click"
+              tag="a" :to="computePath('addressInfo', packingAddress)">
+              {{ packingAddress }}
+            </router-link>
+          </p>
         </li>
         <li class="tabs_infos fl capitalize"><p>{{$t('public.transactionNo')}}<span>{{nodeInfo.txCount}}</span></p></li>
         <li class="tabs_infos fl capitalize"><p>{{$t('public.size')}} <span>{{nodeInfo.size}} Bytes</span></p></li>
@@ -33,7 +44,11 @@
         <li class="tabs_infos fl capitalize">
           <p>{{$t('public.round')}}/{{$t('public.number')}}
             <span>
-              <font class="click" @click="toUrl('rotationInfo',nodeInfo.roundIndex)">{{nodeInfo.roundIndex}}</font>
+              <router-link
+                class="click"
+                tag="a" :to="computePath('rotationInfo', nodeInfo.roundIndex)">
+                {{ nodeInfo.roundIndex }}
+              </router-link>
               /{{nodeInfo.packingIndexOfRound}}</span>
           </p>
         </li>
@@ -55,7 +70,12 @@
             <el-table-column label="" width="30">
             </el-table-column>
             <el-table-column label="TXID" min-width="250" align="left">
-              <template slot-scope="scope"><span class="click" @click="toUrl('transactionInfo',scope.row.hash)">{{ scope.row.hashs }}</span>
+              <template slot-scope="scope">
+                <router-link
+                  class="click"
+                  tag="a" :to="computePath('transactionInfo', scope.row.hash)">
+                  {{ scope.row.hashs }}
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
@@ -206,24 +226,16 @@
         this.getTxListByHeight(this.pager.page, this.pager.rows, this.height, parseInt(this.typeRegion));
       },
 
-      /**
-       * url Connection jump
-       * @param name
-       * @param parmes
-       */
-      toUrl(name, parmes) {
-        let newQuery = {};
-        if(name ==='addressInfo'){
-          newQuery ={address: parmes}
-        }else if(name ==='rotationInfo'){
-          newQuery={rotation: parmes}
-        }else {
-          newQuery ={hash: parmes}
+      computePath(name, params) {
+        let query = {};
+        if(name ==='addressInfo') {
+          query ={address: params}
+        } else if(name ==='rotationInfo') {
+          query={rotation: params}
+        } else {
+          query ={hash: params}
         }
-        this.$router.push({
-          name: name,
-          query: newQuery
-        })
+        return { name, query }
       }
     },
     watch: {

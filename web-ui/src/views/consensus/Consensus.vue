@@ -322,15 +322,7 @@ export default {
      **/
     pagesList() {
       this.getRoundList(this.pager.page, this.pager.rows)
-    },
-
-    toUrl(name, parmes) {
-      this.$router.push({
-        name: name,
-        query: { rotation: parmes }
-      })
     }
-
   },
 }
 </script>

@@ -192,20 +192,6 @@ export default {
     //       console.log(error)
     //     })
     // },
-
-    /**
-     * url Connection jump
-     * @param name
-     * @param parmes
-     */
-    toUrl(name, parmes) {
-      let newParmes = { chainId: parmes };
-      this.$router.push({
-        name: name,
-        query: newParmes
-      })
-    },
-
   },
 }
 </script>
