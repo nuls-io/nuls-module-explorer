@@ -19,10 +19,10 @@
               </el-table-column>
               <el-table-column :label="$t('assets.symbol')" min-width="200">
                 <template slot-scope="scope">
-                  <div class="Token-box" @click="routLink(scope.row.id)">
+                  <router-link class="Token-box" :to="{ path: '/asset/' + scope.row.id}">
                     <SymbolIcon :icon="scope.row.iconUrl || scope.row.symbol" />
                     <span class="cur color-derl">{{ scope.row.symbol }}</span>
-                  </div>
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column label="Native Chain" min-width="160">
@@ -149,31 +149,6 @@ export default {
       this.$router.push({
         name: this.activeName
       })
-      /* if (this.activeName === "Assets") {
-        this.$router.push({
-          name: 'Assets'
-        })
-        this.getYearRateData();
-      } else if (this.activeName === "AssetsNrc20") {
-        this.$router.push({
-          name: 'AssetsNrc20'
-        })
-        params = [page, rows, 1, false];
-        this.getContractList("getContractList", params);
-      } else if (this.activeName === "AssetsNrc721") {
-        this.$router.push({
-          name: 'AssetsNrc721'
-        })
-        params = [page, rows];
-        this.getContractList("getNrc721List", params);
-      } else {
-        this.$router.push({
-          name: 'AssetsNrc1155'
-        })
-        // fourth
-        params = [page, rows];
-        this.getContractList("getNrc1155List", params);
-      } */
     },
     getContractList(method, params) {
       this.$post("/", method, params).then((response) => {
@@ -182,9 +157,6 @@ export default {
           this.tableData = response.result?.list;
         }
       });
-    },
-    routLink(id) {
-      this.$router.push('/asset/'+id)
     },
     /**
      * Paging function

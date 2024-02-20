@@ -12,8 +12,11 @@
       <ul class="ul">
         <li class="tabs_infos fl">
           <p>{{ $t('assets.Contract_address') }}
-            <span class="click mobile_s" @click="toUrl('addressInfo', contractsInfo.creater)">{{
-              contractsInfo.contractAddress }}</span>
+            <router-link
+              class="fr click mobile_s"
+              :to="computePath('addressInfo', contractsInfo.creater)">
+              {{ contractsInfo.contractAddress }}
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -24,7 +27,11 @@
         </li>
         <li class="tabs_infos fl">
           <p>{{ $t('public.passCard') }}
-            <span class="click" @click="toUrl('tokenInfo', contractsAddress)">{{ contractsInfo.tokenName || '-' }}</span>
+            <router-link
+              class="fr click"
+              :to="computePath('tokenInfo', contractsAddress)">
+              {{ contractsInfo.tokenName || '-' }}
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -53,8 +60,11 @@
         </li>
         <li class="tabs_infos fl">
           <p>{{ $t('public.createAddress') }}
-            <span class="click mobile_s" @click="toUrl('addressInfo', contractsInfo.creater)">{{ contractsInfo.creater
-            }}</span>
+            <router-link
+              class="fr click mobile_s"
+              :to="computePath('addressInfo', contractsInfo.creater)">
+              {{ contractsInfo.creater }}
+            </router-link>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -72,8 +82,11 @@
             <el-table :data="contractsTxList" style="width: 100%;margin-top: 14px">
               <el-table-column prop="height" :label="$t('public.height')" width="100" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" @click="toUrl('blockInfo', scope.row.blockHeight)">{{ scope.row.blockHeight
-                  }}</span>
+                  <router-link
+                    class="click"
+                    :to="computePath('blockInfo', scope.row.blockHeight)">
+                    {{ scope.row.blockHeight }}
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('public.contractMethod')" width="150" align="left">
@@ -83,8 +96,11 @@
               </el-table-column>
               <el-table-column label="TXID" min-width="280" align="left">
                 <template slot-scope="scope">
-                  <span class="cursor-p click" @click="toUrl('transactionInfo', scope.row.txHash)">{{ scope.row.txHashs
-                  }}</span>
+                  <router-link
+                    class="click"
+                    :to="computePath('transactionInfo', scope.row.txHash)">
+                    {{ scope.row.txHashs }}
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column prop="time" :label="$t('public.time')" width="180" align="left"></el-table-column>
@@ -315,28 +331,19 @@ export default {
       //console.log(tab, event);
     },
 
-    /**
-     * url Connection jump
-     * @param name
-     * @param parmes
-     */
-    toUrl(name, parmes) {
-      let newQuery = {};
+    computePath(name, params) {
+      let query = {};
       if (name === 'addressInfo') {
-        newQuery = { address: parmes }
+        query = { address: params }
       } else if (name === 'transactionInfo') {
-        newQuery = { hash: parmes }
+        query = { hash: params }
       } else if (name === 'tokenInfo') {
-        newQuery = { contractAddress: parmes ,state: true}
+        query = { contractAddress: params ,state: true}
       } else {
-        newQuery = { height: parmes }
+        query = { height: params }
       }
-      this.$router.push({
-        name: name,
-        query: newQuery
-      })
-    },
-
+      return { name, query }
+    }
   },
 }
 </script>

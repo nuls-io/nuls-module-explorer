@@ -24,15 +24,22 @@
           </li>
           <li>
             <p class="font16 node-title">{{ $t('home.home2') }}</p>
-            <h5 class="font24 clicks click-number" @click="toUrl('Consensus')">{{ count.entrustNumber }}K</h5>
+            <h5 class="font24 clicks click-number">
+              <router-link :to="{ name: 'Consensus'}">
+                {{ count.entrustNumber }}K
+              </router-link>
+            </h5>
           </li>
           <li>
             <p class="font16 node-title">{{ $t('home.home4') }}</p>
             <h5 class="font24 click-number">{{ count.tradeNumber }}K</h5>
           </li>
           <li>
-            <p class="font16 clicks node-title" @click="toUrl('destroyList')">{{ $t('home.home9') }}<i
-                class="el-icon-arrow-right"></i></p>
+            <p class="font16 clicks node-title">
+              <router-link :to="{ name: 'destroyList'}">
+                {{ $t('home.home9') }}<i class="el-icon-arrow-right"></i>
+              </router-link>
+            </p>
             <h5 class="font24 click-number">{{ $toThousands(destroyedAddressAmount) }}</h5>
           </li>
           <li>
@@ -67,7 +74,11 @@
       <div class="h_animation w1200" v-loading="packerListLoading">
         <div class="Noun">
           <p class="Noun-title">{{ $t('home.home1') }}</p>
-          <p class="Noun-number cur" @click="toUrl('Consensus')">{{ count.nodeNumber }}</p>
+          <p class="Noun-number cur">
+            <router-link :to="{ name: 'Consensus'}">
+              {{ count.nodeNumber }}
+            </router-link>
+          </p>
         </div>
         <p class="section"></p>
         <ul class="clicks jiedian" @click="toUrl('rotationInfo', rotationIndex)">
@@ -103,10 +114,10 @@
       <div class="h_chart_right">
         <div class="h_chart_title tc">
           <span class="font14 tc capitalize">{{ $t('home.home7') }}</span>
-          <label class="calc fr font14 cursor-p click capitalize" @click="toUrl('transaction')">
+          <router-link tag="a" :to="{ name: 'transaction'}" class="calc fr font14 cursor-p click capitalize">
             {{ $t('home.home8') }}
-            <img src="../assets//img/More.svg" alt="">
-          </label>
+            <img src="../assets//img/More.svg" alt="" >
+          </router-link>
         </div>
         <ve-line height="100%" width="100%" style="top: -40px" :loading="dayChartLoading" :data="dayChartData"
           :extend="chartExtend" :legend-visible="false" :settings="daySettings">
@@ -114,7 +125,7 @@
       </div>
     </div>
     <el-dialog title="" :visible.sync="calcDialog" :close-on-click-modal="false" center class="home_dialog">
-      <CalcBar></CalcBar>
+      <CalcBar />
     </el-dialog>
   </div>
 </template>

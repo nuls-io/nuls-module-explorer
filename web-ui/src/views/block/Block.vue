@@ -11,20 +11,26 @@
       <el-table :data="blockList" style="width: 100%" v-loading="blockLoading">
         <el-table-column width="40"></el-table-column>
         <el-table-column :label="$t('public.height')" min-width="100">
-          <template slot-scope="scope"><span class="cursor-p click" @click="toUrl('blockInfo',scope.row.height)">{{ scope.row.height }}</span>
+          <template slot-scope="scope">
+            <router-link class="click" tag="a" :to="{ name: 'blockInfo', query: { height: scope.row.height }}">
+              {{ scope.row.height }}
+            </router-link>
           </template>
         </el-table-column>
         <el-table-column prop="createTime" :label="$t('public.time')" min-width="160"></el-table-column>
         <el-table-column prop="txCount" :label="$t('public.transactionNo')" min-width="140"></el-table-column>
         <el-table-column :label="$t('public.outNode')" min-width="140">
           <template slot-scope="scope">
-            <label class="cursor-p" v-show="!scope.row.agentHash">
+            <label class="cursor-p" v-if="!scope.row.agentHash">
               {{$t('public.seedNode')}}
             </label>
-            <span class="cursor-p click" :class="scope.row.agentAlias ? '' : 'uppercase'"
-                  @click="toUrl('ConsensusInfo',scope.row.agentHash)" v-show="scope.row.agentHash">
+            <router-link
+              v-else
+              class="click" :class="scope.row.agentAlias ? '' : 'uppercase'"
+              tag="a"
+              :to="{ name: 'ConsensusInfo', query: { hash: scope.row.agentHash }}">
               {{scope.row.agentAlias ? scope.row.agentAlias : scope.row.agentId}}
-            </span>
+            </router-link>
           </template>
         </el-table-column>
         <el-table-column prop="size" :label="$t('public.size')+'(byte)'" min-width="140"></el-table-column>
@@ -109,27 +115,6 @@
       hideOneList() {
         this.blockLoading = true;
         this.getBlockList(this.pager.page, this.pager.rows, this.hideSwitch, '');
-      },
-
-      /**
-       * url Connection jump
-       * @param name
-       * @param parmes
-       */
-      toUrl(name, parmes) {
-        let newQuery = {};
-        console.log(name);
-        if (name === 'ConsensusInfo') {
-          newQuery = {hash: parmes};
-          console.log(newQuery)
-        } else {
-          newQuery = {height: parmes}
-        }
-        this.$router.push({
-          name: name,
-          query: newQuery
-        })
-
       }
     },
   }

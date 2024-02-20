@@ -1,21 +1,48 @@
 <template>
   <div class="nav">
-    <el-menu :default-active="activedMenu($route.name)" :mode="mode" active-text-color="#00DB82" @select="handleSelect">
-      <el-menu-item index="home" class="font14 fw capitalize">{{ $t('nav.home') }}</el-menu-item>
-
+    <el-menu :default-active="activedMenu($route.name)" :mode="mode" active-text-color="#00DB82">
+      <el-menu-item index="home" class="font14 fw capitalize">
+        <router-link tag="a" :to="{ name: 'home'}">
+          {{ $t('nav.home') }}
+        </router-link>
+      </el-menu-item>
 
       <el-submenu index="blockChain">
         <template slot="title">{{ $t('nav.blockChain') }}</template>
-        <el-menu-item index="contracts" class="font14 capitalize">{{ $t('nav.contracts') }}</el-menu-item>
-        <el-menu-item index="block" class="font14 capitalize">{{ $t('nav.block') }}</el-menu-item>
-        <el-menu-item index="address" class="font14 capitalize">{{ $t('nav.address') }}</el-menu-item>
-        <el-menu-item index="transaction" class="font14 capitalize">{{ $t('nav.transaction') }}</el-menu-item>
+        <el-menu-item index="contracts" class="font14 capitalize">
+          <router-link tag="a" :to="{ name: 'contracts'}">
+            {{ $t('nav.contracts') }}
+          </router-link>
+        </el-menu-item>
+        <el-menu-item index="block" class="font14 capitalize">
+          <router-link tag="a" :to="{ name: 'block'}">
+            {{ $t('nav.block') }}
+          </router-link>
+        </el-menu-item>
+        <el-menu-item index="address" class="font14 capitalize">
+          <router-link tag="a" :to="{ name: 'address'}">
+            {{ $t('nav.address') }}
+          </router-link>
+        </el-menu-item>
+        <el-menu-item index="transaction" class="font14 capitalize">
+          <router-link tag="a" :to="{ name: 'transaction'}">
+            {{ $t('nav.transaction') }}
+          </router-link>
+        </el-menu-item>
       </el-submenu>
 
 
 
-      <el-menu-item index="Consensus" class="font14 fw capitalize">{{ $t('nav.consensus') }}</el-menu-item>
-      <el-menu-item index="Assets" class="font14 fw capitalize">{{ $t('nav.assets') }}</el-menu-item>
+      <el-menu-item index="Consensus" class="font14 fw capitalize">
+        <router-link tag="a" :to="{ name: 'Consensus'}">
+          {{ $t('nav.consensus') }}
+        </router-link>
+      </el-menu-item>
+      <el-menu-item index="Assets" class="font14 fw capitalize">
+        <router-link tag="a" :to="{ name: 'Assets'}">
+          {{ $t('nav.assets') }}
+        </router-link>
+      </el-menu-item>
       <!-- <el-submenu index="contractsBase">
         <template slot="title">{{ $t('nav.contracts') }}</template>
         <el-menu-item index="contracts" class="font14 capitalize">{{ $t('contracts.contracts0') }}</el-menu-item>
@@ -23,7 +50,11 @@
         <el-menu-item index="nrc721" class="font14 capitalize">NRC721</el-menu-item>
         <el-menu-item index="nrc1155" class="font14 capitalize">NRC1155</el-menu-item>
       </el-submenu> -->
-      <el-menu-item index="Parachains" class="font14 fw capitalize">{{ $t('network.network') }}</el-menu-item>
+      <el-menu-item index="Parachains" class="font14 fw capitalize">
+        <router-link tag="a" :to="{ name: 'Parachains'}">
+          {{ $t('network.network') }}
+        </router-link>
+      </el-menu-item>
       <div class="font14 fw capitalize languagess el-menu-item" @click="selectLanguage(lang, true)">
         {{ lang === 'en' ? 'Zh' : 'En' }}
       </div>
@@ -48,7 +79,18 @@ export default {
   components: {
     //numberGrow,
   },
+  watch: {
+    '$route.fullPath': {
+      handler() {
+        this.$parent.hideMobileMenu();
+      }
+    }
+  },
   created() {
+    setTimeout(() => {
+      console.log(this.$route, 12345)
+    }, 1000)
+    
     let lang = navigator.language || navigator.userLanguage;//Regular browser language andIEbrowser
     if (sessionStorage.hasOwnProperty('lang')) {
       this.lang = sessionStorage.getItem('lang')
@@ -100,18 +142,7 @@ export default {
      * Navigation jump
      * @param key
      **/
-    handleSelect(key, path) {
-      this.navActive = key;
-      sessionStorage.setItem('navActive', key);
-      if (path.length > 1 && path[0] === 'contractsBase') {
-        this.$router.push({
-          name: path[1]
-        });
-      } else {
-        this.$router.push({
-          name: key
-        });
-      }
+    handleSelect(key) {
       if (key) {
         this.$parent.hideMobileMenu();
       }
@@ -162,16 +193,26 @@ export default {
 
   .languagess {
     color: #000000 !important;
+    padding-left: 20px !important;
   }
 
   .el-menu {
     .el-menu-item {
-      padding: 0 18px;
+      padding: 0;
       color: #000000;
       font-size: 14px;
       line-height: 68px;
       font-weight: normal;
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 0 18px;
+      }
       &:hover {
+        color: #00DB82;
+      }
+      &.is-active {
         color: #00DB82;
       }
     }
@@ -209,6 +250,9 @@ export default {
       .el-menu-item {
         height: 56px;
         line-height: 56px;
+        a {
+          padding: 0;
+        }
       }
 
       .el-submenu {
@@ -249,7 +293,17 @@ export default {
 .el-menu--horizontal {
   .el-menu {
     .el-menu-item {
+      padding: 0;
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 0 10px;
+      }
       &:hover {
+        color: #00DB82;
+      }
+      &.is-active {
         color: #00DB82;
       }
     }

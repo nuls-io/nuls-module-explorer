@@ -9,10 +9,10 @@
       </el-table-column>
       <el-table-column :label="$t('public.contractAddress')" width="400" align="left">
         <template slot-scope="scope">
-                <span class="cursor-p click" @click="toUrl('contractsInfo',scope.row.contractAddress)">
-                  {{ scope.row.contractAddress }}
-                  <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
-                </span>
+          <router-link tag="a" :to="{ name: 'contractsInfo', query: {contractAddress: scope.row.contractAddress, tabName: 'first'}}" class="click">
+            {{ scope.row.contractAddress }}
+            <span v-if="scope.row.status ===3" class="gray">{{$t('public.unavailable')}}</span>
+          </router-link>
         </template>
       </el-table-column>
       
