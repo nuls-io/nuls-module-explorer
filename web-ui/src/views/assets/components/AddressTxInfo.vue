@@ -88,8 +88,8 @@
       </el-table>
 
       <div class="page-wrap flex-end">
-        <span v-if="showPrev" @click="prev">{{$t('assetInfo.assetInfo30')}}</span>
-        <span v-if="showNext" @click="next">{{$t('assetInfo.assetInfo31')}}</span>
+        <span v-if="showPrev" @click="prev">{{$t('assets.assetInfo30')}}</span>
+        <span v-if="showNext" @click="next">{{$t('assets.assetInfo31')}}</span>
       </div>
     </div>
   </div>
@@ -178,6 +178,14 @@ export default {
     superLong(str) {
       return superLong(str, 8);
     },
+    prev() {
+      this.pager.page = this.pager.page - 1;
+      this.getTxList();
+    },
+    next() {
+      this.pager.page = this.pager.page + 1;
+      this.getTxList();
+    },
   },
 };
 </script>
@@ -240,7 +248,7 @@ export default {
   .page-wrap {
     display: flex;
     justify-content: flex-end;
-    margin: 15px 0 10px 0;
+    padding: 15px 0 10px 0;
 
     span {
       display: inline-block;
