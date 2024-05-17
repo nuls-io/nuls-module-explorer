@@ -37,7 +37,7 @@
 
         <el-table-column :label="$t('assetInfo.assetInfo26')" min-width="100">
           <template slot-scope="scope">
-            <span>{{ scope.row.rate }}</span>
+            <span>{{ scope.row.rate }}%</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('assetInfo.assetInfo27')" min-width="100">
@@ -107,7 +107,6 @@ export default {
           if(v.value){
             v.value = Number(v.value)
           }
-          v.rate = fixNumber(v.rate / 100, 8) + "%";
         });
         this.holders = list;
         this.pager.total = totalCount;
