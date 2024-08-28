@@ -443,7 +443,7 @@ export default {
   }
 
   .page-wrap {
-    margin: 15px 0 10px 0;
+    padding: 15px 0 10px 0;
     display: flex;
     justify-content: flex-end;
     span {

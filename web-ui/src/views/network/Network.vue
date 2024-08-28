@@ -5,7 +5,7 @@
 
       <div class="network-container">
         <div class="container-title">
-          <img :src="DataNerveNetwork.iconUrl || './img/neverwork.png'" alt="">
+          <img :src="DataNerveNetwork.iconUrl || nerveLogo" alt="">
           <span class="container-title-title">NerveNetwork</span>
           <!-- <span class="container-label font14">@{{$t('assets.HeterogeneousChain')}}</span> -->
         </div>
@@ -52,7 +52,7 @@
 
       <div class="network-container">
         <div class="container-title">
-          <img :src="DataENULS.iconUrl || './img/enuls.png'" alt="">
+          <img :src="DataENULS.iconUrl || enulsLogo" alt="">
           <span class="container-title-title">ENULS</span>
           <span class="container-label font14">@{{ $t('assets.HeterogeneousChain') }}</span>
         </div>
@@ -107,8 +107,12 @@ import {
   toThousands,
   isBeta
 } from "../../api/util";
+import nerveLogo from './img/neverwork.png'
+import enulsLogo from './img/enuls.png'
 export default {
   data() {
+    this.nerveLogo = nerveLogo;
+    this.enulsLogo = enulsLogo;
     return {
       toThousands,
       timesDecimals,
