@@ -313,7 +313,7 @@ export default {
               item.time = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               item.hashs = superLong(item.hash, 15);
               item.value = timesDecimals(item.value, item.decimal);
-              item.fees = timesDecimals(item.fee.value, this.decimals);
+              item.fees = timesDecimals(item.fee.value, item.fee.decimals || 8);
             }
             this.txList = response.result.list;
             // if (type === 0 && !show) {

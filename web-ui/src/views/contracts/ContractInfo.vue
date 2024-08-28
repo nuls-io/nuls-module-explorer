@@ -107,8 +107,8 @@
               <el-table-column prop="type" :label="$t('public.type')" width="180" align="left">
                 <template slot-scope="scope">{{ titleCase($t('type.' + scope.row.type))  }}</template>
               </el-table-column>
-              <el-table-column :label="$t('public.fee') + '(' + symbol + ')'" width="180" align="left">
-                <template slot-scope="scope">{{ scope.row.fee.value }}</template>
+              <el-table-column :label="$t('public.fee')" width="180" align="left">
+                <template slot-scope="scope">{{ scope.row.fee.value }} {{ scope.row.fee.symbol }}</template>
               </el-table-column>
             </el-table>
             <paging :pager="pager" @change="pagesList" v-show="pager.total > pager.rows"></paging>
@@ -310,7 +310,7 @@ export default {
             for (let item of response.result.list) {
               item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
               item.txHashs = superLong(item.txHash, 20);
-              item.fee.value = divisionDecimals(item.fee.value, this.decimals);
+              item.fee.value = divisionDecimals(item.fee.value, item.fee.decimals || 8);
             }
             this.contractsTxList = response.result.list;
             this.pager.total = response.result.totalCount;

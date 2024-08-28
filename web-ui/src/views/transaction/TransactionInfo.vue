@@ -24,8 +24,8 @@
               {{ txInfo.fees }}
               <router-link
                 class="click"
-                tag="a" :to="{path: `/asset/${txInfo.fee.chainId}-1`}">
-                {{ symbol }}
+                tag="a" :to="{path: `/asset/${txInfo.fee && txInfo.fee.chainId}-1`}">
+                {{ txInfo.fee && txInfo.fee.symbol }}
               </router-link>
             </span>
             <!--<span v-if="contractInfo.length !== 0">
@@ -605,7 +605,7 @@ export default {
         .then((response) => {
           if (response.hasOwnProperty("result")) {
             response.result.tx.time = moment(getLocalTime(response.result.tx.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-            response.result.tx.fees = timesDecimals(response.result.tx.fee.value, 8);
+            response.result.tx.fees = timesDecimals(response.result.tx.fee.value, response.result.tx.fee.decimals || 8);
             response.result.tx.value = timesDecimals(response.result.tx.value, response.result.tx.decimal);
 
             //Yellow card
@@ -627,13 +627,14 @@ export default {
             if (response.result.tx.type === 15 || response.result.tx.type === 16 || response.result.tx.type === 17 || response.result.tx.type === 18) {
               this.isContracts = true;
               if (response.result.tx.txData.hasOwnProperty('resultInfo')) {
-                response.result.tx.txData.resultInfo.totalFee = timesDecimals(response.result.tx.txData.resultInfo.totalFee, 8);
-                response.result.tx.txData.resultInfo.txSizeFee = timesDecimals(response.result.tx.txData.resultInfo.txSizeFee, 8);
-                response.result.tx.txData.resultInfo.actualContractFee = timesDecimals(response.result.tx.txData.resultInfo.actualContractFee, 8);
-                response.result.tx.txData.resultInfo.refundFee = timesDecimals(response.result.tx.txData.resultInfo.refundFee, 8);
-                this.contractInfo = response.result.tx.txData.resultInfo;
-                if (response.result.tx.txData.resultInfo.tokenTransfers) {
-                  let newTokenTransfers = response.result.tx.txData.resultInfo.tokenTransfers;
+                const resultInfo = response.result.tx.txData.resultInfo
+                resultInfo.totalFee = timesDecimals(resultInfo.totalFee, 8);
+                resultInfo.txSizeFee = timesDecimals(resultInfo.txSizeFee, 8);
+                resultInfo.actualContractFee = timesDecimals(resultInfo.actualContractFee, 8);
+                resultInfo.refundFee = timesDecimals(resultInfo.refundFee, 8);
+                this.contractInfo = resultInfo;
+                if (resultInfo.tokenTransfers) {
+                  let newTokenTransfers = resultInfo.tokenTransfers;
                   for (let item in newTokenTransfers) {
                     newTokenTransfers[item].keys = Number(item);
                     newTokenTransfers[item].value = timesDecimals(newTokenTransfers[item].value, newTokenTransfers[item].decimals);
