@@ -126,7 +126,7 @@ const en = {
     "21": "Contract Stake",
     "22": "Contract Unstake",
     "23": "Contract Unregister Node",
-    "24": "Validator Chainge",
+    "24": "Validator Change",
     "25": "Validator Initialization",
     "26": "Contract Cross Transfer"
   },

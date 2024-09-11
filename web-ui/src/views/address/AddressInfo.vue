@@ -91,7 +91,7 @@
               <template slot-scope="scope">{{ $toThousands(scope.row.balance) }}{{scope.row.symbol}}</template>
             </el-table-column>
             <el-table-column :label="$t('public.fee')" width="150" align="left">
-              <template slot-scope="scope">{{ scope.row.fees }}{{symbol}}</template>
+              <template slot-scope="scope">{{ scope.row.fees }}{{scope.row.fee.symbol}}</template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -528,7 +528,7 @@
                 item.txHashs = superLong(item.txHash, 12);
                 item.values = timesDecimals(item.values, item.decimals);
                 item.balance = timesDecimals(item.balance, item.decimals);
-                item.fees = timesDecimals(item.fee.value);
+                item.fees = timesDecimals(item.fee.value, item.fee.decimals || 8);
               }
               this.txList = response.result.list;
               this.pageTotal = response.result.totalCount;
