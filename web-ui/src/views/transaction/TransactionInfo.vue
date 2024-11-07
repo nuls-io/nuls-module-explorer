@@ -238,11 +238,11 @@
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
-              <router-link
+              <Address
                 class="address-box click"
-                tag="a" :to="computePath('addressInfo', scope.row.from)">
-                {{ UnpAredd(scope.row.from) }}
-              </router-link>
+                :address="computePath('addressInfo', scope.row.from)">
+                {{  UnpAredd(scope.row.from) }}
+              </Address>
               <el-tooltip :content="scope.row.from" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -270,11 +270,11 @@
         <el-table-column prop="address" :label="$t('public.output')" width="180">
           <template slot-scope="scope">
             <div class="sending-address" v-for="(item, index) in scope.row.outputs" :key="index">
-              <router-link
+              <Address
                 class="address-box click"
-                tag="a" :to="computePath('addressInfo', item.to)">
-                {{ UnpAredd(item.to) }}
-              </router-link>
+                :address="computePath('addressInfo', item.to)">
+                {{  UnpAredd(item.to) }}
+              </Address>
               <el-tooltip :content="item.to" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -312,11 +312,11 @@
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
-              <router-link
+              <Address
                 class="address-box click"
-                tag="a" :to="computePath('addressInfo', scope.row.fromAddress)">
-                {{ UnpAredd(scope.row.fromAddress) }}
-              </router-link>
+                :address="computePath('addressInfo', scope.row.fromAddress)">
+                {{  UnpAredd(scope.row.fromAddress) }}
+              </Address>
               <el-tooltip v-if="scope.row.fromAddress" :content="scope.row.fromAddress" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -338,11 +338,11 @@
         <el-table-column prop="address" :label="$t('public.output')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
-              <router-link
+              <Address
                 class="address-box click"
-                tag="a" :to="computePath('addressInfo', scope.row.toAddress)">
-                {{ UnpAredd(scope.row.toAddress) }}
-              </router-link>
+                :address="computePath('addressInfo', scope.row.toAddress)">
+                {{  UnpAredd(scope.row.toAddress) }}
+              </Address>
               <el-tooltip :content="scope.row.toAddress" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -380,11 +380,11 @@
         <el-table-column :label="$t('public.input')" width="180">
           <template slot-scope="scope">
             <div class="sending-address" v-if="scope.row.address">
-              <router-link
+              <Address
                 class="address-box click"
-                tag="a" :to="computePath('addressInfo', scope.row.address)">
+                :address="computePath('addressInfo', scope.row.address)">
                 {{ UnpAredd(scope.row.address) }}
-              </router-link>
+              </Address>
               <el-tooltip :content="scope.row.address" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -413,11 +413,11 @@
         <el-table-column class-name="output-address" :label="$t('public.output')" width="180">
           <template slot-scope="scope">
             <div class="sending-address">
-              <router-link
+              <Address
                 class="address-box click"
-                tag="a" :to="computePath('addressInfo', scope.row.address)">
+                :address="computePath('addressInfo', scope.row.address)">
                 {{ UnpAredd(scope.row.address) }}
-              </router-link>
+              </Address>
               <el-tooltip :content="scope.row.address" placement="bottom" effect="light">
                 <img class="cur Icontits" src="./img/Icontits.svg" alt="">
               </el-tooltip>
@@ -471,11 +471,11 @@
           <div>
             <ul class="inputs scroll">
               <li class="font14" v-for="item in txInfo.fromList" :key="item.key">
-                <router-link
+                <Address
                   class="click"
-                  tag="a" :to="computePath('addressInfo', item.address)">
+                  :address="computePath('addressInfo', item.address)">
                   {{ item.addresss }}
-                </router-link>
+                </Address>
                 <label class="fr">{{ item.value }}<span class="fCN"> {{ item.symbol }}</span></label>
               </li>
             </ul>
@@ -485,11 +485,11 @@
           <div>
             <ul class="outputs scroll">
               <li class="font14" v-for="item in txInfo.toList" :key="item.key">
-                <router-link
+                <Address
                   class="click"
-                  tag="a" :to="computePath('addressInfo', item.address)">
+                  :address="computePath('addressInfo', item.address)">
                   {{ item.addresss }}
-                </router-link>
+                </Address>
                 <label class="fr">
                   {{ item.value }}
                   <span class="fCN"> {{ item.symbol }}<i class="iconfont yellow font12" :title="item.isShowInfo"
@@ -520,9 +520,12 @@
 <script>
 import moment from 'moment'
 import { getLocalTime, timesDecimals, superLong, toThousands } from '@/api/util.js'
-
+import Address from './Address'
 
 export default {
+  components: {
+    Address
+  },
   data() {
     return {
       timesDecimals,
@@ -738,7 +741,16 @@ export default {
       } else if (name === 'contractsInfo') {
         query = { contractAddress: params }
       } else {
-        query = { address: params };
+        if (name === 'addressInfo') {
+          if (params.startsWith('TNVT')) {
+            return 'https://beta.scan.nerve.network/address/info?address=' + params
+          } else if (params.startsWith('NERVE')) {
+            return 'https://scan.nerve.network/address/info?address=' + params
+          } else {
+            query = { address: params };
+          }
+        }
+        
       }
       return { name, query }
     }
