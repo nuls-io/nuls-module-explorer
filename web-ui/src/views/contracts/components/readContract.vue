@@ -90,7 +90,7 @@
 
 <script>
 import axios from 'axios'
-import { getArgs, getChainId, timesDecimalsBig, Times, getNulsBalance } from '../../../api/util'
+import { getArgs, getChainId, timesDecimalsBig, Times, getNulsBalance, isBeta } from '../../../api/util'
 import utils from 'nuls-sdk-js/lib/utils/utils'
 export default {
     props: ['infoActive'],
@@ -139,28 +139,32 @@ export default {
         this.searchContract = this.$route.query.contractAddress
         this.getReadContract()
         this.openName = this.$route.query.name || null
-        
-        const accounts = await window['NaboxWallet'].request({ method: 'eth_accounts' })
-        // console.log(accounts, 'Get wallet address')
-        if (accounts[0]) {
-            this.walletaddress = accounts[0]
-            this.getAccountCrossLedgerList(accounts[0]) //Send wallet address
-        } else {
-            this.walletaddress = ''
+        if (window.NaboxWallet && window.NaboxWallet.nuls) {
+            const address = window.NaboxWallet.nuls.selectedAddress
+            if (address) {
+                this.switchToNULS()
+                this.walletaddress = address
+                this.getAccountCrossLedgerList(address)
+            }
         }
     },
     mounted() {
         // Monitor wallet address switching
-        window.NaboxWallet.on("accountsChanged", (accounts) => {
-            if (accounts[0]) {
-                this.walletaddress = accounts[0]
-                this.getAccountCrossLedgerList(accounts[0]) //Send wallet address
-            } else {
-                this.walletaddress = ''
-            }
-        });
+        if (window.NaboxWallet && window.NaboxWallet.nuls) {
+            window.NaboxWallet.nuls.on("accountsChanged", (accounts) => {
+                if (accounts[0]) {
+                    this.walletaddress = accounts[0]
+                    this.getAccountCrossLedgerList(accounts[0]) //Send wallet address
+                } else {
+                    this.walletaddress = ''
+                }
+            });
+        }
     },
     methods: {
+        switchToNULS() {
+            window.NaboxWallet.nuls.switchChain({ chainId: isBeta ? 2 : 1 })
+        },
         Monitor(val, item){
             item.values = val;
             this.$forceUpdate();
@@ -313,7 +317,7 @@ export default {
                     }else{
                         data.multyAssetValues = []
                     }
-                    item.callResult = "transaction hash: " + await window.nabox.contractCall(data) // Return transactionhash
+                    item.callResult = "transaction hash: " + await window.NaboxWallet.nuls.contractCall(data) // Return transactionhash
                     this.$forceUpdate()
                 }
             } else {
@@ -581,11 +585,12 @@ export default {
         },
         async connectWallet() {
             // NaboxWallet
-            if (typeof window['NaboxWallet'] === "undefined") {
+            if (!window.NaboxWallet || !window.NaboxWallet.nuls) {
                 alert("Please install Nabox Wallet")
             } else {
-                const accounts = await window.NaboxWallet.request({ method: 'eth_requestAccounts' })
+                const accounts = await window.NaboxWallet.nuls.createSession()
                 if(accounts[0]){
+                    this.switchToNULS()
                     this.walletaddress = accounts[0]
                     this.getAccountCrossLedgerList(accounts[0]) //Send wallet address
                 }else{
