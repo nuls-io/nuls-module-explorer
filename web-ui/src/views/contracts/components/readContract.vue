@@ -305,7 +305,7 @@ export default {
                     }
                     const data = {
                         from: this.walletaddress, //Wallet address
-                        value: item.values * Math.pow(10, 8),
+                        value: item.values,
                         contractAddress: this.searchContract,
                         methodName: item.name,
                         methodDesc: item.desc,
@@ -502,9 +502,9 @@ export default {
             item.assetInfo.symbol = asset.symbol;
             this.$forceUpdate()
             const { chainId: assetChainId, assetId, decimals } = this.assetInfo;
-            const value = timesDecimalsBig(item.otherValue, decimals);
+            // const value = timesDecimalsBig(item.otherValue, decimals);
             const multyAssets = [
-                { value, assetChainId, assetId }
+                { value: item.otherValue, assetChainId, assetId }
             ];
             this.imputedContractCallGas(this.walletaddress, 0, this.searchContract, item.name, item.desc, newArgs, multyAssets, item);
         },
