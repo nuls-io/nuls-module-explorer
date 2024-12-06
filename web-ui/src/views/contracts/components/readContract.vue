@@ -288,13 +288,13 @@ export default {
                         return false
                     }
 
-                    if (item.params.length !== 0) {
-                        // Parameterized
-                        if (newArgs.allParameter) {
-                            this.imputedContractCallGas(this.walletaddress, Number(Times(item.values, 100000000)), this.searchContract, item.name, item.desc, newArgs.args, [], item)
-                        }
-                    }
-                    this.getBalanceByAddress(Number(getChainId()), 1, this.walletaddress)
+                    // if (item.params.length !== 0) {
+                    //     // Parameterized
+                    //     if (newArgs.allParameter) {
+                    //         this.imputedContractCallGas(this.walletaddress, Number(Times(item.values, 100000000)), this.searchContract, item.name, item.desc, newArgs.args, [], item)
+                    //     }
+                    // }
+                    // this.getBalanceByAddress(Number(getChainId()), 1, this.walletaddress)
 
                     let agentAsset = sessionStorage.getItem('info')
                     let assetChainId, assetId = 1
@@ -305,7 +305,7 @@ export default {
                     }
                     const data = {
                         from: this.walletaddress, //Wallet address
-                        value: item.values * Math.pow(10, 8),
+                        value: item.values,
                         contractAddress: this.searchContract,
                         methodName: item.name,
                         methodDesc: item.desc,
@@ -313,7 +313,7 @@ export default {
                         multyAssetValues: []
                     }
                     if(item.payableMultyAsset){
-                        data.multyAssetValues = [[0, assetChainId, assetId]]
+                        data.multyAssetValues = [[item.otherValue, item.assetInfo.chainId, item.assetInfo.assetId]]
                     }else{
                         data.multyAssetValues = []
                     }
@@ -501,12 +501,12 @@ export default {
             this.assetInfo = asset;
             item.assetInfo.symbol = asset.symbol;
             this.$forceUpdate()
-            const { chainId: assetChainId, assetId, decimals } = this.assetInfo;
-            const value = timesDecimalsBig(item.otherValue, decimals);
-            const multyAssets = [
-                { value, assetChainId, assetId }
-            ];
-            this.imputedContractCallGas(this.walletaddress, 0, this.searchContract, item.name, item.desc, newArgs, multyAssets, item);
+            // const { chainId: assetChainId, assetId, decimals } = this.assetInfo;
+            // const value = timesDecimalsBig(item.otherValue, decimals);
+            // const multyAssets = [
+            //     { value, assetChainId, assetId }
+            // ];
+            // this.imputedContractCallGas(this.walletaddress, 0, this.searchContract, item.name, item.desc, newArgs, multyAssets, item);
         },
         /**
        * Estimated call to contract transactiongas
