@@ -63,7 +63,7 @@
                                 style="background-color: #fff;width: 500px;padding: 10px 0 15px">
                                 <div class="search-model">
                                     <p>Other Assets</p>
-                                    <el-select v-model="item.assetInfo" class="margintop" :placeholder="$t('call.call11')"
+                                    <el-select v-model="callForm.assetInfo" class="margintop" :placeholder="$t('call.call11')"
                                         @change="changeAsset($event, item)">
                                         <el-option v-for="(itembox, index) in multipleAsset" :key="index"
                                             :label="itembox.symbol" :value="itembox">
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="margintop">
                                     <p>Value</p>
-                                    <el-input class="margintop" :class="item.ifValues ? 'required' : ''"
+                                    <el-input class="margintop"
                                         v-model="item.otherValue" @input="Oninput($event, item)"></el-input>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@ export default {
                 gas: 0,
                 price: 25,
                 values: 0,
-                assetInfo: "",
+                assetInfo: "", // cross asset symbol
                 otherValue: ""
             },
             resMethods: [], //Unprocessed data
@@ -257,16 +257,16 @@ export default {
             if (this.newinfoActive === 2) {
                 // Writing a contract
                 let condition = true
-                if (item.payableMultyAsset) {
-                    if (Number(item.otherValue) > 0) {
-                        item.ifValues = false
-                        condition = true
-                    } else {
-                        item.ifValues = true
-                        condition = false
-                    }
-                    this.$forceUpdate()
-                }
+                // if (item.payableMultyAsset) {
+                //     if (Number(item.otherValue) > 0) {
+                //         item.ifValues = false
+                //         condition = true
+                //     } else {
+                //         item.ifValues = true
+                //         condition = false
+                //     }
+                //     this.$forceUpdate()
+                // }
                 if (condition) {
                     let newArgs = [];
                     newArgs = getArgs(item.params);
@@ -312,10 +312,10 @@ export default {
                         args: newArgs.args,
                         multyAssetValues: []
                     }
-                    if(item.payableMultyAsset){
-                        data.multyAssetValues = [[item.otherValue, item.assetInfo.chainId, item.assetInfo.assetId]]
-                    }else{
-                        data.multyAssetValues = []
+                    if(item.payableMultyAsset && this.assetInfo){
+                        if (Number(item.otherValue) && item.otherValue !== '0') {
+                            data.multyAssetValues = [[item.otherValue, this.assetInfo.chainId, this.assetInfo.assetId]]
+                        }
                     }
                     item.callResult = "transaction hash: " + await window.NaboxWallet.nuls.contractCall(data) // Return transactionhash
                     this.$forceUpdate()
@@ -499,7 +499,8 @@ export default {
             let newArgs = [];
             newArgs = getArgs(item.params);
             this.assetInfo = asset;
-            item.assetInfo.symbol = asset.symbol;
+            this.callForm.assetInfo = asset.symbol
+            // item.assetInfo.symbol = asset.symbol;
             this.$forceUpdate()
             // const { chainId: assetChainId, assetId, decimals } = this.assetInfo;
             // const value = timesDecimalsBig(item.otherValue, decimals);
