@@ -2,14 +2,17 @@
   <div class="assetsdetails">
     <div class="w1200">
       <div class="assetsdetails_title">
-        <SymbolIcon :icon="assetInfo && assetInfo.iconUrl || assetInfosymbol" />
+        <SymbolIcon :icon="assetInfo && assetInfo.iconUrl || assetInfo.symbol" />
         Token {{ assetInfo.name }}({{ assetInfo.symbol }})
       </div>
     </div>
 
     <AssetOverview :info="assetInfo" />
 
-    <Holder v-if="address" :info="holderInfo" />
+    <template v-if="address">
+      <Holder :info="holderInfo" />
+    </template>
+    <!-- <Holder v-if="address" :info="holderInfo" /> -->
 
     <div class="w1200 a_list_container">
       <template v-if="!address">
@@ -63,7 +66,10 @@ import {
   toThousands,
   Copy,
   timesDecimals,
+  timesDecimals1
 } from "../../api/util";
+import { NSymbol, NKey, calDecimalsAndSymbol, NDiffDeciamsl } from '@/constants/constants'
+
 export default {
   components: {
     AssetOverview,
@@ -74,6 +80,7 @@ export default {
     AddressTxInfo
   },
   data() {
+    this.isNULS = false
     return {
       Copy,
       timesDecimals,
@@ -95,10 +102,12 @@ export default {
     },
     "$route.params": {
       async handler(val, old = {}) {
+        console.log(val, old, 21341342);
+        if (!val) return;
         const { assetId, address } = val;
-        console.log(val, 33333);
         const { assetId: oldAssetId, address: oldAddress } = old;
         this.address = address || "";
+        this.isNULS === assetId === NKey
         if (assetId && assetId !== oldAssetId) {
           this.assetId = assetId;
           await this.getAssetInfo();
@@ -132,13 +141,21 @@ export default {
       );
       if (result.result) {
         const info = result.result;
-        info.totalSupply = divisionDecimals(info.totalSupply, info.decimals);
+        const { decimals, symbol } = calDecimalsAndSymbol(info)
+        if (info.sourceChainName === 'NULS') {
+          info.sourceChainName = NSymbol
+          info.sourceChainLogo = 'https://nuls-cf.oss-us-west-1.aliyuncs.com/icon/NAI.png'
+        }
+        info.decimals = decimals
+        info.sourceChainName = info.sourceChainName === 'NULS' ? NSymbol : info.sourceChainName
+        info.totalSupply = divisionDecimals(info.totalSupply, decimals);
+        info.symbol = symbol
         info.nulsChainSupply = divisionDecimals(
           info.nulsChainSupply,
-          info.decimals
+          decimals
         );
-        info.inAmount = divisionDecimals(info.inAmount, info.decimals);
-        info.outAmount = divisionDecimals(info.outAmount, info.decimals);
+        info.inAmount = divisionDecimals(info.inAmount, decimals);
+        info.outAmount = divisionDecimals(info.outAmount, decimals);
         info.contractUrl = this.calContractUrl(info)
         info.community = info.community ? JSON.parse(info.community) || {} : "";
         console.log(info, "33");
@@ -182,7 +199,7 @@ export default {
           address: info.address,
           balance: divisionDecimals(info.balance, this.assetInfo.decimals),
           value: info.value,
-          nulsValue: info.nulsValue,
+          nulsValue: timesDecimals1(info.nulsValue, NDiffDeciamsl),
           symbol: this.assetInfo.symbol,
         };
       }

@@ -35,7 +35,7 @@
                 min-width="190"
               >
                 <template slot-scope="scope">
-                  <div>{{ toThousands(timesDecimals(scope.row.totalSupply,scope.row.decimals)) }}</div>
+                  <div>{{ toThousands(scope.row.supply) }}</div>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('assets.Holder')" min-width="160">
@@ -84,11 +84,12 @@
 </template>
 
 <script>
-import { toThousands , timesDecimals} from "../../api/util";
+import { toThousands , timesDecimals, divisionDecimals} from "../../api/util";
 import SymbolIcon from "@/components/SymbolIcon.vue";
 import Nrc20 from "../contracts/Nrc20.vue";
 import Nrc721 from '../contracts/Nrc721.vue'
 import Nrc1155 from '../contracts/Nrc1155.vue'
+import { NSymbol, NDecimals, NDiffDeciamsl, calDecimalsAndSymbol } from '@/constants/constants'
 export default {
   components: {
     SymbolIcon,
@@ -139,6 +140,14 @@ export default {
       this.$post("/", "getTopAssets", [page,rows]).then((response) => {
         if (response.hasOwnProperty("result")) {
           this.pager.total = response.result?.totalCount || 0;
+          response.result?.list?.map(v => {
+            const { decimals, symbol } = calDecimalsAndSymbol(v)
+            if (v.sourceChainName === 'NULS') {
+              v.sourceChainName = 'NAI'
+            }
+            v.supply = divisionDecimals(v.totalSupply, decimals)
+            v.symbol = symbol
+          })
           this.tableData = response.result?.list;
         }
       });

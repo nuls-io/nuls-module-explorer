@@ -82,11 +82,11 @@
             <el-table-column :label="$t('public.type')" width="180" align="left">
               <template slot-scope="scope">{{ titleCase($t('type.'+scope.row.type))  }}</template>
             </el-table-column>
-            <el-table-column :label="$t('public.amount')+'('+symbol+')'" width="180" align="left">
-              <template slot-scope="scope">{{scope.row.value}}</template>
+            <el-table-column :label="$t('public.amount')" width="180" align="left">
+              <template slot-scope="scope">{{scope.row.value}} {{ scope.row.symbol }}</template>
             </el-table-column>
             <el-table-column :label="$t('public.fee')" width="180" align="left">
-              <template slot-scope="scope">{{scope.row.fees}} {{ scope.row.fee.symbol }}</template>
+              <template slot-scope="scope">{{scope.row.fees}} {{ symbol }}</template>
             </el-table-column>
           </el-table>
         </div>
@@ -102,6 +102,7 @@
   import paging from '@/components/pagingBar';
   import SelectBar from '@/components/SelectBar';
   import {getLocalTime, superLong,timesDecimals, titleCase } from '@/api/util.js'
+  import { NSymbol, NDecimals, NKey, calDecimalsAndSymbol } from '@/constants/constants'
 
   export default {
     data() {
@@ -124,7 +125,7 @@
         },
         //timer
         heightInterval:null,
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//defaultsymbol
+        symbol: NSymbol
 
       }
     },
@@ -174,9 +175,10 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               response.result.hashs = superLong(response.result.hash, 10);
-              response.result.totalReward= timesDecimals(response.result.reward-response.result.totalFee, 8);
-              response.result.reward= timesDecimals(response.result.reward, 8);
-              response.result.totalFee= timesDecimals(response.result.totalFee, 8);
+              response.result.totalReward= timesDecimals(response.result.reward-response.result.totalFee, NDecimals);
+              response.result.reward= timesDecimals(response.result.reward, NDecimals);
+              response.result.totalFee= timesDecimals(response.result.totalFee, NDecimals);
+              // response.result.totalFee= timesDecimals(response.result.totalFee, 8);
 
               response.result.createTime = moment(getLocalTime(response.result.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
               this.nodeInfo = response.result
@@ -199,9 +201,12 @@
             if (response.hasOwnProperty("result")) {
               for (let item of response.result) {
                 item.time = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
-                item.value = timesDecimals(item.value, 8);
+                item.value = timesDecimals(item.value, item.decimal);
                 item.hashs = superLong(item.hash, 20);
-                item.fees = timesDecimals(item.fee.value, item.fee.decimals || 8);
+                const { decimals, symbol } = calDecimalsAndSymbol(item.fee)
+                item.symbol = item.symbol === 'NULS' ? NSymbol : item.symbol
+                item.fees = timesDecimals(item.fee.value, decimals);
+                item.fee.symbol = symbol
               }
               this.txList = response.result;
               //this.pager.total = response.result.totalCount;

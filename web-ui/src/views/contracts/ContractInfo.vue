@@ -42,7 +42,7 @@
         <li class="tabs_infos fl">
           <p>
             {{ $t('home.home3') }}
-            <span>{{ timesDecimals(contractsInfo.totalSupply, contractsInfo.decimals, 0) }}</span>
+            <span>{{ $formatNumber(contractsInfo.totalSupply) }}</span>
           </p>
         </li>
         <li class="tabs_infos fl">
@@ -153,6 +153,7 @@ import { getLocalTime, superLong, divisionDecimals, timesDecimals ,titleCase } f
 import axios from 'axios'
 import { CODE_URL } from '@/config'
 import NewCodeInfo from './NewCodeInfo'
+import { NSymbol, NDecimals, NULSDecimals, NKey } from '@/constants/constants'
 
 export default {
   data() {
@@ -251,6 +252,7 @@ export default {
             } else {
               response.result["ownersCount"] = 0;
             }
+            response.result.totalSupply = divisionDecimals(response.result.totalSupply, response.result.decimals)
             this.contractsInfo = response.result;
             this.modeList = response.result.methods;
           }
@@ -310,7 +312,11 @@ export default {
             for (let item of response.result.list) {
               item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
               item.txHashs = superLong(item.txHash, 20);
-              item.fee.value = divisionDecimals(item.fee.value, item.fee.decimals || 8);
+              const feeKey = item.fee.chainId + '-' + item.fee.assetId
+              const decimals = feeKey === NKey ? NDecimals : item.fee.decimals
+              const symbol = feeKey === NKey ? NSymbol : item.fee.symbol
+              item.fee.value = divisionDecimals(item.fee.value, decimals);
+              item.fee.symbol = symbol
             }
             this.contractsTxList = response.result.list;
             this.pager.total = response.result.totalCount;

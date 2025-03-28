@@ -76,6 +76,12 @@ export function divisionDecimals(nu, decimals = 8) {
   return newNu.toFormat().replace(/[,]/g, '');
 }
 
+export const timesDecimals1 = (nu, decimals = 8) => {
+  return new BigNumber(Times(nu, Power(decimals.toString()).toString()))
+    .toFormat()
+    .replace(/[,]/g, '')
+}
+
 export function timesDecimals0(nu, decimals = 8) {
   let newNu = new BigNumber(Times(nu, Power(decimals)).toString());
   return Number(newNu);
@@ -298,5 +304,21 @@ export async function Copy(val) {
         message: 'Your browser does not support copying'
       })
     }
+  }
+}
+
+export function formatNumber(num, fix = 8) {
+  if (!Number(num)) return '0'
+  const B = 1000000000
+  const M = 1000000
+  const K = 1000
+  if (Minus(num, B).toNumber() >= 0) {
+    return toThousands(Division(num, B).toFixed(2)) + 'B'
+  } else if (Minus(num, M).toNumber() >= 0) {
+    return toThousands(Division(num, M).toFixed(2)) + 'M'
+  } else if (Minus(num, K).toNumber() >= 0) {
+    return toThousands(Division(num, K).toFixed(2)) + 'K'
+  } else {
+    return fixNumber(num.toString(), fix)
   }
 }

@@ -63,12 +63,12 @@
           <el-table-column :label="$t('public.amount')" min-width="160" align="left">
             <template slot-scope="scope">
               <p class="addmoy">
-                {{ $toThousands(scope.row.value) }} {{ scope.row.symbol }}
+                {{ $formatNumber(scope.row.value) }} {{ scope.row.symbol }}
               </p>
             </template>
           </el-table-column>
           <el-table-column :label="$t('public.fee')" width="160" align="left">
-            <template slot-scope="scope">{{ scope.row.fees }} {{ scope.row.fee.symbol }}</template>
+            <template slot-scope="scope">{{ $formatNumber(scope.row.fees) }} {{ scope.row.fee.symbol }}</template>
           </el-table-column>
         </el-table>
 
@@ -87,7 +87,8 @@
 <script>
 import moment from 'moment'
 import SelectBar from '@/components/SelectBar';
-import { getLocalTime, superLong, timesDecimals } from '@/api/util.js'
+import { getLocalTime, superLong, timesDecimals, divisionDecimals } from '@/api/util.js'
+import { NSymbol, NDecimals, calDecimalsAndSymbol } from '@/constants/constants'
 
 export default {
   data() {
@@ -179,8 +180,8 @@ export default {
       pagerIndex: 1,
       pagerRows: 20,
       isCtrl: false,
-      symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//defaultsymbol
-      decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
+      symbol: NSymbol,
+      decimals: NDecimals,
       activeName: 'first',
     }
   },
@@ -312,8 +313,12 @@ export default {
             for (let item of response.result.list) {
               item.time = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               item.hashs = superLong(item.hash, 15);
-              item.value = timesDecimals(item.value, item.decimal);
-              item.fees = timesDecimals(item.fee.value, item.fee.decimals || 8);
+              const { decimals, symbol } = calDecimalsAndSymbol(item)
+              item.value = divisionDecimals(item.value, decimals);
+              item.symbol = symbol
+              const { decimals: feeDecimals, symbol: feeSymbol } = calDecimalsAndSymbol(item.fee)
+              item.fees = divisionDecimals(item.fee.value, feeDecimals);
+              item.fee.symbol = feeSymbol
             }
             this.txList = response.result.list;
             // if (type === 0 && !show) {

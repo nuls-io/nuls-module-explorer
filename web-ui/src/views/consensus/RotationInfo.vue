@@ -69,9 +69,9 @@
                            align="left"></el-table-column>
           <!-- <el-table-column prop="strua" label="state" width="120" align="center">
            </el-table-column>-->
-          <el-table-column prop="fee" :label="$t('public.blockReward')+'(NULS)'" align="left" min-width="160">
+          <el-table-column prop="fee" :label="$t('public.blockReward')+ symbol " align="left" min-width="160">
             <template slot-scope="scope">
-              {{ scope.row.reward}}
+              {{ $formatNumber(scope.row.reward) }}
             </template>
           </el-table-column>
         </el-table>
@@ -82,11 +82,13 @@
 
 <script>
   import moment from 'moment'
-  import {getLocalTime, timesDecimals} from '@/api/util.js'
+  import {getLocalTime, divisionDecimals} from '@/api/util.js'
+  import { NSymbol, NDecimals } from '@/constants/constants'
 
   export default {
     data() {
       return {
+        symbol: NSymbol,
         //Round number
         rotation: this.$route.query.rotation,
         //Round details
@@ -128,7 +130,7 @@
                 let newTime = date.getTime().toString();
                 item.newTime = Number(newTime.substring(0, newTime.length - 3));
                 item.time = moment(getLocalTime(item.time * 1000)).format('YYYY-MM-DD HH:mm:ss');
-                item.reward = item.reward ? timesDecimals(item.reward, 8) : 0;
+                item.reward = item.reward ? divisionDecimals(item.reward, NDecimals) : 0;
                 item.seedPacked = item.agentHash ? false : true;
               }
               this.rotationList = response.result.itemList;
