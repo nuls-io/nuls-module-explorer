@@ -82,7 +82,7 @@
         </el-table-column>
         <el-table-column :label="$t('assets.assetInfo24')" min-width="100">
           <template slot-scope="scope">
-            <span>{{ $toThousands(scope.row.amount) }}</span>
+            <span>{{ $formatNumber(scope.row.amount) }}</span>
           </template>
         </el-table-column>
       </el-table>

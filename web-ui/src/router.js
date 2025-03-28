@@ -25,6 +25,14 @@ export default new Router({
       component: resolve => require(['@/views/block/BlockInfo'], resolve)
     },
     {
+      path: '/accounts',
+      name: 'address',
+      component: resolve => require(['@/views/address/Address'], resolve),
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
       path: '/address/info',
       name: 'addressInfo',
       component: resolve => require(['@/views/address/AddressInfo'], resolve)
@@ -34,14 +42,6 @@ export default new Router({
       name: 'accountInfo',
       component: resolve => require(['@/views/address/AddressInfo'], resolve)
     }, */
-    {
-      path: '/accounts',
-      name: 'address',
-      component: resolve => require(['@/views/address/Address'], resolve),
-      meta: {
-        keepAlive: true
-      }
-    },
     {
       path: '/transactions',
       name: 'transaction',

@@ -190,8 +190,8 @@ const cn = {
     "home8": "更多",
     "home9": "已销毁",
     "home10": "减产倒计时",
-    "home35": "当前平均区块奖励: {number} NULS",
-    "home36": "减产后平均区块奖励: {number} NULS",
+    "home35": "当前平均区块奖励: {number} NAI",
+    "home36": "减产后平均区块奖励: {number} NAI",
     "home37": "下一次减产时间：{year}年{month}月{day}日",
   },
 
@@ -203,7 +203,7 @@ const cn = {
     "cale5": "月奖励",
     "cale6": "年奖励",
     "cale7": "请输入委托量",
-    "cale8": "委托量范围为 2000 到 500000",
+    "cale8": "委托量范围为 20,000,000 到 5,000,000,000",
     "cale9": "委托量必须为数字",
     "cale10": "请输入节点佣金比例",
     "cale11": "佣金比例范围为 10 到 100",
@@ -212,13 +212,13 @@ const cn = {
     "cale14": "信用值在 0 到 1",
     "cale15": "信用值必须为数字",
     "cale16": "请输入全网委托量",
-    "cale17": "全网委托量范围为 200000 到 100000000",
+    "cale17": "全网委托量范围为 200,000,000 到 1,000,000,000,000",
     "cale18": "全网委托量必须为数字",
     "cale19": "请输入节点保证金",
-    "cale20": "保证金范围为 20000 到 200000",
+    "cale20": "保证金范围为 200,000,000 到 2,000,000,000",
     "cale21": "保证金必须为数字",
     "cale22": "请输入委托量",
-    "cale23": "委托量范围为 200000 到 500000",
+    "cale23": "委托量范围为 2,000,000,000 到 50,000,000,000",
     "cale24": "委托量必须为数字"
   },
 
@@ -263,7 +263,7 @@ const cn = {
     "transactionInfo9": "方法",
     "transactionInfo10": "解锁时间",
     "transactionInfo11": "代币转账",
-    "transactionInfo12": "NULS转账"
+    "transactionInfo12": "NAI转账"
   },
 
   "consensus": {
@@ -388,7 +388,7 @@ const cn = {
     "network16":"Nerve跨链交易",
     "network17":"持有数量",
     "network18":"持有数量",
-    "network19":"NULS网络流通量",
+    "network19":"NAI网络流通量",
 
   },
   "call": {
@@ -422,9 +422,9 @@ const cn = {
     "Parachain": '平行链',
     "HeterogeneousChain": '异构链',
     "NerveNetwork": 'NerveNetwork旨在连接所有孤立的区块链，建立跨链资产交换网络，为DeFi生态提供一切必要的底层支持。让每一位数字资产持有者体验真正安全、自由、透明的DeFi服务。',
-    "ENULS": 'ENULS是NULS社区发起的完全兼容EVM和Web3 API的区块链。',
+    "ENULS": 'ENULS是NAI社区发起的完全兼容EVM和Web3 API的区块链。',
     "asset_symbol": '主链资产符号',
-    "traffic": 'NULS网络流通量',
+    "traffic": 'NAI网络流通量',
     "cross-chain": '跨链交易次数',
     "Contract_address": "合约地址",
     "the_contract": '读合约',
@@ -478,7 +478,7 @@ const cn = {
     "nodata": "暂无数据",
     "BurnedList": "烧毁的地址列表",
     "Address": '地址',
-    "Quantity": "数量（NULS）",
+    "Quantity": "数量（NAI）",
     'label': '标签',
     'Broken_link': '断开链接',
     'sourceCode': '源代码',

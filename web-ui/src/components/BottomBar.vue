@@ -26,7 +26,7 @@
           {{$t('protocolUpdate.upgradeProgress')}}
         </router-link>
       </li>
-      <li class="b_li font14 fr">Copyright 2017-2024 © All rights Reserved. NULS</li>
+      <li class="b_li font14 fr">Copyright 2017-2025 © All rights Reserved. NULS</li>
     </ul>
   </div>
 </template>

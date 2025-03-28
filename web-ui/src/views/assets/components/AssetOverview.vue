@@ -6,7 +6,7 @@
           <div class="row-center">
             <p>{{ $t("assets.maximum") }}</p>
             <p>
-              {{ $toThousands(info.totalSupply) }} {{ info.symbol }}
+              {{ $formatNumber(info.totalSupply) }} {{ info.symbol }}
             </p>
           </div>
           <div class="row-center">
@@ -28,7 +28,7 @@
           </div>
           <div class="row-center">
             <p>{{ $t("assets.traffic") }}</p>
-            <p>{{ $toThousands(info.nulsChainSupply) }}</p>
+            <p>{{ $formatNumber(info.nulsChainSupply) }}</p>
           </div>
           <div class="row-center">
             <p>{{ $t("assets.assetId") }}</p>

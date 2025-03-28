@@ -39,7 +39,7 @@
           <p>{{ $t('public.abbreviate') }}<span>{{ contractsInfo.symbol }}</span></p>
         </li>
         <li class="tabs_infos fl" v-if="tokenType !== 3">
-          <p>{{ $t('contracts.contracts3') }}<span>{{ contractsInfo.totalSupply }}</span></p>
+          <p>{{ $t('contracts.contracts3') }}<span>{{ $formatNumber(contractsInfo.totalSupply) }}</span></p>
         </li>
         <li class="tabs_infos fl" v-if="tokenType === 1">
           <p>{{ $t('tokenInfo.tokenInfo0') }}<span>{{ contractsInfo.decimals }}</span></p>
@@ -115,7 +115,11 @@
               <el-table-column prop="tokenId" label="Token ID" min-width="120" align="left"
                 v-if="tokenType === 3"></el-table-column>
               <el-table-column prop="value" :label="$t('public.amount')" min-width="100" align="left"
-                v-if="tokenType !== 2"></el-table-column>
+                v-if="tokenType !== 2">
+                <template slot-scope="scope">
+                  {{ $formatNumber(scope.row.value) }}
+                </template>
+              </el-table-column>
               <el-table-column prop="tokenId" label="Token ID" min-width="120" align="left" v-else>
                 <template slot-scope="scope">
                   #{{ sliceId(scope.row.tokenId) }} 

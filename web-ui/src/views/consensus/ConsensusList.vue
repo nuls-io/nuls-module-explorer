@@ -71,11 +71,11 @@
             <li class="font12 fl">{{$t('public.alias')}}<span
                     class="fr">{{ item.agentAlias ? item.agentAlias : '-' }}</span></li>
             <li class="font12 fl">{{$t('public.proportion')}}<span class="fr">{{ item.commissionRate }}%</span></li>
-            <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ $toThousands(item.deposit) }}<label
+            <li class="font12 fl">{{$t('public.bond')}}<span class="fr">{{ $formatNumber(item.deposit) }}<label
                     class="fCN"> {{symbol}}</label></span></li>
             <li class="font12 fl">{{$t('public.creditValue')}}<span class="fr">{{item.creditValue}}</span></li>
             
-            <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{$toThousands(item.totalDeposit) }}<label
+            <li class="font12 fl">{{$t('public.entrust')}}<span class="fr">{{$formatNumber(item.totalDeposit) }}<label
                     class="fCN"> {{symbol}}</label></span></li>
             <li class="font12 fl">{{$t('public.participants')}}<span class="fr">{{ item.depositCount }}</span></li>
           </ul>
@@ -92,7 +92,8 @@
 
 <script>
   import SelectBar from '@/components/SelectBar';
-  import {timesDecimals} from '@/api/util.js'
+  import { divisionDecimals } from '@/api/util.js'
+  import { NSymbol, NDecimals } from '@/constants/constants'
 
   export default {
     data() {
@@ -128,7 +129,7 @@
           page: 1,
           rows: 200,
         },
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//defaultsymbol
+        symbol: NSymbol
       }
     },
     components: {
@@ -164,9 +165,9 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.deposit = timesDecimals(item.deposit, 8);
+                item.deposit = divisionDecimals(item.deposit, NDecimals);
                 item.bozhengjin = item.deposit;
-                item.totalDeposit = Number(timesDecimals(item.totalDeposit, 8)).toFixed(2);
+                item.totalDeposit = divisionDecimals(item.totalDeposit, NDecimals);
               }
               this.nodeList = response.result.list;
               this.nodeListLoading = false;

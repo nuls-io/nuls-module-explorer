@@ -5,8 +5,8 @@
         <h2 class="title-box">{{ $t('consensus.consensus0') }}</h2>
         <div class="fr right-tir">
           <div class="font16">
-            <span class="font12 capitalize">{{ $t('home.home4') }}:</span> {{ circulation }}K
-            <span class="font12 capitalize">{{ $t('home.home2') }}:</span> {{ consensusTotal }}K
+            <span class="font12 capitalize">{{ $t('home.home4') }}:</span> {{ $formatNumber(circulation) }}
+            <span class="font12 capitalize">{{ $t('home.home2') }}:</span> {{ $formatNumber(consensusTotal) }}
             <span class="font12 capitalize">{{ $t('consensus.consensus1') }}:</span> {{ nodeing }}
             <span class="font12 capitalize">{{ $t('home.home1') }}:</span> {{ node }}
           </div>
@@ -95,10 +95,10 @@
 
 <script>
 import moment from 'moment'
-import { BigNumber } from 'bignumber.js'
 import paging from '@/components/pagingBar';
 import ConsensusList from '@/views/consensus/ConsensusList'
-import { getLocalTime, superLong, timesDecimals } from '@/api/util.js'
+import { getLocalTime, superLong, divisionDecimals } from '@/api/util.js'
+import { NDecimals } from '@/constants/constants'
 
 export default {
   data() {
@@ -114,10 +114,10 @@ export default {
           formatter: params => {
             params = params[0];
             // console.log(params, 333)
-            const value = Number(params.data[1].toFixed(2))
+            // const value = Number(params.data[1].toFixed(2))
             return `<div class="line-tooltip">
               <p class="tooltip-label">${params.data[0]}</p>
-              <p class="tooltip-value">${this.$t('public.stake')}: ${this.$toThousands(value)}</p>
+              <p class="tooltip-value">${this.$t('public.stake')}: ${this.$formatNumber(params.data[1])}</p>
             </div>`
           }
         },
@@ -133,7 +133,13 @@ export default {
             lineStyle:{
               color: '#B3B3CF'
             }
+          },
+          axisLabel: {
+            formatter: value => {
+              return this.$formatNumber(value)
+            }
           }
+          
         }
       },
     this.colors = ['#7db46d', '#7db46d', '#7db46d',
@@ -210,11 +216,13 @@ export default {
   mounted() {
     setInterval(() => {
       //Circulation volume
-      let newCirculateNumber = new BigNumber(timesDecimals(this.$store.state.NULSNumber.circulation, 11));
-      this.circulation = newCirculateNumber.toFormat(2);
+      // let newCirculateNumber = new BigNumber(timesDecimals(this.$store.state.NULSNumber.circulation, 11));
+      // this.circulation = newCirculateNumber.toFormat(2);
+      this.circulation = divisionDecimals(this.$store.state.NULSNumber.circulation, NDecimals)
       //general entrustment
-      let newConsensusTotal = new BigNumber(timesDecimals(this.$store.state.NULSNumber.consensusTotal, 11));
-      this.consensusTotal = newConsensusTotal.toFormat(2);
+      // let newConsensusTotal = new BigNumber(timesDecimals(this.$store.state.NULSNumber.consensusTotal, 11));
+      // this.consensusTotal = newConsensusTotal.toFormat(2);
+      this.consensusTotal = divisionDecimals(this.$store.state.NULSNumber.consensusTotal, NDecimals)
       //Nodes in consensus
       this.nodeing = this.$store.state.nodeNumber.consensusCount;
       //Consensus node
@@ -241,7 +249,7 @@ export default {
           //console.log(response);
           if (response.hasOwnProperty("result")) {
             for (let item of response.result) {
-              item.value = item.value / 100000000
+              item.value = divisionDecimals(item.value, NDecimals)
             }
             this.chartData.columns = ['key', 'value'];
             this.chartData.rows = response.result;
