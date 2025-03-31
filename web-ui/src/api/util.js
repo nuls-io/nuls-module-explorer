@@ -308,6 +308,23 @@ export async function Copy(val) {
 }
 
 export function formatNumber(num, fix = 8) {
+  return toThousands(num)
+  /* if (!Number(num)) return '0'
+  const B = 1000000000
+  const M = 1000000
+  const K = 1000
+  if (Minus(num, B).toNumber() >= 0) {
+    return toThousands(Division(num, B).toFixed(2)) + 'B'
+  } else if (Minus(num, M).toNumber() >= 0) {
+    return toThousands(Division(num, M).toFixed(2)) + 'M'
+  } else if (Minus(num, K).toNumber() >= 0) {
+    return toThousands(Division(num, K).toFixed(2)) + 'K'
+  } else {
+    return fixNumber(num.toString(), fix)
+  } */
+}
+
+export function formatNumber1(num, fix = 8) {
   if (!Number(num)) return '0'
   const B = 1000000000
   const M = 1000000

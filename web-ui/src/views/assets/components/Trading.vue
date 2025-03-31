@@ -71,7 +71,7 @@
         </el-table-column>
         <el-table-column label="" min-width="60">
           <template slot-scope="scope">
-            <img src="../img/zishi.png" alt="" />
+            <img src="../img/arrow.svg" alt="" />
           </template>
         </el-table-column>
         <el-table-column width="190" align="left">
@@ -283,6 +283,7 @@ export default {
 </script>
   
 <style lang="less">
+@import "../../../assets/css/style";
 .asset-tx-info {
   .assets-container {
     width: 100%;
@@ -294,7 +295,7 @@ export default {
 
       .el-input__inner:focus,
       .el-button--primary:hover {
-        border-color: #00DB82;
+        border-color: @Ncolour;
       }
 
       .el-table__header-wrapper {
@@ -302,8 +303,8 @@ export default {
       }
 
       .el-button--primary {
-        background: #00DB82;
-        border-color: #00DB82;
+        background: @Ncolour;
+        border-color: @Ncolour;
       }
 
       .styleBut {
@@ -451,7 +452,7 @@ export default {
       font-size: 14px;
       padding: 3px 15px;
       margin-right: 15px;
-      background: #00DB82;
+      background: @Ncolour;
       color: #fff;
       border-radius: 4px;
       cursor: pointer;

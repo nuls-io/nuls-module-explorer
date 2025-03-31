@@ -301,7 +301,7 @@
 
   export default {
     data() {
-      this.colors = ['#45E3A4', '#FFBC58'];
+      this.colors = ['#84C2FF', '#ffd755'];
       this.chartSettings = {
         radius: 78,
         offsetY: 100,
@@ -799,12 +799,12 @@
                 }
                 &:first-child {
                   span {
-                    background-color: #FFBC58;
+                    background-color: #ffd755;
                   }
                 }
                 &:last-child {
                   span {
-                    background-color: #45E3A4;
+                    background-color: #84c2ff;
                   }
                 }
               }

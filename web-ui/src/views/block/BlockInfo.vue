@@ -201,12 +201,13 @@
             if (response.hasOwnProperty("result")) {
               for (let item of response.result) {
                 item.time = moment(getLocalTime(item.createTime*1000)).format('YYYY-MM-DD HH:mm:ss');
-                item.value = timesDecimals(item.value, item.decimal);
+                const { decimals, symbol } = calDecimalsAndSymbol(item)
+                item.value = timesDecimals(item.value, decimals);
+                item.symbol = symbol
                 item.hashs = superLong(item.hash, 20);
-                const { decimals, symbol } = calDecimalsAndSymbol(item.fee)
-                item.symbol = item.symbol === 'NULS' ? NSymbol : item.symbol
-                item.fees = timesDecimals(item.fee.value, decimals);
-                item.fee.symbol = symbol
+                const { decimals: feeDecimals, symbol: feeSymbol } = calDecimalsAndSymbol(item.fee)
+                item.fees = timesDecimals(item.fee.value, feeDecimals);
+                item.fee.symbol = feeSymbol
               }
               this.txList = response.result;
               //this.pager.total = response.result.totalCount;
@@ -279,9 +280,6 @@
             th,td{
               .cell{
                 color: #000000;
-                .click{
-                  color: #00DB82;
-                }
               }
             }
           }
@@ -319,12 +317,12 @@
         width: 30px;
         height: 30px;
         border-radius: 8px;
-        background: rgba(#00E789, .1);
+        background: rgba(#5EB1FF, .1);
         display: flex;
         justify-content: center;
         align-items: center;
         .el-icon-arrow-left,.el-icon-arrow-right{
-          color: #00DB82;
+          color: #5EB1FF;
         }
       }
       @media screen and (max-width: 1000px) {
@@ -362,9 +360,6 @@
               img{
                 width: 12px;
               }
-            }
-            .click{
-              color: #00DB82;
             }
           }
         } 

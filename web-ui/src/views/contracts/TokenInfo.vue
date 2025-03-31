@@ -432,7 +432,7 @@ export default {
         margin-top: 8px;
 
         p {
-          color: #00DB82;
+          color: @Ncolour;
         }
 
         img {

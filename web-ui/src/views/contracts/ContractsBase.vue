@@ -51,6 +51,7 @@ export default {
 </script>
 
 <style lang="less">
+@import "./../../assets/css/style";
 .contracts {
   margin: 0 auto;
   background-color: #F9FAFD;
@@ -67,7 +68,7 @@ export default {
     }
 
     &.is-active a {
-      color: #00DB82;
+      color: @Ncolour;
     }
   }
 
@@ -83,11 +84,11 @@ export default {
           }
 
           .el-tabs__active-bar {
-            background: #00DB82;
+            background: @Ncolour;
           }
 
           .is-active {
-            color: #00DB82;
+            color: @Ncolour;
             font-weight: 550;
           }
         }

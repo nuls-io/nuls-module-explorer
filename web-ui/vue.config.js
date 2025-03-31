@@ -61,8 +61,8 @@ module.exports = {
         // target: 'http://127.0.0.1:8080/',
         // target: "https://beta.public1.nuls.io/jsonrpc",
         // target: 'http://beta.wallet.nuls.io/api',
-        target: 'https://beta.nulscan.io/api',
-        // target: 'https://nulscan.io/api',
+        // target: 'https://beta.nulscan.io/api',
+        target: 'https://nulscan.io/api',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'

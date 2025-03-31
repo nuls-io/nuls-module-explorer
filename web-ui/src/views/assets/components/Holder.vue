@@ -98,10 +98,6 @@ export default {
       align-items: center;
       margin-top: 8px;
 
-      p {
-        color: #00db82;
-      }
-
       img {
         width: 12px;
         height: 12px;

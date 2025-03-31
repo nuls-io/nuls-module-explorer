@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" :class="{ 'no-border': $route.path === '/' }">
     <div class="w1200 flex justify-between ">
       <div class="flex items-center flex-1">
         <div class="header_logo">
@@ -241,6 +241,9 @@ export default {
   border-bottom: @BD1;
   height: 68px;
   background: #FFFFFF;
+  &.no-border {
+    border: none;
+  }
 
   .w1200 {
     .header_logo {
@@ -313,7 +316,7 @@ export default {
 
           .el-input__suffix {
             width: 36px;
-            background: #00DB82;
+            background: @Ncolour;
             right: 0;
 
             .el-icon-search:before {

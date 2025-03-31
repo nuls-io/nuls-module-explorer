@@ -623,6 +623,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+@import "../../../assets/css/style";
 .read-contract {
     .nabox-wallet {
         width: fit-content;
@@ -642,14 +643,11 @@ export default {
             width: 5px;
             height: 5px;
             border-radius: 50%;
-            background: #F64141;
+            background: @Ncolour;
             margin-right: 8px;
         }
         p{
             word-break: break-all;
-        }
-        .info-success {
-            background: #00DB82;
         }
     }
     .info-box-nav {
@@ -736,7 +734,7 @@ export default {
             text-align: center;
             border-radius: 6px;
             color: #FFFFFF;
-            background: #00DB82;
+            background: @Ncolour;
             margin-bottom: 12px;
         }
     }

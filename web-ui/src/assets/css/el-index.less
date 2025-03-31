@@ -89,7 +89,7 @@
     margin: 0 0 20px;
     .el-tabs__nav-wrap {
       .el-tabs__active-bar {
-        background-color: transparent;
+        background-color: @Ncolour;
       }
       .el-tabs__item {
         text-transform: Capitalize;
@@ -198,10 +198,10 @@
   }
 }
 .v-charts-component-loading .path{
-  stroke: #00DB82;
+  stroke: @Ncolour;
 }
 .el-loading-spinner .path{
-  stroke: #00DB82;
+  stroke: @Ncolour;
 }
 .paging {
   .pages {
@@ -258,5 +258,20 @@
   border-radius: 10px;
   .el-icon-success, .el-message__content {
     color: @Ncolour;
+  }
+}
+
+.el-menu {
+  .el-menu-item {
+    color: #000;
+    &:hover {
+      color: @Ncolour !important;
+    }
+    &.is-active {
+      color: @Ncolour !important;
+    }
+  }
+  .el-submenu.is-active .el-submenu__title {
+    color: @Ncolour !important;
   }
 }

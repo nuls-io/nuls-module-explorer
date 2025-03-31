@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <el-menu :default-active="activedMenu($route.name)" :mode="mode" active-text-color="#00DB82">
+    <el-menu :default-active="activedMenu($route.name)" :mode="mode">
       <el-menu-item index="home" class="font14 fw capitalize">
         <router-link tag="a" :to="{ name: 'home'}">
           {{ $t('nav.home') }}
@@ -199,7 +199,6 @@ export default {
   .el-menu {
     .el-menu-item {
       padding: 0;
-      color: #000000;
       font-size: 14px;
       line-height: 68px;
       font-weight: normal;
@@ -208,12 +207,6 @@ export default {
         width: 100%;
         height: 100%;
         padding: 0 18px;
-      }
-      &:hover {
-        color: #00DB82;
-      }
-      &.is-active {
-        color: #00DB82;
       }
     }
   }
@@ -299,12 +292,6 @@ export default {
         width: 100%;
         height: 100%;
         padding: 0 10px;
-      }
-      &:hover {
-        color: #00DB82;
-      }
-      &.is-active {
-        color: #00DB82;
       }
     }
   }

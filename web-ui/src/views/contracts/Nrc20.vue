@@ -79,12 +79,6 @@ export default {
 </script>
 
 <style lang="less">
-.paging .pages .el-pager .active {
-  background-color: #00db82 !important;
-}
-.click {
-  color: #00db82;
-}
 .el-table {
   tr {
     th {

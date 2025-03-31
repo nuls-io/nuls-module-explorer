@@ -1,26 +1,35 @@
-<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g opacity="0.8">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0 23.8355L15 16.5517L29.9995 23.8355L15 30L0 23.8355Z" fill="url(#paint0_linear_205_177)"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M15 30L0 23.6473V7.28381L15 13.4483V30Z" fill="url(#paint1_linear_205_177)"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M15 30L29.9995 23.6473V7.28381L15 13.4483V30Z" fill="url(#paint2_linear_205_177)"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0 7.28379L15 0L29.9995 7.28379L15 13.4483L0 7.28379Z" fill="url(#paint3_linear_205_177)"/>
-</g>
-<defs>
-<linearGradient id="paint0_linear_205_177" x1="0" y1="16.5517" x2="214.436" y2="1405.77" gradientUnits="userSpaceOnUse">
-<stop stop-color="#A0FFD9"/>
-<stop offset="1" stop-color="#A8F001"/>
-</linearGradient>
-<linearGradient id="paint1_linear_205_177" x1="0" y1="7.28381" x2="984.977" y2="1896.18" gradientUnits="userSpaceOnUse">
-<stop stop-color="#3FEF70"/>
-<stop offset="1" stop-color="#56C400"/>
-</linearGradient>
-<linearGradient id="paint2_linear_205_177" x1="15" y1="7.28381" x2="1492.2" y2="982.68" gradientUnits="userSpaceOnUse">
-<stop stop-color="#17D94E"/>
-<stop offset="1" stop-color="#3E8900"/>
-</linearGradient>
-<linearGradient id="paint3_linear_205_177" x1="0" y1="0" x2="214.436" y2="1389.22" gradientUnits="userSpaceOnUse">
-<stop stop-color="#4BFF73"/>
-<stop offset="1" stop-color="#03FF99"/>
-</linearGradient>
-</defs>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="30" viewBox="0 0 30 30">
+  <!-- Generator: Adobe Illustrator 29.3.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 151)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #c4e2ff;
+      }
+
+      .st0, .st1, .st2, .st3 {
+        fill-rule: evenodd;
+      }
+
+      .st1 {
+        fill: #b5daff;
+      }
+
+      .st2 {
+        fill: url(#li2);
+      }
+
+      .st3 {
+        fill: #d2e9ff;
+      }
+    </style>
+    <linearGradient id="i2" data-name="i2" x1="13.6" y1="17.5" x2="228" y2="-1371.7" gradientTransform="translate(0 32) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a0ffd9"/>
+      <stop offset="1" stop-color="#a8f001"/>
+    </linearGradient>
+  </defs>
+  <path class="st2" d="M0,23.8l15-7.3,15,7.3-15,6.2L0,23.8Z"/>
+  <path class="st0" d="M15,30L0,23.6V7.3l15,6.2v16.6Z"/>
+  <path class="st1" d="M15,30l15-6.4V7.3l-15,6.2v16.6Z"/>
+  <path class="st3" d="M0,7.3L15,0l15,7.3-15,6.2L0,7.3Z"/>
 </svg>

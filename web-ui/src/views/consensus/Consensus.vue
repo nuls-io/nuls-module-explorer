@@ -99,13 +99,13 @@ import paging from '@/components/pagingBar';
 import ConsensusList from '@/views/consensus/ConsensusList'
 import { getLocalTime, superLong, divisionDecimals } from '@/api/util.js'
 import { NDecimals } from '@/constants/constants'
+import chartConfig from '@/api/chartConfig'
+const { xAxis, yAxis, lineStyle, itemStyle, series } = chartConfig
 
 export default {
   data() {
     this.chartExtend = {
-        series: {
-          showSymbol: false,//Cancel small dots on the line chart
-        },
+        series,
         tooltip:{
           trigger: 'axis',
           textStyle:{
@@ -121,19 +121,9 @@ export default {
             </div>`
           }
         },
-        xAxis:{
-          axisLine:{
-            lineStyle:{
-              color: '#B3B3CF'
-            }
-          }
-        },
+        xAxis,
         yAxis:{
-          axisLine:{
-            lineStyle:{
-              color: '#B3B3CF'
-            }
-          },
+          axisLine: yAxis.axisLine,
           axisLabel: {
             formatter: value => {
               return this.$formatNumber(value)
@@ -146,31 +136,9 @@ export default {
       '#546570', '#c4ccd3'];
     this.chartSettings = {
       yAxisType: ['normal'],
-      lineStyle: {
-        width: 1,
-        color: '#00E789'
-      },
+      lineStyle,
       area: true, //Is it displayed as an area chart
-      itemStyle: { //Area chart color settings
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            {
-              offset: 0,
-              color: 'rgba(0, 231, 137, 0.5)', // 0% Color at
-            },
-            {
-              offset: 1,
-              color: 'rgba(255, 255, 255, 0)' // 100% Color at
-            }
-          ],
-          globalCoord: false // Default to false
-        }
-      }
+      itemStyle
     };
     return {
       //Circulation volume
@@ -413,20 +381,18 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
+            // margin: 0;
             color: #000000;
+            margin: 0 3px;
           }
 
           .btn {
             // min-width: 28px;
-            height: 24px;
             border-radius: 6px;
-            background: #FFFFFF;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000000;
-            margin: 0;
+            background: @Ncolour;
+            span {
+              color: #fff
+            }
           }
         }
       }

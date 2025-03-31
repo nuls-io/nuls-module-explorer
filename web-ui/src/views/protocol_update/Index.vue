@@ -141,7 +141,7 @@
         margin-bottom: 12px;
       }
       .el-progress.is-success .el-progress-bar__inner{
-        background-color: #00DB82;
+        background-color: @Ncolour;
       }
     }
     .chart_info {

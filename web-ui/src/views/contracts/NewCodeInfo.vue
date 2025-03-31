@@ -112,6 +112,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import "../../assets/css/style";
 .NewCodeInfo {
 
     .nabox-wallet {
@@ -137,7 +138,7 @@ export default {
         }
 
         .info-success {
-            background: #00DB82;
+            background: @Ncolour;
         }
     }
 
@@ -157,7 +158,7 @@ export default {
         }
 
         .info-active {
-            background: #00DB82;
+            background: @Ncolour;
             color: #FFFFFF;
         }
     }

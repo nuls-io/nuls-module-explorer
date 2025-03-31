@@ -201,6 +201,7 @@ export default {
 </script>
 
 <style lang="less">
+@import "../../assets/css/style";
 .network {
   background-color: #F9FAFD;
   padding-bottom: 60px;
@@ -251,7 +252,7 @@ export default {
             }
 
             .network-link {
-              color: #00DB82;
+              color: @Ncolour;
               font-size: 14px;
             }
           }

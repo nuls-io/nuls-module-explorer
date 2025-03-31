@@ -41,6 +41,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import "../../../assets/css/style";
 .Thecode{
     padding: 0 24px;
     padding-bottom: 24px;
@@ -154,7 +155,7 @@ export default {
             border-radius: 6px;
         }
         .info-active{
-            background: #00DB82;
+            background: @Ncolour;
             color: #FFFFFF;
         }
     }

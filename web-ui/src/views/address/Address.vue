@@ -53,6 +53,8 @@
 import paging from "@/components/pagingBar";
 import { divisionDecimals, formatNumber } from "@/api/util.js";
 import { NDecimals } from '@/constants/constants'
+import chartConfig from '@/api/chartConfig'
+const { xAxis, yAxis, lineStyle, itemStyle, series } = chartConfig
 
 export default {
   data() {
@@ -65,9 +67,7 @@ export default {
         right: 10,
         containLabel: true
       },
-      series: {
-        showSymbol: false,//Cancel small dots on the line chart
-      },
+      series,
       tooltip: {
         trigger: 'axis',
         textStyle: {
@@ -82,20 +82,8 @@ export default {
           // return `${params.data[0]}<br/><span class="naboxs">${this.$t('address.address2')}</span>  &emsp;</span><span class="naboxs">${params.data[1]}</span>`
         }
       },
-      xAxis: {
-        axisLine: {
-          lineStyle: {
-            color: '#B3B3CF'
-          }
-        }
-      },
-      yAxis: {
-        axisLine: {
-          lineStyle: {
-            color: '#B3B3CF'
-          }
-        }
-      }
+      xAxis,
+      yAxis
     }
     return {
       timeRateDataLoading: true,
@@ -122,31 +110,9 @@ export default {
     chartSettings() {
       return {
         labelMap: { 'count': this.$t('address.address2') },
-        lineStyle: {
-          width: 1,
-          color: '#00E789'
-        },
+        lineStyle,
         area: true, //Is it displayed as an area chart
-        itemStyle: { //Area chart color settings
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              {
-                offset: 0,
-                color: 'rgba(0, 231, 137, 0.5)', // 0% Color at
-              },
-              {
-                offset: 1,
-                color: 'rgba(255, 255, 255, 0)' // 100% Color at
-              }
-            ],
-            globalCoord: false // Default to false
-          }
-        }
+        itemStyle
       };
     }
   },

@@ -268,7 +268,7 @@
         </el-table-column>
         <el-table-column>
           <template slot="header" slot-scope="scope">
-            <img src="./img/ssdr145.png" alt="">
+            <img src="./img/dic.svg" alt="">
           </template>
         </el-table-column>
         <el-table-column prop="address" :label="$t('public.output')" width="180">
@@ -336,7 +336,7 @@
         <el-table-column prop="symbol" :label="$t('public.symbol')"></el-table-column>
         <el-table-column>
           <template slot="header" slot-scope="scope">
-            <img src="./img/ssdr145.png" alt="">
+            <img src="./img/dic.svg" alt="">
           </template>
         </el-table-column>
         <el-table-column prop="address" :label="$t('public.output')" width="180">
@@ -410,7 +410,7 @@
 
       </el-table>
       <div class="direction-icon">
-        <img src="./img/ssdr145.png" alt="">
+        <img src="./img/dic.svg" alt="">
       </div>
       <el-table :empty-text="$t('assets.nodata')" :data="toList">
         <el-table-column width="30"></el-table-column>
@@ -988,7 +988,7 @@ export default {
           }
 
           .click {
-            color: #00DB82;
+            color: @Ncolour;
           }
         }
       }

@@ -388,7 +388,7 @@ const en = {
     "network16": "Nerve Cross - Chain Deals",
     "network17": "Hold Number",
     "network18": "Hold Number",
-    "network19": "NAI Network Flux",
+    "network19": "NULS AI Network Flux",
   },
 
   "call": {
@@ -422,9 +422,9 @@ const en = {
     "Parachain": 'Parachains',
     "HeterogeneousChain": 'Heterogeneous Chain',
     "NerveNetwork": 'NerveNetwork aims to connect all isolated blockchains and establish a cross-chain asset exchange network, providing all necessary underlying support for the DeFi ecosystem. Let every digital asset holder experience a truly safe, free and transparent DeFi service.',
-    "ENULS": 'ENULS, initiated by the NAI community, is a blockchain that is fully compatible with EVM and Web3 API interfaces.',
+    "ENULS": 'ENULS, initiated by the NULS AI community, is a blockchain that is fully compatible with EVM and Web3 API interfaces.',
     "asset_symbol": 'Main Chain Asset Symbol',
-    "traffic": 'Supply on NAI',
+    "traffic": 'Supply on NULS AI',
     "cross-chain": 'Number Of Cross-Chain Transactions',
     "Contract_address": "Contract Address",
     "the_contract": 'Read Contract',

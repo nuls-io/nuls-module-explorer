@@ -424,16 +424,7 @@ export default {
 
       .el-tabs__header {
         .el-tabs__nav-wrap {
-          .el-tabs__item {
-            color: #000000;
-          }
-
-          .el-tabs__active-bar {
-            background: #00DB82;
-          }
-
           .is-active {
-            color: #00DB82;
             font-weight: 550;
           }
         }

@@ -143,8 +143,9 @@ export default {
         const info = result.result;
         const { decimals, symbol } = calDecimalsAndSymbol(info)
         if (info.sourceChainName === 'NULS') {
-          info.sourceChainName = NSymbol
+          info.sourceChainName = 'NULS AI'
           info.sourceChainLogo = 'https://nuls-cf.oss-us-west-1.aliyuncs.com/icon/NAI.png'
+          info.name = 'NULS AI'
         }
         info.decimals = decimals
         info.sourceChainName = info.sourceChainName === 'NULS' ? NSymbol : info.sourceChainName
@@ -236,16 +237,8 @@ export default {
         .el-tabs__nav-scroll {
           padding: 0 24px;
         }
-        .el-tabs__item {
-          color: #000000;
-        }
-
-        .el-tabs__active-bar {
-          background: #00db82;
-        }
 
         .is-active {
-          color: #00db82;
           font-weight: 550;
         }
       }

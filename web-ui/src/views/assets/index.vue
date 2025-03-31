@@ -21,7 +21,7 @@
                 <template slot-scope="scope">
                   <router-link class="Token-box" :to="{ path: '/asset/' + scope.row.id}">
                     <SymbolIcon :icon="scope.row.iconUrl || scope.row.symbol" />
-                    <span class="cur color-derl">{{ scope.row.symbol }}</span>
+                    <span class="click">{{ scope.row.symbol }}</span>
                   </router-link>
                 </template>
               </el-table-column>
@@ -143,7 +143,7 @@ export default {
           response.result?.list?.map(v => {
             const { decimals, symbol } = calDecimalsAndSymbol(v)
             if (v.sourceChainName === 'NULS') {
-              v.sourceChainName = 'NAI'
+              v.sourceChainName = 'NULS AI'
             }
             v.supply = divisionDecimals(v.totalSupply, decimals)
             v.symbol = symbol
@@ -219,30 +219,15 @@ export default {
       }
     }
 
-    .paging .pages .el-pager .active {
-      background-color: #00e789 !important;
-    }
-
-    .is-checked .el-switch__core {
-      border-color: #00e789 !important;
-      background-color: #00e789 !important;
-    }
-
-    .el-pagination__total,
-    .el-pagination__jump {
-      color: #8b8bb0;
-    }
 
     .el-pagination.is-background .el-pager li {
       background-color: initial;
-      border: 1px solid #ebebf4;
       border-radius: 5px;
     }
 
     .el-pagination.is-background .btn-prev,
     .el-pagination.is-background .btn-next {
       background-color: initial;
-      border: 1px solid #ebebf4;
       border-radius: 5px;
     }
 
@@ -283,11 +268,6 @@ export default {
           border-radius: 50%;
           margin-right: 6px;
         }
-
-        span {
-          font-size: 14px;
-          color: #00e789;
-        }
       }
     }
 
@@ -303,17 +283,7 @@ export default {
       .el-tabs__header {
         .el-tabs__nav-wrap {
           .el-tabs__item {
-            color: #000000;
             font-size: 18px;
-          }
-
-          .el-tabs__active-bar {
-            background: #00db82;
-          }
-
-          .is-active {
-            color: #00db82;
-            font-weight: 400;
           }
         }
       }

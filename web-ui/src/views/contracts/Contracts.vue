@@ -62,19 +62,9 @@ export default {
 <style lang="less">
 .contracts-all {
   margin-bottom: 60px;
-  .is-checked .el-switch__core{
-    border-color: #00DB82 !important;
-    background-color: #00DB82 !important;
-  }
-  .paging .pages .el-pager .active{
-    background-color: #00DB82 !important;
-  }
   .hide-switch {
     height: 35px;
     margin: 1px 0 0 20px;
-  }
-  .click{
-    color: #00DB82;
   }
   .hide-div {
     width: 100%;

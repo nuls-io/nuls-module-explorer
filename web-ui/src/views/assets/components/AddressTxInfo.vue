@@ -191,6 +191,7 @@ export default {
 </script>
 
 <style lang="less">
+@import "../../../assets/css/style";
 .address-asset-tx-info {
   .assets-container {
     width: 100%;
@@ -198,16 +199,6 @@ export default {
     .el-table {
       overflow: initial;
       border-radius: 0;
-
-      .el-input__inner:focus,
-      .el-button--primary:hover {
-        border-color: #00db82;
-      }
-
-      .el-button--primary {
-        background: #00db82;
-        border-color: #00db82;
-      }
 
       .styleBut {
         width: fit-content;
@@ -255,7 +246,7 @@ export default {
       font-size: 14px;
       padding: 3px 15px;
       margin-right: 15px;
-      background: #00DB82;
+      background: @Ncolour;
       color: #fff;
       border-radius: 4px;
       cursor: pointer;

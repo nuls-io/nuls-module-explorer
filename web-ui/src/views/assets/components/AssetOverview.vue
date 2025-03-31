@@ -129,6 +129,7 @@ export default {
 </script>
 
 <style lang="less">
+@import "../../../assets/css/style";
   .assetsdetails_container {
     display: flex;
     justify-content: space-between;
@@ -178,7 +179,7 @@ export default {
           }
 
           span {
-            color: #00db82;
+            color: @Ncolour;
           }
 
           .img1 {

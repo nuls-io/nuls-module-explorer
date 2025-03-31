@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <div class="Information-bar">
+      <div class="bg"></div>
       <div class="h_height tc font30 fW600 capitalize">
         {{ $t('home.home0') }}:
         <i class="el-icon-loading font18" v-if="height === 0"></i>
@@ -141,13 +142,15 @@ import {
   fixNumber,
   divisionDecimals,
   timesDecimals1,
-  formatNumber
+  formatNumber1
 } from '@/api/util.js'
 import SearchBar from '../components/SearchBar.vue'
 import moment from 'moment'
 import { mapState } from 'vuex'
 import { NDecimals, NDiffDeciamsl } from '@/constants/constants'
 // import { NSymbol, NDecimals, NDiffDeciamsl, calDecimalsAndSymbol } from '@/constants/constants'
+import chartConfig from '../api/chartConfig'
+const { xAxis, yAxis, lineStyle, itemStyle, series } = chartConfig
 
 export default {
   components: {
@@ -163,9 +166,7 @@ export default {
         right: 10,
         containLabel: true
       },
-      series: {
-        showSymbol: false,//Cancel small dots on the line chart
-      },
+      series,
       tooltip: {
         trigger: 'axis',
         textStyle: {
@@ -182,20 +183,8 @@ export default {
           </div>`
         }
       },
-      xAxis: {
-        axisLine: {
-          lineStyle: {
-            color: '#B3B3CF'
-          }
-        }
-      },
-      yAxis: {
-        axisLine: {
-          lineStyle: {
-            color: '#B3B3CF'
-          }
-        }
-      }
+      xAxis,
+      yAxis
     };
       this.yearSettings = {
         yAxisType: ['percent'],
@@ -203,61 +192,17 @@ export default {
           value: 'APR'
         },
         area: true,
-        lineStyle: {
-          width: 1,
-          color: '#00E789'
-        },
-        itemStyle: { //Area chart color settings
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              {
-                offset: 0,
-                color: 'rgba(0, 231, 137, .5)', // 0% Color at
-              },
-              {
-                offset: 1,
-                color: 'rgba(255, 255, 255, 0)' // 100% Color at
-              }
-            ],
-            globalCoord: false // Default to false
-          }
-        }
+        lineStyle,
+        itemStyle
       };
     this.daySettings = {
       yAxisType: ['KMB'],
       labelMap: {
         'value': 'TXS'
       },
-      lineStyle: {
-        width: 1,
-        color: '#00E789'
-      },
+      lineStyle,
       area: true, //Is it displayed as an area chart
-      itemStyle: { //Area chart color settings
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            {
-              offset: 0,
-              color: 'rgba(0, 231, 137, 0.5)', // 0% Color at
-            },
-            {
-              offset: 1,
-              color: 'rgba(255, 255, 255, 0)' // 100% Color at
-            }
-          ],
-          globalCoord: false // Default to false
-        }
-      }
+      itemStyle
     };
 
     return {
@@ -347,7 +292,7 @@ export default {
       let dataRes = await axios.get(url);
       if (dataRes.data.success) {
         // this.destroyedAddressAmount = dataRes.data.data.destroy.toFixed(3)
-        this.destroyedAddressAmount = formatNumber(timesDecimals1(dataRes.data.data.destroy, NDiffDeciamsl))
+        this.destroyedAddressAmount = formatNumber1(timesDecimals1(dataRes.data.data.destroy, NDiffDeciamsl))
       } else {
         this.destroyedAddressAmount = 0
       }
@@ -379,13 +324,13 @@ export default {
         this.countdown(NULSNumber.nextDeflationTime)
         // let newCirculateNumber = new BigNumber(timesDecimals(NULSNumber.total, 11));
         // this.count.circulateNumber = newCirculateNumber.toFormat(2);
-        this.count.circulateNumber = formatNumber(divisionDecimals(NULSNumber.total, NDecimals))
+        this.count.circulateNumber = formatNumber1(divisionDecimals(NULSNumber.total, NDecimals))
         // let newEntrustNumber = new BigNumber(timesDecimals(NULSNumber.consensusTotal, 11));
         // this.count.entrustNumber = newEntrustNumber.toFormat(2);
-        this.count.entrustNumber = formatNumber(divisionDecimals(NULSNumber.consensusTotal, NDecimals))
+        this.count.entrustNumber = formatNumber1(divisionDecimals(NULSNumber.consensusTotal, NDecimals))
         // let newTradeNumber = new BigNumber(timesDecimals(NULSNumber.circulation, 11));
         // this.count.tradeNumber = newTradeNumber.toFormat(2);
-        this.count.tradeNumber = formatNumber(divisionDecimals(NULSNumber.circulation, NDecimals))
+        this.count.tradeNumber = formatNumber1(divisionDecimals(NULSNumber.circulation, NDecimals))
         this.countLoading = false;
       }
     },
@@ -585,13 +530,24 @@ export default {
 
   .Information-bar {
     height: 237px;
-    background: #00DB82;
+    // background: @Ncolour;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     padding-top: 48px;
-
+    position: relative;
+    .bg {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      // width:;
+      background-image: url('../assets/img/home-bg.png');
+      background-size: cover;
+      background-position: center;
+    }
     .node-information {
       position: absolute;
       bottom: -55px;
@@ -828,7 +784,7 @@ export default {
         }
 
         .icon-calculator_icon::before {
-          color: #00DB82;
+          color: @Ncolour;
         }
       }
 

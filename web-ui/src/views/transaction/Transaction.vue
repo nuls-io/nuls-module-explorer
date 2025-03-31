@@ -89,14 +89,14 @@ import moment from 'moment'
 import SelectBar from '@/components/SelectBar';
 import { getLocalTime, superLong, timesDecimals, divisionDecimals } from '@/api/util.js'
 import { NSymbol, NDecimals, calDecimalsAndSymbol } from '@/constants/constants'
+import chartConfig from '@/api/chartConfig'
+const { xAxis, yAxis, lineStyle, itemStyle, series } = chartConfig
 
 export default {
   data() {
     this.colors = ['#7db46d', '#7db46d', '#7db46d', '#546570', '#c4ccd3'];
     this.chartExtend = {
-      series: {
-        showSymbol: false,//Cancel small dots on the line chart
-      },
+      series,
       tooltip: {
         trigger: 'axis',
         textStyle: {
@@ -110,49 +110,15 @@ export default {
           </div>`
         }
       },
-      xAxis: {
-        axisLine: {
-          lineStyle: {
-            color: '#B3B3CF'
-          }
-        }
-      },
-      yAxis: {
-        axisLine: {
-          lineStyle: {
-            color: '#B3B3CF'
-          }
-        }
-      }
+      xAxis,
+      yAxis
     },
     this.chartSettings = {
       yAxisType: ['normal'],
       labelMap: { 'value': 'TXS' },
-      lineStyle: {
-        width: 1,
-        color: '#00E789'
-      },
+      lineStyle,
       area: true, //Is it displayed as an area chart
-      itemStyle: { //Area chart color settings
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            {
-              offset: 0,
-              color: 'rgba(0, 231, 137, 0.5)', // 0% Color at
-            },
-            {
-              offset: 1,
-              color: 'rgba(255, 255, 255, 0)' // 100% Color at
-            }
-          ],
-          globalCoord: false // Default to false
-        }
-      }
+      itemStyle
     };
     return {
 
@@ -453,12 +419,15 @@ export default {
             width: fit-content;
             height: 24px;
             border-radius: 6px;
-            background: #FFFFFF;
+            background: @Ncolour;
+            // color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #000000;
             margin: 0;
+            span {
+              color: #fff
+            }
           }
         }
       }
@@ -503,8 +472,8 @@ export default {
         background-color: #00E789 !important;
       }
       .is-checked .el-switch__core{
-        border-color: #00E789 !important;
-        background-color: #00E789 !important;
+        // border-color: #00E789 !important;
+        // background-color: #00E789 !important;
       }
       .el-pagination__total,.el-pagination__jump{
         color: #8B8BB0;
@@ -522,9 +491,6 @@ export default {
       .el-table{
         .el-table__header-wrapper{
           border-radius: 8px;
-        }
-        .click{
-          color: #00DB82;
         }
         td{
           border-bottom: 1px solid #E9E9F8 !important;
