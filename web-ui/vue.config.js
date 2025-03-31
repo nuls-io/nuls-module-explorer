@@ -4,6 +4,8 @@ const webpack = require('webpack');
 const shell = require("shelljs");
 shell.cp(process.cwd() + "/config/" + process.env.NULS_ENV + ".js", process.cwd() + "/src/config.js");
 const isProduction = process.env.NODE_ENV === 'production';
+// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
 module.exports = {
   lintOnSave: false,
   publicPath: process.env.NODE_ENV === 'production' ? '/dist/' : '/',
@@ -26,6 +28,9 @@ module.exports = {
       }));
       config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true;
     }
+    // config.plugins.push(new BundleAnalyzerPlugin())
+
+    config.devtool = !isProduction ? 'cheap-module-source-map' : false;
 
     config.externals = {
       'vue': 'Vue',
