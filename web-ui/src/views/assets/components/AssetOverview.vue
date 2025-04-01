@@ -65,7 +65,7 @@
           <div class="row-center">
             <p>{{ $t("bottom.website") }}</p>
             <p class="cur" @click="openUrl(info.website)" v-if="info.website">
-              <span>{{ info.website }}</span>
+              <a class="click" target="_blank" :href="info.website">{{ info.website }}</a>
             </p>
             <p v-else>
               <span style="color: #000000;">--</span>
