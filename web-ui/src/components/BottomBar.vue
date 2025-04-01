@@ -1,59 +1,50 @@
 ﻿<template>
   <div class="bottom bg-gray black-background">
     <ul class="b_ul w1200">
-      <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
+      <li class="b_li font14 fl capitalize">
         <a href="https://nuls.io/home" target="_blank">{{$t('bottom.website')}}</a>
       </li>
-      <li class="b_li font14 fl" v-show="symbol ==='NULS'">
+      <li class="b_li font14 fl">
         <a href="https://github.com/nuls-io" target="_blank">GitHub</a>
       </li>
-      <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
+      <li class="b_li font14 fl capitalize">
         <!-- <a href="https://wallet.nuls.io/" arget="_blank">{{$t('bottom.webWallet')}}</a> -->
         <a href=" https://nuls.io/wallets/" arget="_blank">{{$t('bottom.webWallet')}}</a>
       </li>
-      <li class="b_li font14 fl capitalize" v-show="symbol ==='NULS'">
+      <li class="b_li font14 fl capitalize">
         <!-- <a href="https://bbs.nuls.io/" target="_blank">{{$t('bottom.community')}}</a> -->
         <a href=" https://forum.nuls.io/" target="_blank">{{$t('bottom.community')}}</a>
       </li>
-      <li class="b_li font14 fl capitalize click" v-show="symbol ==='NULS'">
+      <li class="b_li font14 fl capitalize click">
         <a href="https://github.com/nuls-io/nuls-module-explorer/issues" target="_blank">{{$t('bottom.about')}}</a>
       </li>
-<!--      <li class="b_li font14 fl capitalize click" @click="toExplorer" v-show="symbol ==='NULS'">
-        {{$t('bottom.explorer1')}}
-      </li>-->
-      <li class="b_li font14 fl capitalize click" v-show="symbol ==='NULS'">
+      <li class="b_li font14 fl capitalize click">
         <router-link tag="a" :to="{ name: 'protocolUpdate'}">
           {{$t('protocolUpdate.upgradeProgress')}}
         </router-link>
       </li>
-      <li class="b_li font14 fr">Copyright 2017-2025 © All rights Reserved. NULS</li>
+      <li class="b_li font14 fr">Copyright 2017-2025 © All rights Reserved. NULS AI</li>
     </ul>
   </div>
 </template>
 
 <script>
-  //import {superLong, timesDecimals} from '@/api/util.js'
-  import {RUN_DEV} from '@/config'
 
   export default {
     data() {
       return {
         height: 0,//Current height
-        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//defaultsymbol
       }
     },
     created() {
       this.getBestBlockHeader();
       this.getNodeNumber();
       this.getNULSNumber();
-      document.title = this.symbol + " Explorer";
       //10Cycle data every second
       setInterval(() => {
         this.getBestBlockHeader();
         this.getNodeNumber();
         this.getNULSNumber();
-        this.symbol = sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS';
-        document.title = this.symbol + " Explorer";
       }, 10000);
     },
     mounted() {
