@@ -594,7 +594,8 @@ export default {
 
     .h_height {
       font-size: 20px;
-      color: #FFFFFF;
+      // color: #FFFFFF;
+      position: relative;
       span{
         user-select: none;
       }

@@ -254,6 +254,7 @@ export default {
       margin-right: 20px;
 
       .logo {
+        max-width: 100%;
         // width: 72px;
         // height: 32px;
       }

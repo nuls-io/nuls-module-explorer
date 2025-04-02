@@ -468,26 +468,19 @@ export default {
       background: #FFFFFF;
       padding: 24px;
       border-radius: 12px;
-      .paging .pages .el-pager .active{
-        background-color: #00E789 !important;
-      }
-      .is-checked .el-switch__core{
-        // border-color: #00E789 !important;
-        // background-color: #00E789 !important;
-      }
-      .el-pagination__total,.el-pagination__jump{
-        color: #8B8BB0;
-      }
-      .el-pagination.is-background .el-pager li{
-        background-color: initial;
-        border: 1px solid #EBEBF4;
-        border-radius: 5px;
-      }
-      .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next{
-        background-color: initial;
-        border: 1px solid #EBEBF4;
-        border-radius: 5px;
-      }
+      // .el-pagination__total,.el-pagination__jump{
+      //   color: #8B8BB0;
+      // }
+      // .el-pagination.is-background .el-pager li{
+      //   background-color: initial;
+      //   border: 1px solid #EBEBF4;
+      //   border-radius: 5px;
+      // }
+      // .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next{
+      //   background-color: initial;
+      //   border: 1px solid #EBEBF4;
+      //   border-radius: 5px;
+      // }
       .el-table{
         .el-table__header-wrapper{
           border-radius: 8px;

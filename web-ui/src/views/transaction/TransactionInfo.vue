@@ -262,7 +262,11 @@
         <el-table-column :label="$t('public.symbol')">
           <template slot-scope="scope">
             <div class="ding-box">
-              {{ symbol }}
+              <router-link
+                class="click"
+                tag="a" :to="{path: `/asset/${NKey}`}">
+                {{ symbol }}
+              </router-link>
             </div>
           </template>
         </el-table-column>
@@ -295,7 +299,11 @@
         <el-table-column :label="$t('public.symbol')">
           <template slot-scope="scope">
             <div class="ding-box" v-for="(item, index) in scope.row.outputs" :key="index">
-              {{ symbol }}
+              <router-link
+                class="click"
+                tag="a" :to="{path: `/asset/${NKey}`}">
+                {{ symbol }}
+              </router-link>
             </div>
           </template>
         </el-table-column>
@@ -406,7 +414,22 @@
             <div>{{ $toThousands(scope.row.value) }}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="symbol" :label="$t('public.symbol')" min-width="100"></el-table-column>
+        <el-table-column prop="symbol" :label="$t('public.symbol')" min-width="100">
+          <template slot-scope="scope">
+            <router-link
+              v-if="scope.row.assetKey"
+              class="click"
+              tag="a" :to="{path: `/asset/${scope.row.assetKey}`}">
+              {{ scope.row.symbol }}
+            </router-link>
+            <router-link
+              v-else
+              class="click"
+              tag="a" :to="{ name: 'tokenInfo', query: {contractAddress: scope.row.contract} }">
+              {{ scope.row.symbol }}
+            </router-link>
+          </template>
+        </el-table-column>
 
       </el-table>
       <div class="direction-icon">
@@ -437,10 +460,24 @@
           </template>
         </el-table-column>
         <el-table-column :label="$t('public.symbol')">
-          <template slot-scope="scope">
+          <!-- <template slot-scope="scope">
             <div class="ding-box">
               {{ scope.row.symbol }}
             </div>
+          </template> -->
+          <template slot-scope="scope">
+            <router-link
+              v-if="scope.row.assetKey"
+              class="click"
+              tag="a" :to="{path: `/asset/${scope.row.assetKey}`}">
+              {{ scope.row.symbol }}
+            </router-link>
+            <router-link
+              v-else
+              class="click"
+              tag="a" :to="{ name: 'tokenInfo', query: {contractAddress: scope.row.contract} }">
+              {{ scope.row.symbol }}
+            </router-link>
           </template>
         </el-table-column>
         <el-table-column :label="$t('assetInfo.assetInfo29')" v-if="showTokenId">
@@ -525,7 +562,7 @@
 <script>
 import moment from 'moment'
 import { getLocalTime, timesDecimals, superLong, toThousands, divisionDecimals } from '@/api/util.js'
-import { NSymbol, NDecimals, calDecimalsAndSymbol } from '@/constants/constants'
+import { NSymbol, NDecimals, calDecimalsAndSymbol, NKey } from '@/constants/constants'
 import Address from './Address'
 
 export default {
@@ -533,6 +570,7 @@ export default {
     Address
   },
   data() {
+    this.NKey = NKey
     return {
       timesDecimals,
       toThousands,

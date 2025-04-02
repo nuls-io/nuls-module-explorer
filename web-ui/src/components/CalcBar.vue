@@ -65,7 +65,8 @@
   fixNumber,
   divisionDecimals,
   timesDecimals1,
-  formatNumber
+  formatNumber,
+  toThousands
 } from '@/api/util.js'
 
   export default {
@@ -267,11 +268,11 @@
           newYear = this.partakeForm.credit * (1 - this.partakeForm.ratio * 0.01) * this.rewardPerYear * this.partakeForm.entrust / this.partakeForm.allEntrust;
         }
         newYear = timesDecimals1(newYear, NULSDecimals - NDecimals)
-        newInfo.year = formatNumber(newYear)
-        newInfo.month = formatNumber(Division(newYear, 12).toFixed())
+        newInfo.year = toThousands(fixNumber(newYear, 4))
+        newInfo.month = toThousands(fixNumber(Division(newYear, 12).toFixed(), 4))
         const day = Division(newYear, 365).toFixed()
-        newInfo.day = formatNumber(day)
-        newInfo.week = formatNumber(Times(day, 7).toFixed()) //BN(newInfo.day).multipliedBy(7).toNumber();
+        newInfo.day = toThousands(fixNumber(day, 4))
+        newInfo.week = toThousands(fixNumber(Times(day, 7).toFixed(), 4)) //BN(newInfo.day).multipliedBy(7).toNumber();
         return newInfo
       }
     },
