@@ -9,7 +9,7 @@
           </div>
           <div class="dispay">
             <div class="flex">
-              <p class="sysmol font14">{{item.symbol}}</p>
+              <p class="sysmol font14">{{item.symbol === 'NULS' ? 'NAI' : item.symbol}}</p>
               <p class="monys font12" v-if="item.price">${{item.price}}</p>
             </div>
             <p class="style3">{{item.contract}}</p>
@@ -32,6 +32,9 @@ export default {
   methods:{
     symbolLogo(symbol) {
       if (symbol) {
+        if (symbol === 'NULS') {
+          symbol = 'NAI'
+        }
         return 'https://nuls-cf.oss-us-west-1.aliyuncs.com/icon/' + symbol + '.png';
       }else{
         return "../assets/img/destroyed.svg"
