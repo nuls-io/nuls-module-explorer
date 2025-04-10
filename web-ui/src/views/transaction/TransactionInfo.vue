@@ -12,7 +12,7 @@
       <h3 class="tabs_title tabs_header capitalize">{{ $t('public.basicInfo') }}</h3>
       <ul class="ul" ref="menu">
         <li class="tabs_infos fl capitalize">
-          <p>{{ $t('public.amount') }}<span>{{ toThousands(txInfo.value) }}</span></p>
+          <p>{{ $t('public.amount') }}<span>{{ $formatNumber(txInfo.value) }} {{ txInfo.symbol }}</span></p>
         </li>
         <li class="tabs_infos fl capitalize">
           <p>{{ $t('public.type') }}<span>{{ $t('type.' + txInfo.type) }}</span></p>
@@ -254,11 +254,15 @@
             <p class="leixin-let">{{ $t('transactionInfo.transactionInfo12') }}</p>
           </template>
         </el-table-column>
-        <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')"></el-table-column>
+        <el-table-column prop="value" :label="$t('tokenInfo.tokenInfo5')">
+          <template slot-scope="scope">
+            {{ $toThousands(scope.row.value) }}
+          </template>
+        </el-table-column>
         <el-table-column :label="$t('public.symbol')">
           <template slot-scope="scope">
             <div class="ding-box">
-              NULS
+              {{ symbol }}
             </div>
           </template>
         </el-table-column>
@@ -284,14 +288,14 @@
         <el-table-column :label="$t('tokenInfo.tokenInfo5')">
           <template slot-scope="scope">
             <div class="ding-box" v-for="(item, index) in scope.row.outputs" :key="index">
-              {{ item.value }}
+              {{ $toThousands(item.value) }}
             </div>
           </template>
         </el-table-column>
         <el-table-column :label="$t('public.symbol')">
           <template slot-scope="scope">
             <div class="ding-box" v-for="(item, index) in scope.row.outputs" :key="index">
-              {{ item.symbol || 'NULS' }}
+              {{ symbol }}
             </div>
           </template>
         </el-table-column>
@@ -399,7 +403,7 @@
         </el-table-column>
         <el-table-column :label="$t('tokenInfo.tokenInfo5')" min-width="100">
           <template slot-scope="scope">
-            <div>{{ toThousands(timesDecimals(scope.row.amount, scope.row.decimals)) }}</div>
+            <div>{{ $toThousands(scope.row.value) }}</div>
           </template>
         </el-table-column>
         <el-table-column prop="symbol" :label="$t('public.symbol')" min-width="100"></el-table-column>
@@ -427,7 +431,8 @@
         <el-table-column :label="$t('assetInfo.assetInfo24')">
           <template slot-scope="scope">
             <div class="ding-box">
-              {{ toThousands(timesDecimals(scope.row.amount, scope.row.decimals)) }}
+              <!-- {{ toThousands(timesDecimals(scope.row.amount, scope.row.decimals)) }} -->
+              {{ $toThousands(scope.row.value) }}
             </div>
           </template>
         </el-table-column>
@@ -519,7 +524,8 @@
 
 <script>
 import moment from 'moment'
-import { getLocalTime, timesDecimals, superLong, toThousands } from '@/api/util.js'
+import { getLocalTime, timesDecimals, superLong, toThousands, divisionDecimals } from '@/api/util.js'
+import { NSymbol, NDecimals, calDecimalsAndSymbol } from '@/constants/constants'
 import Address from './Address'
 
 export default {
@@ -552,7 +558,7 @@ export default {
       txhashInterval: null,
       isContracts: false,//Whether it is a contract transaction
       nulsTransfers: [],//Contract transfer outNULS
-      symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//defaultsymbol
+      symbol: NSymbol
     };
   },
   created() {
@@ -607,9 +613,14 @@ export default {
       this.$post('/', 'getTxV2', [hash])
         .then((response) => {
           if (response.hasOwnProperty("result")) {
+            const tx = response.result.tx
             response.result.tx.time = moment(getLocalTime(response.result.tx.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
-            response.result.tx.fees = timesDecimals(response.result.tx.fee.value, response.result.tx.fee.decimals || 8);
-            response.result.tx.value = timesDecimals(response.result.tx.value, response.result.tx.decimal);
+            const { decimals, symbol } = calDecimalsAndSymbol(tx)
+            const { decimals: feeDecimals, symbol: feeSymbol } = calDecimalsAndSymbol(tx.fee)
+            response.result.tx.value = divisionDecimals(response.result.tx.value, decimals);
+            response.result.tx.symbol = symbol;
+            response.result.tx.fees = divisionDecimals(response.result.tx.fee.value, feeDecimals);
+            response.result.tx.fee.symbol = feeSymbol
 
             //Yellow card
             if (response.result.tx.type === 7) {
@@ -631,16 +642,18 @@ export default {
               this.isContracts = true;
               if (response.result.tx.txData.hasOwnProperty('resultInfo')) {
                 const resultInfo = response.result.tx.txData.resultInfo
-                resultInfo.totalFee = timesDecimals(resultInfo.totalFee, 8);
-                resultInfo.txSizeFee = timesDecimals(resultInfo.txSizeFee, 8);
-                resultInfo.actualContractFee = timesDecimals(resultInfo.actualContractFee, 8);
-                resultInfo.refundFee = timesDecimals(resultInfo.refundFee, 8);
+                // resultInfo.totalFee = timesDecimals(resultInfo.totalFee, 8);
+                // resultInfo.txSizeFee = timesDecimals(resultInfo.txSizeFee, 8);
+                // resultInfo.actualContractFee = timesDecimals(resultInfo.actualContractFee, 8);
+                // resultInfo.refundFee = timesDecimals(resultInfo.refundFee, 8);
                 this.contractInfo = resultInfo;
                 if (resultInfo.tokenTransfers) {
                   let newTokenTransfers = resultInfo.tokenTransfers;
                   for (let item in newTokenTransfers) {
                     newTokenTransfers[item].keys = Number(item);
-                    newTokenTransfers[item].value = timesDecimals(newTokenTransfers[item].value, newTokenTransfers[item].decimals);
+                    const { decimals, symbol } = calDecimalsAndSymbol(newTokenTransfers[item])
+                    newTokenTransfers[item].value = timesDecimals(newTokenTransfers[item].value, decimals);
+                    newTokenTransfers[item].symbol = symbol
                   }
                   this.tokenTransfers = newTokenTransfers
                 }
@@ -651,9 +664,9 @@ export default {
               if (response.result.tx.txData.resultInfo.nulsTransfers) {
                 for (let item of response.result.tx.txData.resultInfo.nulsTransfers) {
                   item.txHashs = superLong(item.txHash, 4);
-                  item.value = timesDecimals(item.value);
+                  item.value = divisionDecimals(item.value, NDecimals);
                   for (let k of item.outputs) {
-                    k.value = timesDecimals(k.value);
+                    k.value = divisionDecimals(k.value, NDecimals);
                   }
                 }
                 this.nulsTransfers = response.result.tx.txData.resultInfo.nulsTransfers;
@@ -665,7 +678,9 @@ export default {
             }
             if (response.result.fromList) {
               for (let item of response.result.fromList) {
-                item.value = timesDecimals(item.amount, item.decimal);
+                const { decimals, symbol } = calDecimalsAndSymbol(item)
+                item.value = divisionDecimals(item.amount, decimals);
+                item.symbol = symbol
                 item.addresss = superLong(item.address, 10);
               }
               this.inputNumber = response.result.fromList.length;
@@ -673,7 +688,9 @@ export default {
 
             if (response.result.toList) {
               for (let item of response.result.toList) {
-                item.value = timesDecimals(item.amount, item.decimal);
+                const { decimals, symbol } = calDecimalsAndSymbol(item)
+                item.value = timesDecimals(item.amount, decimals);
+                item.symbol = symbol
                 item.addresss = superLong(item.address, 10);
                 //according tolockTimeThe determination of field length is whether it is height locked or time locked
                 if (item.lockTime === 0) {

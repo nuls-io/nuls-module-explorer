@@ -190,8 +190,8 @@ const en = {
     "home8": "More",
     "home9": "Burned",
     "home10": "Halving Countdown",
-    "home35": "Current average block rewards: {number} NULS",
-    "home36": "Average block rewards after halving: {number} NULS",
+    "home35": "Current average block rewards: {number} NAI",
+    "home36": "Average block rewards after halving: {number} NAI",
     "home37": "Next halving：{year}.{month}.{day}"
   },
 
@@ -203,7 +203,7 @@ const en = {
     "cale5": "Monthly",
     "cale6": "Annual",
     "cale7": "Please enter stake amount",
-    "cale8": "Stake amount ranges from 2000 to 500,000",
+    "cale8": "Stake amount ranges from 20,000,000 to 5,000,000,000",
     "cale9": "Stake amount should be number",
     "cale10": "Please enter commission rate",
     "cale11": "Commission rate ranges from 10 to 100",
@@ -212,13 +212,13 @@ const en = {
     "cale14": "Credit ranges from 0 to 1",
     "cale15": "Credit should be number",
     "cale16": "Please enter total satke",
-    "cale17": "Commission rate ranges from 20,000 to 100,000,000",
+    "cale17": "Commission rate ranges from 200,000,000 to 1,000,000,000,000",
     "cale18": "Total stake should be number",
     "cale19": "Please enter deposit",
-    "cale20": "Deposit ranges from 20,000 to 200,000",
+    "cale20": "Deposit ranges from 200,000,000 to 2,000,000,000",
     "cale21": "Deposit should be number",
     "cale22": "Please enter stake",
-    "cale23": "Deposit ranges from 2000 to 500,000",
+    "cale23": "Deposit ranges from 2,000,000,000 to 50,000,000,000",
     "cale24": "Deposit should be number"
   },
 
@@ -263,7 +263,7 @@ const en = {
     "transactionInfo9": "Function",
     "transactionInfo10": "Unlock Time",
     "transactionInfo11": "Token Transfers",
-    "transactionInfo12": "NULS Transfers"
+    "transactionInfo12": "NAI Transfers"
   },
 
   "consensus": {
@@ -388,7 +388,7 @@ const en = {
     "network16": "Nerve Cross - Chain Deals",
     "network17": "Hold Number",
     "network18": "Hold Number",
-    "network19": "NULS Network Flux",
+    "network19": "NAI Network Flux",
   },
 
   "call": {
@@ -422,9 +422,9 @@ const en = {
     "Parachain": 'Parachains',
     "HeterogeneousChain": 'Heterogeneous Chain',
     "NerveNetwork": 'NerveNetwork aims to connect all isolated blockchains and establish a cross-chain asset exchange network, providing all necessary underlying support for the DeFi ecosystem. Let every digital asset holder experience a truly safe, free and transparent DeFi service.',
-    "ENULS": 'ENULS, initiated by the NULS community, is a blockchain that is fully compatible with EVM and Web3 API interfaces.',
+    "ENULS": 'ENULS, initiated by the NAI community, is a blockchain that is fully compatible with EVM and Web3 API interfaces.',
     "asset_symbol": 'Main Chain Asset Symbol',
-    "traffic": 'Supply on NULS',
+    "traffic": 'Supply on NAI',
     "cross-chain": 'Number Of Cross-Chain Transactions',
     "Contract_address": "Contract Address",
     "the_contract": 'Read Contract',
@@ -478,7 +478,7 @@ const en = {
     "nodata": 'No Data',
     "BurnedList": "Burned Address List",
     "Address": 'Address',
-    "Quantity": "Quantity（NULS）",
+    "Quantity": "Quantity (NAI)",
     'label': 'Label',
     'Broken_link': 'Broken Link',
     'sourceCode': 'Code',

@@ -20,19 +20,19 @@
         <ul class="w1200">
           <li>
             <p class="font16 node-title">{{ $t('home.home3') }}</p>
-            <h5 class="font24 click-number">{{ count.circulateNumber }}K</h5>
+            <h5 class="font24 click-number">{{ count.circulateNumber }}</h5>
           </li>
           <li>
             <p class="font16 node-title">{{ $t('home.home2') }}</p>
             <h5 class="font24 clicks click-number">
               <router-link :to="{ name: 'Consensus'}">
-                {{ count.entrustNumber }}K
+                {{ count.entrustNumber }}
               </router-link>
             </h5>
           </li>
           <li>
             <p class="font16 node-title">{{ $t('home.home4') }}</p>
-            <h5 class="font24 click-number">{{ count.tradeNumber }}K</h5>
+            <h5 class="font24 click-number">{{ count.tradeNumber }}</h5>
           </li>
           <li>
             <p class="font16 clicks node-title">
@@ -40,7 +40,7 @@
                 {{ $t('home.home9') }}<i class="el-icon-arrow-right"></i>
               </router-link>
             </p>
-            <h5 class="font24 click-number">{{ $toThousands(destroyedAddressAmount) }}</h5>
+            <h5 class="font24 click-number">{{ destroyedAddressAmount }}</h5>
           </li>
           <li>
             <div class="font16 node-title text-align">
@@ -133,12 +133,21 @@
 <script>
 import axios from 'axios'
 import { API_ROOT } from '@/config'
-import { BigNumber } from 'bignumber.js'
 import CalcBar from '@/components/CalcBar'
-import { superLong, timesDecimals } from '@/api/util.js'
+import {
+  superLong,
+  Division,
+  Times,
+  fixNumber,
+  divisionDecimals,
+  timesDecimals1,
+  formatNumber
+} from '@/api/util.js'
 import SearchBar from '../components/SearchBar.vue'
 import moment from 'moment'
 import { mapState } from 'vuex'
+import { NDecimals, NDiffDeciamsl } from '@/constants/constants'
+// import { NSymbol, NDecimals, NDiffDeciamsl, calDecimalsAndSymbol } from '@/constants/constants'
 
 export default {
   components: {
@@ -164,7 +173,9 @@ export default {
         },
         formatter: params => {
           params = params[0];
-          const value = params.seriesName === 'APR' ? params.data[1] * 100 + '%' : Number((params.data[1] / 1000).toFixed(2)) + 'k'
+          const value = params.seriesName === 'APR'
+            ? fixNumber(Times(params.data[1],  100).toFixed(), 2) + '%'
+            : fixNumber(Division(params.data[1], 1000), 2) + 'k'
           return `<div class="line-tooltip">
             <p class="tooltip-label">${params.data[0]}</p>
             <p class="tooltip-value">${params.seriesName}: ${value}</p>
@@ -335,7 +346,8 @@ export default {
       const url = API_ROOT + '/nuls/assets/get';
       let dataRes = await axios.get(url);
       if (dataRes.data.success) {
-        this.destroyedAddressAmount = dataRes.data.data.destroy.toFixed(3)
+        // this.destroyedAddressAmount = dataRes.data.data.destroy.toFixed(3)
+        this.destroyedAddressAmount = formatNumber(timesDecimals1(dataRes.data.data.destroy, NDiffDeciamsl))
       } else {
         this.destroyedAddressAmount = 0
       }
@@ -355,20 +367,25 @@ export default {
       }
       let NULSNumber = this.$store.state.NULSNumber;
       if (NULSNumber.length !== 0) {
-        let newBlockRewardBeforeDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardBeforeDeflation, 8, 5));
-        this.count.blockRewardBeforeDeflation = newBlockRewardBeforeDeflation.toFormat(5);
-        let newBlockRewardAfterDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardAfterDeflation, 8, 5));
-        this.count.blockRewardAfterDeflation = newBlockRewardAfterDeflation.toFormat(5);
+        // let newBlockRewardBeforeDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardBeforeDeflation, 8, 5));
+        // this.count.blockRewardBeforeDeflation = newBlockRewardBeforeDeflation.toFormat(5);
+        // let newBlockRewardAfterDeflation = new BigNumber(timesDecimals(NULSNumber.blockRewardAfterDeflation, 8, 5));
+        // this.count.blockRewardAfterDeflation = newBlockRewardAfterDeflation.toFormat(5);
+        this.count.blockRewardBeforeDeflation = fixNumber(divisionDecimals(NULSNumber.blockRewardBeforeDeflation, NDecimals), 5);
+        this.count.blockRewardAfterDeflation = fixNumber(divisionDecimals(NULSNumber.blockRewardAfterDeflation, NDecimals), 5);
         this.count.Year = moment(NULSNumber.nextDeflationTime).format('YYYY');
         this.count.month = moment(NULSNumber.nextDeflationTime).format('MM');
         this.count.Day = moment(NULSNumber.nextDeflationTime).format('DD');
         this.countdown(NULSNumber.nextDeflationTime)
-        let newCirculateNumber = new BigNumber(timesDecimals(NULSNumber.total, 11));
-        this.count.circulateNumber = newCirculateNumber.toFormat(2);
-        let newEntrustNumber = new BigNumber(timesDecimals(NULSNumber.consensusTotal, 11));
-        this.count.entrustNumber = newEntrustNumber.toFormat(2);
-        let newTradeNumber = new BigNumber(timesDecimals(NULSNumber.circulation, 11));
-        this.count.tradeNumber = newTradeNumber.toFormat(2);
+        // let newCirculateNumber = new BigNumber(timesDecimals(NULSNumber.total, 11));
+        // this.count.circulateNumber = newCirculateNumber.toFormat(2);
+        this.count.circulateNumber = formatNumber(divisionDecimals(NULSNumber.total, NDecimals))
+        // let newEntrustNumber = new BigNumber(timesDecimals(NULSNumber.consensusTotal, 11));
+        // this.count.entrustNumber = newEntrustNumber.toFormat(2);
+        this.count.entrustNumber = formatNumber(divisionDecimals(NULSNumber.consensusTotal, NDecimals))
+        // let newTradeNumber = new BigNumber(timesDecimals(NULSNumber.circulation, 11));
+        // this.count.tradeNumber = newTradeNumber.toFormat(2);
+        this.count.tradeNumber = formatNumber(divisionDecimals(NULSNumber.circulation, NDecimals))
         this.countLoading = false;
       }
     },

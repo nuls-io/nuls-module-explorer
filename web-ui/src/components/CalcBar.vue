@@ -57,6 +57,16 @@
 
 <script>
   import {BigNumber} from 'bignumber.js'
+  import { NSymbol, NDecimals, NULSDecimals } from '@/constants/constants'
+  import {
+  superLong,
+  Division,
+  Times,
+  fixNumber,
+  divisionDecimals,
+  timesDecimals1,
+  formatNumber
+} from '@/api/util.js'
 
   export default {
     data() {
@@ -66,7 +76,7 @@
         }
         value = Number(value);
         if (typeof value === 'number' && !isNaN(value)) {
-          if (value < 2000 || value > 500000) {
+          if (value < 20000000 || value > 5000000000) {
             callback(new Error(this.$t('cale.cale8')))
           } else {
             callback()
@@ -111,7 +121,7 @@
         }
         value = Number(value);
         if (typeof value === 'number' && !isNaN(value)) {
-          if (value < 200000 || value > 100000000) {
+          if (value < 2000000000 || value > 1000000000000) {
             callback(new Error(this.$t('cale.cale17')))
           } else {
             callback()
@@ -127,7 +137,7 @@
         }
         value = Number(value);
         if (typeof value === 'number' && !isNaN(value)) {
-          if (value < 20000 || value > 200000) {
+          if (value < 200000000 || value > 2000000000) {
             callback(new Error(this.$t('cale.cale20')))
           } else {
             callback()
@@ -172,7 +182,7 @@
         }
         value = Number(value);
         if (typeof value === 'number' && !isNaN(value)) {
-          if (value < 200000 || value > 100000000) {
+          if (value < 2000000000 || value > 1000000000000) {
             callback(new Error(this.$t('cale.cale17')))
           } else {
             callback()
@@ -187,7 +197,7 @@
         }
         value = Number(value);
         if (typeof value === 'number' && !isNaN(value)) {
-          if (value < 200000 || value > 500000) {
+          if (value < 2000000000 || value > 5000000000) {
             callback(new Error(this.$t('cale.cale23')))
           } else {
             callback()
@@ -200,10 +210,10 @@
         radio: 1,
         //Delegate Node Calculator
         partakeForm: {
-          entrust: 2000,
+          entrust: 20000000,
           ratio: 10,
           credit: 1,
-          allEntrust: this.$store.state.NULSNumber.consensusTotal / 100000000,
+          allEntrust: divisionDecimals(this.$store.state.NULSNumber.consensusTotal, NDecimals)//this.$store.state.NULSNumber.consensusTotal / 100000000,
         },
         partakeRules: {
           entrust: [{validator: checkEntrust, trigger: 'change'}],
@@ -213,11 +223,11 @@
         },
         //Create Node Calculator
         newNodeFrom: {
-          newEnsure: 20000,
+          newEnsure: 200000000,
           newRadio: 10,
           newCredit: 1,
-          newAllEntrust: this.$store.state.NULSNumber.consensusTotal / 100000000,
-          newEntrust: 200000
+          newAllEntrust: divisionDecimals(this.$store.state.NULSNumber.consensusTotal, NDecimals),
+          newEntrust: 2000000000
         },
         newNodeRules: {
           newEnsure: [{validator: checkNewEnsure, trigger: 'change'}],
@@ -226,7 +236,7 @@
           newAllEntrust: [{validator: checkNewAllEntrust, trigger: 'change'}],
           newEntrust: [{validator: checkNewEntrust, trigger: 'change'}],
         },
-        symbol:sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') :'NULS',//defaultsymbol,
+        symbol: NSymbol,
         rewardPerYear: ''
       };
     },
@@ -249,17 +259,19 @@
         let newInfo = {day: 0, week: 0, month: 0, year: 0};
         let BN = BigNumber.clone();
         BN.config({DECIMAL_PLACES: 4});
+        let newYear = '0'
         if (this.radio.toString() === '2') {
-          const newYear = this.newNodeFrom.newCredit * this.newNodeFrom.newEnsure * this.rewardPerYear / this.newNodeFrom.newAllEntrust
+          newYear = this.newNodeFrom.newCredit * this.newNodeFrom.newEnsure * this.rewardPerYear / this.newNodeFrom.newAllEntrust
             + this.newNodeFrom.newCredit * this.newNodeFrom.newEntrust * this.rewardPerYear * this.newNodeFrom.newRadio * 0.01 / this.newNodeFrom.newAllEntrust;
-          newInfo.year = BN(newYear).div(1).toNumber();
         } else {
-          const newYear = this.partakeForm.credit * (1 - this.partakeForm.ratio * 0.01) * this.rewardPerYear * this.partakeForm.entrust / this.partakeForm.allEntrust;
-          newInfo.year = BN(newYear).div(1).toNumber();
+          newYear = this.partakeForm.credit * (1 - this.partakeForm.ratio * 0.01) * this.rewardPerYear * this.partakeForm.entrust / this.partakeForm.allEntrust;
         }
-        newInfo.month = BN(newInfo.year).div(12).toNumber();
-        newInfo.day = BN(newInfo.year).div(365).toNumber();
-        newInfo.week = BN(newInfo.day).multipliedBy(7).toNumber();
+        newYear = timesDecimals1(newYear, NULSDecimals - NDecimals)
+        newInfo.year = formatNumber(newYear)
+        newInfo.month = formatNumber(Division(newYear, 12).toFixed())
+        const day = Division(newYear, 365).toFixed()
+        newInfo.day = formatNumber(day)
+        newInfo.week = formatNumber(Times(day, 7).toFixed()) //BN(newInfo.day).multipliedBy(7).toNumber();
         return newInfo
       }
     },

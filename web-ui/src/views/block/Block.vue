@@ -47,6 +47,7 @@
   import moment from 'moment'
   import paging from '@/components/pagingBar';
   import {getLocalTime, timesDecimals} from '@/api/util.js'
+  import { NDecimals } from '@/constants/constants'
 
   export default {
     data() {
@@ -91,7 +92,7 @@
             //console.log(response);
             if (response.hasOwnProperty("result")) {
               for (let item of response.result.list) {
-                item.reward = timesDecimals(item.reward, 8);
+                item.reward = timesDecimals(item.reward, NDecimals);
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
               }
               this.blockList = response.result.list;

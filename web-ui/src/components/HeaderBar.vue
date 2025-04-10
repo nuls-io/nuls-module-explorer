@@ -1,14 +1,16 @@
 <template>
   <div class="header">
-    <div class="w1200">
-      <div class="header_logo fl">
-        <img class="logo click" :src=logoSvg @click="toHome">
+    <div class="w1200 flex justify-between ">
+      <div class="flex items-center flex-1">
+        <div class="header_logo">
+          <img class="logo click" :src=logoSvg @click="toHome">
+        </div>
+        <div class="menu flex-1">
+          <MenuBar mode="horizontal"></MenuBar>
+        </div>
       </div>
-      <div class="menu fl">
-        <MenuBar mode="horizontal"></MenuBar>
-      </div>
-
-      <div class="header_language fl">
+      <div class="flex items-center">
+        <div class="header_language">
         <div class="top-search fl" v-if="navActive !== 'home' && navActive !== '/'">
           <el-input v-model="searchValue" class="fr" :placeholder="$t('public.searchTip')"
             @keyup.enter.native="clickSearch" @focus="focusSearch" @input="DynamicMonitoring" @blur="blurSearch">
@@ -21,11 +23,15 @@
           {{$t('home.home9')}}：{{destroyedAddressAmount}}
           <span class="fCN">&nbsp;NULS</span>
         </div> -->
-        <div class="language font14 fr" @click="selectLanguage(lang, true)">{{ lang === 'en' ? 'Zh' : 'En' }}</div>
+          <div class="language font14" @click="selectLanguage(lang, true)">{{ lang === 'en' ? 'Zh' : 'En' }}</div>
+        </div>
+        <div class="mobile_ico">
+          <i class="el-icon-menu" @click="showMobile = !showMobile"></i>
+        </div>
       </div>
-      <div class="mobile_ico fr">
-        <i class="el-icon-menu" @click="showMobile = !showMobile"></i>
-      </div>
+      
+
+      
     </div>
 
     <el-collapse-transition>
@@ -238,21 +244,21 @@ export default {
 
   .w1200 {
     .header_logo {
-      width: 104px;
+      width: 120px;
       height: 68px;
       display: flex;
       align-items: center;
       margin-right: 20px;
 
       .logo {
-        width: 72px;
-        height: 32px;
+        // width: 72px;
+        // height: 32px;
       }
     }
 
     .menu {
       height: 68px;
-      width: 690px;
+      // width: 690px;
     }
 
     .header_language {
@@ -361,11 +367,11 @@ export default {
       justify-content: space-between;
 
       .header_logo {
-        width: 5.2rem;
+        width: 6rem;
         margin: 0 0.5rem;
 
         .logo {
-          width: 5.2rem;
+          // width: 5.2rem;
         }
       }
 
