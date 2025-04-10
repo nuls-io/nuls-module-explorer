@@ -18,10 +18,10 @@
           </ve-pie>
           <div class="a_total">
             <div class="font14 capitalize">{{$t('public.balance')}}</div>
-            <div class="font18">{{$toThousands(addressInfo.totalBalance)}} {{symbol}}</div>
+            <div class="font18">{{addressInfo.totalBalance || '0'}} {{symbol}}</div>
             <ul class="chart_title">
-              <li><span></span>{{$t('public.consensusLocking')}} {{$toThousands(addressInfo.totalLocks)}}</li>
-              <li><span></span>{{$t('public.usablebalance')}} {{$toThousands(addressInfo.balances)}}</li>
+              <li><span></span>{{$t('public.consensusLocking')}} {{addressInfo.totalLocks || '0'}}</li>
+              <li><span></span>{{$t('public.usablebalance')}} {{addressInfo.balances || '0'}}</li>
               <!--<li><span></span>{{$t('public.timeLocking')}}</li>-->
             </ul>
           </div>
@@ -31,13 +31,13 @@
         <h3 class="tabs_title tabs_header capitalize">{{$t('public.basicInfo')}}</h3>
         <ul class="total_ul">
           <li class="tabs_infos capitalize" v-if="isMobile">{{$t('public.balance')}}
-            <span class="fr">{{$toThousands(addressInfo.totalBalance)}}</span>
+            <span class="fr">{{addressInfo.totalBalance || '0'}}</span>
           </li>
           <li class="tabs_infos capitalize" v-if="isMobile">{{$t('public.usablebalance')}}
-            <span class="fr">{{$toThousands(addressInfo.balances)}}</span>
+            <span class="fr">{{addressInfo.balances || '0'}}</span>
           </li>
           <li class="tabs_infos capitalize" v-if="isMobile">{{$t('public.consensusLocking')}}
-            <span class="fr">{{$toThousands(addressInfo.totalLocks)}}</span>
+            <span class="fr">{{addressInfo.totalLocks || '0'}}</span>
           </li>
 
           <li class="tabs_infos capitalize">{{$t('public.alias')}}
@@ -47,9 +47,9 @@
                   class="fr">{{$toThousands(addressInfo.txCount)}}</span></li>
           <li class="tabs_infos capitalize">{{$t('public.addressType')}}<span class="fr">{{$t('addressType.'+addressInfo.type)}}</span>
           </li>
-          <li class="tabs_infos capitalize">{{$t('addressList.addressList1')}}<span class="fr">{{$toThousands(addressInfo.totalIn)}} {{symbol}}</span>
+          <li class="tabs_infos capitalize">{{$t('addressList.addressList1')}}<span class="fr">{{addressInfo.totalIn || '0'}} {{symbol}}</span>
           </li>
-          <li class="tabs_infos capitalize">{{$t('addressList.addressList2')}}<span class="fr">{{$toThousands(addressInfo.totalOut)}} {{symbol}}</span>
+          <li class="tabs_infos capitalize">{{$t('addressList.addressList2')}}<span class="fr">{{addressInfo.totalOut || '0'}} {{symbol}}</span>
           </li>
         </ul>
       </div>
@@ -85,13 +85,13 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('public.amount')" width="180" align="left">
-              <template slot-scope="scope">{{ $toThousands(scope.row.values) }}{{scope.row.symbol}}</template>
+              <template slot-scope="scope">{{ $formatNumber(scope.row.values) }} {{scope.row.symbol}}</template>
             </el-table-column>
             <el-table-column :label="$t('public.balance')" min-width="180" align="left">
-              <template slot-scope="scope">{{ $toThousands(scope.row.balance) }}{{scope.row.symbol}}</template>
+              <template slot-scope="scope">{{ $formatNumber(scope.row.balance) }} {{scope.row.symbol}}</template>
             </el-table-column>
             <el-table-column :label="$t('public.fee')" width="150" align="left">
-              <template slot-scope="scope">{{ scope.row.fees }}{{scope.row.fee.symbol}}</template>
+              <template slot-scope="scope">{{ scope.row.fees }} {{scope.row.fee.symbol}}</template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
@@ -296,7 +296,8 @@
 <script>
   import moment from 'moment'
   import SelectBar from '@/components/SelectBar';
-  import {getLocalTime, superLong, timesDecimals, Plus,Minus} from '@/api/util.js'
+  import {getLocalTime, superLong, timesDecimals, Plus,Minus, divisionDecimals, formatNumber} from '@/api/util.js'
+  import { NSymbol, NDecimals, calDecimalsAndSymbol } from '@/constants/constants'
 
   export default {
     data() {
@@ -368,7 +369,7 @@
         nrc20ListLoading: false,
         //Address Timer
         addressInterval: null,
-        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//defaultsymbol
+        symbol: NSymbol,
         holdData: [],//Holding cross chain asset list
         holdDataLoading: false,
         nrc721List: [],
@@ -442,14 +443,14 @@
           .then((response) => {
             //console.log(response);
             if (response.hasOwnProperty("result")) {
-              response.result.totalBalance = timesDecimals(response.result.totalBalance);
-              response.result.balances = timesDecimals(response.result.balance);
+              response.result.totalBalance = formatNumber(divisionDecimals(response.result.totalBalance, NDecimals));
+              response.result.balances = formatNumber(divisionDecimals(response.result.balance, NDecimals));
               response.result.totalLock = Plus(response.result.timeLock, response.result.consensusLock).toString();
-              response.result.totalLocks = timesDecimals(response.result.totalLock);
-              response.result.timeLock = timesDecimals(response.result.timeLock);
-              response.result.consensusLock = timesDecimals(response.result.consensusLock);
-              response.result.totalIn = timesDecimals(response.result.totalIn);
-              response.result.totalOut = timesDecimals(response.result.totalOut);
+              response.result.totalLocks = formatNumber(divisionDecimals(response.result.totalLock, NDecimals));
+              response.result.timeLock = divisionDecimals(response.result.timeLock, NDecimals);
+              response.result.consensusLock = divisionDecimals(response.result.consensusLock, NDecimals);
+              response.result.totalIn = formatNumber(divisionDecimals(response.result.totalIn, NDecimals));
+              response.result.totalOut = formatNumber(divisionDecimals(response.result.totalOut, NDecimals));
 
               if (parseInt(response.result.balance) > 0) {
                 this.addressNumber.push({
@@ -526,9 +527,13 @@
               for (let item of response.result.list) {
                 item.createTime = moment(getLocalTime(item.createTime * 1000)).format('YYYY-MM-DD HH:mm:ss');
                 item.txHashs = superLong(item.txHash, 12);
-                item.values = timesDecimals(item.values, item.decimals);
-                item.balance = timesDecimals(item.balance, item.decimals);
-                item.fees = timesDecimals(item.fee.value, item.fee.decimals || 8);
+                const { decimals, symbol } = calDecimalsAndSymbol(item)
+                item.values = divisionDecimals(item.values, decimals);
+                item.balance = divisionDecimals(item.balance, decimals);
+                item.symbol = symbol
+                const { decimals: feeDecimals, symbol: feeSymbol } = calDecimalsAndSymbol(item.fee)
+                item.fees = divisionDecimals(item.fee.value, feeDecimals);
+                item.fee.symbol = feeSymbol
               }
               this.txList = response.result.list;
               this.pageTotal = response.result.totalCount;

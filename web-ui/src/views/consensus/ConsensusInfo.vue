@@ -62,7 +62,7 @@
           </p>
         </li>
         <li class="tabs_infos fl">
-          <p>{{$t('public.bond')}}<span>{{$toThousands(nodeInfo.deposit)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+          <p>{{$t('public.bond')}}<span>{{$formatNumber(nodeInfo.deposit)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
           </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('consensusInfo.consensusInfo3')}}<span>{{nodeInfo.version}}</span></p></li>
@@ -77,7 +77,7 @@
               </el-tooltip>
             </label>
             <span>
-              {{$toThousands(nodeInfo.agentReward)}}
+              {{$formatNumber(nodeInfo.agentReward)}}
               <span class="fCN">&nbsp;{{symbol}}</span>
             </span>
           </p>
@@ -86,14 +86,14 @@
         <li class="tabs_infos fl">
           <p>
             {{$t('consensusInfo.consensusInfo16')}}
-            <span>{{$toThousands(nodeInfo.commissionReward)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+            <span>{{$formatNumber(nodeInfo.commissionReward)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
           </p>
         </li>
         <li class="tabs_infos fl"><p>{{$t('public.createTime')}}<span>{{nodeInfo.time}}</span></p></li>
         <li class="tabs_infos fl">
           <p>
             {{$t('public.allEntrust')}}
-            <span>{{$toThousands(nodeInfo.totalDeposit)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
+            <span>{{$formatNumber(nodeInfo.totalDeposit)}}<span class="fCN">&nbsp;{{symbol}}</span></span>
           </p>
         </li>
       </ul>
@@ -118,7 +118,7 @@
                                align="left"></el-table-column>
               <el-table-column prop="size" :label="$t('public.size')" width="280" align="left"></el-table-column>
               <el-table-column :label="$t('consensusInfo.consensusInfo8') + '('+symbol+')'" width="280" align="left">
-                <template slot-scope="scope">{{ scope.row.reward}}</template>
+                <template slot-scope="scope">{{ $formatNumber(scope.row.reward)}}</template>
               </el-table-column>
             </el-table>
             <div class="paging">
@@ -177,7 +177,7 @@
               <el-table-column prop="createTime" :label="$t('consensusInfo.consensusInfo12')" width="220"
                                align="left"></el-table-column>
               <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="220" align="left">
-                <template slot-scope="scope">{{ $toThousands(scope.row.amount) }}</template>
+                <template slot-scope="scope">{{ $formatNumber(scope.row.amount) }}</template>
               </el-table-column>
             </el-table>
             <div class="paging">
@@ -224,7 +224,7 @@
                 <template slot-scope="scope">{{ scope.row.type === 0 ? $t('public.join'):$t('public.quit') }}</template>
               </el-table-column>
               <el-table-column :label="$t('public.amount')+ '('+symbol+')'" width="140" align="left">
-                <template slot-scope="scope">{{ $toThousands(scope.row.amount)}}</template>
+                <template slot-scope="scope">{{ $formatNumber(scope.row.amount)}}</template>
               </el-table-column>
               <el-table-column :label="$t('public.fee')+ '('+symbol+')'" width="110" align="left">
                 <template slot-scope="scope">{{ scope.row.fee}}</template>
@@ -250,12 +250,13 @@
 <script>
   import moment from 'moment'
   import {getLocalTime, superLong, timeDifference, divisionDecimals} from '@/api/util.js'
+  import { NSymbol, NDecimals } from '@/constants/constants'
 
   export default {
     data() {
       return {
-        symbol: sessionStorage.hasOwnProperty('symbol') ? sessionStorage.getItem('symbol') : 'NULS',//symbol
-        decimals: sessionStorage.hasOwnProperty('decimals') ? Number(sessionStorage.getItem('decimals')) : 8,//decimals
+        symbol: NSymbol,
+        decimals: NDecimals,
         activeNames: this.$route.query.tabName || 'first',
         //Node information
         nodeInfo: [],

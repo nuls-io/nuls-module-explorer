@@ -22,16 +22,16 @@
     <div class="box">
       <p class="title">{{ $t("public.balance") }}</p>
       <p class="syst">
-        {{ $toThousands(info.balance) }}
+        {{ $formatNumber(info.balance) }}
         {{ info.symbol }}
       </p>
     </div>
     <div class="box">
       <p class="title">{{ $t("assetInfo.assetInfo27") }}</p>
       <p class="syst" v-if="info.value > 0">
-        ${{ $toThousands(info.value) }}
+        ${{ $formatNumber(info.value) }}
         <span v-if="info.nulsValue > 0"
-          >(≈{{ $toThousands(info.nulsValue) }}NULS)</span
+          >(≈{{ $formatNumber(info.nulsValue) }} {{ symbol }})</span
         >
       </p>
       <p v-else>--</p>
@@ -40,8 +40,15 @@
 </template>
 
 <script>
+import { NSymbol } from '@/constants/constants';
 export default {
   props: ["info"],
+  data() {
+    this.symbol = NSymbol
+    return {
+      
+    }
+  }
 };
 </script>
 

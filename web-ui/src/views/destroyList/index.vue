@@ -17,7 +17,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('assets.Quantity')" min-width="150">
                     <template slot-scope="scope">
-                        <div class="lineGhei">{{ toThousands(scope.row.value)  }}</div>
+                        <div class="lineGhei">{{ $formatNumber(timesDecimals1(scope.row.value, NDiffDeciamsl))  }}</div>
                     </template>
                 </el-table-column>
                 <el-table-column :label="$t('assets.assetInfo32')" min-width="150">
@@ -31,13 +31,15 @@
 </template>
 
 <script>
-import { toThousands } from '@/api/util'
+import { toThousands, timesDecimals1 } from '@/api/util'
 import { mapState } from 'vuex';
+import { NDiffDeciamsl } from '@/constants/constants'
 export default {
     data() {
         return {
             tableData: [],
-            toThousands
+            toThousands,
+            timesDecimals1
         }
     },
     computed:{

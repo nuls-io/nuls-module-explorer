@@ -36,12 +36,13 @@
 <script>
 import PagingBar from '@/components/pagingBar';
 import contractMixin from './contractMixin';
+import { NSymbol, NDecimals, NULSDecimals } from '@/constants/constants'
 
 export default {
   data() {
     return {
       contractType: 'all',
-      symbol: 'NULS'
+      symbol: NSymbol
     };
   },
   mixins: [contractMixin],

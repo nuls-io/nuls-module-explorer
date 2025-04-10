@@ -1,4 +1,4 @@
-# New Explorer
+# NULS AI Explorer
 
 ## Project Setup
 ```

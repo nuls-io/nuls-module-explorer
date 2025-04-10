@@ -6,7 +6,7 @@ import i18n from './i18n'
 import {post} from './api/https'
 import JSONView from 'vue-json-viewer'
 import axios from "axios";
-import { toThousands, copys } from './api/util'
+import { toThousands, copys, formatNumber } from './api/util'
 import {API_ROOT, RUN_DEV} from "./config";
 import { Message } from 'element-ui';
 
@@ -14,6 +14,7 @@ Vue.use(JSONView);
 Vue.config.productionTip = false;
 Vue.prototype.$post = post;
 Vue.prototype.$toThousands = toThousands
+Vue.prototype.$formatNumber = formatNumber
 Vue.prototype.$copy = function(str) {
   copys(str)
   Message({

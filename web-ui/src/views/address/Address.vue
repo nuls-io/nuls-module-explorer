@@ -34,10 +34,10 @@
           </template>
         </el-table-column>
         <el-table-column :label="$t('public.locking')" width="200" align="left">
-          <template slot-scope="scope">{{ $toThousands(scope.row.locked) || '0' }}</template>
+          <template slot-scope="scope">{{ scope.row.locked || '0' }}</template>
         </el-table-column>
         <el-table-column :label="$t('public.total')" width="200" align="left">
-          <template slot-scope="scope">{{ $toThousands(scope.row.totalBalance) }}</template>
+          <template slot-scope="scope">{{ scope.row.totalBalance }}</template>
         </el-table-column>
         <el-table-column :label="$t('public.accountedFor')" width="120" align="left">
           <template slot-scope="scope">{{ scope.row.proportion }}</template>
@@ -51,7 +51,8 @@
 
 <script>
 import paging from "@/components/pagingBar";
-import { timesDecimals } from "@/api/util.js";
+import { divisionDecimals, formatNumber } from "@/api/util.js";
+import { NDecimals } from '@/constants/constants'
 
 export default {
   data() {
@@ -187,8 +188,8 @@ export default {
           // console.log(response, 'Obtain address list');
           if (response.hasOwnProperty("result")) {
             for (let item of response.result.list) {
-              item.totalBalance = timesDecimals(item.totalBalance, 8);
-              item.locked = timesDecimals(item.locked, 8);
+              item.totalBalance = formatNumber(divisionDecimals(item.totalBalance, NDecimals));
+              item.locked = formatNumber(divisionDecimals(item.locked, NDecimals));
             }
             this.addressList = response.result.list;
             this.pager.total = response.result.totalCount;

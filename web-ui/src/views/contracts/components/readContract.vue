@@ -55,7 +55,7 @@
                             </div>
 
                             <div class="margintop" v-if="item.payable">
-                                <p>Value(NULS)</p>
+                                <p>Value({{ symbol }})</p>
                                 <el-input class="margintop" v-model="item.values" @input="Monitor($event, item)"></el-input>
                             </div>
 
@@ -90,12 +90,15 @@
 
 <script>
 import axios from 'axios'
-import { getArgs, getChainId, timesDecimalsBig, Times, getNulsBalance, isBeta } from '../../../api/util'
+import { divisionDecimals, getArgs, getChainId, getNulsBalance, isBeta } from '../../../api/util'
 import utils from 'nuls-sdk-js/lib/utils/utils'
+import { NSymbol, NDiffDeciamsl } from '@/constants/constants'
+
 export default {
     props: ['infoActive'],
     data() {
         return {
+            symbol: NSymbol,
             // Contract address for testingNULSd6HgrEtRT9r151GxBMG6hAVvdahgnSw7w
             searchContract: '', //Contract address
             walletaddress: '', //Wallet address
@@ -305,7 +308,7 @@ export default {
                     }
                     const data = {
                         from: this.walletaddress, //Wallet address
-                        value: item.values,
+                        value: divisionDecimals(item.values, NDiffDeciamsl),
                         contractAddress: this.searchContract,
                         methodName: item.name,
                         methodDesc: item.desc,
