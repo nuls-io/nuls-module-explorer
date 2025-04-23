@@ -308,7 +308,7 @@ export default {
                     }
                     const data = {
                         from: this.walletaddress, //Wallet address
-                        value: timesDecimals1(item.values, NDecimals),
+                        value: item.values,
                         contractAddress: this.searchContract,
                         methodName: item.name,
                         methodDesc: item.desc,
