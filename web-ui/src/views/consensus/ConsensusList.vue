@@ -6,10 +6,10 @@
           <SelectBar v-model="nodeTypeRegion" :typeOptions="nodeTypeOptions" typeName="nodeType"
                     @change="changeNodeType"></SelectBar>
         </div>
-        <div class="status_select fl">
+        <!-- <div class="status_select fl">
           <SelectBar v-model="nodeStatusRegion" :typeOptions="nodeStatusOptions" typeName="nodeStatus"
                     @change="changeNodeStatus"></SelectBar>
-        </div>
+        </div> -->
         <div class="search_input">
           <el-input v-model="searchValue" class="search" :placeholder="$t('consensus.search')"
                     suffix-icon="el-icon-search"></el-input>

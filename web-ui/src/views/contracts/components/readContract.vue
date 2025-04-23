@@ -90,9 +90,9 @@
 
 <script>
 import axios from 'axios'
-import { divisionDecimals, getArgs, getChainId, getNulsBalance, isBeta } from '../../../api/util'
+import { divisionDecimals, getArgs, getChainId, getNulsBalance, isBeta, timesDecimals1 } from '../../../api/util'
 import utils from 'nuls-sdk-js/lib/utils/utils'
-import { NSymbol, NDiffDeciamsl } from '@/constants/constants'
+import { NSymbol, NDecimals } from '@/constants/constants'
 
 export default {
     props: ['infoActive'],
@@ -142,8 +142,8 @@ export default {
         this.searchContract = this.$route.query.contractAddress
         this.getReadContract()
         this.openName = this.$route.query.name || null
-        if (window.NaboxWallet && window.NaboxWallet.nuls) {
-            const address = window.NaboxWallet.nuls.selectedAddress
+        if (window.NaboxWallet && window.NaboxWallet.nai && window.NaboxWallet.nai.selectedAddress) {
+            const address = window.NaboxWallet.nai.selectedAddress
             if (address) {
                 this.switchToNULS()
                 this.walletaddress = address
@@ -153,8 +153,8 @@ export default {
     },
     mounted() {
         // Monitor wallet address switching
-        if (window.NaboxWallet && window.NaboxWallet.nuls) {
-            window.NaboxWallet.nuls.on("accountsChanged", (accounts) => {
+        if (window.NaboxWallet && window.NaboxWallet.nai) {
+            window.NaboxWallet.nai.on("accountsChanged", (accounts) => {
                 if (accounts[0]) {
                     this.walletaddress = accounts[0]
                     this.getAccountCrossLedgerList(accounts[0]) //Send wallet address
@@ -166,7 +166,7 @@ export default {
     },
     methods: {
         switchToNULS() {
-            window.NaboxWallet.nuls.switchChain({ chainId: isBeta ? 2 : 1 })
+            window.NaboxWallet.nai.switchChain({ chainId: isBeta ? 2 : 1 })
         },
         Monitor(val, item){
             item.values = val;
@@ -308,7 +308,7 @@ export default {
                     }
                     const data = {
                         from: this.walletaddress, //Wallet address
-                        value: divisionDecimals(item.values, NDiffDeciamsl),
+                        value: timesDecimals1(item.values, NDecimals),
                         contractAddress: this.searchContract,
                         methodName: item.name,
                         methodDesc: item.desc,
@@ -320,7 +320,7 @@ export default {
                             data.multyAssetValues = [[item.otherValue, this.assetInfo.chainId, this.assetInfo.assetId]]
                         }
                     }
-                    item.callResult = "transaction hash: " + await window.NaboxWallet.nuls.contractCall(data) // Return transactionhash
+                    item.callResult = "transaction hash: " + await window.NaboxWallet.nai.contractCall(data) // Return transactionhash
                     this.$forceUpdate()
                 }
             } else {
@@ -589,10 +589,10 @@ export default {
         },
         async connectWallet() {
             // NaboxWallet
-            if (!window.NaboxWallet || !window.NaboxWallet.nuls) {
+            if (!window.NaboxWallet || !window.NaboxWallet.nai) {
                 alert("Please install Nabox Wallet")
             } else {
-                const accounts = await window.NaboxWallet.nuls.createSession()
+                const accounts = await window.NaboxWallet.nai.createSession()
                 if(accounts[0]){
                     this.switchToNULS()
                     this.walletaddress = accounts[0]
