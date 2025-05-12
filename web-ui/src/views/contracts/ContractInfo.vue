@@ -14,7 +14,7 @@
           <p>{{ $t('assets.Contract_address') }}
             <router-link
               class="fr click mobile_s"
-              :to="computePath('addressInfo', contractsInfo.creater)">
+              :to="computePath('addressInfo', contractsInfo.contractAddress)">
               {{ contractsInfo.contractAddress }}
             </router-link>
           </p>
