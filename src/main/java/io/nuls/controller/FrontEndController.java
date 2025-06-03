@@ -17,6 +17,15 @@ import java.net.URISyntaxException;
 @Component
 public class FrontEndController {
 
+
+    @GET
+    @Path( "/ads.txt")
+    public Response ads() throws URISyntaxException {
+        return Response.ok(new File("www/ads.txt")).build();
+    }
+
+
+
     @GET
     public Response getHtml() throws URISyntaxException {
         return Response.ok(new File("www/index.html")).build();
