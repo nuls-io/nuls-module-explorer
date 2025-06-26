@@ -5,6 +5,9 @@ const shell = require("shelljs");
 shell.cp(process.cwd() + "/config/" + process.env.NULS_ENV + ".js", process.cwd() + "/src/config.js");
 const isProduction = process.env.NODE_ENV === 'production';
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+/* const PrerenderSPAPlugin = require('@dreysolano/prerender-spa-plugin')
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
+const path = require('path'); */
 
 module.exports = {
   lintOnSave: false,
@@ -26,7 +29,23 @@ module.exports = {
         threshold: 10240,
         minRatio: 0.8
       }));
+
       config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true;
+
+      // cannot build
+      /* const prerenderSPAPlugin = new PrerenderSPAPlugin({
+        staticDir: path.join(__dirname, 'dist'),
+        routes: ['/'],
+        renderer: new Renderer({
+          inject: {
+            _m: 'prerender'
+          },
+          headless: true,
+          renderAfterDocumentEvent: 'nuls-ai-render'
+        })
+      })
+      config.plugins.push(prerenderSPAPlugin) */
+      
     }
     // config.plugins.push(new BundleAnalyzerPlugin())
 

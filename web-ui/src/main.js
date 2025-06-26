@@ -52,15 +52,27 @@ async function getChainInfoBeforeRender() {
     store,
     router,
     i18n,
-    render: h => h(App)
+    mounted: () => document.dispatchEvent(new Event('nuls-ai-render')),
+    render: h => h(App),
+    metaInfo() {
+      return {
+        title: this.$store.state.metaInfo.title,
+        meta: [
+          {
+            name: "description",
+            content: this.$store.state.metaInfo.description
+          }
+        ]
+      }
+    }
   }).$mount('#app');
 }
 
 getChainInfoBeforeRender();
 
-/*new Vue({
-  store,
-  router,
-  i18n,
-  render: h => h(App)
-}).$mount('#app');*/
+router.beforeEach((to, from, next) => {
+  if (to.meta.metaInfo) {
+    store.commit('CHANGE_META_INFO', to.meta.metaInfo)
+  }
+  next()
+})

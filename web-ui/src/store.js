@@ -12,6 +12,10 @@ export default new Vuex.Store({
     nodeNumber: [],
     //nuls information
     NULSNumber: [],
+    metaInfo: {
+      title: '',
+      description: ''
+    }
   },
   mutations: {
 
@@ -27,6 +31,9 @@ export default new Vuex.Store({
     SET_NULSNUMBER(state, data) {
       state.NULSNumber = data;
     },
+    CHANGE_META_INFO(state, data) {
+      state.metaInfo = data
+    }
   },
   getters: {
     height(state) {
